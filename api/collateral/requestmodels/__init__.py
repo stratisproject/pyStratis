@@ -1,0 +1,1 @@
+from .joinfederationrequest import JoinFederationRequest

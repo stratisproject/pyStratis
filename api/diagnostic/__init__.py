@@ -1,0 +1,1 @@
+from .diagnostic import Diagnostic

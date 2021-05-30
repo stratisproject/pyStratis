@@ -1,0 +1,1 @@
+from .voting import Voting

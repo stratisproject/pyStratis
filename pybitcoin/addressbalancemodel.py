@@ -1,0 +1,21 @@
+from pydantic import Field, BaseModel
+from pybitcoin.types import Money
+from .cointype import CoinType
+
+
+class AddressBalanceModel(BaseModel):
+    """An AddressBalanceModel."""
+    address: str
+    coin_type: CoinType = Field(alias='coinType')
+    amount_confirmed: Money = Field(alias='amountConfirmed')
+    amount_unconfirmed: Money = Field(alias='amountUnconfirmed')
+    spendable_amount: Money = Field(alias='spendableAmount')
+
+    class Config:
+        json_encoders = {
+            Money: lambda v: str(v),
+        }
+        allow_population_by_field_name = True
+
+    def json(self, *args, **kwargs) -> str:
+        return super(AddressBalanceModel, self).json(exclude_none=True, by_alias=True)

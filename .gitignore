@@ -1,0 +1,16 @@
+# Sphinx files
+build/
+source/
+make.bat
+Makefile
+
+# Extra folders
+/.idea
+
+# pytest
+/.pytest_cache/
+
+
+# Integration test node
+/integration_tests/StratisFullNode/
+/integration_tests/data_dir/

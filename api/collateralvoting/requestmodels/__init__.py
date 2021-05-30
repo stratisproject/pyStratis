@@ -1,0 +1,1 @@
+from .schedulevotekickfedmemberrequest import ScheduleVoteKickFedMemberRequest

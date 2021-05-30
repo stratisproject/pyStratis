@@ -1,0 +1,2 @@
+from .federationmembermodel import FederationMemberModel
+from .federationmemberdetailedmodel import FederationMemberDetailedModel

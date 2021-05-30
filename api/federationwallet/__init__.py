@@ -1,0 +1,1 @@
+from .federationwallet import FederationWallet
