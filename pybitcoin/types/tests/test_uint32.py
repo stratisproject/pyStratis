@@ -18,18 +18,18 @@ def test_uint32_invalid_hexstring():
         uint32(badvalue)
 
 
-def test_uint32_too_long():
+def test_uint32_long_hex_overflow():
     letters = '0123456789abcdef'
-    badvalue = ''.join(choice(letters) for _ in range(128))
+    long_value = ''.join(choice(letters) for _ in range(128))
     with pytest.raises(ValueError):
-        uint32(badvalue)
+        uint32(long_value)
 
 
-def test_uint32_too_short():
+def test_uint32_short_hex_ok():
+    first_digit = '01234567'
     letters = '0123456789abcdef'
-    badvalue = ''.join(choice(letters) for _ in range(16))
-    with pytest.raises(ValueError):
-        uint32(badvalue)
+    short_value = choice(first_digit) + ''.join(choice(letters) for _ in range(6))
+    assert short_value in uint32(short_value).to_hex()
 
 
 def test_uint32_try_init_nonstr(generate_uint32):

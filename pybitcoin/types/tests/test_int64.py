@@ -18,18 +18,17 @@ def test_int64_invalid_hexstring():
         int64(badvalue)
 
 
-def test_int64_too_long():
+def test_int64_long_hex_overflow():
     letters = '0123456789abcdef'
-    badvalue = ''.join(choice(letters) for _ in range(128))
+    long_value = ''.join(choice(letters) for _ in range(128))
     with pytest.raises(ValueError):
-        int64(badvalue)
+        int64(long_value)
 
 
-def test_int64_too_short():
+def test_int64_short_hex_ok():
     letters = '0123456789abcdef'
-    badvalue = ''.join(choice(letters) for _ in range(12))
-    with pytest.raises(ValueError):
-        int64(badvalue)
+    short_value = ''.join(choice(letters) for _ in range(12))
+    assert short_value in int64(short_value).to_hex()
 
 
 def test_int64_try_init_nonstr(generate_int64):
