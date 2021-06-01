@@ -17,7 +17,7 @@ class PeerInfoModel(Model):
     conntime: conint(ge=0)
     timeoffset: conint(ge=0)
     pingtime: conint(ge=0)
-    mining: conint(ge=0)
+    minping: conint(ge=0)
     pingwait: conint(ge=0)
     version: conint(ge=0)
     subver: str

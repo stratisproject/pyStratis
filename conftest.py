@@ -6,7 +6,7 @@ from hashlib import sha256
 import base58
 import bech32
 import ecdsa
-from binascii import unhexlify, hexlify
+from binascii import unhexlify
 from random import choice, randint, random
 # noinspection PyPackageRequirements
 from sha3 import keccak_256

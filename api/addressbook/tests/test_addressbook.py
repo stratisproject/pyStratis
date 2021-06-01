@@ -39,12 +39,10 @@ def test_add_address_p2pkh(mocker: MockerFixture, network, fakeuri, addressbooke
     data = addressbookentry_p2pkh(network)
     mocker.patch.object(AddressBook, 'post', return_value=data)
     addressbook = AddressBook(network=network, baseuri=fakeuri)
-    data = {
-        'address': Address(address=data['address'], network=network),
-        'label': data['label']
-    }
-
-    request_model = AddRequest(**data)
+    request_model = AddRequest(
+        address=Address(address=data['address'], network=network),
+        label=data['label']
+    )
 
     response = addressbook.add(request_model)
 
@@ -59,11 +57,10 @@ def test_add_address_p2sh(mocker: MockerFixture, network, fakeuri, addressbooken
     data = addressbookentry_p2sh(network)
     mocker.patch.object(AddressBook, 'post', return_value=data)
     addressbook = AddressBook(network=network, baseuri=fakeuri)
-    data = {
-        'address': Address(address=data['address'], network=network),
-        'label': data['label']
-    }
-    request_model = AddRequest(**data)
+    request_model = AddRequest(
+        address=Address(address=data['address'], network=network),
+        label=data['label']
+    )
 
     response = addressbook.add(request_model)
 
@@ -78,11 +75,10 @@ def test_add_address_p2wpkh(mocker: MockerFixture, fakeuri, addressbookentry_p2w
     data = addressbookentry_p2wpkh(network)
     mocker.patch.object(AddressBook, 'post', return_value=data)
     addressbook = AddressBook(network=network, baseuri=fakeuri)
-    data = {
-        'address': Address(address=data['address'], network=network),
-        'label': data['label']
-    }
-    request_model = AddRequest(**data)
+    request_model = AddRequest(
+        address=Address(address=data['address'], network=network),
+        label=data['label']
+    )
 
     response = addressbook.add(request_model)
 
@@ -97,11 +93,10 @@ def test_add_address_p2wsh(mocker: MockerFixture, network, fakeuri, addressbooke
     data = addressbookentry_p2wsh(network)
     mocker.patch.object(AddressBook, 'post', return_value=data)
     addressbook = AddressBook(network=network, baseuri=fakeuri)
-    data = {
-        'address': Address(address=data['address'], network=network),
-        'label': data['label']
-    }
-    request_model = AddRequest(**data)
+    request_model = AddRequest(
+        address=Address(address=data['address'], network=network),
+        label=data['label']
+    )
 
     response = addressbook.add(request_model)
 
