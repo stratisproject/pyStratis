@@ -1,5 +1,6 @@
 from typing import Optional, List
 from pydantic import BaseModel, Field, conint
+from pybitcoin import PubKey
 
 
 class PollViewModel(BaseModel):
@@ -13,7 +14,7 @@ class PollViewModel(BaseModel):
     poll_start_favor_blockdata_height: Optional[conint(ge=0)] = Field(alias='PollStartFavorBlockDataHeight')
     poll_executed_blockdata_hash: str = Field(alias='PollExecutedBlockDataHash')
     poll_executed_blockdata_height: Optional[conint(ge=0)] = Field(alias='PollExecutedBlockDataHeight')
-    pubkeys_hex_voted_in_favor: List[str] = Field(alias='PubKeysHexVotedInFavor')
+    pubkeys_hex_voted_in_favor: List[PubKey] = Field(alias='PubKeysHexVotedInFavor')
     voting_data_string: str = Field(alias='VotingDataString')
 
     class Config:

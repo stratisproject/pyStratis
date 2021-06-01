@@ -1,4 +1,5 @@
 import pytest
+import secrets
 import os
 import json
 from hashlib import sha256
@@ -21,7 +22,7 @@ def fakeuri():
 def create_p2pkh_address():
     # noinspection PyUnresolvedReferences
     def _create_p2pkh_address(network: 'BaseNetwork') -> str:
-        private_key = os.urandom(20)
+        private_key = secrets.token_bytes(20)
         payload_bytes = network.PUBKEY_ADDRESS + private_key
         checksum = sha256(sha256(payload_bytes).digest()).digest()
         return base58.b58encode(payload_bytes + checksum[:4]).decode('ascii')
@@ -32,7 +33,7 @@ def create_p2pkh_address():
 def create_p2sh_address():
     # noinspection PyUnresolvedReferences
     def _create_p2sh_address(network: 'BaseNetwork') -> str:
-        private_key = os.urandom(20)
+        private_key = secrets.token_bytes(20)
         payload_bytes = network.SCRIPT_ADDRESS + private_key
         checksum = sha256(sha256(payload_bytes).digest()).digest()
         return base58.b58encode(payload_bytes + checksum[:4]).decode('ascii')
@@ -43,7 +44,7 @@ def create_p2sh_address():
 def create_p2wpkh_address():
     # noinspection PyUnresolvedReferences
     def _create_p2wpkh_address(network: 'BaseNetwork') -> str:
-        witprog = os.urandom(20)
+        witprog = secrets.token_bytes(20)
         witver = 0
         return bech32.encode(hrp=network.BECH32_HRP, witver=witver, witprog=witprog)
     return _create_p2wpkh_address
@@ -53,7 +54,7 @@ def create_p2wpkh_address():
 def create_p2wsh_address():
     # noinspection PyUnresolvedReferences
     def _create_p2wsh_address(network: 'BaseNetwork') -> str:
-        witprog = os.urandom(32)
+        witprog = secrets.token_bytes(32)
         witver = 0
         return bech32.encode(hrp=network.BECH32_HRP, witver=witver, witprog=witprog)
     return _create_p2wsh_address
@@ -71,7 +72,7 @@ def create_ethereum_lower_address() -> str:
 
 @pytest.fixture(scope='function')
 def create_ethereum_upper_address() -> str:
-    return '0x' + create_ethereum_address()[2:].upper()
+    return f'0x{create_ethereum_address()[2:].upper()}'
 
 
 @pytest.fixture(scope='function')
@@ -86,39 +87,39 @@ def create_ethereum_checksum_address() -> str:
             checksum_address += ch.upper()
         else:
             checksum_address += ch
-    return '0x' + checksum_address
+    return f'0x{checksum_address}'
 
 
 @pytest.fixture(scope='function')
 def generate_uint256() -> str:
     first_digit = '01234567'
     hex_letters = '0123456789abcdef'
-    sign_bit = choice(first_digit)
-    return sign_bit + ''.join(choice(hex_letters) for _ in range(63))
+    sign_char = choice(first_digit)
+    return f"{sign_char}{''.join(choice(hex_letters) for _ in range(63))}"
 
 
 @pytest.fixture(scope='function')
 def generate_uint128() -> str:
     first_digit = '01234567'
     hex_letters = '0123456789abcdef'
-    sign_bit = choice(first_digit)
-    return sign_bit + ''.join(choice(hex_letters) for _ in range(31))
+    sign_char = choice(first_digit)
+    return f"{sign_char}{''.join(choice(hex_letters) for _ in range(31))}"
 
 
 @pytest.fixture(scope='function')
 def generate_uint64() -> str:
     first_digit = '01234567'
     hex_letters = '0123456789abcdef'
-    sign_bit = choice(first_digit)
-    return sign_bit + ''.join(choice(hex_letters) for _ in range(15))
+    sign_char = choice(first_digit)
+    return f"{sign_char}{''.join(choice(hex_letters) for _ in range(15))}"
 
 
 @pytest.fixture(scope='function')
 def generate_uint32() -> str:
     first_digit = '01234567'
     hex_letters = '0123456789abcdef'
-    sign_bit = choice(first_digit)
-    return sign_bit + ''.join(choice(hex_letters) for _ in range(7))
+    sign_char = choice(first_digit)
+    return f"{sign_char}{''.join(choice(hex_letters) for _ in range(7))}"
 
 
 @pytest.fixture(scope='function')
@@ -137,8 +138,8 @@ def generate_int32() -> str:
 def generate_uint160() -> str:
     first_digit = '01234567'
     hex_letters = '0123456789abcdef'
-    sign_bit = choice(first_digit)
-    return sign_bit + ''.join(choice(hex_letters) for _ in range(39))
+    sign_char = choice(first_digit)
+    return f"{sign_char}{''.join(choice(hex_letters) for _ in range(39))}"
 
 
 @pytest.fixture(scope='function')
@@ -150,13 +151,37 @@ def generate_hexstring():
 
 
 @pytest.fixture(scope='function')
+def generate_privatekey() -> str:
+    big_int = secrets.randbits(256)
+    curve_order = int('FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEBAAEDCE6AF48A03BBFD25E8CD0364141', 16)
+    big_int = (big_int % (curve_order - 1)) + 1
+    return hex(big_int)[2:]
+
+
+@pytest.fixture(scope='function')
+def generate_uncompressed_pubkey(generate_privatekey) -> str:
+    private_key_bytes = bytes.fromhex(generate_privatekey)
+    key = ecdsa.SigningKey.from_string(private_key_bytes, curve=ecdsa.SECP256k1).verifying_key
+    return f'04{key.to_string().hex()}'
+
+
+@pytest.fixture(scope='function')
+def generate_compressed_pubkey(generate_uncompressed_pubkey) -> str:
+    uncompressed_pubkey = generate_uncompressed_pubkey[2:]
+    uncompressed_pubkey_bytes = bytes.fromhex(uncompressed_pubkey)
+    x = uncompressed_pubkey_bytes[:32].hex()
+    prefix = '02' if int(x, 16) % 2 == 0 else '03'
+    return f'{prefix}{x}'
+
+
+@pytest.fixture(scope='function')
 def generate_extpubkey() -> str:
     version = bytes.fromhex('0488b21e')
-    depth = os.urandom(1)
-    parent_fingerprint = os.urandom(4)
-    index = os.urandom(4)
-    chain_code = os.urandom(32)
-    key = os.urandom(33)
+    depth = secrets.token_bytes(1)
+    parent_fingerprint = secrets.token_bytes(4)
+    index = secrets.token_bytes(4)
+    chain_code = secrets.token_bytes(32)
+    key = secrets.token_bytes(33)
     payload_bytes = version + depth + parent_fingerprint + index + chain_code + key
     checksum = sha256(sha256(payload_bytes).digest()).digest()
     return base58.b58encode(payload_bytes + checksum[:4]).decode('ascii')
@@ -165,11 +190,11 @@ def generate_extpubkey() -> str:
 @pytest.fixture(scope='function')
 def generate_extprvkey() -> str:
     version = bytes.fromhex('0488ade4')
-    depth = os.urandom(1)
-    parent_fingerprint = os.urandom(4)
-    index = os.urandom(4)
-    chain_code = os.urandom(32)
-    key = os.urandom(33)
+    depth = secrets.token_bytes(1)
+    parent_fingerprint = secrets.token_bytes(4)
+    index = secrets.token_bytes(4)
+    chain_code = secrets.token_bytes(32)
+    key = secrets.token_bytes(33)
     payload_bytes = version + depth + parent_fingerprint + index + chain_code + key
     checksum = sha256(sha256(payload_bytes).digest()).digest()
     return base58.b58encode(payload_bytes + checksum[:4]).decode('ascii')
@@ -208,11 +233,11 @@ def interfluxcirrus_swagger_json() -> dict:
 
 
 def create_ethereum_address() -> str:
-    privatekey = keccak_256(os.urandom(32)).digest()
+    privatekey = keccak_256(secrets.token_bytes(32)).digest()
     privatekey = ecdsa.SigningKey.from_string(privatekey, curve=ecdsa.SECP256k1)
     publickey = privatekey.get_verifying_key().to_string()
     address = keccak_256(publickey).hexdigest()[24:]
-    return '0x' + address
+    return f'0x{address}'
 
 
 @pytest.fixture(scope='function')

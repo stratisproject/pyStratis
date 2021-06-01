@@ -7,6 +7,6 @@ class ValidateAddressModel(Model):
     """A ValidateAddressModel."""
     isvalid: bool
     address: Address
-    scriptPubKey: hexstr = Field(alias='scriptPubKey')
+    scriptPubKey: str = Field(alias='scriptPubKey')
     isscript: bool
     iswitness: bool

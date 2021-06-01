@@ -11,28 +11,28 @@ from pybitcoin.types import Money
 def test_all_strax_endpoints_implemented(strax_swagger_json):
     paths = [key.lower() for key in strax_swagger_json['paths'].keys()]
     for endpoint in paths:
-        if ColdStaking.route in endpoint:
+        if ColdStaking.route + '/' in endpoint:
             assert endpoint in ColdStaking.endpoints
 
 
 def test_all_cirrus_endpoints_implemented(cirrus_swagger_json):
     paths = [key.lower() for key in cirrus_swagger_json['paths'].keys()]
     for endpoint in paths:
-        if ColdStaking.route in endpoint:
+        if ColdStaking.route + '/' in endpoint:
             assert endpoint in ColdStaking.endpoints
 
 
 def test_all_interfluxstrax_endpoints_implemented(interfluxstrax_swagger_json):
     paths = [key.lower() for key in interfluxstrax_swagger_json['paths'].keys()]
     for endpoint in paths:
-        if ColdStaking.route in endpoint:
+        if ColdStaking.route + '/' in endpoint:
             assert endpoint in ColdStaking.endpoints
 
 
 def test_all_interfluxcirrus_endpoints_implemented(interfluxcirrus_swagger_json):
     paths = [key.lower() for key in interfluxcirrus_swagger_json['paths'].keys()]
     for endpoint in paths:
-        if ColdStaking.route in endpoint:
+        if ColdStaking.route + '/' in endpoint:
             assert endpoint in ColdStaking.endpoints
 
 
@@ -309,7 +309,7 @@ def test_coldstaking_offline_withdrawal(mocker: MockerFixture, network, fakeuri,
     coldstaking = ColdStaking(network=network, baseuri=fakeuri)
     response = coldstaking.offline_withdrawal(request_model=request)
 
-    assert BuildOfflineSignModel(**data)
+    assert response == BuildOfflineSignModel(**data)
     # noinspection PyUnresolvedReferences
     coldstaking.post.assert_called_once()
 

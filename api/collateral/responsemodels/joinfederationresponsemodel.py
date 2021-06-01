@@ -1,8 +1,7 @@
 from pydantic import Field
-from pybitcoin import Model
-from pybitcoin.types import hexstr
+from pybitcoin import Model, PubKey
 
 
 class JoinFederationResponseModel(Model):
     """A JoinFederationResponseModel."""
-    miner_public_key: hexstr = Field(alias='MinerPublicKey')
+    miner_public_key: PubKey = Field(alias='MinerPublicKey')

@@ -20,6 +20,7 @@ from .maturedblockinfomodel import MaturedBlockInfoModel
 from .model import Model
 from .multisigsecret import MultisigSecret
 from .outpoint import Outpoint
+from .pubkey import PubKey
 from .pollviewmodel import PollViewModel
 from .recipient import Recipient
 from .removedtransactionmodel import RemovedTransactionModel

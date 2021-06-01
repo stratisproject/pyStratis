@@ -1,12 +1,11 @@
 from pydantic import Field, validator
-from pybitcoin import Model
-from pybitcoin.types import hexstr
+from pybitcoin import Model, PubKey
 
 
 class PendingPollsRequest(Model):
     """A PendingPollsRequest."""
     vote_type: str = Field(alias='voteType')
-    pubkey_of_member_being_voted_on: hexstr = Field(alias='pubKeyOfMemberBeingVotedOn')
+    pubkey_of_member_being_voted_on: PubKey = Field(alias='pubKeyOfMemberBeingVotedOn')
 
     # noinspection PyMethodParameters,PyUnusedLocal
     @validator('vote_type')

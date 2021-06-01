@@ -7,6 +7,7 @@ from .addressdescriptor import AddressDescriptor
 from .extpubkey import ExtPubKey
 from .multisigsecret import MultisigSecret
 from .outpoint import Outpoint
+from .pubkey import PubKey
 from .recipient import Recipient
 from .utxodescriptor import UtxoDescriptor
 from .walletsecret import WalletSecret
@@ -24,6 +25,7 @@ class Model(BaseModel):
             Money: lambda v: str(v),
             hexstr: lambda v: str(v),
             ExtPubKey: lambda v: str(v),
+            PubKey: lambda v: str(v),
             int32: lambda v: str(v),
             uint32: lambda v: str(v),
             int64: lambda v: str(v),

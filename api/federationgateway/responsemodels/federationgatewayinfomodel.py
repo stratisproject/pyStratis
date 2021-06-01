@@ -1,6 +1,6 @@
 from typing import List
 from pydantic import Field, conint
-from pybitcoin import Address, Model
+from pybitcoin import Address, Model, PubKey
 from pybitcoin.types import hexstr
 
 
@@ -9,10 +9,10 @@ class FederationGatewayInfoModel(Model):
     active: bool
     mainchain: bool
     endpoints: List[str]
-    multisig_pubkey: hexstr = Field(alias='multisigPubKey')
-    federation_multisig_pubkeys: List[hexstr] = Field(alias='federationMultisigPubKeys')
-    mining_pubkey: hexstr = Field(default='', alias='miningPubKey')
-    federation_mining_pubkeys: List[hexstr] = Field(default=[], alias='federationMiningPubKeys')
+    multisig_pubkey: PubKey = Field(alias='multisigPubKey')
+    federation_multisig_pubkeys: List[PubKey] = Field(alias='federationMultisigPubKeys')
+    mining_pubkey: PubKey = Field(default='', alias='miningPubKey')
+    federation_mining_pubkeys: List[PubKey] = Field(default=[], alias='federationMiningPubKeys')
     multisig_address: Address = Field(alias='multisigAddress')
     multisig_redeem_script: str = Field(alias='multisigRedeemScript')
     multisig_redeem_script_payment_script: str = Field(alias='multisigRedeemScriptPaymentScript')
