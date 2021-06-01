@@ -5,6 +5,7 @@ from api.connectionmanager.requestmodels import *
 from api.connectionmanager.responsemodels import *
 from pybitcoin.networks import StraxMain, CirrusMain
 
+
 def test_all_strax_endpoints_implemented(strax_swagger_json):
     paths = [key.lower() for key in strax_swagger_json['paths'].keys()]
     for endpoint in paths:

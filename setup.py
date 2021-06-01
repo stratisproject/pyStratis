@@ -3,6 +3,6 @@ import setuptools
 setuptools.setup(
     name='pystratis',
     version='1.0.9.0',
-    description='python sdk for interacting with the stratis and interflux nodes.',
+    description='Unofficial python package for interacting with Stratis (STRAX) full node and Cirrus/Interflux sidechain.',
     author='Tjaden Froyda'
 )
