@@ -183,6 +183,16 @@ class ColdStaking(APIRequest, metaclass=EndpointRegister):
         """
         data = self.post(request_model, **kwargs)
 
+        # Build the UtxoDescriptors
+        data['utxos'] = [UtxoDescriptor(**x) for x in data['utxos']]
+
+        # Build the AddressDescriptors
+        address_descriptors = []
+        for address_descriptor in data['addresses']:
+            address_descriptor['address'] = Address(address=address_descriptor['address'], network=self._network)
+            address_descriptors.append(address_descriptor)
+        data['addresses'] = [AddressDescriptor(**x) for x in address_descriptors]
+
         return BuildOfflineSignModel(**data)
 
     @endpoint(f'{route}/estimate-offline-cold-staking-withdrawal-tx-fee')
@@ -201,7 +211,7 @@ class ColdStaking(APIRequest, metaclass=EndpointRegister):
         """
         data = self.post(request_model, **kwargs)
 
-        return data
+        return Money(data)
 
     @endpoint(f'{route}/estimate-cold-staking-withdrawal-tx-fee')
     def estimate_withdrawal_tx_fee(self, request_model: WithdrawalRequest, **kwargs) -> Money:
@@ -219,4 +229,4 @@ class ColdStaking(APIRequest, metaclass=EndpointRegister):
         """
         data = self.post(request_model, **kwargs)
 
-        return data
+        return Money(data)

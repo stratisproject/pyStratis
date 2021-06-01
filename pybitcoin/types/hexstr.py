@@ -1,3 +1,4 @@
+from __future__ import annotations
 from typing import Callable
 
 
@@ -22,7 +23,7 @@ class hexstr(str):
         int(v, 16)
 
     @classmethod
-    def validate(cls, v) -> 'hexstr':
+    def validate(cls, v) -> hexstr:
         cls._validate_data(v)
         return cls(v)
 

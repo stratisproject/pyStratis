@@ -81,7 +81,7 @@ def test_invalid_p2wpkh_address_is_invalid(create_p2wpkh_address, network):
     long_bad_address = address + 'extra'
     with pytest.raises(ValidationError):
         Address(address=long_bad_address, network=network)
-    char_replacement = address[:8] + 'l' + address[9:]
+    char_replacement = address[:8] + 'i' + address[9:]
     with pytest.raises(ValidationError):
         Address(address=char_replacement, network=network)
 
@@ -105,7 +105,7 @@ def test_invalid_p2wsh_address_is_invalid(create_p2wsh_address, network):
     long_bad_address = address + 'extra'
     with pytest.raises(ValidationError):
         Address(address=long_bad_address, network=network)
-    char_replacement = address[:8] + 'l' + address[9:]
+    char_replacement = address[:8] + 'i' + address[9:]
     with pytest.raises(ValidationError):
         Address(address=char_replacement, network=network)
 

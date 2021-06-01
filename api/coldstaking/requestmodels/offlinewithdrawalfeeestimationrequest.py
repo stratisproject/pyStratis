@@ -6,8 +6,8 @@ from pybitcoin.types import Money
 
 class OfflineWithdrawalFeeEstimationRequest(Model):
     """An OfflineWithdrawalFeeEstimationRequest."""
+    wallet_name: str = Field(alias='walletName')
     account_name: str = Field(alias='accountName')
     receiving_address: Address = Field(alias='receivingAddress')
-    wallet_name: str = Field(alias='walletName')
     amount: Money
     subtract_fee_from_amount: Optional[bool] = Field(default=True, alias='subtractFeeFromAmount')

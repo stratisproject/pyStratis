@@ -45,3 +45,7 @@ def test_money_invalid():
         Money([Decimal(10.5)])
     with pytest.raises(ValueError):
         Money(bytes([10]))
+
+
+def test_money_to_coin():
+    assert Money(1).to_coin_unit() == '0.00000001'

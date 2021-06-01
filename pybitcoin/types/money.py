@@ -1,4 +1,5 @@
-from typing import Callable
+from __future__ import annotations
+from typing import Callable, Union
 from decimal import Decimal
 
 
@@ -16,7 +17,7 @@ class Money(int):
         yield cls.validate
 
     @classmethod
-    def validate(cls, v) -> 'Money':
+    def validate(cls, v) -> Money:
         cls._validate_data(v)
         return cls(v)
 
@@ -39,11 +40,15 @@ class Money(int):
             raise ValueError(f'Invalid Money{v}.')
 
     @classmethod
-    def _float_to_satoshi(cls, value) -> int:
+    def _float_to_satoshi(cls, value: Union[float, Decimal]) -> int:
         return int(Decimal(value) * Decimal(1e8))
 
-    def __repr__(self):
+    def to_coin_unit(self) -> str:
+        # noinspection PyTypeChecker
+        return '{:.8f}'.format(Decimal(self) / Decimal(1e8))
+
+    def __repr__(self) -> str:
         return f'Money({super().__repr__()})'
 
-    def __str__(self):
+    def __str__(self) -> str:
         return super().__repr__()
