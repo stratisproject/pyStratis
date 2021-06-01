@@ -6,6 +6,7 @@ from hashlib import sha256
 import base58
 import bech32
 import ecdsa
+from binascii import unhexlify
 from random import choice, randint, random
 # noinspection PyPackageRequirements
 from sha3 import keccak_256
@@ -160,7 +161,7 @@ def generate_privatekey() -> str:
 
 @pytest.fixture(scope='function')
 def generate_uncompressed_pubkey(generate_privatekey) -> str:
-    private_key_bytes = bytes.fromhex(generate_privatekey)
+    private_key_bytes = unhexlify(generate_privatekey)
     key = ecdsa.SigningKey.from_string(private_key_bytes, curve=ecdsa.SECP256k1).verifying_key
     return f'04{key.to_string().hex()}'
 
@@ -168,7 +169,7 @@ def generate_uncompressed_pubkey(generate_privatekey) -> str:
 @pytest.fixture(scope='function')
 def generate_compressed_pubkey(generate_uncompressed_pubkey) -> str:
     uncompressed_pubkey = generate_uncompressed_pubkey[2:]
-    uncompressed_pubkey_bytes = bytes.fromhex(uncompressed_pubkey)
+    uncompressed_pubkey_bytes = unhexlify(uncompressed_pubkey)
     x = uncompressed_pubkey_bytes[:32].hex()
     prefix = '02' if int(x, 16) % 2 == 0 else '03'
     return f'{prefix}{x}'
@@ -176,7 +177,7 @@ def generate_compressed_pubkey(generate_uncompressed_pubkey) -> str:
 
 @pytest.fixture(scope='function')
 def generate_extpubkey() -> str:
-    version = bytes.fromhex('0488b21e')
+    version = unhexlify('0488b21e')
     depth = secrets.token_bytes(1)
     parent_fingerprint = secrets.token_bytes(4)
     index = secrets.token_bytes(4)
@@ -189,7 +190,7 @@ def generate_extpubkey() -> str:
 
 @pytest.fixture(scope='function')
 def generate_extprvkey() -> str:
-    version = bytes.fromhex('0488ade4')
+    version = unhexlify('0488ade4')
     depth = secrets.token_bytes(1)
     parent_fingerprint = secrets.token_bytes(4)
     index = secrets.token_bytes(4)

@@ -1,5 +1,6 @@
 from __future__ import annotations
 from typing import Callable, Tuple
+from binascii import unhexlify
 
 
 class PubKey:
@@ -13,7 +14,7 @@ class PubKey:
     @classmethod
     def _check_uncompressed(cls, value: str) -> Tuple[str, str]:
         """Validates and returns an uncompressed pubkey"""
-        uncompressed_bytes = bytes.fromhex(value[2:])
+        uncompressed_bytes = unhexlify(value[2:])
         assert len(uncompressed_bytes) == 64
         return uncompressed_bytes[:32].hex(), uncompressed_bytes[32:].hex()
 
@@ -27,8 +28,8 @@ class PubKey:
         p = int(2 ** 256 - 2 ** 32 - 2 ** 9 - 2 ** 8 - 2 ** 7 - 2 ** 6 - 2 ** 4 - 1)
         y_parity = int(value[:2]) - 2
         x = int(value[2:], 16)
-        y_sq = (cls.pow_mod(x, 3, p) + 7) % p
-        y = cls.pow_mod(y_sq, (p + 1) // 4, p)
+        y_sq = (cls._pow_mod(x, 3, p) + 7) % p
+        y = cls._pow_mod(y_sq, (p + 1) // 4, p)
         if y % 2 != y_parity:
             y = -y % p
         x = hex(x).replace('0x', '')
@@ -38,7 +39,12 @@ class PubKey:
         return x, y
 
     @staticmethod
-    def pow_mod(x, y, z) -> int:
+    def _pow_mod(x: int, y: int, z: int) -> int:
+        """
+
+        Notes:
+            https://bitcointalk.org/index.php?topic=644919.0
+        """
         number = 1
         while y:
             if y & 1:
@@ -48,9 +54,11 @@ class PubKey:
         return number
 
     def uncompressed(self) -> str:
+        """Retrieves a uncompressed pubkey."""
         return f'04{self.x}{self.y}'
 
-    def compressed(self):
+    def compressed(self) -> str:
+        """Retreives a compressed pubkey."""
         prefix = '02' if int(self.x, 16) % 2 == 0 else '03'
         return f'{prefix}{self.x}'
 
