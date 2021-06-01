@@ -32,10 +32,8 @@ class PubKey:
         y = cls._pow_mod(y_sq, (p + 1) // 4, p)
         if y % 2 != y_parity:
             y = -y % p
-        x = hex(x).replace('0x', '')
-        assert len(x) == 64
-        y = hex(y).replace('0x', '')
-        assert len(y) == 64
+        x = format(x, '0>64x')
+        y = format(y, '0>64x')
         return x, y
 
     @staticmethod

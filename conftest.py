@@ -6,7 +6,7 @@ from hashlib import sha256
 import base58
 import bech32
 import ecdsa
-from binascii import unhexlify
+from binascii import unhexlify, hexlify
 from random import choice, randint, random
 # noinspection PyPackageRequirements
 from sha3 import keccak_256
@@ -156,23 +156,24 @@ def generate_privatekey() -> str:
     big_int = secrets.randbits(256)
     curve_order = int('FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEBAAEDCE6AF48A03BBFD25E8CD0364141', 16)
     big_int = (big_int % (curve_order - 1)) + 1
-    return hex(big_int)[2:]
+    return format(big_int, '0>64x')
 
 
 @pytest.fixture(scope='function')
 def generate_uncompressed_pubkey(generate_privatekey) -> str:
     private_key_bytes = unhexlify(generate_privatekey)
     key = ecdsa.SigningKey.from_string(private_key_bytes, curve=ecdsa.SECP256k1).verifying_key
-    return f'04{key.to_string().hex()}'
+    key_int = int.from_bytes(key.to_string(), 'big')
+    return f"04{format(key_int, '0>128x')}"
 
 
 @pytest.fixture(scope='function')
 def generate_compressed_pubkey(generate_uncompressed_pubkey) -> str:
     uncompressed_pubkey = generate_uncompressed_pubkey[2:]
     uncompressed_pubkey_bytes = unhexlify(uncompressed_pubkey)
-    x = uncompressed_pubkey_bytes[:32].hex()
-    prefix = '02' if int(x, 16) % 2 == 0 else '03'
-    return f'{prefix}{x}'
+    x = int.from_bytes(uncompressed_pubkey_bytes[:32], 'big')
+    prefix = '02' if x % 2 == 0 else '03'
+    return f"{prefix}{format(x, '0>64x')}"
 
 
 @pytest.fixture(scope='function')
