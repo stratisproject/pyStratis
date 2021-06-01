@@ -1,8 +1,8 @@
 from api import APIRequest, EndpointRegister, endpoint
 from api.coldstaking.requestmodels import *
 from api.coldstaking.responsemodels import *
-from pybitcoin import BuildOfflineSignModel
-from pybitcoin.types import Money
+from pybitcoin import Address, AddressDescriptor, BuildOfflineSignModel, UtxoDescriptor
+from pybitcoin.types import Money, uint256
 
 
 class ColdStaking(APIRequest, metaclass=EndpointRegister):
@@ -62,6 +62,7 @@ class ColdStaking(APIRequest, metaclass=EndpointRegister):
             APIError
         """
         data = self.get(request_model, **kwargs)
+        data['address'] = Address(address=data['address'], network=self._network)
 
         return AddressModel(**data)
 
@@ -80,6 +81,7 @@ class ColdStaking(APIRequest, metaclass=EndpointRegister):
             APIError
         """
         data = self.post(request_model, **kwargs)
+        data['transactionHex'] = uint256(data['transactionHex'])
 
         return SetupModel(**data)
 
@@ -98,6 +100,16 @@ class ColdStaking(APIRequest, metaclass=EndpointRegister):
             APIError
         """
         data = self.post(request_model, **kwargs)
+
+        # Build the UtxoDescriptors
+        data['utxos'] = [UtxoDescriptor(**x) for x in data['utxos']]
+
+        # Build the AddressDescriptors
+        address_descriptors = []
+        for address_descriptor in data['addresses']:
+            address_descriptor['address'] = Address(address=address_descriptor['address'], network=self._network)
+            address_descriptors.append(address_descriptor)
+        data['addresses'] = [AddressDescriptor(**x) for x in address_descriptors]
 
         return BuildOfflineSignModel(**data)
 

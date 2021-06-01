@@ -39,7 +39,8 @@ class BaseNetwork(BaseModel):
                 return True
         return False
 
-    def _check_base58_charset(self, address: str) -> bool:
+    @staticmethod
+    def _check_base58_charset(address: str) -> bool:
         # Charset is missing '0', 'O', 'I', and 'l'
         return all([char in '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz' for char in set(address)])
 

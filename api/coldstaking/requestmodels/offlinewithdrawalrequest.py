@@ -7,7 +7,6 @@ from pybitcoin.types import Money
 class OfflineWithdrawalRequest(Model):
     """An OfflineWithdrawalRequest."""
     fees: Money
-    account_name: str = Field(alias='accountName')
     receiving_address: Address = Field(alias='receivingAddress')
     wallet_name: str = Field(alias='walletName')
     amount: Money

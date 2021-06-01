@@ -14,6 +14,7 @@ from .contracttransactionitemtype import ContractTransactionItemType
 from .deposit import Deposit
 from .depositretrievaltype import DepositRetrievalType
 from .destinationchain import DestinationChain
+from .extpubkey import ExtPubKey
 from .logrule import LogRule
 from .maturedblockinfomodel import MaturedBlockInfoModel
 from .model import Model

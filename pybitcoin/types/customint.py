@@ -63,7 +63,7 @@ class customint:
         self.validate_allowed_types(value)
         value = self._convert_hexstr_to_int(value)
         _check_value_out_of_range(value=value, minvalue=self._minvalue, maxvalue=self._maxvalue)
-        return value
+        return int(value)
 
     @classmethod
     def validate_allowed_types(cls, value) -> None:
@@ -74,27 +74,30 @@ class customint:
     def _convert_hexstr_to_int(cls, value: Union[str, int]) -> int:
         return cls.hex_to_int(value) if isinstance(value, str) else value
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f'{self.__class__.__name__}({self.value})'
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.to_hex()
 
-    def __eq__(self, other):
+    def __int__(self) -> int:
+        return int(self.value)
+
+    def __eq__(self, other) -> bool:
         if isinstance(other, customint):
             return self.value == other.value
         if isinstance(other, int):
             return self.value == other
         return False
 
-    def __lt__(self, other):
+    def __lt__(self, other) -> bool:
         if isinstance(other, customint):
             return self.value < other.value
         if isinstance(other, int):
             return self.value < other
         return False
 
-    def __gt__(self, other):
+    def __gt__(self, other) -> bool:
         if isinstance(other, customint):
             return self.value > other.value
         if isinstance(other, int):

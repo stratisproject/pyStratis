@@ -3,7 +3,9 @@ from pytest_mock import MockerFixture
 from api.coldstaking import ColdStaking
 from api.coldstaking.requestmodels import *
 from api.coldstaking.responsemodels import *
+from pybitcoin import Address
 from pybitcoin.networks import StraxMain
+from pybitcoin.types import Money
 
 
 def test_all_strax_endpoints_implemented(strax_swagger_json):
@@ -34,84 +36,183 @@ def test_all_interfluxcirrus_endpoints_implemented(interfluxcirrus_swagger_json)
             assert endpoint in ColdStaking.endpoints
 
 
-@pytest.mark.skip
 @pytest.mark.parametrize('network', [StraxMain()], ids=['StraxMain'])
 def test_coldstaking_info(mocker: MockerFixture, network, fakeuri):
-    # TODO
-    request = InfoRequest()
-    data = ''
+    request = InfoRequest(wallet_name='Test')
+    data = {'coldWalletAccountExists': True, 'hotWalletAccountExists': True}
     mocker.patch.object(ColdStaking, 'get', return_value=data)
     coldstaking = ColdStaking(network=network, baseuri=fakeuri)
     response = coldstaking.info(request_model=request)
 
-    assert response
-    assert response
+    assert response.cold_wallet_account_exists == data['coldWalletAccountExists']
+    assert response.hot_wallet_account_exists == data['hotWalletAccountExists']
     # noinspection PyUnresolvedReferences
     coldstaking.get.assert_called_once()
 
 
-@pytest.mark.skip
 @pytest.mark.parametrize('network', [StraxMain()], ids=['StraxMain'])
-def test_coldstaking_account(mocker: MockerFixture, network, fakeuri):
-    # TODO
-    request = AccountRequest()
-    data = ''
+def test_coldstaking_cold_account_with_extpubkey(mocker: MockerFixture, network, fakeuri, generate_extpubkey):
+    extpubkey = generate_extpubkey
+    request = AccountRequest(
+        wallet_name='Test',
+        wallet_password='password',
+        is_cold_wallet_account=True,
+        extpubkey=extpubkey
+    )
+    data = {'accountName': 'ColdStakingAccount'}
     mocker.patch.object(ColdStaking, 'post', return_value=data)
     coldstaking = ColdStaking(network=network, baseuri=fakeuri)
     response = coldstaking.account(request_model=request)
 
-    assert response
-    assert response
+    assert response.account_name == data['accountName']
     # noinspection PyUnresolvedReferences
-    coldstaking.get.assert_called_once()
+    coldstaking.post.assert_called_once()
 
 
-@pytest.mark.skip
 @pytest.mark.parametrize('network', [StraxMain()], ids=['StraxMain'])
-def test_coldstaking_address(mocker: MockerFixture, network, fakeuri):
-    # TODO
-    request = AddressRequest()
-    data = ''
+def test_coldstaking_cold_account_no_extpubkey(mocker: MockerFixture, network, fakeuri):
+    request = AccountRequest(
+        wallet_name='Test',
+        wallet_password='password',
+        is_cold_wallet_account=True
+    )
+    data = {'accountName': 'ColdStakingAccount'}
+    mocker.patch.object(ColdStaking, 'post', return_value=data)
+    coldstaking = ColdStaking(network=network, baseuri=fakeuri)
+    response = coldstaking.account(request_model=request)
+
+    assert response.account_name == data['accountName']
+    # noinspection PyUnresolvedReferences
+    coldstaking.post.assert_called_once()
+
+
+@pytest.mark.parametrize('network', [StraxMain()], ids=['StraxMain'])
+def test_coldstaking_hot_account_with_extpubkey(mocker: MockerFixture, network, fakeuri, generate_extpubkey):
+    extpubkey = generate_extpubkey
+    request = AccountRequest(
+        wallet_name='Test',
+        wallet_password='password',
+        is_cold_wallet_account=False,
+        extpubkey=extpubkey
+    )
+    data = {'accountName': 'HotStakingAccount'}
+    mocker.patch.object(ColdStaking, 'post', return_value=data)
+    coldstaking = ColdStaking(network=network, baseuri=fakeuri)
+    response = coldstaking.account(request_model=request)
+
+    assert response.account_name == data['accountName']
+    # noinspection PyUnresolvedReferences
+    coldstaking.post.assert_called_once()
+
+
+@pytest.mark.parametrize('network', [StraxMain()], ids=['StraxMain'])
+def test_coldstaking_hot_account_no_extpubkey(mocker: MockerFixture, network, fakeuri):
+    request = AccountRequest(
+        wallet_name='Test',
+        wallet_password='password',
+        is_cold_wallet_account=False
+    )
+    data = {'accountName': 'HotStakingAccount'}
+    mocker.patch.object(ColdStaking, 'post', return_value=data)
+    coldstaking = ColdStaking(network=network, baseuri=fakeuri)
+    response = coldstaking.account(request_model=request)
+
+    assert response.account_name == data['accountName']
+    # noinspection PyUnresolvedReferences
+    coldstaking.post.assert_called_once()
+
+
+@pytest.mark.parametrize('network', [StraxMain()], ids=['StraxMain'])
+def test_coldstaking_address(mocker: MockerFixture, network, fakeuri, create_p2pkh_address):
+    request = AddressRequest(
+        wallet_name='Test',
+        is_cold_wallet_address=True
+    )
+    data = {'address': create_p2pkh_address(network=network)}
     mocker.patch.object(ColdStaking, 'get', return_value=data)
     coldstaking = ColdStaking(network=network, baseuri=fakeuri)
     response = coldstaking.address(request_model=request)
 
-    assert response
-    assert response
+    assert str(response.address) == data['address']
     # noinspection PyUnresolvedReferences
     coldstaking.get.assert_called_once()
 
 
-@pytest.mark.skip
 @pytest.mark.parametrize('network', [StraxMain()], ids=['StraxMain'])
-def test_coldstaking_setup_coldstaking(mocker: MockerFixture, network, fakeuri):
-    # TODO
-    request = SetupRequest()
-    data = ''
+def test_coldstaking_segwit_address(mocker: MockerFixture, network, fakeuri, create_p2wpkh_address):
+    request = AddressRequest(
+        wallet_name='Test',
+        is_cold_wallet_address=True,
+        segwit=True
+    )
+    data = {'address': create_p2wpkh_address(network=network)}
+    mocker.patch.object(ColdStaking, 'get', return_value=data)
+    coldstaking = ColdStaking(network=network, baseuri=fakeuri)
+    response = coldstaking.address(request_model=request)
+
+    assert str(response.address) == data['address']
+    # noinspection PyUnresolvedReferences
+    coldstaking.get.assert_called_once()
+
+
+@pytest.mark.parametrize('network', [StraxMain()], ids=['StraxMain'])
+def test_coldstaking_setup_coldstaking(mocker: MockerFixture, network, fakeuri, create_p2pkh_address, generate_uint256):
+    request = SetupRequest(
+        wallet_name='Test',
+        wallet_account='account 0',
+        wallet_password='password',
+        cold_wallet_address=Address(address=create_p2pkh_address(network=network), network=network),
+        hot_wallet_address=Address(address=create_p2pkh_address(network=network), network=network),
+        amount=Money(10),
+        fees=Money(1)
+    )
+    data = {'transactionHex': generate_uint256}
     mocker.patch.object(ColdStaking, 'post', return_value=data)
     coldstaking = ColdStaking(network=network, baseuri=fakeuri)
     response = coldstaking.setup(request_model=request)
 
-    assert response
-    assert response
+    assert response.transaction_hex == data['transactionHex']
     # noinspection PyUnresolvedReferences
-    coldstaking.get.assert_called_once()
+    coldstaking.post.assert_called_once()
 
 
-@pytest.mark.skip
 @pytest.mark.parametrize('network', [StraxMain()], ids=['StraxMain'])
-def test_coldstaking_setup_offline_coldstaking(mocker: MockerFixture, network, fakeuri):
-    # TODO
-    request = SetupOfflineRequest()
-    data = ''
+def test_coldstaking_setup_offline_coldstaking(mocker: MockerFixture, network, fakeuri,
+                                               create_p2pkh_address, generate_uint256, generate_hexstring,
+                                               get_base_keypath):
+    request = SetupOfflineRequest(
+        wallet_name='Test',
+        wallet_account='account 0',
+        cold_wallet_address=Address(address=create_p2pkh_address(network=network), network=network),
+        hot_wallet_address=Address(address=create_p2pkh_address(network=network), network=network),
+        amount=Money(10),
+        fees=Money(1)
+    )
+    data = {
+        'walletName': 'Test',
+        'walletAccount': 'account 0',
+        'fee': 1,
+        'unsignedTransaction': generate_hexstring(256),
+        'utxos': [{
+            'transactionId': generate_uint256,
+            'index': 0,
+            'scriptPubKey': f'OP_DUP OP_HASH160 {generate_hexstring(40)} OP_EQUALVERIFY OP_CHECKSIG',
+            'amount': 10
+        }],
+        'addresses': [{
+            'address': str(request.cold_wallet_address),
+            'keyPath': get_base_keypath,
+            'addressType': 'p2pkh'
+        }]
+    }
     mocker.patch.object(ColdStaking, 'post', return_value=data)
     coldstaking = ColdStaking(network=network, baseuri=fakeuri)
     response = coldstaking.setup_offline(request_model=request)
 
-    assert response
-    assert response
+    assert response.wallet_name == data['walletName']
+    assert response.utxos[0].amount == 10
     # noinspection PyUnresolvedReferences
-    coldstaking.get.assert_called_once()
+    coldstaking.post.assert_called_once()
 
 
 @pytest.mark.skip
@@ -127,7 +228,7 @@ def test_coldstaking_estimate_setup_tx_fee(mocker: MockerFixture, network, fakeu
     assert response
     assert response
     # noinspection PyUnresolvedReferences
-    coldstaking.get.assert_called_once()
+    coldstaking.post.assert_called_once()
 
 
 @pytest.mark.skip
@@ -143,7 +244,7 @@ def test_coldstaking_estimate_offline_setup_tx_fee(mocker: MockerFixture, networ
     assert response
     assert response
     # noinspection PyUnresolvedReferences
-    coldstaking.get.assert_called_once()
+    coldstaking.post.assert_called_once()
 
 
 @pytest.mark.skip
@@ -159,7 +260,7 @@ def test_coldstaking_withdrawal(mocker: MockerFixture, network, fakeuri):
     assert response
     assert response
     # noinspection PyUnresolvedReferences
-    coldstaking.get.assert_called_once()
+    coldstaking.post.assert_called_once()
 
 
 @pytest.mark.skip
@@ -175,7 +276,7 @@ def test_coldstaking_offline_withdrawal(mocker: MockerFixture, network, fakeuri)
     assert response
     assert response
     # noinspection PyUnresolvedReferences
-    coldstaking.get.assert_called_once()
+    coldstaking.post.assert_called_once()
 
 
 @pytest.mark.skip
@@ -191,7 +292,7 @@ def test_coldstaking_estimate_offline_withdrawal_fee(mocker: MockerFixture, netw
     assert response
     assert response
     # noinspection PyUnresolvedReferences
-    coldstaking.get.assert_called_once()
+    coldstaking.post.assert_called_once()
 
 
 @pytest.mark.skip
@@ -207,4 +308,4 @@ def test_coldstaking_estimate_withdrawal_fee(mocker: MockerFixture, network, fak
     assert response
     assert response
     # noinspection PyUnresolvedReferences
-    coldstaking.get.assert_called_once()
+    coldstaking.post.assert_called_once()

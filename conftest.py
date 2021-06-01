@@ -17,7 +17,7 @@ def fakeuri():
     return 'http://localhost:8888'
 
 
-@pytest.fixture
+@pytest.fixture(scope='function')
 def create_p2pkh_address():
     # noinspection PyUnresolvedReferences
     def _create_p2pkh_address(network: 'BaseNetwork') -> str:
@@ -28,7 +28,7 @@ def create_p2pkh_address():
     return _create_p2pkh_address
 
 
-@pytest.fixture
+@pytest.fixture(scope='function')
 def create_p2sh_address():
     # noinspection PyUnresolvedReferences
     def _create_p2sh_address(network: 'BaseNetwork') -> str:
@@ -39,7 +39,7 @@ def create_p2sh_address():
     return _create_p2sh_address
 
 
-@pytest.fixture
+@pytest.fixture(scope='function')
 def create_p2wpkh_address():
     # noinspection PyUnresolvedReferences
     def _create_p2wpkh_address(network: 'BaseNetwork') -> str:
@@ -49,7 +49,7 @@ def create_p2wpkh_address():
     return _create_p2wpkh_address
 
 
-@pytest.fixture
+@pytest.fixture(scope='function')
 def create_p2wsh_address():
     # noinspection PyUnresolvedReferences
     def _create_p2wsh_address(network: 'BaseNetwork') -> str:
@@ -59,17 +59,22 @@ def create_p2wsh_address():
     return _create_p2wsh_address
 
 
-@pytest.fixture
+@pytest.fixture(scope='function')
+def get_base_keypath() -> str:
+    return "m/44'/105'/0'/0/0"
+
+
+@pytest.fixture(scope='function')
 def create_ethereum_lower_address() -> str:
     return create_ethereum_address()
 
 
-@pytest.fixture
+@pytest.fixture(scope='function')
 def create_ethereum_upper_address() -> str:
     return '0x' + create_ethereum_address()[2:].upper()
 
 
-@pytest.fixture
+@pytest.fixture(scope='function')
 def create_ethereum_checksum_address() -> str:
     address = create_ethereum_address()
     address_hash = keccak_256(
@@ -84,7 +89,7 @@ def create_ethereum_checksum_address() -> str:
     return '0x' + checksum_address
 
 
-@pytest.fixture
+@pytest.fixture(scope='function')
 def generate_uint256() -> str:
     first_digit = '01234567'
     hex_letters = '0123456789abcdef'
@@ -92,7 +97,7 @@ def generate_uint256() -> str:
     return sign_bit + ''.join(choice(hex_letters) for _ in range(63))
 
 
-@pytest.fixture
+@pytest.fixture(scope='function')
 def generate_uint128() -> str:
     first_digit = '01234567'
     hex_letters = '0123456789abcdef'
@@ -100,7 +105,7 @@ def generate_uint128() -> str:
     return sign_bit + ''.join(choice(hex_letters) for _ in range(31))
 
 
-@pytest.fixture
+@pytest.fixture(scope='function')
 def generate_uint64() -> str:
     first_digit = '01234567'
     hex_letters = '0123456789abcdef'
@@ -108,7 +113,7 @@ def generate_uint64() -> str:
     return sign_bit + ''.join(choice(hex_letters) for _ in range(15))
 
 
-@pytest.fixture
+@pytest.fixture(scope='function')
 def generate_uint32() -> str:
     first_digit = '01234567'
     hex_letters = '0123456789abcdef'
@@ -116,19 +121,19 @@ def generate_uint32() -> str:
     return sign_bit + ''.join(choice(hex_letters) for _ in range(7))
 
 
-@pytest.fixture
+@pytest.fixture(scope='function')
 def generate_int64() -> str:
     hex_letters = '0123456789abcdef'
     return ''.join(choice(hex_letters) for _ in range(16))
 
 
-@pytest.fixture
+@pytest.fixture(scope='function')
 def generate_int32() -> str:
     hex_letters = '0123456789abcdef'
     return ''.join(choice(hex_letters) for _ in range(8))
 
 
-@pytest.fixture
+@pytest.fixture(scope='function')
 def generate_uint160() -> str:
     first_digit = '01234567'
     hex_letters = '0123456789abcdef'
@@ -136,12 +141,38 @@ def generate_uint160() -> str:
     return sign_bit + ''.join(choice(hex_letters) for _ in range(39))
 
 
-@pytest.fixture
+@pytest.fixture(scope='function')
 def generate_hexstring():
     def _generate_hexstring(length: int = 128) -> str:
         letters = '0123456789abcdef'
         return ''.join(choice(letters) for _ in range(length))
     return _generate_hexstring
+
+
+@pytest.fixture(scope='function')
+def generate_extpubkey() -> str:
+    version = bytes.fromhex('0488b21e')
+    depth = os.urandom(1)
+    parent_fingerprint = os.urandom(4)
+    index = os.urandom(4)
+    chain_code = os.urandom(32)
+    key = os.urandom(33)
+    payload_bytes = version + depth + parent_fingerprint + index + chain_code + key
+    checksum = sha256(sha256(payload_bytes).digest()).digest()
+    return base58.b58encode(payload_bytes + checksum[:4]).decode('ascii')
+
+
+@pytest.fixture(scope='function')
+def generate_extprvkey() -> str:
+    version = bytes.fromhex('0488ade4')
+    depth = os.urandom(1)
+    parent_fingerprint = os.urandom(4)
+    index = os.urandom(4)
+    chain_code = os.urandom(32)
+    key = os.urandom(33)
+    payload_bytes = version + depth + parent_fingerprint + index + chain_code + key
+    checksum = sha256(sha256(payload_bytes).digest()).digest()
+    return base58.b58encode(payload_bytes + checksum[:4]).decode('ascii')
 
 
 @pytest.fixture(scope='session')

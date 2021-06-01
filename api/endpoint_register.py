@@ -7,15 +7,15 @@ class EndpointRegister(type):
         super(EndpointRegister, cls).__init__(name, bases, attrs)
         cls.endpoints = []
         for key, val in attrs.items():
-            endpoint = getattr(val, '_endpoint', None)
-            if endpoint is not None and endpoint not in cls.endpoints:
-                cls.endpoints.append(endpoint)
+            end_point = getattr(val, '_endpoint', None)
+            if end_point is not None and end_point not in cls.endpoints:
+                cls.endpoints.append(end_point)
 
 
-def endpoint(endpoint: str):
+def endpoint(end_point: str):
     """A class function decorator for endpoints. Passes the endpoint to the function as a kwarg."""
     def decorator(func):
-        func = functools.partialmethod(func, endpoint=endpoint)
-        func._endpoint = endpoint
+        func = functools.partialmethod(func, endpoint=end_point)
+        func._endpoint = end_point
         return func
     return decorator

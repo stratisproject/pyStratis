@@ -25,9 +25,9 @@ class FederationGateway(APIRequest, metaclass=EndpointRegister):
             APIError
         """
         data = self.get(request_model, **kwargs)
-        serializableresult = SerializableResult(**data)
+        serializable_result = SerializableResult(**data)
 
-        return [MaturedBlockDepositsModel(**x) for x in serializableresult.value]
+        return [MaturedBlockDepositsModel(**x) for x in serializable_result.value]
 
     @endpoint(f'{route}/transfer/pending')
     def pending_transfer(self, request_model: PendingTransferRequest, **kwargs) -> List[CrossChainTransferModel]:

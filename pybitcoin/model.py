@@ -4,6 +4,7 @@ from pydantic import BaseModel, SecretStr
 from pybitcoin.types import *
 from .address import Address
 from .addressdescriptor import AddressDescriptor
+from .extpubkey import ExtPubKey
 from .multisigsecret import MultisigSecret
 from .outpoint import Outpoint
 from .recipient import Recipient
@@ -22,6 +23,7 @@ class Model(BaseModel):
             SecretStr: lambda v: v.get_secret_value(),
             Money: lambda v: str(v),
             hexstr: lambda v: str(v),
+            ExtPubKey: lambda v: str(v),
             int32: lambda v: str(v),
             uint32: lambda v: str(v),
             int64: lambda v: str(v),
