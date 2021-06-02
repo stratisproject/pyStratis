@@ -113,7 +113,7 @@ def test_get_best_block_hash(mocker: MockerFixture, network, fakeuri, generate_u
 
     response = consensus.get_best_blockhash()
 
-    assert response
+    assert response == data
     # noinspection PyUnresolvedReferences
     consensus.get.assert_called_once()
 
@@ -129,6 +129,6 @@ def test_get_block_hash(mocker: MockerFixture, network, fakeuri, generate_uint25
 
     response = consensus.get_blockhash(request_model)
 
-    assert response
+    assert response == data
     # noinspection PyUnresolvedReferences
     consensus.get.assert_called_once()

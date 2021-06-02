@@ -103,6 +103,7 @@ def test_uint64_test_overflow():
     with pytest.raises(ValueError):
         uint64(2**numbits) * uint64(2)
 
+
 def test_addition_with_other_customints():
     a = int32(2**32//2-1)
     b = int64(2**64//2-1)
