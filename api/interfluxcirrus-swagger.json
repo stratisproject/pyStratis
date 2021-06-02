@@ -525,10 +525,25 @@
         }
       }
     },
-    "/api/DefaultVoting/currentmemberinfo": {
+    "/api/Federation/reconstruct": {
+      "put": {
+        "tags": [
+          "Federation"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/Federation/members/current": {
       "get": {
         "tags": [
-          "DefaultVoting"
+          "Federation"
         ],
         "responses": {
           "200": {
@@ -540,220 +555,10 @@
         }
       }
     },
-    "/api/DefaultVoting/fedmembers": {
+    "/api/Federation/members": {
       "get": {
         "tags": [
-          "DefaultVoting"
-        ],
-        "responses": {
-          "200": {
-            "description": "Success"
-          },
-          "400": {
-            "description": "Bad Request"
-          }
-        }
-      }
-    },
-    "/api/DefaultVoting/polls/pending": {
-      "get": {
-        "tags": [
-          "DefaultVoting"
-        ],
-        "parameters": [
-          {
-            "name": "voteType",
-            "in": "query",
-            "schema": {
-              "$ref": "#/components/schemas/VoteKey"
-            }
-          },
-          {
-            "name": "pubKeyOfMemberBeingVotedOn",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "default": ""
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success"
-          },
-          "400": {
-            "description": "Bad Request"
-          }
-        }
-      }
-    },
-    "/api/DefaultVoting/polls/finished": {
-      "get": {
-        "tags": [
-          "DefaultVoting"
-        ],
-        "parameters": [
-          {
-            "name": "voteType",
-            "in": "query",
-            "schema": {
-              "$ref": "#/components/schemas/VoteKey"
-            }
-          },
-          {
-            "name": "pubKeyOfMemberBeingVotedOn",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "default": ""
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success"
-          },
-          "400": {
-            "description": "Bad Request"
-          }
-        }
-      }
-    },
-    "/api/DefaultVoting/polls/executed": {
-      "get": {
-        "tags": [
-          "DefaultVoting"
-        ],
-        "parameters": [
-          {
-            "name": "voteType",
-            "in": "query",
-            "schema": {
-              "$ref": "#/components/schemas/VoteKey"
-            }
-          },
-          {
-            "name": "pubKeyOfMemberBeingVotedOn",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "default": ""
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success"
-          },
-          "400": {
-            "description": "Bad Request"
-          }
-        }
-      }
-    },
-    "/api/DefaultVoting/whitelistedhashes": {
-      "get": {
-        "tags": [
-          "DefaultVoting"
-        ],
-        "responses": {
-          "200": {
-            "description": "Success"
-          },
-          "400": {
-            "description": "Bad Request"
-          }
-        }
-      }
-    },
-    "/api/DefaultVoting/schedulevote-whitelisthash": {
-      "post": {
-        "tags": [
-          "DefaultVoting"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "$ref": "#/components/schemas/HashModel"
-              }
-            },
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/HashModel"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/HashModel"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/HashModel"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Success"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "500": {
-            "description": "Server Error"
-          }
-        }
-      }
-    },
-    "/api/DefaultVoting/schedulevote-removehash": {
-      "post": {
-        "tags": [
-          "DefaultVoting"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "$ref": "#/components/schemas/HashModel"
-              }
-            },
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/HashModel"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/HashModel"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/HashModel"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Success"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "500": {
-            "description": "Server Error"
-          }
-        }
-      }
-    },
-    "/api/DefaultVoting/scheduledvotes": {
-      "get": {
-        "tags": [
-          "DefaultVoting"
+          "Federation"
         ],
         "responses": {
           "200": {
@@ -865,7 +670,7 @@
         }
       }
     },
-    "/api/FederationGateway/info/member": {
+    "/api/FederationGateway/member/info": {
       "get": {
         "tags": [
           "FederationGateway"
@@ -885,6 +690,123 @@
         "tags": [
           "FederationGateway"
         ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/FederationGateway/member/ip/add": {
+      "put": {
+        "tags": [
+          "FederationGateway"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/FederationMemberIpModel"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FederationMemberIpModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FederationMemberIpModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/FederationMemberIpModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/FederationGateway/member/ip/remove": {
+      "put": {
+        "tags": [
+          "FederationGateway"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/FederationMemberIpModel"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FederationMemberIpModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FederationMemberIpModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/FederationMemberIpModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/FederationGateway/member/ip/replace": {
+      "put": {
+        "tags": [
+          "FederationGateway"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReplaceFederationMemberIpModel"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReplaceFederationMemberIpModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReplaceFederationMemberIpModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReplaceFederationMemberIpModel"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "Success"
@@ -1098,6 +1020,24 @@
         }
       }
     },
+    "/api/Interop/status": {
+      "get": {
+        "tags": [
+          "Interop"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    },
     "/api/Mempool/getrawmempool": {
       "get": {
         "tags": [
@@ -1257,22 +1197,26 @@
           "content": {
             "application/json-patch+json": {
               "schema": {
-                "type": "boolean"
+                "type": "boolean",
+                "default": true
               }
             },
             "application/json": {
               "schema": {
-                "type": "boolean"
+                "type": "boolean",
+                "default": true
               }
             },
             "text/json": {
               "schema": {
-                "type": "boolean"
+                "type": "boolean",
+                "default": true
               }
             },
             "application/*+json": {
               "schema": {
-                "type": "boolean"
+                "type": "boolean",
+                "default": true
               }
             }
           }
@@ -1493,22 +1437,26 @@
           "content": {
             "application/json-patch+json": {
               "schema": {
-                "type": "boolean"
+                "type": "boolean",
+                "default": true
               }
             },
             "application/json": {
               "schema": {
-                "type": "boolean"
+                "type": "boolean",
+                "default": true
               }
             },
             "text/json": {
               "schema": {
-                "type": "boolean"
+                "type": "boolean",
+                "default": true
               }
             },
             "application/*+json": {
               "schema": {
-                "type": "boolean"
+                "type": "boolean",
+                "default": true
               }
             }
           }
@@ -1529,22 +1477,26 @@
           "content": {
             "application/json-patch+json": {
               "schema": {
-                "type": "boolean"
+                "type": "boolean",
+                "default": true
               }
             },
             "application/json": {
               "schema": {
-                "type": "boolean"
+                "type": "boolean",
+                "default": true
               }
             },
             "text/json": {
               "schema": {
-                "type": "boolean"
+                "type": "boolean",
+                "default": true
               }
             },
             "application/*+json": {
               "schema": {
-                "type": "boolean"
+                "type": "boolean",
+                "default": true
               }
             }
           }
@@ -1648,24 +1600,16 @@
         "requestBody": {
           "content": {
             "application/json-patch+json": {
-              "schema": {
-                "type": "string"
-              }
+              "schema": { }
             },
             "application/json": {
-              "schema": {
-                "type": "string"
-              }
+              "schema": { }
             },
             "text/json": {
-              "schema": {
-                "type": "string"
-              }
+              "schema": { }
             },
             "application/*+json": {
-              "schema": {
-                "type": "string"
-              }
+              "schema": { }
             }
           }
         },
@@ -2383,6 +2327,216 @@
         }
       }
     },
+    "/api/Voting/polls/pending": {
+      "get": {
+        "tags": [
+          "Voting"
+        ],
+        "parameters": [
+          {
+            "name": "voteType",
+            "in": "query",
+            "schema": {
+              "$ref": "#/components/schemas/VoteKey"
+            }
+          },
+          {
+            "name": "pubKeyOfMemberBeingVotedOn",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/Voting/polls/finished": {
+      "get": {
+        "tags": [
+          "Voting"
+        ],
+        "parameters": [
+          {
+            "name": "voteType",
+            "in": "query",
+            "schema": {
+              "$ref": "#/components/schemas/VoteKey"
+            }
+          },
+          {
+            "name": "pubKeyOfMemberBeingVotedOn",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/Voting/polls/executed": {
+      "get": {
+        "tags": [
+          "Voting"
+        ],
+        "parameters": [
+          {
+            "name": "voteType",
+            "in": "query",
+            "schema": {
+              "$ref": "#/components/schemas/VoteKey"
+            }
+          },
+          {
+            "name": "pubKeyOfMemberBeingVotedOn",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/Voting/whitelistedhashes": {
+      "get": {
+        "tags": [
+          "Voting"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/Voting/schedulevote-whitelisthash": {
+      "post": {
+        "tags": [
+          "Voting"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/HashModel"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HashModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HashModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/HashModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    },
+    "/api/Voting/schedulevote-removehash": {
+      "post": {
+        "tags": [
+          "Voting"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/HashModel"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HashModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HashModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/HashModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    },
+    "/api/Voting/scheduledvotes": {
+      "get": {
+        "tags": [
+          "Voting"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
     "/api/Wallet/mnemonic": {
       "get": {
         "tags": [
@@ -2834,22 +2988,6 @@
             }
           },
           {
-            "name": "PrevOutputTxTime",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "PrevOutputIndex",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
             "name": "SearchQuery",
             "in": "query",
             "schema": {
@@ -3076,6 +3214,48 @@
             "application/*+json": {
               "schema": {
                 "$ref": "#/components/schemas/BuildTransactionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    },
+    "/api/Wallet/build-interflux-transaction": {
+      "post": {
+        "tags": [
+          "Wallet"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/BuildInterFluxTransactionRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BuildInterFluxTransactionRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BuildInterFluxTransactionRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/BuildInterFluxTransactionRequest"
               }
             }
           }
@@ -3889,353 +4069,29 @@
         "properties": {
           "label": {
             "maxLength": 200,
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "address": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           }
         },
         "additionalProperties": false
       },
-      "JoinFederationRequestModel": {
+      "AddressDescriptor": {
         "required": [
-          "collateralAddress",
-          "collateralWalletName",
-          "collateralWalletPassword",
-          "walletAccount",
-          "walletName",
-          "walletPassword"
+          "address",
+          "keyPath"
         ],
         "type": "object",
         "properties": {
-          "collateralAddress": {
-            "type": "string",
-            "nullable": true
+          "address": {
+            "type": "string"
           },
-          "collateralWalletName": {
-            "type": "string",
-            "nullable": true
+          "keyPath": {
+            "type": "string"
           },
-          "collateralWalletPassword": {
+          "addressType": {
             "type": "string",
-            "nullable": true
-          },
-          "walletName": {
-            "type": "string",
-            "nullable": true
-          },
-          "walletPassword": {
-            "type": "string",
-            "nullable": true
-          },
-          "walletAccount": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "CollateralFederationMemberModel": {
-        "type": "object",
-        "properties": {
-          "pubKeyHex": {
-            "type": "string",
-            "nullable": true
-          },
-          "collateralAmountSatoshis": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "collateralMainchainAddress": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "VoteKey": {
-        "enum": [
-          "KickFederationMember",
-          "AddFederationMember",
-          "WhitelistHash",
-          "RemoveHash"
-        ],
-        "type": "string"
-      },
-      "HashModel": {
-        "required": [
-          "hash"
-        ],
-        "type": "object",
-        "properties": {
-          "hash": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "EnableFederationRequest": {
-        "required": [
-          "password"
-        ],
-        "type": "object",
-        "properties": {
-          "mnemonic": {
-            "type": "string",
-            "nullable": true
-          },
-          "password": {
-            "type": "string",
-            "nullable": true
-          },
-          "passphrase": {
-            "type": "string",
-            "nullable": true
-          },
-          "timeoutSeconds": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "RecipientModel": {
-        "required": [
-          "amount"
-        ],
-        "type": "object",
-        "properties": {
-          "destinationAddress": {
-            "type": "string",
-            "nullable": true
-          },
-          "destinationScript": {
-            "type": "string",
-            "nullable": true
-          },
-          "subtractFeeFromAmount": {
-            "type": "boolean"
-          },
-          "amount": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "SecretModel": {
-        "required": [
-          "mnemonic"
-        ],
-        "type": "object",
-        "properties": {
-          "mnemonic": {
-            "type": "string",
-            "nullable": true
-          },
-          "passphrase": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "BuildMultisigTransactionRequest": {
-        "required": [
-          "recipients",
-          "secrets"
-        ],
-        "type": "object",
-        "properties": {
-          "recipients": {
-            "minLength": 1,
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/RecipientModel"
-            },
-            "nullable": true
-          },
-          "secrets": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/SecretModel"
-            },
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "DisconnectPeerViewModel": {
-        "type": "object",
-        "properties": {
-          "peerAddress": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "SetBanPeerViewModel": {
-        "type": "object",
-        "properties": {
-          "banCommand": {
-            "type": "string",
-            "nullable": true
-          },
-          "banDurationSeconds": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "peerAddress": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "DecodeRawTransactionModel": {
-        "type": "object",
-        "properties": {
-          "rawHex": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "LogRuleRequest": {
-        "required": [
-          "logLevel",
-          "ruleName"
-        ],
-        "type": "object",
-        "properties": {
-          "ruleName": {
-            "type": "string",
-            "nullable": true
-          },
-          "logLevel": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "LogRulesRequest": {
-        "type": "object",
-        "properties": {
-          "logRules": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/LogRuleRequest"
-            },
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "MethodParameterDataType": {
-        "enum": [
-          "Bool",
-          "Byte",
-          "Char",
-          "String",
-          "UInt",
-          "Int",
-          "ULong",
-          "Long",
-          "Address",
-          "ByteArray",
-          "UInt128",
-          "UInt256"
-        ],
-        "type": "string"
-      },
-      "OutpointRequest": {
-        "required": [
-          "index",
-          "transactionId"
-        ],
-        "type": "object",
-        "properties": {
-          "transactionId": {
-            "type": "string",
-            "nullable": true
-          },
-          "index": {
-            "type": "integer",
-            "format": "int32"
-          }
-        },
-        "additionalProperties": false
-      },
-      "BuildCreateContractTransactionRequest": {
-        "required": [
-          "amount",
-          "contractCode",
-          "password",
-          "sender",
-          "walletName"
-        ],
-        "type": "object",
-        "properties": {
-          "walletName": {
-            "type": "string",
-            "nullable": true
-          },
-          "accountName": {
-            "type": "string",
-            "nullable": true
-          },
-          "outpoints": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/OutpointRequest"
-            },
-            "nullable": true
-          },
-          "amount": {
-            "type": "string",
-            "nullable": true
-          },
-          "feeAmount": {
-            "type": "string",
-            "nullable": true
-          },
-          "password": {
-            "type": "string",
-            "nullable": true
-          },
-          "contractCode": {
-            "type": "string",
-            "nullable": true
-          },
-          "gasPrice": {
-            "maximum": 10000,
-            "minimum": 100,
-            "type": "integer",
-            "format": "int64"
-          },
-          "gasLimit": {
-            "maximum": 250000,
-            "minimum": 12000,
-            "type": "integer",
-            "format": "int64"
-          },
-          "sender": {
-            "type": "string",
-            "nullable": true
-          },
-          "parameters": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
             "nullable": true
           }
         },
@@ -4253,8 +4109,7 @@
         "type": "object",
         "properties": {
           "walletName": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "accountName": {
             "type": "string",
@@ -4268,24 +4123,20 @@
             "nullable": true
           },
           "contractAddress": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "methodName": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "amount": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "feeAmount": {
             "type": "string",
             "nullable": true
           },
           "password": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "gasPrice": {
             "maximum": 10000,
@@ -4300,8 +4151,7 @@
             "format": "int64"
           },
           "sender": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "parameters": {
             "type": "array",
@@ -4322,23 +4172,20 @@
         "type": "object",
         "properties": {
           "sender": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "feeAmount": {
             "type": "string",
             "nullable": true
           },
           "password": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "segwitChangeAddress": {
             "type": "boolean"
           },
           "walletName": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "accountName": {
             "type": "string",
@@ -4352,7 +4199,7 @@
             "nullable": true
           },
           "recipients": {
-            "minLength": 1,
+            "minItems": 1,
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/RecipientModel"
@@ -4385,20 +4232,18 @@
         },
         "additionalProperties": false
       },
-      "ScTxFeeEstimateRequest": {
+      "BuildCreateContractTransactionRequest": {
         "required": [
+          "amount",
+          "contractCode",
+          "password",
           "sender",
           "walletName"
         ],
         "type": "object",
         "properties": {
-          "sender": {
-            "type": "string",
-            "nullable": true
-          },
           "walletName": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "accountName": {
             "type": "string",
@@ -4411,74 +4256,33 @@
             },
             "nullable": true
           },
-          "recipients": {
-            "minLength": 1,
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/RecipientModel"
-            },
-            "nullable": true
-          },
-          "opReturnData": {
-            "type": "string",
-            "nullable": true
-          },
-          "opReturnAmount": {
-            "type": "string",
-            "nullable": true
-          },
-          "feeType": {
-            "type": "string",
-            "nullable": true
-          },
-          "allowUnconfirmed": {
-            "type": "boolean"
-          },
-          "shuffleOutputs": {
-            "type": "boolean",
-            "nullable": true
-          },
-          "changeAddress": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "LocalCallContractRequest": {
-        "required": [
-          "contractAddress",
-          "methodName"
-        ],
-        "type": "object",
-        "properties": {
-          "contractAddress": {
-            "type": "string",
-            "nullable": true
-          },
-          "methodName": {
-            "type": "string",
-            "nullable": true
-          },
           "amount": {
+            "type": "string"
+          },
+          "feeAmount": {
             "type": "string",
             "nullable": true
+          },
+          "password": {
+            "type": "string"
+          },
+          "contractCode": {
+            "type": "string"
           },
           "gasPrice": {
             "maximum": 10000,
-            "minimum": 1,
+            "minimum": 100,
             "type": "integer",
             "format": "int64"
           },
           "gasLimit": {
             "maximum": 250000,
-            "minimum": 10000,
+            "minimum": 12000,
             "type": "integer",
             "format": "int64"
           },
           "sender": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "parameters": {
             "type": "array",
@@ -4490,201 +4294,33 @@
         },
         "additionalProperties": false
       },
-      "SendTransactionRequest": {
+      "BuildInterFluxTransactionRequest": {
         "required": [
-          "hex"
-        ],
-        "type": "object",
-        "properties": {
-          "hex": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "WalletCreationRequest": {
-        "required": [
-          "name",
-          "passphrase",
-          "password"
-        ],
-        "type": "object",
-        "properties": {
-          "mnemonic": {
-            "type": "string",
-            "nullable": true
-          },
-          "password": {
-            "type": "string",
-            "nullable": true
-          },
-          "passphrase": {
-            "type": "string",
-            "nullable": true
-          },
-          "name": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "SignMessageRequest": {
-        "required": [
-          "externalAddress",
-          "message",
           "password",
           "walletName"
         ],
         "type": "object",
         "properties": {
-          "walletName": {
-            "type": "string",
-            "nullable": true
-          },
-          "password": {
-            "type": "string",
-            "nullable": true
-          },
-          "externalAddress": {
-            "type": "string",
-            "nullable": true
-          },
-          "message": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "PubKeyRequest": {
-        "required": [
-          "externalAddress",
-          "walletName"
-        ],
-        "type": "object",
-        "properties": {
-          "walletName": {
-            "type": "string",
-            "nullable": true
-          },
-          "externalAddress": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "VerifyRequest": {
-        "required": [
-          "externalAddress",
-          "message",
-          "signature"
-        ],
-        "type": "object",
-        "properties": {
-          "signature": {
-            "type": "string",
-            "nullable": true
-          },
-          "externalAddress": {
-            "type": "string",
-            "nullable": true
-          },
-          "message": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "WalletLoadRequest": {
-        "required": [
-          "name",
-          "password"
-        ],
-        "type": "object",
-        "properties": {
-          "password": {
-            "type": "string",
-            "nullable": true
-          },
-          "name": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "WalletRecoveryRequest": {
-        "required": [
-          "mnemonic",
-          "name",
-          "passphrase",
-          "password"
-        ],
-        "type": "object",
-        "properties": {
-          "mnemonic": {
-            "type": "string",
-            "nullable": true
-          },
-          "password": {
-            "type": "string",
-            "nullable": true
-          },
-          "passphrase": {
-            "type": "string",
-            "nullable": true
-          },
-          "name": {
-            "type": "string",
-            "nullable": true
-          },
-          "creationDate": {
-            "type": "string",
-            "format": "date-time"
-          }
-        },
-        "additionalProperties": false
-      },
-      "WalletExtPubRecoveryRequest": {
-        "required": [
-          "accountIndex",
-          "extPubKey",
-          "name"
-        ],
-        "type": "object",
-        "properties": {
-          "extPubKey": {
-            "type": "string",
-            "nullable": true
-          },
-          "accountIndex": {
+          "destinationChain": {
             "type": "integer",
             "format": "int32"
           },
-          "name": {
+          "destinationAddress": {
             "type": "string",
             "nullable": true
           },
-          "creationDate": {
-            "type": "string",
-            "format": "date-time"
-          }
-        },
-        "additionalProperties": false
-      },
-      "TxFeeEstimateRequest": {
-        "required": [
-          "walletName"
-        ],
-        "type": "object",
-        "properties": {
-          "walletName": {
+          "feeAmount": {
             "type": "string",
             "nullable": true
+          },
+          "password": {
+            "type": "string"
+          },
+          "segwitChangeAddress": {
+            "type": "boolean"
+          },
+          "walletName": {
+            "type": "string"
           },
           "accountName": {
             "type": "string",
@@ -4698,7 +4334,88 @@
             "nullable": true
           },
           "recipients": {
-            "minLength": 1,
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RecipientModel"
+            },
+            "nullable": true
+          },
+          "opReturnData": {
+            "type": "string",
+            "nullable": true
+          },
+          "opReturnAmount": {
+            "type": "string",
+            "nullable": true
+          },
+          "feeType": {
+            "type": "string",
+            "nullable": true
+          },
+          "allowUnconfirmed": {
+            "type": "boolean"
+          },
+          "shuffleOutputs": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "changeAddress": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "BuildMultisigTransactionRequest": {
+        "required": [
+          "recipients",
+          "secrets"
+        ],
+        "type": "object",
+        "properties": {
+          "recipients": {
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RecipientModel"
+            }
+          },
+          "secrets": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SecretModel"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "BuildOfflineSignRequest": {
+        "required": [
+          "walletName"
+        ],
+        "type": "object",
+        "properties": {
+          "feeAmount": {
+            "type": "string",
+            "nullable": true
+          },
+          "walletName": {
+            "type": "string"
+          },
+          "accountName": {
+            "type": "string",
+            "nullable": true
+          },
+          "outpoints": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OutpointRequest"
+            },
+            "nullable": true
+          },
+          "recipients": {
+            "minItems": 1,
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/RecipientModel"
@@ -4743,15 +4460,13 @@
             "nullable": true
           },
           "password": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "segwitChangeAddress": {
             "type": "boolean"
           },
           "walletName": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "accountName": {
             "type": "string",
@@ -4765,7 +4480,7 @@
             "nullable": true
           },
           "recipients": {
-            "minLength": 1,
+            "minItems": 1,
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/RecipientModel"
@@ -4798,92 +4513,75 @@
         },
         "additionalProperties": false
       },
-      "GetUnusedAccountModel": {
-        "required": [
-          "password",
-          "walletName"
-        ],
+      "CollateralFederationMemberModel": {
         "type": "object",
         "properties": {
-          "walletName": {
+          "pubKeyHex": {
             "type": "string",
             "nullable": true
           },
-          "password": {
+          "collateralAmountSatoshis": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "collateralMainchainAddress": {
             "type": "string",
             "nullable": true
           }
         },
         "additionalProperties": false
       },
-      "RetrievePrivateKeyModel": {
+      "ConsolidationRequest": {
         "required": [
-          "address",
-          "password",
-          "walletName"
-        ],
-        "type": "object",
-        "properties": {
-          "password": {
-            "type": "string",
-            "nullable": true
-          },
-          "walletName": {
-            "type": "string",
-            "nullable": true
-          },
-          "address": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "WalletSyncRequest": {
-        "type": "object",
-        "properties": {
-          "date": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "all": {
-            "type": "boolean"
-          },
-          "walletName": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "SplitCoinsRequest": {
-        "required": [
-          "totalAmountToSplit",
-          "utxosCount",
           "walletName",
           "walletPassword"
         ],
         "type": "object",
         "properties": {
           "walletName": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "accountName": {
             "type": "string",
             "nullable": true
           },
           "walletPassword": {
+            "type": "string"
+          },
+          "singleAddress": {
             "type": "string",
             "nullable": true
           },
-          "totalAmountToSplit": {
+          "destinationAddress": {
             "type": "string",
             "nullable": true
           },
-          "utxosCount": {
-            "type": "integer",
-            "format": "int32"
+          "utxoValueThreshold": {
+            "type": "string",
+            "nullable": true
+          },
+          "broadcast": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "DecodeRawTransactionModel": {
+        "type": "object",
+        "properties": {
+          "rawHex": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "DisconnectPeerViewModel": {
+        "type": "object",
+        "properties": {
+          "peerAddress": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -4899,16 +4597,14 @@
         "type": "object",
         "properties": {
           "walletName": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "accountName": {
             "type": "string",
             "nullable": true
           },
           "walletPassword": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "useUniqueAddressPerUtxo": {
             "type": "boolean",
@@ -4953,43 +4649,335 @@
         },
         "additionalProperties": false
       },
-      "SweepRequest": {
+      "EnableFederationRequest": {
         "required": [
-          "destinationAddress",
-          "privateKeys"
+          "password"
         ],
         "type": "object",
         "properties": {
-          "privateKeys": {
+          "mnemonic": {
+            "type": "string",
+            "nullable": true
+          },
+          "password": {
+            "type": "string"
+          },
+          "passphrase": {
+            "type": "string",
+            "nullable": true
+          },
+          "timeoutSeconds": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "FederationMemberIpModel": {
+        "type": "object",
+        "properties": {
+          "endpoint": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "GetUnusedAccountModel": {
+        "required": [
+          "password",
+          "walletName"
+        ],
+        "type": "object",
+        "properties": {
+          "walletName": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "HashModel": {
+        "required": [
+          "hash"
+        ],
+        "type": "object",
+        "properties": {
+          "hash": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "JoinFederationRequestModel": {
+        "required": [
+          "collateralAddress",
+          "collateralWalletName",
+          "collateralWalletPassword",
+          "walletAccount",
+          "walletName",
+          "walletPassword"
+        ],
+        "type": "object",
+        "properties": {
+          "collateralAddress": {
+            "type": "string"
+          },
+          "collateralWalletName": {
+            "type": "string"
+          },
+          "collateralWalletPassword": {
+            "type": "string"
+          },
+          "walletName": {
+            "type": "string"
+          },
+          "walletPassword": {
+            "type": "string"
+          },
+          "walletAccount": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "LocalCallContractRequest": {
+        "required": [
+          "contractAddress",
+          "methodName"
+        ],
+        "type": "object",
+        "properties": {
+          "contractAddress": {
+            "type": "string"
+          },
+          "methodName": {
+            "type": "string"
+          },
+          "amount": {
+            "type": "string",
+            "nullable": true
+          },
+          "gasPrice": {
+            "maximum": 10000,
+            "minimum": 1,
+            "type": "integer",
+            "format": "int64"
+          },
+          "gasLimit": {
+            "maximum": 250000,
+            "minimum": 10000,
+            "type": "integer",
+            "format": "int64"
+          },
+          "sender": {
+            "type": "string",
+            "nullable": true
+          },
+          "parameters": {
             "type": "array",
             "items": {
               "type": "string"
             },
             "nullable": true
-          },
-          "destinationAddress": {
-            "type": "string",
-            "nullable": true
-          },
-          "broadcast": {
-            "type": "boolean"
           }
         },
         "additionalProperties": false
       },
-      "BuildOfflineSignRequest": {
+      "LogRuleRequest": {
         "required": [
-          "walletName"
+          "logLevel",
+          "ruleName"
         ],
         "type": "object",
         "properties": {
-          "feeAmount": {
-            "type": "string",
+          "ruleName": {
+            "type": "string"
+          },
+          "logLevel": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "LogRulesRequest": {
+        "type": "object",
+        "properties": {
+          "logRules": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LogRuleRequest"
+            },
             "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "MethodParameterDataType": {
+        "enum": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
+      "OfflineSignRequest": {
+        "required": [
+          "walletPassword"
+        ],
+        "type": "object",
+        "properties": {
+          "walletPassword": {
+            "type": "string"
           },
           "walletName": {
             "type": "string",
             "nullable": true
+          },
+          "walletAccount": {
+            "type": "string",
+            "nullable": true
+          },
+          "unsignedTransaction": {
+            "type": "string",
+            "nullable": true
+          },
+          "fee": {
+            "type": "string",
+            "nullable": true
+          },
+          "utxos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UtxoDescriptor"
+            },
+            "nullable": true
+          },
+          "addresses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AddressDescriptor"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "OutpointRequest": {
+        "required": [
+          "index",
+          "transactionId"
+        ],
+        "type": "object",
+        "properties": {
+          "transactionId": {
+            "type": "string"
+          },
+          "index": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PubKeyRequest": {
+        "required": [
+          "externalAddress",
+          "walletName"
+        ],
+        "type": "object",
+        "properties": {
+          "walletName": {
+            "type": "string"
+          },
+          "externalAddress": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "RecipientModel": {
+        "required": [
+          "amount"
+        ],
+        "type": "object",
+        "properties": {
+          "destinationAddress": {
+            "type": "string",
+            "nullable": true
+          },
+          "destinationScript": {
+            "type": "string",
+            "nullable": true
+          },
+          "subtractFeeFromAmount": {
+            "type": "boolean"
+          },
+          "amount": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ReplaceFederationMemberIpModel": {
+        "type": "object",
+        "properties": {
+          "endpointtouse": {
+            "type": "string",
+            "nullable": true
+          },
+          "endpoint": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "RetrievePrivateKeyModel": {
+        "required": [
+          "address",
+          "password",
+          "walletName"
+        ],
+        "type": "object",
+        "properties": {
+          "password": {
+            "type": "string"
+          },
+          "walletName": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ScTxFeeEstimateRequest": {
+        "required": [
+          "sender",
+          "walletName"
+        ],
+        "type": "object",
+        "properties": {
+          "sender": {
+            "type": "string"
+          },
+          "walletName": {
+            "type": "string"
           },
           "accountName": {
             "type": "string",
@@ -5003,7 +4991,183 @@
             "nullable": true
           },
           "recipients": {
-            "minLength": 1,
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RecipientModel"
+            },
+            "nullable": true
+          },
+          "opReturnData": {
+            "type": "string",
+            "nullable": true
+          },
+          "opReturnAmount": {
+            "type": "string",
+            "nullable": true
+          },
+          "feeType": {
+            "type": "string",
+            "nullable": true
+          },
+          "allowUnconfirmed": {
+            "type": "boolean"
+          },
+          "shuffleOutputs": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "changeAddress": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "SecretModel": {
+        "required": [
+          "mnemonic"
+        ],
+        "type": "object",
+        "properties": {
+          "mnemonic": {
+            "type": "string"
+          },
+          "passphrase": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "SendTransactionRequest": {
+        "required": [
+          "hex"
+        ],
+        "type": "object",
+        "properties": {
+          "hex": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "SetBanPeerViewModel": {
+        "type": "object",
+        "properties": {
+          "banCommand": {
+            "type": "string",
+            "nullable": true
+          },
+          "banDurationSeconds": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "peerAddress": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "SignMessageRequest": {
+        "required": [
+          "externalAddress",
+          "message",
+          "password",
+          "walletName"
+        ],
+        "type": "object",
+        "properties": {
+          "walletName": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "externalAddress": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "SplitCoinsRequest": {
+        "required": [
+          "totalAmountToSplit",
+          "utxosCount",
+          "walletName",
+          "walletPassword"
+        ],
+        "type": "object",
+        "properties": {
+          "walletName": {
+            "type": "string"
+          },
+          "accountName": {
+            "type": "string",
+            "nullable": true
+          },
+          "walletPassword": {
+            "type": "string"
+          },
+          "totalAmountToSplit": {
+            "type": "string"
+          },
+          "utxosCount": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "SweepRequest": {
+        "required": [
+          "destinationAddress",
+          "privateKeys"
+        ],
+        "type": "object",
+        "properties": {
+          "privateKeys": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "destinationAddress": {
+            "type": "string"
+          },
+          "broadcast": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "TxFeeEstimateRequest": {
+        "required": [
+          "walletName"
+        ],
+        "type": "object",
+        "properties": {
+          "walletName": {
+            "type": "string"
+          },
+          "accountName": {
+            "type": "string",
+            "nullable": true
+          },
+          "outpoints": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OutpointRequest"
+            },
+            "nullable": true
+          },
+          "recipients": {
+            "minItems": 1,
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/RecipientModel"
@@ -5045,16 +5209,13 @@
         "type": "object",
         "properties": {
           "transactionId": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "index": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "scriptPubKey": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "amount": {
             "type": "string",
@@ -5063,104 +5224,142 @@
         },
         "additionalProperties": false
       },
-      "AddressDescriptor": {
+      "VerifyRequest": {
         "required": [
-          "address",
-          "keyPath"
+          "externalAddress",
+          "message",
+          "signature"
         ],
         "type": "object",
         "properties": {
-          "address": {
-            "type": "string",
-            "nullable": true
+          "signature": {
+            "type": "string"
           },
-          "keyPath": {
-            "type": "string",
-            "nullable": true
+          "externalAddress": {
+            "type": "string"
           },
-          "addressType": {
-            "type": "string",
-            "nullable": true
+          "message": {
+            "type": "string"
           }
         },
         "additionalProperties": false
       },
-      "OfflineSignRequest": {
+      "VoteKey": {
+        "enum": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
+      "WalletCreationRequest": {
         "required": [
-          "walletPassword"
+          "name",
+          "passphrase",
+          "password"
         ],
         "type": "object",
         "properties": {
-          "walletPassword": {
+          "mnemonic": {
             "type": "string",
             "nullable": true
           },
-          "walletName": {
-            "type": "string",
-            "nullable": true
+          "password": {
+            "type": "string"
           },
-          "walletAccount": {
-            "type": "string",
-            "nullable": true
+          "passphrase": {
+            "type": "string"
           },
-          "unsignedTransaction": {
-            "type": "string",
-            "nullable": true
-          },
-          "fee": {
-            "type": "string",
-            "nullable": true
-          },
-          "utxos": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/UtxoDescriptor"
-            },
-            "nullable": true
-          },
-          "addresses": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/AddressDescriptor"
-            },
-            "nullable": true
+          "name": {
+            "type": "string"
           }
         },
         "additionalProperties": false
       },
-      "ConsolidationRequest": {
+      "WalletExtPubRecoveryRequest": {
         "required": [
-          "walletName",
-          "walletPassword"
+          "accountIndex",
+          "extPubKey",
+          "name"
         ],
         "type": "object",
         "properties": {
-          "walletName": {
-            "type": "string",
-            "nullable": true
+          "extPubKey": {
+            "type": "string"
           },
-          "accountName": {
-            "type": "string",
-            "nullable": true
+          "accountIndex": {
+            "type": "integer",
+            "format": "int32"
           },
-          "walletPassword": {
-            "type": "string",
-            "nullable": true
+          "name": {
+            "type": "string"
           },
-          "singleAddress": {
+          "creationDate": {
             "type": "string",
-            "nullable": true
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "WalletLoadRequest": {
+        "required": [
+          "name",
+          "password"
+        ],
+        "type": "object",
+        "properties": {
+          "password": {
+            "type": "string"
           },
-          "destinationAddress": {
+          "name": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "WalletRecoveryRequest": {
+        "required": [
+          "mnemonic",
+          "name",
+          "passphrase",
+          "password"
+        ],
+        "type": "object",
+        "properties": {
+          "mnemonic": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "passphrase": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "creationDate": {
             "type": "string",
-            "nullable": true
-          },
-          "utxoValueThreshold": {
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "WalletSyncRequest": {
+        "type": "object",
+        "properties": {
+          "date": {
             "type": "string",
-            "nullable": true
+            "format": "date-time"
           },
-          "broadcast": {
+          "all": {
             "type": "boolean"
+          },
+          "walletName": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false

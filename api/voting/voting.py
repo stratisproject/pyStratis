@@ -12,11 +12,11 @@ class Voting(APIRequest, metaclass=EndpointRegister):
         super(Voting, self).__init__(**kwargs)
 
     @endpoint(f'{route}/polls/pending')
-    def pending_polls(self, request_model: PendingPollsRequest, **kwargs) -> List[PollViewModel]:
+    def pending_polls(self, request_model: PollsRequest, **kwargs) -> List[PollViewModel]:
         """Gets a list of pending polls.
 
         Args:
-            request_model: PendingPollsRequest model
+            request_model: PollsRequest model
             **kwargs:
 
         Returns:
@@ -30,11 +30,11 @@ class Voting(APIRequest, metaclass=EndpointRegister):
         return [PollViewModel(**x) for x in data]
 
     @endpoint(f'{route}/polls/finished')
-    def finished_polls(self, request_model: FinishedPollsRequest, **kwargs) -> List[PollViewModel]:
+    def finished_polls(self, request_model: PollsRequest, **kwargs) -> List[PollViewModel]:
         """Gets a list of finished polls.
 
         Args:
-            request_model: FinishedPollsRequest model
+            request_model: PollsRequest model
             **kwargs:
 
         Returns:
@@ -48,11 +48,11 @@ class Voting(APIRequest, metaclass=EndpointRegister):
         return [PollViewModel(**x) for x in data]
 
     @endpoint(f'{route}/polls/executed')
-    def executed_polls(self, request_model: ExecutedPollsRequest, **kwargs) -> List[PollViewModel]:
+    def executed_polls(self, request_model: PollsRequest, **kwargs) -> List[PollViewModel]:
         """Gets a list of executed polls.
 
         Args:
-            request_model: A ExecutedPollsRequest model
+            request_model: A PollsRequest model
             **kwargs:
 
         Returns:

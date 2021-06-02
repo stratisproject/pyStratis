@@ -2,96 +2,96 @@ import pytest
 
 
 @pytest.fixture(scope='function')
-def addressbookentry_p2pkh(create_p2pkh_address):
+def addressbookentry_p2pkh(generate_p2pkh_address):
     # noinspection PyUnresolvedReferences
     def _addressbookentry_p2pkh(network: 'BaseNetwork') -> dict:
-        return {'address': create_p2pkh_address(network), 'label': 'TestLabel'}
+        return {'address': generate_p2pkh_address(network), 'label': 'TestLabel'}
     return _addressbookentry_p2pkh
 
 
 @pytest.fixture(scope='function')
-def addressbookentry_p2sh(create_p2sh_address):
+def addressbookentry_p2sh(generate_p2sh_address):
     # noinspection PyUnresolvedReferences
     def _addressbookentry_p2sh(network: 'BaseNetwork') -> dict:
-        return {'address': create_p2sh_address(network), 'label': 'TestLabel'}
+        return {'address': generate_p2sh_address(network), 'label': 'TestLabel'}
     return _addressbookentry_p2sh
 
 
 @pytest.fixture(scope='function')
-def addressbookentry_p2wpkh(create_p2wpkh_address):
+def addressbookentry_p2wpkh(generate_p2wpkh_address):
     # noinspection PyUnresolvedReferences
     def _addressbookentry_p2wpkh(network: 'BaseNetwork') -> dict:
-        return {'address': create_p2wpkh_address(network), 'label': 'TestLabel'}
+        return {'address': generate_p2wpkh_address(network), 'label': 'TestLabel'}
     return _addressbookentry_p2wpkh
 
 
 @pytest.fixture(scope='function')
-def addressbookentry_p2wsh(create_p2wsh_address):
+def addressbookentry_p2wsh(generate_p2wsh_address):
     # noinspection PyUnresolvedReferences
     def _addressbookentry_p2wsh(network: 'BaseNetwork') -> dict:
-        return {'address': create_p2wsh_address(network), 'label': 'TestLabel'}
+        return {'address': generate_p2wsh_address(network), 'label': 'TestLabel'}
     return _addressbookentry_p2wsh
 
 
 @pytest.fixture(scope='function')
-def fulladdressbook_p2pkh(create_p2pkh_address):
+def fulladdressbook_p2pkh(generate_p2pkh_address):
     # noinspection PyUnresolvedReferences
     def _fulladdressbook_p2pkh(network: 'BaseNetwork') -> dict:
         return {
             'addresses': [
-                {'address': create_p2pkh_address(network), 'label': 'TestLabel0'},
-                {'address': create_p2pkh_address(network), 'label': 'TestLabel1'},
-                {'address': create_p2pkh_address(network), 'label': 'TestLabel2'},
-                {'address': create_p2pkh_address(network), 'label': 'TestLabel3'},
-                {'address': create_p2pkh_address(network), 'label': 'TestLabel4'},
+                {'address': generate_p2pkh_address(network), 'label': 'TestLabel0'},
+                {'address': generate_p2pkh_address(network), 'label': 'TestLabel1'},
+                {'address': generate_p2pkh_address(network), 'label': 'TestLabel2'},
+                {'address': generate_p2pkh_address(network), 'label': 'TestLabel3'},
+                {'address': generate_p2pkh_address(network), 'label': 'TestLabel4'},
             ]
         }
     return _fulladdressbook_p2pkh
 
 
 @pytest.fixture(scope='function')
-def fulladdressbook_p2sh(create_p2sh_address):
+def fulladdressbook_p2sh(generate_p2sh_address):
     # noinspection PyUnresolvedReferences
     def _fulladdressbook_p2sh(network: 'BaseNetwork') -> dict:
         return {
             'addresses': [
-                {'address': create_p2sh_address(network), 'label': 'TestLabel0'},
-                {'address': create_p2sh_address(network), 'label': 'TestLabel1'},
-                {'address': create_p2sh_address(network), 'label': 'TestLabel2'},
-                {'address': create_p2sh_address(network), 'label': 'TestLabel3'},
-                {'address': create_p2sh_address(network), 'label': 'TestLabel4'},
+                {'address': generate_p2sh_address(network), 'label': 'TestLabel0'},
+                {'address': generate_p2sh_address(network), 'label': 'TestLabel1'},
+                {'address': generate_p2sh_address(network), 'label': 'TestLabel2'},
+                {'address': generate_p2sh_address(network), 'label': 'TestLabel3'},
+                {'address': generate_p2sh_address(network), 'label': 'TestLabel4'},
             ]
         }
     return _fulladdressbook_p2sh
 
 
 @pytest.fixture(scope='function')
-def fulladdressbook_p2wpkh(create_p2wpkh_address):
+def fulladdressbook_p2wpkh(generate_p2wpkh_address):
     # noinspection PyUnresolvedReferences
     def _fulladdressbook_p2wpkh(network: 'BaseNetwork') -> dict:
         return {
             'addresses': [
-                {'address': create_p2wpkh_address(network), 'label': 'TestLabel0'},
-                {'address': create_p2wpkh_address(network), 'label': 'TestLabel1'},
-                {'address': create_p2wpkh_address(network), 'label': 'TestLabel2'},
-                {'address': create_p2wpkh_address(network), 'label': 'TestLabel3'},
-                {'address': create_p2wpkh_address(network), 'label': 'TestLabel4'},
+                {'address': generate_p2wpkh_address(network), 'label': 'TestLabel0'},
+                {'address': generate_p2wpkh_address(network), 'label': 'TestLabel1'},
+                {'address': generate_p2wpkh_address(network), 'label': 'TestLabel2'},
+                {'address': generate_p2wpkh_address(network), 'label': 'TestLabel3'},
+                {'address': generate_p2wpkh_address(network), 'label': 'TestLabel4'},
             ]
         }
     return _fulladdressbook_p2wpkh
 
 
 @pytest.fixture(scope='function')
-def fulladdressbook_p2wsh(create_p2wsh_address):
+def fulladdressbook_p2wsh(generate_p2wsh_address):
     # noinspection PyUnresolvedReferences
     def _fulladdressbook_p2wsh(network: 'BaseNetwork') -> dict:
         return {
             'addresses': [
-                {'address': create_p2wsh_address(network), 'label': 'TestLabel0'},
-                {'address': create_p2wsh_address(network), 'label': 'TestLabel1'},
-                {'address': create_p2wsh_address(network), 'label': 'TestLabel2'},
-                {'address': create_p2wsh_address(network), 'label': 'TestLabel3'},
-                {'address': create_p2wsh_address(network), 'label': 'TestLabel4'},
+                {'address': generate_p2wsh_address(network), 'label': 'TestLabel0'},
+                {'address': generate_p2wsh_address(network), 'label': 'TestLabel1'},
+                {'address': generate_p2wsh_address(network), 'label': 'TestLabel2'},
+                {'address': generate_p2wsh_address(network), 'label': 'TestLabel3'},
+                {'address': generate_p2wsh_address(network), 'label': 'TestLabel4'},
             ]
         }
     return _fulladdressbook_p2wsh

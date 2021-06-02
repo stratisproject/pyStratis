@@ -20,45 +20,45 @@ def fakeuri():
 
 
 @pytest.fixture(scope='function')
-def create_p2pkh_address():
+def generate_p2pkh_address():
     # noinspection PyUnresolvedReferences
-    def _create_p2pkh_address(network: 'BaseNetwork') -> str:
+    def _generate_p2pkh_address(network: 'BaseNetwork') -> str:
         private_key = secrets.token_bytes(20)
         payload_bytes = network.PUBKEY_ADDRESS + private_key
         checksum = sha256(sha256(payload_bytes).digest()).digest()
         return base58.b58encode(payload_bytes + checksum[:4]).decode('ascii')
-    return _create_p2pkh_address
+    return _generate_p2pkh_address
 
 
 @pytest.fixture(scope='function')
-def create_p2sh_address():
+def generate_p2sh_address():
     # noinspection PyUnresolvedReferences
-    def _create_p2sh_address(network: 'BaseNetwork') -> str:
+    def _generate_p2sh_address(network: 'BaseNetwork') -> str:
         private_key = secrets.token_bytes(20)
         payload_bytes = network.SCRIPT_ADDRESS + private_key
         checksum = sha256(sha256(payload_bytes).digest()).digest()
         return base58.b58encode(payload_bytes + checksum[:4]).decode('ascii')
-    return _create_p2sh_address
+    return _generate_p2sh_address
 
 
 @pytest.fixture(scope='function')
-def create_p2wpkh_address():
+def generate_p2wpkh_address():
     # noinspection PyUnresolvedReferences
-    def _create_p2wpkh_address(network: 'BaseNetwork') -> str:
+    def _generate_p2wpkh_address(network: 'BaseNetwork') -> str:
         witprog = secrets.token_bytes(20)
         witver = 0
         return bech32.encode(hrp=network.BECH32_HRP, witver=witver, witprog=witprog)
-    return _create_p2wpkh_address
+    return _generate_p2wpkh_address
 
 
 @pytest.fixture(scope='function')
-def create_p2wsh_address():
+def generate_p2wsh_address():
     # noinspection PyUnresolvedReferences
-    def _create_p2wsh_address(network: 'BaseNetwork') -> str:
+    def _generate_p2wsh_address(network: 'BaseNetwork') -> str:
         witprog = secrets.token_bytes(32)
         witver = 0
         return bech32.encode(hrp=network.BECH32_HRP, witver=witver, witprog=witprog)
-    return _create_p2wsh_address
+    return _generate_p2wsh_address
 
 
 @pytest.fixture(scope='function')
@@ -67,18 +67,18 @@ def get_base_keypath() -> str:
 
 
 @pytest.fixture(scope='function')
-def create_ethereum_lower_address() -> str:
-    return create_ethereum_address()
+def generate_ethereum_lower_address() -> str:
+    return generate_ethereum_address()
 
 
 @pytest.fixture(scope='function')
-def create_ethereum_upper_address() -> str:
-    return f'0x{create_ethereum_address()[2:].upper()}'
+def generate_ethereum_upper_address() -> str:
+    return f'0x{generate_ethereum_address()[2:].upper()}'
 
 
 @pytest.fixture(scope='function')
-def create_ethereum_checksum_address() -> str:
-    address = create_ethereum_address()
+def generate_ethereum_checksum_address() -> str:
+    address = generate_ethereum_address()
     address_hash = keccak_256(
         address.replace('0x', '').encode('ascii')
     ).hexdigest()
@@ -234,7 +234,7 @@ def interfluxcirrus_swagger_json() -> dict:
         return json.load(f)
 
 
-def create_ethereum_address() -> str:
+def generate_ethereum_address() -> str:
     privatekey = keccak_256(secrets.token_bytes(32)).digest()
     privatekey = ecdsa.SigningKey.from_string(privatekey, curve=ecdsa.SECP256k1)
     publickey = privatekey.get_verifying_key().to_string()
@@ -243,7 +243,7 @@ def create_ethereum_address() -> str:
 
 
 @pytest.fixture(scope='function')
-def create_block_no_tx_data(generate_hexstring, generate_uint256) -> dict:
+def generate_block_no_tx_data(generate_hexstring, generate_uint256) -> dict:
     data = {
         "hash": generate_hexstring(128),
         "confirmations": randint(0, 200),
@@ -321,7 +321,7 @@ def generate_coinbase_transaction(generate_hexstring, generate_uint256):
 
 
 @pytest.fixture(scope='function')
-def generate_transaction(generate_hexstring, generate_uint256, create_p2pkh_address, create_p2sh_address):
+def generate_transaction(generate_hexstring, generate_uint256, generate_p2pkh_address, generate_p2sh_address):
     def _generate_transaction(trxid: hexstr, network: BaseNetwork) -> dict:
         data = {
             "hex": generate_hexstring(128),
@@ -362,7 +362,7 @@ def generate_transaction(generate_hexstring, generate_uint256, create_p2pkh_addr
                         "reqSigs": 1,
                         "type": "pubkey",
                         "addresses": [
-                            create_p2pkh_address(network=network)
+                            generate_p2pkh_address(network=network)
                         ]
                     }
                 },
@@ -375,7 +375,7 @@ def generate_transaction(generate_hexstring, generate_uint256, create_p2pkh_addr
                         "reqSigs": 1,
                         "type": "scripthash",
                         "addresses": [
-                            create_p2sh_address(network=network)
+                            generate_p2sh_address(network=network)
                         ]
                     }
                 }
@@ -386,13 +386,13 @@ def generate_transaction(generate_hexstring, generate_uint256, create_p2pkh_addr
 
 
 @pytest.fixture(scope='function')
-def create_block_with_tx_data(create_block_no_tx_data, generate_coinbase_transaction, generate_transaction):
-    def _create_block_with_tx_data(network: BaseNetwork) -> dict:
-        data = create_block_no_tx_data
+def generate_block_with_tx_data(generate_block_no_tx_data, generate_coinbase_transaction, generate_transaction):
+    def _generate_block_with_tx_data(network: BaseNetwork) -> dict:
+        data = generate_block_no_tx_data
         data['transactions'] = [
             generate_coinbase_transaction(trxid=data['tx'][0]),
             generate_transaction(trxid=data['tx'][1], network=network),
             generate_transaction(trxid=data['tx'][2], network=network),
         ]
         return data
-    return _create_block_with_tx_data
+    return _generate_block_with_tx_data

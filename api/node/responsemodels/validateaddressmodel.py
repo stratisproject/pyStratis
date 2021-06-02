@@ -1,6 +1,5 @@
 from pydantic import Field
 from pybitcoin import Address, Model
-from pybitcoin.types import hexstr
 
 
 class ValidateAddressModel(Model):

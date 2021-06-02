@@ -1,1 +1,0 @@
-from .defaultvoting import DefaultVoting

@@ -36,10 +36,10 @@ def test_all_interfluxcirrus_endpoints_implemented(interfluxcirrus_swagger_json)
 
 
 @pytest.mark.parametrize('strax_network', [StraxMain()], ids=['Main'])
-def test_join_federation(mocker: MockerFixture, strax_network, fakeuri, create_p2pkh_address,
+def test_join_federation(mocker: MockerFixture, strax_network, fakeuri, generate_p2pkh_address,
                          generate_compressed_pubkey):
     request = JoinFederationRequest(
-        collateral_address=Address(address=create_p2pkh_address(network=strax_network), network=strax_network),
+        collateral_address=Address(address=generate_p2pkh_address(network=strax_network), network=strax_network),
         collateral_wallet_name='Test_InterfluxStrax_Wallet',
         collateral_wallet_password='cirrus_password',
         wallet_name='Test_InterfluxCirrus_Wallet',

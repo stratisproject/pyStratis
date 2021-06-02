@@ -82,8 +82,8 @@ def test_addressindexertip_no_tiphash_raises_error(mocker: MockerFixture, networ
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_block_output_hexstr_no_details(mocker: MockerFixture, network, fakeuri, generate_uint256, create_block_no_tx_data):
-    data = pickle.dumps(create_block_no_tx_data).hex()
+def test_block_output_hexstr_no_details(mocker: MockerFixture, network, fakeuri, generate_uint256, generate_block_no_tx_data):
+    data = pickle.dumps(generate_block_no_tx_data).hex()
     mocker.patch.object(BlockStore, 'get', return_value=data)
     blockstore = BlockStore(network=network, baseuri=fakeuri)
     request = BlockRequest(
@@ -100,8 +100,8 @@ def test_block_output_hexstr_no_details(mocker: MockerFixture, network, fakeuri,
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_block_output_hexstr_include_details(mocker: MockerFixture, network, fakeuri, generate_uint256, create_block_with_tx_data):
-    data = pickle.dumps(create_block_with_tx_data(network=network)).hex()
+def test_block_output_hexstr_include_details(mocker: MockerFixture, network, fakeuri, generate_uint256, generate_block_with_tx_data):
+    data = pickle.dumps(generate_block_with_tx_data(network=network)).hex()
     mocker.patch.object(BlockStore, 'get', return_value=data)
     blockstore = BlockStore(network=network, baseuri=fakeuri)
     request = BlockRequest(
@@ -118,8 +118,8 @@ def test_block_output_hexstr_include_details(mocker: MockerFixture, network, fak
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_block_output_json_no_details(mocker: MockerFixture, network, fakeuri, generate_uint256, create_block_no_tx_data):
-    data = create_block_no_tx_data
+def test_block_output_json_no_details(mocker: MockerFixture, network, fakeuri, generate_uint256, generate_block_no_tx_data):
+    data = generate_block_no_tx_data
     mocker.patch.object(BlockStore, 'get', return_value=data)
     blockstore = BlockStore(network=network, baseuri=fakeuri)
     request = BlockRequest(
@@ -136,8 +136,8 @@ def test_block_output_json_no_details(mocker: MockerFixture, network, fakeuri, g
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_block_output_json_include_details(mocker: MockerFixture, network, fakeuri, generate_uint256, create_block_with_tx_data):
-    data = create_block_with_tx_data(network=network)
+def test_block_output_json_include_details(mocker: MockerFixture, network, fakeuri, generate_uint256, generate_block_with_tx_data):
+    data = generate_block_with_tx_data(network=network)
     mocker.patch.object(BlockStore, 'get', return_value=data)
     blockstore = BlockStore(network=network, baseuri=fakeuri)
     request = BlockRequest(
@@ -184,8 +184,8 @@ def test_getblockcount(mocker: MockerFixture, network, fakeuri, ):
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_getaddressbalances_single_address(mocker: MockerFixture, network, fakeuri, create_p2pkh_address):
-    address = Address(address=create_p2pkh_address(network=network), network=network)
+def test_getaddressbalances_single_address(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address):
+    address = Address(address=generate_p2pkh_address(network=network), network=network)
     data = {
         'balances': [
             {'address': address, 'balance': 5}
@@ -204,12 +204,12 @@ def test_getaddressbalances_single_address(mocker: MockerFixture, network, fakeu
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_getaddressbalances_multiple_addresses(mocker: MockerFixture, network, fakeuri, create_p2pkh_address, create_p2sh_address, create_p2wpkh_address, create_p2wsh_address):
+def test_getaddressbalances_multiple_addresses(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address, generate_p2sh_address, generate_p2wpkh_address, generate_p2wsh_address):
     addresses = [
-        Address(address=create_p2pkh_address(network=network), network=network),
-        Address(address=create_p2sh_address(network=network), network=network),
-        Address(address=create_p2wpkh_address(network=network), network=network),
-        Address(address=create_p2wsh_address(network=network), network=network)
+        Address(address=generate_p2pkh_address(network=network), network=network),
+        Address(address=generate_p2sh_address(network=network), network=network),
+        Address(address=generate_p2wpkh_address(network=network), network=network),
+        Address(address=generate_p2wsh_address(network=network), network=network)
     ]
     data = {
         'balances': [
@@ -232,8 +232,8 @@ def test_getaddressbalances_multiple_addresses(mocker: MockerFixture, network, f
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_getverboseaddressbalances_single_address(mocker: MockerFixture, network, fakeuri, create_p2pkh_address):
-    address = Address(address=create_p2pkh_address(network=network), network=network)
+def test_getverboseaddressbalances_single_address(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address):
+    address = Address(address=generate_p2pkh_address(network=network), network=network)
     data = {
         'balancesData': [
             {'address': address, 'balanceChanges': [{"deposited": True, "satoshi": 5, "balanceChangedHeight": 0}]}
@@ -253,12 +253,12 @@ def test_getverboseaddressbalances_single_address(mocker: MockerFixture, network
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_getverboseaddressbalances_multiple_addresses(mocker: MockerFixture, network, fakeuri, create_p2pkh_address, create_p2sh_address, create_p2wpkh_address, create_p2wsh_address):
+def test_getverboseaddressbalances_multiple_addresses(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address, generate_p2sh_address, generate_p2wpkh_address, generate_p2wsh_address):
     addresses = [
-        Address(address=create_p2pkh_address(network=network), network=network),
-        Address(address=create_p2sh_address(network=network), network=network),
-        Address(address=create_p2wpkh_address(network=network), network=network),
-        Address(address=create_p2wsh_address(network=network), network=network)
+        Address(address=generate_p2pkh_address(network=network), network=network),
+        Address(address=generate_p2sh_address(network=network), network=network),
+        Address(address=generate_p2wpkh_address(network=network), network=network),
+        Address(address=generate_p2wsh_address(network=network), network=network)
     ]
     data = {
         'balancesData': [
@@ -283,8 +283,8 @@ def test_getverboseaddressbalances_multiple_addresses(mocker: MockerFixture, net
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_getverboseaddressbalances_single_address_no_changes(mocker: MockerFixture, network, fakeuri, create_p2pkh_address):
-    address = Address(address=create_p2pkh_address(network=network), network=network)
+def test_getverboseaddressbalances_single_address_no_changes(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address):
+    address = Address(address=generate_p2pkh_address(network=network), network=network)
     data = {
         'balancesData': [
             {'address': address, 'balanceChanges': []}
@@ -346,8 +346,8 @@ def test_getutxoset_empty(mocker: MockerFixture, network, fakeuri, generate_uint
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_getlastbalanceupdatetransaction(mocker: MockerFixture, network, fakeuri, create_p2pkh_address, generate_uint256, generate_transaction):
-    address = Address(address=create_p2pkh_address(network=network), network=network)
+def test_getlastbalanceupdatetransaction(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address, generate_uint256, generate_transaction):
+    address = Address(address=generate_p2pkh_address(network=network), network=network)
     data = {
         'transaction': generate_transaction(trxid=generate_uint256, network=network),
         'blockHeight': 1

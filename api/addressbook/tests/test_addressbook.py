@@ -35,7 +35,7 @@ def test_all_interfluxcirrus_endpoints_implemented(interfluxcirrus_swagger_json)
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_add_address_p2pkh(mocker: MockerFixture, network, fakeuri, addressbookentry_p2pkh, create_p2pkh_address):
+def test_add_address_p2pkh(mocker: MockerFixture, network, fakeuri, addressbookentry_p2pkh, generate_p2pkh_address):
     data = addressbookentry_p2pkh(network)
     mocker.patch.object(AddressBook, 'post', return_value=data)
     addressbook = AddressBook(network=network, baseuri=fakeuri)
@@ -53,7 +53,7 @@ def test_add_address_p2pkh(mocker: MockerFixture, network, fakeuri, addressbooke
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_add_address_p2sh(mocker: MockerFixture, network, fakeuri, addressbookentry_p2sh, create_p2sh_address):
+def test_add_address_p2sh(mocker: MockerFixture, network, fakeuri, addressbookentry_p2sh, generate_p2sh_address):
     data = addressbookentry_p2sh(network)
     mocker.patch.object(AddressBook, 'post', return_value=data)
     addressbook = AddressBook(network=network, baseuri=fakeuri)
@@ -71,7 +71,7 @@ def test_add_address_p2sh(mocker: MockerFixture, network, fakeuri, addressbooken
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_add_address_p2wpkh(mocker: MockerFixture, fakeuri, addressbookentry_p2wpkh, network, create_p2wpkh_address):
+def test_add_address_p2wpkh(mocker: MockerFixture, fakeuri, addressbookentry_p2wpkh, network, generate_p2wpkh_address):
     data = addressbookentry_p2wpkh(network)
     mocker.patch.object(AddressBook, 'post', return_value=data)
     addressbook = AddressBook(network=network, baseuri=fakeuri)
@@ -89,7 +89,7 @@ def test_add_address_p2wpkh(mocker: MockerFixture, fakeuri, addressbookentry_p2w
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_add_address_p2wsh(mocker: MockerFixture, network, fakeuri, addressbookentry_p2wsh, create_p2wsh_address):
+def test_add_address_p2wsh(mocker: MockerFixture, network, fakeuri, addressbookentry_p2wsh, generate_p2wsh_address):
     data = addressbookentry_p2wsh(network)
     mocker.patch.object(AddressBook, 'post', return_value=data)
     addressbook = AddressBook(network=network, baseuri=fakeuri)

@@ -123,12 +123,12 @@ def test_coldstaking_hot_account_no_extpubkey(mocker: MockerFixture, network, fa
 
 
 @pytest.mark.parametrize('network', [StraxMain()], ids=['StraxMain'])
-def test_coldstaking_address(mocker: MockerFixture, network, fakeuri, create_p2pkh_address):
+def test_coldstaking_address(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address):
     request = AddressRequest(
         wallet_name='Test',
         is_cold_wallet_address=True
     )
-    data = {'address': create_p2pkh_address(network=network)}
+    data = {'address': generate_p2pkh_address(network=network)}
     mocker.patch.object(ColdStaking, 'get', return_value=data)
     coldstaking = ColdStaking(network=network, baseuri=fakeuri)
     response = coldstaking.address(request_model=request)
@@ -139,13 +139,13 @@ def test_coldstaking_address(mocker: MockerFixture, network, fakeuri, create_p2p
 
 
 @pytest.mark.parametrize('network', [StraxMain()], ids=['StraxMain'])
-def test_coldstaking_segwit_address(mocker: MockerFixture, network, fakeuri, create_p2wpkh_address):
+def test_coldstaking_segwit_address(mocker: MockerFixture, network, fakeuri, generate_p2wpkh_address):
     request = AddressRequest(
         wallet_name='Test',
         is_cold_wallet_address=True,
         segwit=True
     )
-    data = {'address': create_p2wpkh_address(network=network)}
+    data = {'address': generate_p2wpkh_address(network=network)}
     mocker.patch.object(ColdStaking, 'get', return_value=data)
     coldstaking = ColdStaking(network=network, baseuri=fakeuri)
     response = coldstaking.address(request_model=request)
@@ -156,13 +156,13 @@ def test_coldstaking_segwit_address(mocker: MockerFixture, network, fakeuri, cre
 
 
 @pytest.mark.parametrize('network', [StraxMain()], ids=['StraxMain'])
-def test_coldstaking_setup_coldstaking(mocker: MockerFixture, network, fakeuri, create_p2pkh_address, generate_uint256):
+def test_coldstaking_setup_coldstaking(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address, generate_uint256):
     request = SetupRequest(
         wallet_name='Test',
         wallet_account='account 0',
         wallet_password='password',
-        cold_wallet_address=Address(address=create_p2pkh_address(network=network), network=network),
-        hot_wallet_address=Address(address=create_p2pkh_address(network=network), network=network),
+        cold_wallet_address=Address(address=generate_p2pkh_address(network=network), network=network),
+        hot_wallet_address=Address(address=generate_p2pkh_address(network=network), network=network),
         amount=Money(10),
         fees=Money(1).to_coin_unit()
     )
@@ -178,13 +178,13 @@ def test_coldstaking_setup_coldstaking(mocker: MockerFixture, network, fakeuri, 
 
 @pytest.mark.parametrize('network', [StraxMain()], ids=['StraxMain'])
 def test_coldstaking_setup_offline_coldstaking(mocker: MockerFixture, network, fakeuri,
-                                               create_p2pkh_address, generate_uint256, generate_hexstring,
+                                               generate_p2pkh_address, generate_uint256, generate_hexstring,
                                                get_base_keypath):
     request = SetupOfflineRequest(
         wallet_name='Test',
         wallet_account='account 0',
-        cold_wallet_address=Address(address=create_p2pkh_address(network=network), network=network),
-        hot_wallet_address=Address(address=create_p2pkh_address(network=network), network=network),
+        cold_wallet_address=Address(address=generate_p2pkh_address(network=network), network=network),
+        hot_wallet_address=Address(address=generate_p2pkh_address(network=network), network=network),
         amount=Money(10),
         fees=Money(1).to_coin_unit()
     )
@@ -216,13 +216,13 @@ def test_coldstaking_setup_offline_coldstaking(mocker: MockerFixture, network, f
 
 @pytest.mark.parametrize('network', [StraxMain()], ids=['StraxMain'])
 def test_coldstaking_estimate_setup_tx_fee(mocker: MockerFixture, network, fakeuri,
-                                           create_p2pkh_address):
+                                           generate_p2pkh_address):
     request = SetupRequest(
         wallet_name='Test',
         wallet_account='account 0',
         wallet_password='password',
-        cold_wallet_address=Address(address=create_p2pkh_address(network=network), network=network),
-        hot_wallet_address=Address(address=create_p2pkh_address(network=network), network=network),
+        cold_wallet_address=Address(address=generate_p2pkh_address(network=network), network=network),
+        hot_wallet_address=Address(address=generate_p2pkh_address(network=network), network=network),
         amount=Money(10),
         fees=Money(1).to_coin_unit()
     )
@@ -238,12 +238,12 @@ def test_coldstaking_estimate_setup_tx_fee(mocker: MockerFixture, network, fakeu
 
 @pytest.mark.parametrize('network', [StraxMain()], ids=['StraxMain'])
 def test_coldstaking_estimate_offline_setup_tx_fee(mocker: MockerFixture, network, fakeuri,
-                                                   create_p2pkh_address):
+                                                   generate_p2pkh_address):
     request = SetupOfflineRequest(
         wallet_name='Test',
         wallet_account='account 0',
-        cold_wallet_address=Address(address=create_p2pkh_address(network=network), network=network),
-        hot_wallet_address=Address(address=create_p2pkh_address(network=network), network=network),
+        cold_wallet_address=Address(address=generate_p2pkh_address(network=network), network=network),
+        hot_wallet_address=Address(address=generate_p2pkh_address(network=network), network=network),
         amount=Money(10),
         fees=Money(1).to_coin_unit()
     )
@@ -259,11 +259,11 @@ def test_coldstaking_estimate_offline_setup_tx_fee(mocker: MockerFixture, networ
 
 @pytest.mark.parametrize('network', [StraxMain()], ids=['StraxMain'])
 def test_coldstaking_withdrawal(mocker: MockerFixture, network, fakeuri,
-                                create_p2pkh_address, generate_uint256):
+                                generate_p2pkh_address, generate_uint256):
     request = WithdrawalRequest(
         wallet_name='Test',
         wallet_password='password',
-        receiving_address=Address(address=create_p2pkh_address(network=network), network=network),
+        receiving_address=Address(address=generate_p2pkh_address(network=network), network=network),
         amount=Money(10),
         fees=Money(1).to_coin_unit()
     )
@@ -279,12 +279,12 @@ def test_coldstaking_withdrawal(mocker: MockerFixture, network, fakeuri,
 
 @pytest.mark.parametrize('network', [StraxMain()], ids=['StraxMain'])
 def test_coldstaking_offline_withdrawal(mocker: MockerFixture, network, fakeuri,
-                                        create_p2pkh_address, get_base_keypath, generate_hexstring,
+                                        generate_p2pkh_address, get_base_keypath, generate_hexstring,
                                         generate_uint256):
     request = OfflineWithdrawalRequest(
         wallet_name='Test',
         account_name='account 0',
-        receiving_address=Address(address=create_p2pkh_address(network=network), network=network),
+        receiving_address=Address(address=generate_p2pkh_address(network=network), network=network),
         amount=Money(10),
         fees=Money(1).to_coin_unit()
     )
@@ -316,11 +316,11 @@ def test_coldstaking_offline_withdrawal(mocker: MockerFixture, network, fakeuri,
 
 @pytest.mark.parametrize('network', [StraxMain()], ids=['StraxMain'])
 def test_coldstaking_estimate_offline_withdrawal_fee(mocker: MockerFixture, network, fakeuri,
-                                                     create_p2pkh_address):
+                                                     generate_p2pkh_address):
     request = OfflineWithdrawalFeeEstimationRequest(
         wallet_name='Test',
         account_name='account 0',
-        receiving_address=Address(address=create_p2pkh_address(network=network), network=network),
+        receiving_address=Address(address=generate_p2pkh_address(network=network), network=network),
         amount=Money(10)
     )
     data = 12
@@ -335,12 +335,12 @@ def test_coldstaking_estimate_offline_withdrawal_fee(mocker: MockerFixture, netw
 
 @pytest.mark.parametrize('network', [StraxMain()], ids=['StraxMain'])
 def test_coldstaking_estimate_withdrawal_fee(mocker: MockerFixture, network, fakeuri,
-                                             create_p2pkh_address):
+                                             generate_p2pkh_address):
     request = WithdrawalRequest(
         wallet_name='Test',
         account_name='account 0',
         wallet_password='password',
-        receiving_address=Address(address=create_p2pkh_address(network=network), network=network),
+        receiving_address=Address(address=generate_p2pkh_address(network=network), network=network),
         amount=Money(10),
         fees=Money(1).to_coin_unit()
     )

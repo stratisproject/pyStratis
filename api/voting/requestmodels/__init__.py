@@ -1,5 +1,4 @@
-from .executedpollsrequest import ExecutedPollsRequest
-from .finishedpollsrequest import FinishedPollsRequest
-from .pendingpollsrequest import PendingPollsRequest
+from .pollsrequest import PollsRequest
 from .schedulevoteremovehashrequest import ScheduleVoteRemoveHashRequest
 from .schedulevotewhitelisthashrequest import ScheduleVoteWhitelistHashRequest
+from .votekey import VoteKey
