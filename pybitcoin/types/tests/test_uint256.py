@@ -1,6 +1,6 @@
 import pytest
 from random import choice
-from pybitcoin.types import uint256
+from pybitcoin.types import *
 
 
 def test_uint256(generate_uint256):
@@ -102,3 +102,41 @@ def test_uint256_test_overflow():
         uint256(2**numbits-1) + uint256(1)
     with pytest.raises(ValueError):
         uint256(2**numbits) * uint256(2)
+
+
+def test_addition_with_other_customints():
+    a = int32(2**32//2-1)
+    b = int64(2**64//2-1)
+    c = uint32(2**32-1)
+    d = uint64(2**64-1)
+    e = uint128(2**128-1)
+    f = uint160(2**160-1)
+    g = uint256(2**256-1)
+    with pytest.raises(ValueError):
+        g + a
+    with pytest.raises(ValueError):
+        g + b
+    with pytest.raises(ValueError):
+        g + c
+    with pytest.raises(ValueError):
+        g + d
+    with pytest.raises(ValueError):
+        g + e
+    with pytest.raises(ValueError):
+        g + f
+
+
+def test_subtracting_from_larger_customints_is_ok():
+    a = int32(2**32//2-1)
+    b = int64(2**64//2-1)
+    c = uint32(2**32-1)
+    d = uint64(2**64-1)
+    e = uint128(2**128-1)
+    f = uint160(2**160-1)
+    g = uint256(2**256-1)
+    g - a
+    g - b
+    g - c
+    g - d
+    g - e
+    g - f
