@@ -51,11 +51,11 @@ class APIRequest:
         else:
             raise APIError(code=response.status_code, message=response.text)
 
-    def put(self, request_model: BaseModel, **kwargs) -> Any:
+    def put(self, request_model: BaseModel = None, **kwargs) -> Any:
         """API put request."""
         response = put(
             url=f'{self._baseuri}{kwargs["endpoint"]}',
-            params=request_model.json(),
+            params=None if request_model is None else request_model.json(),
             headers=self._headers,
             timeout=5
         )
