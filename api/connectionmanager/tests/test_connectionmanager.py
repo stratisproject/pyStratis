@@ -51,14 +51,6 @@ def test_addnode(mocker: MockerFixture, network, fakeuri):
     connection_manager.get.assert_called_once()
 
 
-def test_addnode_bad_command_raises_valueerror():
-    with pytest.raises(ValueError):
-        AddNodeRequest(
-            endpoint='http://localhost',
-            command='badcommand'
-        )
-
-
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
 def test_getpeerinfo(mocker: MockerFixture, network, fakeuri):
     data = [
