@@ -9,12 +9,12 @@ class AddNodeRequest(Model):
 
     # noinspection PyMethodParameters,PyUnusedLocal
     @validator('command')
-    def validate_vote_type(cls, v, values):
-        allowed_methods = [
+    def validate_command(cls, v, values):
+        allowed = [
             'add',
             'remove',
             'onetry'
         ]
-        if v not in allowed_methods:
-            raise ValueError(f'Invalid command. Must be: {allowed_methods}')
+        if v not in allowed:
+            raise ValueError(f'Invalid command. Must be: {allowed}')
         return v

@@ -1,8 +1,8 @@
-from pydantic import SecretStr, Field
+from pydantic import SecretStr
 from pybitcoin import Model
 
 
 class LoadRequest(Model):
     """A LoadRequest."""
-    name: str = Field(alias='name')
+    name: str
     password: SecretStr

@@ -1,11 +1,15 @@
-from pydantic import BaseModel, validator
+from __future__ import annotations
 from pybitcoin.networks import BaseNetwork
+from pydantic import ValidationError
 
 
-class Address(BaseModel):
+class Address:
     """A address model. Address is validated by the network."""
-    address: str
-    network: BaseNetwork
+
+    def __init__(self, address: str, network: BaseNetwork):
+        self.validate_values(address=address, network=network)
+        self.address = address
+        self.network = network
 
     def __repr__(self) -> str:
         return self.address
@@ -16,15 +20,23 @@ class Address(BaseModel):
     def __eq__(self, other):
         return self.address == other
 
-    class Config:
-        json_encoders = {
-            bytes: lambda v: v.hex()
-        }
-        allow_population_by_field_name = True
+    def json(self) -> str:
+        return self.address
 
-    # noinspection PyMethodParameters
-    @validator('network')
-    def validate_address(cls, v, values):
-        if v.validate_address(values['address']):
-            return v
-        raise ValueError('Invalid address.')
+    @classmethod
+    def __get_validators__(cls):
+        yield cls.validate_class
+
+    @classmethod
+    def validate_class(cls, value) -> Address:
+        cls.validate_values(address=value.address, network=value.network)
+        return value
+
+    @staticmethod
+    def validate_values(address: str, network: BaseNetwork) -> bool:
+        if network.validate_address(address):
+            return True
+        raise ValidationError(
+            [ValueError('Invalid address for given network.')],
+            model=Address,
+        )

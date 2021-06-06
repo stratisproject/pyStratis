@@ -1,11 +1,11 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, conint
 from pybitcoin.types import Money, uint256
 
 
 class UtxoDescriptor(BaseModel):
     """A UtxoDescriptor."""
     transaction_id: uint256 = Field(alias='transactionId')
-    index: str
+    index: conint(ge=0)
     script_pubkey: str = Field(alias='scriptPubKey')
     amount: Money
 

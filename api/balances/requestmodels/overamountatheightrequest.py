@@ -1,11 +1,11 @@
-from pydantic import conint
+from pydantic import Field, conint
 from pybitcoin import Model
 from pybitcoin.types import Money
 
 
 class OverAmountAtHeightRequest(Model):
     """An OverAmountAtHeightRequest."""
-    block_height: conint(ge=0)
+    block_height: conint(ge=0) = Field(alias='blockHeight')
     amount: Money
 
     def __eq__(self, other) -> bool:

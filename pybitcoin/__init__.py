@@ -27,6 +27,8 @@ from .removedtransactionmodel import RemovedTransactionModel
 from .sendtransactionrequest import SendTransactionRequest
 from .scriptpubkey import ScriptPubKey
 from .scriptsig import ScriptSig
+from .smartcontractparametertype import SmartContractParameterType
+from .smartcontractparameter import SmartContractParameter
 from .transactionoutputmodel import TransactionOutputModel
 from .transactionitemtype import TransactionItemType
 from .transactionmodel import TransactionModel

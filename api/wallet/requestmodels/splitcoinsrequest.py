@@ -8,5 +8,5 @@ class SplitCoinsRequest(Model):
     wallet_name: str = Field(alias='walletName')
     account_name: str = Field(default='account 0', alias='accountName')
     wallet_password: SecretStr = Field(alias='walletPassword')
-    total_amount_to_split: Money
-    utxos_count: conint(ge=0)
+    total_amount_to_split: Money = Field(alias='totalAmountToSplit')
+    utxos_count: conint(ge=0) = Field(alias='utxosCount')

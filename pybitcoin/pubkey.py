@@ -66,6 +66,8 @@ class PubKey:
 
     @classmethod
     def validate_class(cls, value: str) -> PubKey:
+        if isinstance(value, PubKey):
+            value = str(value)
         if not isinstance(value, str):
             raise ValueError('PubKey must be a string.')
         prefix = value[:2]

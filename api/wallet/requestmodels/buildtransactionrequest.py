@@ -1,10 +1,10 @@
 from typing import Optional, List
-from pydantic import BaseModel, Field, SecretStr
-from pybitcoin import Address, Outpoint, Recipient
+from pydantic import Field, SecretStr, validator
+from pybitcoin import Address, Model, Outpoint, Recipient
 from pybitcoin.types import Money
 
 
-class BuildTransactionRequest(BaseModel):
+class BuildTransactionRequest(Model):
     """A BuildTransactionRequest."""
     fee_amount: Optional[Money] = Field(alias='feeAmount')
     password: SecretStr
@@ -19,6 +19,18 @@ class BuildTransactionRequest(BaseModel):
     allow_unconfirmed: Optional[bool] = Field(default=False, alias='allowUnconfirmed')
     shuffle_outputs: Optional[bool] = Field(default=False, alias='shuffleOutputs')
     change_address: Optional[Address] = Field(alias='changeAddress')
+
+    # noinspection PyMethodParameters,PyUnusedLocal
+    @validator('fee_type')
+    def validate_fee_type(cls, v, values):
+        allowed = [
+            'low',
+            'medium',
+            'high'
+        ]
+        if v is not None and v not in allowed:
+            raise ValueError(f'Invalid command. Must be: {allowed}')
+        return v
 
     class Config:
         json_encoders = {

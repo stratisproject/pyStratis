@@ -1,9 +1,10 @@
 from pydantic import BaseModel, Field, conint
+from pybitcoin.types import uint256
 
 
 class Outpoint(BaseModel):
     """An Outpoint."""
-    transaction_id: str = Field(alias='transactionId')
+    transaction_id: uint256 = Field(alias='transactionId')
     index: conint(ge=0)
 
     class Config:

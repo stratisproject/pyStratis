@@ -1,6 +1,6 @@
 from typing import Optional, List
 from pydantic import Field
-from pybitcoin import Address, Model
+from pybitcoin import Address, Model, SmartContractParameter
 from pybitcoin.types import Money
 
 
@@ -10,6 +10,6 @@ class LocalCallContractTransactionRequest(Model):
     method_name: str = Field(alias='methodName')
     amount: Money
     gas_price: Money = Field(alias='gasPrice')
-    gas_limit: Money
+    gas_limit: Money = Field(alias='gasLimit')
     sender: Address
-    parameters: Optional[List[str]]
+    parameters: Optional[List[SmartContractParameter]]

@@ -1,8 +1,7 @@
-from pybitcoin import Address
-from pybitcoin import Model
+from pybitcoin import Address, Model
 
 
 class AddRequest(Model):
     """An AddRequest."""
-    label: str
     address: Address
+    label: str

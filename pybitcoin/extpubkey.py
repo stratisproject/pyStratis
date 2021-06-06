@@ -49,6 +49,8 @@ class ExtPubKey:
 
     @classmethod
     def validate_class(cls, value) -> ExtPubKey:
+        if isinstance(value, ExtPubKey):
+            value = str(value)
         data = base58.b58decode(value)
         payload = data[:78]
         checksum = cls.calculate_checksum(payload)

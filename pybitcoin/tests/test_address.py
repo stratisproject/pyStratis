@@ -10,7 +10,8 @@ from pybitcoin.networks import StraxMain, StraxTest, StraxRegTest, \
                          ids=['StraxMain', 'StraxTest', 'StraxRegTest', 'CirrusMain', 'CirrusTest', 'CirrusRegTest'])
 def test_missing_network_raises_error(generate_p2pkh_address, network):
     address = generate_p2pkh_address(network=network)
-    with pytest.raises(ValidationError):
+    with pytest.raises(TypeError):
+        # noinspection PyArgumentList
         Address(address=address)
 
 

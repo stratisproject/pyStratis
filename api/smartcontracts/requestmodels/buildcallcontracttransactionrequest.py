@@ -1,7 +1,6 @@
 from typing import Optional, List
-import json
 from pydantic import Field, SecretStr
-from pybitcoin import Address, Model, Outpoint
+from pybitcoin import Address, Model, Outpoint, SmartContractParameter
 from pybitcoin.types import Money
 
 
@@ -16,25 +15,6 @@ class BuildCallContractTransactionRequest(Model):
     fee_amount: Optional[Money] = Field(alias='feeAmount')
     password: SecretStr
     gas_price: Money = Field(alias='gasPrice')
-    gas_limit: Money
+    gas_limit: Money = Field(alias='gasLimit')
     sender: Address
-    parameters: Optional[List[str]]
-
-    def json(self, *args, **kwargs) -> str:
-        data = {
-            'walletName': self.wallet_name,
-            'accountName': self.account_name,
-            'outpoints': [x.json() for x in self.outpoints],
-            'contractAddress': str(self.contract_address),
-            'methodName': self.method_name,
-            'amount': self.amount,
-            'password': self.password.get_secret_value(),
-            'gasPrice': self.gas_price,
-            'gasLimit': self.gas_limit,
-            'sender': str(self.sender),
-        }
-        if self.fee_amount is not None:
-            data['feeAmount'] = self.fee_amount
-        if self.parameters is not None:
-            data['parameters'] = self.parameters
-        return json.dumps(data)
+    parameters: Optional[List[SmartContractParameter]]

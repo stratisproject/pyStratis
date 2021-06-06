@@ -1,6 +1,6 @@
 from typing import Optional, List
 from pydantic import Field, SecretStr
-from pybitcoin import Address, Model, Outpoint
+from pybitcoin import Address, Model, Outpoint, SmartContractParameter
 from pybitcoin.types import Money
 
 
@@ -15,6 +15,6 @@ class BuildAndSendCallContractTransactionRequest(Model):
     fee_amount: Optional[Money] = Field(alias='feeAmount')
     password: SecretStr
     gas_price: Money = Field(alias='gasPrice')
-    gas_limit: Money
+    gas_limit: Money = Field(alias='gasLimit')
     sender: Address
-    parameters: Optional[List[str]]
+    parameters: Optional[List[SmartContractParameter]]
