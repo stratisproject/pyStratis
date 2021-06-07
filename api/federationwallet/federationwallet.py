@@ -2,7 +2,7 @@ from typing import List, Union
 from api import APIRequest, EndpointRegister, endpoint
 from api.federationwallet.requestmodels import *
 from api.federationwallet.responsemodels import *
-from pybitcoin import RemovedTransactionModel, WalletBalanceModel, WalletGeneralInfoModel
+from pybitcoin import Address, RemovedTransactionModel, WalletBalanceModel, WalletGeneralInfoModel
 
 
 class FederationWallet(APIRequest, metaclass=EndpointRegister):
@@ -60,8 +60,11 @@ class FederationWallet(APIRequest, metaclass=EndpointRegister):
             APIError
         """
         data = self.get(request_model, **kwargs)
-
-        return [WithdrawalModel(**x) for x in data]
+        withdrawal_models = []
+        for item in data:
+            item['PayingTo'] = Address(address=item['PayingTo'], network=self._network)
+            withdrawal_models.append(WithdrawalModel(**item))
+        return withdrawal_models
 
     @endpoint(f'{route}/sync')
     def sync(self, request_model: SyncRequest, **kwargs) -> None:

@@ -1,5 +1,5 @@
 from pydantic import Field, conint
-from pybitcoin import Address, Model
+from pybitcoin import Address, CrossChainTransferStatus, Model
 from pybitcoin.types import Money, uint256
 
 
@@ -13,4 +13,4 @@ class WithdrawalModel(Model):
     block_hash: uint256 = Field(alias='BlockHash')
     signature_count: conint(ge=0) = Field(alias='SignatureCount')
     spending_output_details: str = Field(alias='SpendingOutputDetails')
-    transfer_status: str = Field(alias='TransferStatus')
+    transfer_status: CrossChainTransferStatus = Field(alias='TransferStatus')

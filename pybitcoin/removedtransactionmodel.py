@@ -1,9 +1,10 @@
 from pydantic import BaseModel, Field
+from pybitcoin.types import uint256
 
 
 class RemovedTransactionModel(BaseModel):
     """A RemovedTransactionModel."""
-    transaction_id: str = Field(alias='transactionId')
+    transaction_id: uint256 = Field(alias='transactionId')
     creation_time: str = Field(alias='creationTime')
 
     class Config:

@@ -4,10 +4,8 @@ Unofficial python package for interacting with Stratis (STRAX) full node and Cir
 **Current version: 1.0.9.0** (shadows StratisFullNode)
 
 ## Work in progress - TODO
-Status: 496 passed, 59 skipped
+Status: 615 passed, 55 skipped
 - Finish testing responsemodels for api calls to the following controllers. Methods have been stubbed/TODO tagged.
-  - FederationGateway
-  - FederationWallet
   - Interop
   - Mempool
   - Mining
