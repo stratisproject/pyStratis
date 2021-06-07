@@ -35,3 +35,9 @@ def test_all_interfluxcirrus_endpoints_implemented(interfluxcirrus_swagger_json)
             assert endpoint in SignalR.endpoints
 
 # @pytest.mark.parametrize('network', [StraxMain()], ids=['StraxMain'])
+
+
+def test_get_connection_info():
+    # TODO
+    pass
+

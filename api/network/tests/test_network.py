@@ -35,3 +35,25 @@ def test_all_interfluxcirrus_endpoints_implemented(interfluxcirrus_swagger_json)
             assert endpoint in Network.endpoints
 
 # @pytest.mark.parametrize('network', [StraxMain()], ids=['StraxMain'])
+
+
+def test_disconnect():
+    # TODO
+    pass
+
+
+def test_setban():
+    # TODO
+    pass
+
+
+def test_getbans():
+    # TODO
+    pass
+
+
+def test_clear_banned():
+    # TODO
+    pass
+
+

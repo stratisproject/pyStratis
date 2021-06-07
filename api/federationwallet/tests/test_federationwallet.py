@@ -35,3 +35,35 @@ def test_all_interfluxcirrus_endpoints_implemented(interfluxcirrus_swagger_json)
             assert endpoint in FederationWallet.endpoints
 
 # @pytest.mark.parametrize('network', [StraxMain()], ids=['StraxMain'])
+
+
+def test_general_info():
+    # TODO
+    pass
+
+
+def test_balance():
+    # TODO
+    pass
+
+
+def test_history():
+    # TODO
+    pass
+
+
+def test_sync():
+    # TODO
+    pass
+
+
+def test_enable_federation():
+    # TODO
+    pass
+
+
+def test_remove_transactions():
+    # TODO
+    pass
+
+

@@ -35,3 +35,8 @@ def test_all_interfluxcirrus_endpoints_implemented(interfluxcirrus_swagger_json)
             assert endpoint in Interop.endpoints
 
 # @pytest.mark.parametrize('network', [StraxMain()], ids=['StraxMain'])
+
+def test_status():
+    # TODO
+    pass
+

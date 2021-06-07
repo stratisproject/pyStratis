@@ -67,3 +67,43 @@ def test_deposits(mocker: MockerFixture, network, fakeuri, generate_uint256, gen
     assert response == [MaturedBlockDepositsModel(**x) for x in data['value']]
     # noinspection PyUnresolvedReferences
     federation_gateway.get.assert_called_once()
+
+
+def test_pending_transfer():
+    # TODO
+    pass
+
+
+def test_fullysigned_transfer():
+    # TODO
+    pass
+
+
+def test_member_info():
+    # TODO
+    pass
+
+
+def test_info():
+    # TODO
+    pass
+
+
+def test_ip_add():
+    # TODO
+    pass
+
+
+def test_ip_remove():
+    # TODO
+    pass
+
+
+def test_ip_replace():
+    # TODO
+    pass
+
+
+def test_verify_transfer():
+    # TODO
+    pass

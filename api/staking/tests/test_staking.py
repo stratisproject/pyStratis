@@ -35,3 +35,26 @@ def test_all_interfluxcirrus_endpoints_implemented(interfluxcirrus_swagger_json)
             assert endpoint in Staking.endpoints
 
 # @pytest.mark.parametrize('network', [StraxMain()], ids=['StraxMain'])
+
+
+def test_get_staking_info():
+    # TODO
+    pass
+
+def test_start_staking():
+    # TODO
+    pass
+
+
+def test_start_multistaking():
+    # TODO
+    pass
+
+
+
+def test_stop_staking():
+    # TODO
+    pass
+
+
+

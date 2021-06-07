@@ -35,3 +35,30 @@ def test_all_interfluxcirrus_endpoints_implemented(interfluxcirrus_swagger_json)
             assert endpoint in SmartContractWallet.endpoints
 
 # @pytest.mark.parametrize('network', [StraxMain()], ids=['StraxMain'])
+
+
+def test_account_addresses():
+    # TODO
+    pass
+
+
+def test_address_balance():
+    # TODO
+    pass
+
+def test_history():
+    # TODO
+    pass
+
+def test_create():
+    # TODO
+    pass
+
+def test_call():
+    # TODO
+    pass
+
+def test_send_transaction():
+    # TODO
+    pass
+

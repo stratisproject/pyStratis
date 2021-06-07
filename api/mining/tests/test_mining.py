@@ -35,3 +35,13 @@ def test_all_interfluxcirrus_endpoints_implemented(interfluxcirrus_swagger_json)
             assert endpoint in Mining.endpoints
 
 # @pytest.mark.parametrize('network', [StraxMain()], ids=['StraxMain'])
+
+
+def test_generate():
+    # TODO
+    pass
+
+def test_stop_mining():
+    # TODO
+    pass
+

@@ -96,7 +96,7 @@ class FederationWallet(APIRequest, metaclass=EndpointRegister):
             return data
 
     @endpoint(f'{route}/remove-transactions')
-    def general_info(self, request_model: RemoveTransactionsRequest, **kwargs) -> List[RemovedTransactionModel]:
+    def remove_transactions(self, request_model: RemoveTransactionsRequest, **kwargs) -> List[RemovedTransactionModel]:
         """Remove all transactions from the wallet.
 
         Args:

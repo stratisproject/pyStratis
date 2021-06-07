@@ -101,7 +101,7 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
         return data
 
     @endpoint(f'{route}/load')
-    def create(self, request_model: LoadRequest, **kwargs) -> None:
+    def load(self, request_model: LoadRequest, **kwargs) -> None:
         """Loads a previously created wallet.
 
         Args:
