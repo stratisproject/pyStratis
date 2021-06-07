@@ -117,6 +117,7 @@ class FederationGateway(APIRequest, metaclass=EndpointRegister):
             APIError
         """
         data = self.get(**kwargs)
+        data['multisigAddress'] = Address(address=data['multisigAddress'], network=self._network)
 
         return FederationGatewayInfoModel(**data)
 

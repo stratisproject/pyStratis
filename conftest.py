@@ -283,7 +283,7 @@ def generate_coinbase_transaction(generate_hexstring, generate_uint256):
         data = {
             "hex": generate_hexstring(128),
             "txid": trxid,
-            "hash": generate_uint256,
+            "hash": trxid,
             "version": 1,
             "size": randint(0, 200),
             "vsize": randint(0, 200),
