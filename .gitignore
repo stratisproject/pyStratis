@@ -9,7 +9,7 @@ Makefile
 
 # pytest
 /.pytest_cache/
-
+/.coverage
 
 # Integration test node
 /integration_tests/StratisFullNode/

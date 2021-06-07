@@ -9,6 +9,7 @@ ecdsa
 # For testing
 pytest
 pytest_mock
+coverage
 
 # For building
 setuptools
