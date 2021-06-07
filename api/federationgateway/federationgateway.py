@@ -2,6 +2,8 @@ from typing import List, Union
 from api import APIRequest, EndpointRegister, endpoint
 from api.federationgateway.requestmodels import *
 from api.federationgateway.responsemodels import *
+from pybitcoin import Address, DestinationChain
+from pybitcoin.networks import StraxMain, StraxTest, StraxRegTest, CirrusMain, CirrusTest, CirrusRegTest, Ethereum
 
 
 class FederationGateway(APIRequest, metaclass=EndpointRegister):
@@ -25,9 +27,28 @@ class FederationGateway(APIRequest, metaclass=EndpointRegister):
             APIError
         """
         data = self.get(request_model, **kwargs)
+
         serializable_result = SerializableResult(**data)
 
-        return [MaturedBlockDepositsModel(**x) for x in serializable_result.value]
+        matured_block_deposit_models = []
+        for item in serializable_result.value:
+            data = {'Deposits': [], 'BlockInfo': item['BlockInfo']}
+            for deposit in item['Deposits']:
+                if deposit['TargetChain'] == DestinationChain.STRAX.value:
+                    if self._network == StraxMain() or self._network == CirrusMain():
+                        deposit['TargetAddress'] = Address(address=deposit['TargetAddress'], network=StraxMain())
+                    if self._network == StraxTest() or self._network == CirrusTest():
+                        deposit['TargetAddress'] = Address(address=deposit['TargetAddress'], network=StraxTest())
+                    if self._network == StraxRegTest() or self._network == CirrusRegTest():
+                        deposit['TargetAddress'] = Address(address=deposit['TargetAddress'], network=StraxRegTest())
+                elif deposit['TargetChain'] == DestinationChain.ETH.value:
+                    deposit['TargetAddress'] = Address(address=deposit['TargetAddress'], network=Ethereum())
+                else:
+                    chain_name = DestinationChain(deposit["TargetChain"]).name
+                    raise RuntimeWarning(f'Validation for {chain_name} not implemented.')
+                data['Deposits'].append(deposit)
+            matured_block_deposit_models.append(MaturedBlockDepositsModel(**data))
+        return matured_block_deposit_models
 
     @endpoint(f'{route}/transfer/pending')
     def pending_transfer(self, request_model: PendingTransferRequest, **kwargs) -> List[CrossChainTransferModel]:
@@ -136,7 +157,7 @@ class FederationGateway(APIRequest, metaclass=EndpointRegister):
         return data
 
     @endpoint(f'{route}/member/ip/replace')
-    def ip_add(self, request_model: MemberIPReplaceRequest, **kwargs) -> str:
+    def ip_replace(self, request_model: MemberIPReplaceRequest, **kwargs) -> str:
         """Replace a federation member's IP from the federation IP list with another.
 
         Args:

@@ -1,17 +1,18 @@
 from pydantic import BaseModel, Field, conint
-from pybitcoin.types import Money
+from pybitcoin import Address
+from pybitcoin.types import Money, uint256
 from .destinationchain import DestinationChain
 from .depositretrievaltype import DepositRetrievalType
 
 
 class Deposit(BaseModel):
     """A Deposit."""
-    deposit_id: str = Field(alias='id')
+    deposit_id: uint256 = Field(alias='id')
     amount: Money
-    target_address: str = Field(alias='TargetAddress')
+    target_address: Address = Field(alias='TargetAddress')
     target_chain: DestinationChain = Field(alias='TargetChain')
     block_number: conint(ge=0) = Field(alias='BlockNumber')
-    block_hash: str = Field(alias='BlockHash')
+    block_hash: uint256 = Field(alias='BlockHash')
     retrieval_type: DepositRetrievalType = Field(alias='RetrievalType')
 
     class Config:
