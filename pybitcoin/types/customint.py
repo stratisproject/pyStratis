@@ -33,6 +33,9 @@ class customint:
     def __get_validators__(cls) -> Callable:
         yield cls.validate_class
 
+    def __hash__(self) -> int:
+        return hash(self._value)
+
     # noinspection PyTypeChecker
     def __hex__(self) -> str:
         conversion = self.value & (2 ** self._num_bits - 1)

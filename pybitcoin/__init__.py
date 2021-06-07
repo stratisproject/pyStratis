@@ -11,6 +11,8 @@ from .buildtransactionmodel import BuildTransactionModel
 from .buildofflinesignmodel import BuildOfflineSignModel
 from .cointype import CoinType
 from .contracttransactionitemtype import ContractTransactionItemType
+from .conversionrequeststatus import ConversionRequestStatus
+from .conversionrequesttype import ConversionRequestType
 from .crosschaintransferstatus import CrossChainTransferStatus
 from .deposit import Deposit
 from .depositretrievaltype import DepositRetrievalType
