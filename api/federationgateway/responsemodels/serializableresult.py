@@ -1,9 +1,9 @@
-from typing import Any
+from typing import Any, Optional
 from pydantic import Field
 from pybitcoin import Model
 
 
 class SerializableResult(Model):
     """A SerializableResult."""
-    value: Any
-    message: str = Field(default='')
+    value: Optional[Any]
+    message: Optional[str] = Field(default='')

@@ -7,14 +7,14 @@ from .paymentdetailmodel import PaymentDetailModel
 
 class TransactionItemModel(Model):
     """A TransactionItemModel."""
-    transaction_type: TransactionItemType = Field(alias='type')
-    to_address: Address = Field(alias='toAddress')
-    transaction_id: uint256 = Field(alias='id')
-    amount: Money
-    payments: List[PaymentDetailModel]
-    fee: Money
+    transaction_type: Optional[TransactionItemType] = Field(alias='type')
+    to_address: Optional[Address] = Field(alias='toAddress')
+    transaction_id: Optional[uint256] = Field(alias='id')
+    amount: Optional[Money]
+    payments: Optional[List[PaymentDetailModel]]
+    fee: Optional[Money]
     confirmed_in_block: Optional[conint(ge=0)] = Field(alias='confirmedInBlock')
-    timestamp: str
-    tx_output_time: conint(ge=0) = Field(alias='txOutputTime')
-    tx_output_index: conint(ge=0) = Field(alias='txOutputIndex')
+    timestamp: Optional[str]
+    tx_output_time: Optional[conint(ge=0)] = Field(alias='txOutputTime')
+    tx_output_index: Optional[conint(ge=0)] = Field(alias='txOutputIndex')
     block_index: Optional[conint(ge=0)] = Field(alias='blockIndex')

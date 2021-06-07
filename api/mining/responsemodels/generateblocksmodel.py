@@ -1,8 +1,8 @@
-from typing import List
+from typing import List, Optional
 from pybitcoin import Model
 from pybitcoin.types import uint256
 
 
 class GenerateBlocksModel(Model):
     """A GenerateBlocksModel."""
-    blocks: List[uint256]
+    blocks: Optional[List[uint256]]

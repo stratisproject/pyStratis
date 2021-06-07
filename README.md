@@ -4,7 +4,7 @@ Unofficial python package for interacting with Stratis (STRAX) full node and Cir
 **Current version: 1.0.9.0** (shadows StratisFullNode)
 
 ## Work in progress - TODO
-Status: 620 passed, 51 skipped
+Status: 618 passed, 51 skipped
 - Finish testing responsemodels for api calls to the following controllers. Methods have been stubbed/TODO tagged.
   - Mempool
   - Mining

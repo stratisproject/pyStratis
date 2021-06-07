@@ -7,4 +7,4 @@ class GetCodeModel(Model):
     type: Optional[str]
     bytecode: Optional[str]
     csharp: Optional[str]
-    message: str
+    message: Optional[str]

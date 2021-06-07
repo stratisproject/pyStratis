@@ -1,7 +1,8 @@
+from typing import Optional
 from pybitcoin import Model
 
 
 class FeaturesDataModel(Model):
     """A FeaturesDataModel."""
-    namespace: str
-    state: str
+    namespace: Optional[str]
+    state: Optional[str]

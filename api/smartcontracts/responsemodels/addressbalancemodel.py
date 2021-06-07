@@ -1,3 +1,4 @@
+from typing import Optional
 from pydantic import Field
 from pybitcoin import Model, Address
 from pybitcoin.types import Money
@@ -5,5 +6,5 @@ from pybitcoin.types import Money
 
 class AddressBalanceModel(Model):
     """An AddressBalanceModel."""
-    address: Address = Field(alias='Address')
-    sum: Money = Field(alias='Sum')
+    address: Optional[Address] = Field(alias='Address')
+    sum: Optional[Money] = Field(alias='Sum')

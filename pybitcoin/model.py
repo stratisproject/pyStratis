@@ -45,6 +45,8 @@ class Model(BaseModel):
             List[WalletSecret]: lambda v: [x.json() for x in v]
         }
         allow_population_by_field_name = True
+        use_enum_values = True
+        extra = 'allow'
     
     def json(self, *args, **kwargs) -> str:
         return super(Model, self).json(exclude_none=True, by_alias=True)

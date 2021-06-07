@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 from pydantic import Field, conint
 from pybitcoin import Model
 from pybitcoin.types import Money
@@ -8,22 +8,22 @@ from .featuresdatamodel import FeaturesDataModel
 
 class StatusModel(Model):
     """A StatusModel."""
-    agent: str
-    version: str
-    external_address: str = Field(alias='externalAddress')
-    network: str
-    coin_ticker: str = Field(alias='coinTicker')
-    process_id: str = Field(alias='processId')
-    consensus_height: conint(ge=0) = Field(alias='consensusHeight')
-    blockstore_height: conint(ge=0) = Field(alias='blockStoreHeight')
-    best_peer_height: conint(ge=0) = Field(alias='bestPeerheight')
-    inbound_peers: List[ConnectedPeerModel] = Field(alias='inboundPeers')
-    outbound_peers: List[ConnectedPeerModel] = Field(alias='outboundPeers')
-    features_data: List[FeaturesDataModel] = Field(alias='featuresData')
-    data_directory_path: str = Field(alias='dataDirectoryPath')
-    running_time: str = Field(alias='runningTime')
-    difficulty: float
-    protocol_version: conint(ge=0) = Field(alias='protocolVersion')
-    testnet: bool
-    relay_fee: Money = Field(alias='relayFee')
-    state: str
+    agent: Optional[str]
+    version: Optional[str]
+    external_address: Optional[str] = Field(alias='externalAddress')
+    network: Optional[str]
+    coin_ticker: Optional[str] = Field(alias='coinTicker')
+    process_id: Optional[str] = Field(alias='processId')
+    consensus_height: Optional[conint(ge=0)] = Field(alias='consensusHeight')
+    blockstore_height: Optional[conint(ge=0)] = Field(alias='blockStoreHeight')
+    best_peer_height: Optional[conint(ge=0)] = Field(alias='bestPeerheight')
+    inbound_peers: Optional[List[ConnectedPeerModel]] = Field(alias='inboundPeers')
+    outbound_peers: Optional[List[ConnectedPeerModel]] = Field(alias='outboundPeers')
+    features_data: Optional[List[FeaturesDataModel]] = Field(alias='featuresData')
+    data_directory_path: Optional[str] = Field(alias='dataDirectoryPath')
+    running_time: Optional[str] = Field(alias='runningTime')
+    difficulty: Optional[float]
+    protocol_version: Optional[conint(ge=0)] = Field(alias='protocolVersion')
+    testnet: Optional[bool]
+    relay_fee: Optional[Money] = Field(alias='relayFee')
+    state: Optional[str]

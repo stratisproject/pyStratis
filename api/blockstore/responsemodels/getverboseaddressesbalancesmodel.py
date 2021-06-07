@@ -6,6 +6,6 @@ from .verboseaddressbalancemodel import VerboseAddressBalanceModel
 
 class GetVerboseAddressesBalancesModel(Model):
     """A GetVerboseAddressesBalancesModel."""
-    balances_data: List[VerboseAddressBalanceModel] = Field(alias='balancesData')
-    consensus_tip_height: conint(ge=0) = Field(alias='consensusTipHeight')
+    balances_data: Optional[List[VerboseAddressBalanceModel]] = Field(alias='balancesData')
+    consensus_tip_height: Optional[conint(ge=0)] = Field(alias='consensusTipHeight')
     reason: Optional[str]

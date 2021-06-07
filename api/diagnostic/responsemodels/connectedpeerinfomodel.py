@@ -5,7 +5,7 @@ from pybitcoin import Model
 
 class ConnectedPeerInfoModel(Model):
     """A ConnectedPeerInfoModel."""
-    is_connected: bool = Field(alias='isConnected')
+    is_connected: Optional[bool] = Field(alias='isConnected')
     disconnect_reason: Optional[str] = Field(alias='disconnectReason')
-    state: conint(ge=0)
-    endpoint: str = Field(alias='endPoint')
+    state: Optional[conint(ge=0)]
+    endpoint: Optional[str] = Field(alias='endPoint')

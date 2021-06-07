@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 from pydantic import Field
 from pybitcoin import Model
 from .accounthistorymodel import AccountHistoryModel
@@ -6,4 +6,4 @@ from .accounthistorymodel import AccountHistoryModel
 
 class WalletHistoryModel(Model):
     """A WalletHistoryModel."""
-    history: List[AccountHistoryModel] = Field(alias='History')
+    history: Optional[List[AccountHistoryModel]] = Field(alias='History')

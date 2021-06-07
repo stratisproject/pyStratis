@@ -1,7 +1,8 @@
+from typing import Optional
 from pydantic import Field
 from pybitcoin import Model
 
 
 class GetStatusModel(Model):
     """A GetStatusModel."""
-    peer_statistics: str = Field(alias='peerStatistics')
+    peer_statistics: Optional[str] = Field(alias='peerStatistics')

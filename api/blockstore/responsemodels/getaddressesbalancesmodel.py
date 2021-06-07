@@ -5,5 +5,5 @@ from .addressbalancemodel import AddressBalanceModel
 
 class GetAddressesBalancesModel(Model):
     """A GetAddressesBalancesModel."""
-    balances: List[AddressBalanceModel]
+    balances: Optional[List[AddressBalanceModel]]
     reason: Optional[str]

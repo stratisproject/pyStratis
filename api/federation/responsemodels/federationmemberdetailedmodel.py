@@ -14,4 +14,4 @@ class FederationMemberDetailedModel(FederationMemberModel):
     member_will_start_mining_at_block_height: Optional[conint(ge=0)] = Field(alias='memberWillStartMiningAtBlockHeight')
     member_will_start_earning_rewards_estimate_height: Optional[conint(ge=0)] = Field(alias='memberWillStartEarningRewardsEstimateHeight')
     poll_type: Optional[str] = Field(alias='pollType')
-    reward_estimate_per_block: Money = Field(alias='rewardEstimatePerBlock')
+    reward_estimate_per_block: Optional[Money] = Field(alias='rewardEstimatePerBlock')

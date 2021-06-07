@@ -5,6 +5,6 @@ from pybitcoin import Model
 
 class BannedPeerModel(Model):
     """A BannedPeerModel."""
-    endpoint: str = Field(alias='EndPoint')
+    endpoint: Optional[str] = Field(alias='EndPoint')
     ban_until: Optional[str] = Field(alias='BanUntil')
-    ban_reason: str = Field(alias='BanReason')
+    ban_reason: Optional[str] = Field(alias='BanReason')
