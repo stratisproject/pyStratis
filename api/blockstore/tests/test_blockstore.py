@@ -5,7 +5,8 @@ from pytest_mock import MockerFixture
 from api.blockstore import BlockStore
 from api.blockstore.requestmodels import *
 from api.blockstore.responsemodels import *
-from pybitcoin import Address, BlockModel, BlockTransactionDetailsModel
+from pybitcoin import BlockModel, BlockTransactionDetailsModel
+from pybitcoin.types import Address
 from pybitcoin.networks import StraxMain, CirrusMain
 
 

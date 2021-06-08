@@ -4,19 +4,6 @@ Unofficial python package for interacting with Stratis (STRAX) full node and Cir
 **Current version: 1.0.9.0** (shadows StratisFullNode)
 
 ## Work in progress - TODO
-Status: 618 passed, 51 skipped
-- Finish testing responsemodels for api calls to the following controllers. Methods have been stubbed/TODO tagged.
-  - Mempool
-  - Mining
-  - Multisig
-  - Network
-  - Node
-  - Notifications
-  - RPC
-  - SignalR
-  - smartcontracts
-  - smartcontractwallet
-  - staking
-  - wallet
+Status: 748 passed, 3 skipped
 - Finalize node classes
 - Integration testing on regtest

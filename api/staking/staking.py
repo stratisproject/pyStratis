@@ -56,7 +56,7 @@ class Staking(APIRequest, metaclass=EndpointRegister):
         Raises:
             APIError
         """
-        self.get(request_model, **kwargs)
+        self.post(request_model, **kwargs)
 
     @endpoint(f'{route}/stopstaking')
     def stop_staking(self, request_model: StopStakingRequest = StopStakingRequest(), **kwargs) -> None:
@@ -72,4 +72,4 @@ class Staking(APIRequest, metaclass=EndpointRegister):
         Raises:
             APIError
         """
-        self.get(request_model, **kwargs)
+        self.post(request_model, **kwargs)

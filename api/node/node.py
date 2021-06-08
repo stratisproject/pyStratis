@@ -2,8 +2,8 @@ from typing import Union, List
 from api import APIRequest, EndpointRegister, endpoint
 from api.node.requestmodels import *
 from api.node.responsemodels import *
-from pybitcoin import TransactionModel
-from pybitcoin.types import hexstr
+from pybitcoin import TransactionModel, ScriptPubKey
+from pybitcoin.types import Address, hexstr
 
 
 class Node(APIRequest, metaclass=EndpointRegister):
@@ -100,6 +100,7 @@ class Node(APIRequest, metaclass=EndpointRegister):
             APIError
         """
         data = self.get(request_model, **kwargs)
+        data['address'] = Address(address=data['address'], network=self._network)
 
         return ValidateAddressModel(**data)
 
@@ -118,7 +119,7 @@ class Node(APIRequest, metaclass=EndpointRegister):
             APIError
         """
         data = self.get(request_model, **kwargs)
-
+        data['scriptPubKey'] = ScriptPubKey(**data['scriptPubKey'])
         return GetTxOutModel(**data)
 
     @endpoint(f'{route}/gettxoutproof')

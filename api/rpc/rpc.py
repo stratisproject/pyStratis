@@ -26,7 +26,7 @@ class RPC(APIRequest, metaclass=EndpointRegister):
         """
         data = self.post(request_model, **kwargs)
 
-        return RPCCommandResponseModel(value=data)
+        return RPCCommandResponseModel(**data)
 
     @endpoint(f'{route}/listmethods')
     def list_methods(self, **kwargs) -> List[RPCCommandListModel]:

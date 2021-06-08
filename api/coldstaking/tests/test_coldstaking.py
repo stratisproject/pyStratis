@@ -3,9 +3,9 @@ from pytest_mock import MockerFixture
 from api.coldstaking import ColdStaking
 from api.coldstaking.requestmodels import *
 from api.coldstaking.responsemodels import *
-from pybitcoin import Address, BuildOfflineSignModel
+from pybitcoin import BuildOfflineSignModel
 from pybitcoin.networks import StraxMain
-from pybitcoin.types import Money
+from pybitcoin.types import Address, Money
 
 
 def test_all_strax_endpoints_implemented(strax_swagger_json):
@@ -126,7 +126,7 @@ def test_coldstaking_hot_account_no_extpubkey(mocker: MockerFixture, network, fa
 def test_coldstaking_address(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address):
     request = AddressRequest(
         wallet_name='Test',
-        is_cold_wallet_address=True
+        is_cold_wallet_account=True
     )
     data = {'address': generate_p2pkh_address(network=network)}
     mocker.patch.object(ColdStaking, 'get', return_value=data)
@@ -142,7 +142,7 @@ def test_coldstaking_address(mocker: MockerFixture, network, fakeuri, generate_p
 def test_coldstaking_segwit_address(mocker: MockerFixture, network, fakeuri, generate_p2wpkh_address):
     request = AddressRequest(
         wallet_name='Test',
-        is_cold_wallet_address=True,
+        is_cold_wallet_account=True,
         segwit=True
     )
     data = {'address': generate_p2wpkh_address(network=network)}
@@ -286,7 +286,8 @@ def test_coldstaking_offline_withdrawal(mocker: MockerFixture, network, fakeuri,
         account_name='account 0',
         receiving_address=Address(address=generate_p2pkh_address(network=network), network=network),
         amount=Money(10),
-        fees=Money(1).to_coin_unit()
+        fees=Money(1),
+        subtractFeeFromAmount=True
     )
     data = {
         'walletName': 'Test',
@@ -342,7 +343,7 @@ def test_coldstaking_estimate_withdrawal_fee(mocker: MockerFixture, network, fak
         wallet_password='password',
         receiving_address=Address(address=generate_p2pkh_address(network=network), network=network),
         amount=Money(10),
-        fees=Money(1).to_coin_unit()
+        fees=Money(1)
     )
     data = 12
     mocker.patch.object(ColdStaking, 'post', return_value=data)

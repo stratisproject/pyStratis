@@ -1,7 +1,7 @@
 import pytest
 import json
-from pybitcoin import Address, Outpoint, SmartContractParameter, SmartContractParameterType
-from pybitcoin.types import Money, uint32, uint64, uint128, uint256, int32, int64
+from pybitcoin import Outpoint, SmartContractParameter, SmartContractParameterType
+from pybitcoin.types import Address, Money, uint32, uint64, uint128, uint256, int32, int64
 from api.smartcontractwallet.requestmodels import *
 from pybitcoin.networks import StraxMain, CirrusMain
 
@@ -64,18 +64,18 @@ def test_callcontracttransactionrequest(network, generate_uint256, generate_p2pk
         gas_limit=Money(10),
         sender=Address(address=data['sender'], network=network),
         parameters=[
-            SmartContractParameter(type=SmartContractParameterType.Boolean, value=True),
-            SmartContractParameter(type=SmartContractParameterType.Byte, value=b'\xff'),
-            SmartContractParameter(type=SmartContractParameterType.Char, value='c'),
-            SmartContractParameter(type=SmartContractParameterType.String, value='Stratis'),
-            SmartContractParameter(type=SmartContractParameterType.UInt32, value=uint32(123)),
-            SmartContractParameter(type=SmartContractParameterType.Int32, value=int32(-123)),
-            SmartContractParameter(type=SmartContractParameterType.UInt64, value=uint64(456)),
-            SmartContractParameter(type=SmartContractParameterType.Int64, value=int64(-456)),
-            SmartContractParameter(type=SmartContractParameterType.Address, value=Address(address=parameter_address, network=network)),
-            SmartContractParameter(type=SmartContractParameterType.ByteArray, value=bytearray(b'\x04\xa6\xb9')),
-            SmartContractParameter(type=SmartContractParameterType.UInt128, value=uint128(789)),
-            SmartContractParameter(type=SmartContractParameterType.UInt256, value=uint256(987)),
+            SmartContractParameter(value_type=SmartContractParameterType.Boolean, value=True),
+            SmartContractParameter(value_type=SmartContractParameterType.Byte, value=b'\xff'),
+            SmartContractParameter(value_type=SmartContractParameterType.Char, value='c'),
+            SmartContractParameter(value_type=SmartContractParameterType.String, value='Stratis'),
+            SmartContractParameter(value_type=SmartContractParameterType.UInt32, value=uint32(123)),
+            SmartContractParameter(value_type=SmartContractParameterType.Int32, value=int32(-123)),
+            SmartContractParameter(value_type=SmartContractParameterType.UInt64, value=uint64(456)),
+            SmartContractParameter(value_type=SmartContractParameterType.Int64, value=int64(-456)),
+            SmartContractParameter(value_type=SmartContractParameterType.Address, value=Address(address=parameter_address, network=network)),
+            SmartContractParameter(value_type=SmartContractParameterType.ByteArray, value=bytearray(b'\x04\xa6\xb9')),
+            SmartContractParameter(value_type=SmartContractParameterType.UInt128, value=uint128(789)),
+            SmartContractParameter(value_type=SmartContractParameterType.UInt256, value=uint256(987)),
         ]
     )
     assert json.dumps(data) == request_model.json()
@@ -116,18 +116,18 @@ def test_createtransactionrequest(network, generate_p2pkh_address, generate_uint
         gas_limit=Money(10),
         sender=Address(address=data['sender'], network=network),
         parameters=[
-            SmartContractParameter(type=SmartContractParameterType.Boolean, value=True),
-            SmartContractParameter(type=SmartContractParameterType.Byte, value=b'\xff'),
-            SmartContractParameter(type=SmartContractParameterType.Char, value='c'),
-            SmartContractParameter(type=SmartContractParameterType.String, value='Stratis'),
-            SmartContractParameter(type=SmartContractParameterType.UInt32, value=uint32(123)),
-            SmartContractParameter(type=SmartContractParameterType.Int32, value=int32(-123)),
-            SmartContractParameter(type=SmartContractParameterType.UInt64, value=uint64(456)),
-            SmartContractParameter(type=SmartContractParameterType.Int64, value=int64(-456)),
-            SmartContractParameter(type=SmartContractParameterType.Address, value=Address(address=parameter_address, network=network)),
-            SmartContractParameter(type=SmartContractParameterType.ByteArray, value=bytearray(b'\x04\xa6\xb9')),
-            SmartContractParameter(type=SmartContractParameterType.UInt128, value=uint128(789)),
-            SmartContractParameter(type=SmartContractParameterType.UInt256, value=uint256(987)),
+            SmartContractParameter(value_type=SmartContractParameterType.Boolean, value=True),
+            SmartContractParameter(value_type=SmartContractParameterType.Byte, value=b'\xff'),
+            SmartContractParameter(value_type=SmartContractParameterType.Char, value='c'),
+            SmartContractParameter(value_type=SmartContractParameterType.String, value='Stratis'),
+            SmartContractParameter(value_type=SmartContractParameterType.UInt32, value=uint32(123)),
+            SmartContractParameter(value_type=SmartContractParameterType.Int32, value=int32(-123)),
+            SmartContractParameter(value_type=SmartContractParameterType.UInt64, value=uint64(456)),
+            SmartContractParameter(value_type=SmartContractParameterType.Int64, value=int64(-456)),
+            SmartContractParameter(value_type=SmartContractParameterType.Address, value=Address(address=parameter_address, network=network)),
+            SmartContractParameter(value_type=SmartContractParameterType.ByteArray, value=bytearray(b'\x04\xa6\xb9')),
+            SmartContractParameter(value_type=SmartContractParameterType.UInt128, value=uint128(789)),
+            SmartContractParameter(value_type=SmartContractParameterType.UInt256, value=uint256(987)),
         ]
     )
     assert json.dumps(data) == request_model.json()

@@ -2,7 +2,7 @@ from typing import List
 from enum import IntEnum
 from pydantic import BaseModel, SecretStr
 from pybitcoin.types import *
-from .address import Address
+from pybitcoin.types.address import Address
 from .addressdescriptor import AddressDescriptor
 from .extpubkey import ExtPubKey
 from .multisigsecret import MultisigSecret
@@ -46,7 +46,7 @@ class Model(BaseModel):
         }
         allow_population_by_field_name = True
         use_enum_values = True
-        extra = 'allow'
+        extra = 'forbid'
     
     def json(self, *args, **kwargs) -> str:
         return super(Model, self).json(exclude_none=True, by_alias=True)

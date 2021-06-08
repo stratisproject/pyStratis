@@ -2,8 +2,9 @@ from typing import List
 from api import APIRequest, EndpointRegister, endpoint
 from api.smartcontractwallet.requestmodels import *
 from api.smartcontractwallet.responsemodels import *
-from pybitcoin import Address, BuildContractTransactionModel, WalletSendTransactionModel, SendTransactionRequest
-from pybitcoin.types import Money
+from pybitcoin import BuildContractTransactionModel, WalletSendTransactionModel, \
+    TransactionOutputModel, SendTransactionRequest
+from pybitcoin.types import Address, Money, uint256
 
 
 class SmartContractWallet(APIRequest, metaclass=EndpointRegister):
@@ -28,7 +29,7 @@ class SmartContractWallet(APIRequest, metaclass=EndpointRegister):
         """
         data = self.get(request_model, **kwargs)
 
-        return data
+        return [Address(address=x, network=self._network) for x in data]
 
     @endpoint(f'{route}/address-balance')
     def address_balance(self, request_model: AddressBalanceRequest, **kwargs) -> Money:
@@ -39,14 +40,14 @@ class SmartContractWallet(APIRequest, metaclass=EndpointRegister):
             **kwargs:
 
         Returns:
-            str
+            Money
 
         Raises:
             APIError
         """
         data = self.get(request_model, **kwargs)
 
-        return data
+        return Money(data)
 
     @endpoint(f'{route}/history')
     def history(self, request_model: HistoryRequest, **kwargs) -> List[ContractTransactionItemModel]:
@@ -63,11 +64,13 @@ class SmartContractWallet(APIRequest, metaclass=EndpointRegister):
             APIError
         """
         data = self.get(request_model, **kwargs)
+        for i in range(len(data)):
+            data[i]['To'] = Address(address=data[i]['To'], network=self._network)
 
         return [ContractTransactionItemModel(**x) for x in data]
 
     @endpoint(f'{route}/create')
-    def create(self, request_model: CreateContractTransactionRequest, **kwargs) -> str:
+    def create(self, request_model: CreateContractTransactionRequest, **kwargs) -> uint256:
         """Builds a transaction to create a smart contract and then broadcasts the transaction to the network.
 
         Args:
@@ -75,14 +78,14 @@ class SmartContractWallet(APIRequest, metaclass=EndpointRegister):
             **kwargs:
 
         Returns:
-            str
+            uint256
 
         Raises:
             APIError
         """
         data = self.post(request_model, **kwargs)
 
-        return data
+        return uint256(data)
 
     @endpoint(f'{route}/call')
     def call(self, request_model: CallContractTransactionRequest, **kwargs) -> BuildContractTransactionModel:
@@ -100,7 +103,7 @@ class SmartContractWallet(APIRequest, metaclass=EndpointRegister):
         """
         data = self.post(request_model, **kwargs)
 
-        return data
+        return BuildContractTransactionModel(**data)
 
     @endpoint(f'{route}/send-transaction')
     def send_transaction(self, request_model: SendTransactionRequest, **kwargs) -> WalletSendTransactionModel:
@@ -117,5 +120,8 @@ class SmartContractWallet(APIRequest, metaclass=EndpointRegister):
             APIError
         """
         data = self.post(request_model, **kwargs)
+        for i in range(len(data['outputs'])):
+            data['outputs'][i]['address'] = Address(address=data['outputs'][i]['address'], network=self._network)
+            data['outputs'][i] = TransactionOutputModel(**data['outputs'][i])
 
         return WalletSendTransactionModel(**data)

@@ -1,6 +1,6 @@
 from pydantic import Field
-from pybitcoin import Address, Model, PubKey
-from pybitcoin.types import Money
+from pybitcoin import Model, PubKey
+from pybitcoin.types import Address, Money
 
 
 class ScheduleVoteKickFedMemberRequest(Model):

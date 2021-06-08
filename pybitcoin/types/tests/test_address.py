@@ -1,6 +1,5 @@
 import pytest
-from pydantic import ValidationError
-from pybitcoin import Address
+from pybitcoin.types import Address
 from pybitcoin.networks import StraxMain, StraxTest, StraxRegTest, \
     CirrusMain, CirrusTest, CirrusRegTest, Ethereum
 
@@ -29,13 +28,13 @@ def test_valid_p2pkh_address_is_valid(generate_p2pkh_address, network):
 def test_invalid_p2pkh_address_is_invalid(generate_p2pkh_address, network):
     address = generate_p2pkh_address(network=network)
     short_bad_address = address[:26]
-    with pytest.raises(ValidationError):
+    with pytest.raises(ValueError):
         Address(address=short_bad_address, network=network)
     long_bad_address = address + 'extra'
-    with pytest.raises(ValidationError):
+    with pytest.raises(ValueError):
         Address(address=long_bad_address, network=network)
     char_replacement = address[:8] + 'l' + address[9:]
-    with pytest.raises(ValidationError):
+    with pytest.raises(ValueError):
         Address(address=char_replacement, network=network)
 
 
@@ -53,13 +52,13 @@ def test_valid_p2sh_address_is_valid(generate_p2sh_address, network):
 def test_invalid_p2sh_address_is_invalid(generate_p2sh_address, network):
     address = generate_p2sh_address(network=network)
     short_bad_address = address[:26]
-    with pytest.raises(ValidationError):
+    with pytest.raises(ValueError):
         Address(address=short_bad_address, network=network)
     long_bad_address = address + 'extra'
-    with pytest.raises(ValidationError):
+    with pytest.raises(ValueError):
         Address(address=long_bad_address, network=network)
     char_replacement = address[:8] + 'l' + address[9:]
-    with pytest.raises(ValidationError):
+    with pytest.raises(ValueError):
         Address(address=char_replacement, network=network)
 
 
@@ -77,13 +76,13 @@ def test_valid_p2wpkh_address_is_valid(generate_p2wpkh_address, network):
 def test_invalid_p2wpkh_address_is_invalid(generate_p2wpkh_address, network):
     address = generate_p2wpkh_address(network=network)
     short_bad_address = address[:26]
-    with pytest.raises(ValidationError):
+    with pytest.raises(ValueError):
         Address(address=short_bad_address, network=network)
     long_bad_address = address + 'extra'
-    with pytest.raises(ValidationError):
+    with pytest.raises(ValueError):
         Address(address=long_bad_address, network=network)
     char_replacement = address[:8] + 'i' + address[9:]
-    with pytest.raises(ValidationError):
+    with pytest.raises(ValueError):
         Address(address=char_replacement, network=network)
 
 
@@ -101,13 +100,13 @@ def test__valid_p2wsh_address_is_valid(generate_p2wsh_address, network):
 def test_invalid_p2wsh_address_is_invalid(generate_p2wsh_address, network):
     address = generate_p2wsh_address(network=network)
     short_bad_address = address[:26]
-    with pytest.raises(ValidationError):
+    with pytest.raises(ValueError):
         Address(address=short_bad_address, network=network)
     long_bad_address = address + 'extra'
-    with pytest.raises(ValidationError):
+    with pytest.raises(ValueError):
         Address(address=long_bad_address, network=network)
     char_replacement = address[:8] + 'i' + address[9:]
-    with pytest.raises(ValidationError):
+    with pytest.raises(ValueError):
         Address(address=char_replacement, network=network)
 
 

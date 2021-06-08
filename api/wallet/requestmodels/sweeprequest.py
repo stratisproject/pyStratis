@@ -1,6 +1,7 @@
 from typing import Optional, List
 from pydantic import Field
-from pybitcoin import Address, Model
+from pybitcoin import Model
+from pybitcoin.types import Address
 
 
 class SweepRequest(Model):

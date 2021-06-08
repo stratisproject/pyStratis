@@ -1,10 +1,10 @@
 from pydantic import Field, BaseModel
-from pybitcoin.types import Money
+from pybitcoin.types import Address, Money
 
 
 class TransactionOutputModel(BaseModel):
     """A TransactionOutputModel."""
-    address: str
+    address: Address
     amount: Money
     op_return_data: str = Field(alias='OpReturnData')
 

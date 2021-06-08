@@ -4,7 +4,7 @@ from api.collateral import Collateral
 from api.collateral.requestmodels import *
 from api.collateral.responsemodels import *
 from pybitcoin.networks import StraxMain
-from pybitcoin import Address
+from pybitcoin.types import Address
 
 
 def test_all_strax_endpoints_implemented(strax_swagger_json):

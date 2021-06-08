@@ -1,10 +1,10 @@
 from pydantic import BaseModel, Field
-from pybitcoin.types import Money
+from pybitcoin.types import Address, Money
 
 
 class AddressModel(BaseModel):
     """An AddressModel."""
-    address: str
+    address: Address
     is_used: bool = Field(alias='isUsed')
     is_change: bool = Field(alias='isChange')
     amount_confirmed: Money = Field(alias='AmountConfirmed')

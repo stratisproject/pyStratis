@@ -1,6 +1,7 @@
 from typing import Optional
 from pydantic import Field, conint
-from pybitcoin import Address, CrossChainTransferStatus, Model
+from pybitcoin.types import Address
+from pybitcoin import CrossChainTransferStatus, Model
 from pybitcoin.types import Money, uint256
 
 

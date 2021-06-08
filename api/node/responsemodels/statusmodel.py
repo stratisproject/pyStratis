@@ -1,6 +1,6 @@
 from typing import List, Optional
 from pydantic import Field, conint
-from pybitcoin import Model
+from pybitcoin import Model, FullNodeState
 from pybitcoin.types import Money
 from .connectedpeermodel import ConnectedPeerModel
 from .featuresdatamodel import FeaturesDataModel
@@ -16,7 +16,7 @@ class StatusModel(Model):
     process_id: Optional[str] = Field(alias='processId')
     consensus_height: Optional[conint(ge=0)] = Field(alias='consensusHeight')
     blockstore_height: Optional[conint(ge=0)] = Field(alias='blockStoreHeight')
-    best_peer_height: Optional[conint(ge=0)] = Field(alias='bestPeerheight')
+    best_peer_height: Optional[conint(ge=0)] = Field(alias='bestPeerHeight')
     inbound_peers: Optional[List[ConnectedPeerModel]] = Field(alias='inboundPeers')
     outbound_peers: Optional[List[ConnectedPeerModel]] = Field(alias='outboundPeers')
     features_data: Optional[List[FeaturesDataModel]] = Field(alias='featuresData')
@@ -26,4 +26,4 @@ class StatusModel(Model):
     protocol_version: Optional[conint(ge=0)] = Field(alias='protocolVersion')
     testnet: Optional[bool]
     relay_fee: Optional[Money] = Field(alias='relayFee')
-    state: Optional[str]
+    state: Optional[FullNodeState]

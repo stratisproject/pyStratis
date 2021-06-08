@@ -2,7 +2,7 @@ import pytest
 from pytest_mock import MockerFixture
 from api.addressbook import AddressBook
 from api.addressbook.requestmodels import *
-from pybitcoin import Address
+from pybitcoin.types import Address
 from pybitcoin.networks import StraxMain, CirrusMain
 
 

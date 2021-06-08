@@ -3,8 +3,8 @@ import json
 import ecdsa
 import base64
 from binascii import unhexlify
-from pybitcoin import Address, DestinationChain, Outpoint, Recipient, UtxoDescriptor, AddressDescriptor
-from pybitcoin.types import Money
+from pybitcoin import DestinationChain, Outpoint, Recipient, UtxoDescriptor, AddressDescriptor
+from pybitcoin.types import Address, Money
 from api.wallet.requestmodels import *
 from pybitcoin.networks import StraxMain, CirrusMain, Ethereum
 

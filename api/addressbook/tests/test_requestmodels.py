@@ -1,7 +1,7 @@
 import pytest
 import json
 from api.addressbook.requestmodels import *
-from pybitcoin import Address
+from pybitcoin.types import Address
 from pybitcoin.networks import StraxMain, CirrusMain
 
 

@@ -1,8 +1,8 @@
 import pytest
 import json
 from api.coldstaking.requestmodels import *
-from pybitcoin import Address, ExtPubKey
-from pybitcoin.types import Money
+from pybitcoin import ExtPubKey
+from pybitcoin.types import Address, Money
 from pybitcoin.networks import StraxMain, CirrusMain
 
 
@@ -72,6 +72,7 @@ def test_offlinewithdrawalrequest(network, generate_p2pkh_address):
         'walletName': 'Test',
         'accountName': 'account 0',
         'amount': 5,
+        'fees': 1,
         'subtractFeeFromAmount': True
     }
     request_model = OfflineWithdrawalRequest(
@@ -79,6 +80,7 @@ def test_offlinewithdrawalrequest(network, generate_p2pkh_address):
         wallet_name='Test',
         account_name='account 0',
         amount=Money(5),
+        fees=Money(1),
         subtract_fee_from_amount=True
     )
     assert json.dumps(data) == request_model.json()

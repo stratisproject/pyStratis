@@ -1,4 +1,4 @@
-from pybitcoin import Address
+from pybitcoin.types import Address
 from pybitcoin import Model
 
 

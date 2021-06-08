@@ -1,7 +1,7 @@
 from typing import Optional
 from pydantic import BaseModel, Field
 from pybitcoin.types import Money
-from .address import Address
+from pybitcoin.types.address import Address
 
 
 class Recipient(BaseModel):

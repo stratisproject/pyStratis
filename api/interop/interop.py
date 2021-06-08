@@ -1,6 +1,6 @@
 from api import APIRequest, EndpointRegister, endpoint
 from api.interop.responsemodels import *
-from pybitcoin import Address
+from pybitcoin.types import Address
 from pybitcoin.networks import Ethereum
 
 
@@ -29,12 +29,15 @@ class Interop(APIRequest, metaclass=EndpointRegister):
             'burnRequests': [],
             'receivedVotes': {}
         }
-        for item in data['mintRequests']:
-            item['destinationAddress'] = Address(address=item['destinationAddress'], network=Ethereum())
-            new_data['mintRequests'].append(item)
-        for item in data['burnRequests']:
-            item['destinationAddress'] = Address(address=item['destinationAddress'], network=self._network)
-            new_data['burnRequests'].append(item)
-        new_data['receivedVotes'] = data['receivedVotes']
+        for i in range(len(data['mintRequests'])):
+            data['mintRequests'][i]['destinationAddress'] = Address(
+                address=data['mintRequests'][i]['destinationAddress'],
+                network=Ethereum()
+            )
+        for i in range(len(data['burnRequests'])):
+            data['burnRequests'][i]['destinationAddress'] = Address(
+                address=data['burnRequests'][i]['destinationAddress'],
+                network=self._network
+            )
 
-        return StatusModel(**new_data)
+        return StatusModel(**data)

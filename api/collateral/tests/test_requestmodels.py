@@ -2,7 +2,7 @@ import pytest
 import json
 from api.collateral.requestmodels import *
 from pybitcoin.networks import StraxMain, CirrusMain
-from pybitcoin import Address
+from pybitcoin.types import Address
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])

@@ -2,7 +2,8 @@ from typing import List, Union
 from api import APIRequest, EndpointRegister, endpoint
 from api.federationgateway.requestmodels import *
 from api.federationgateway.responsemodels import *
-from pybitcoin import Address, DestinationChain
+from pybitcoin import DestinationChain
+from pybitcoin.types import Address
 from pybitcoin.networks import StraxMain, StraxTest, StraxRegTest, CirrusMain, CirrusTest, CirrusRegTest, Ethereum
 
 

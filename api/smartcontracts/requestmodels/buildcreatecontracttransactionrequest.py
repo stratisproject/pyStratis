@@ -1,7 +1,7 @@
 from typing import Optional, List
 from pydantic import Field, SecretStr
-from pybitcoin import Address, Model, Outpoint, SmartContractParameter
-from pybitcoin.types import Money
+from pybitcoin import Model, Outpoint, SmartContractParameter
+from pybitcoin.types import Address, Money
 
 
 class BuildCreateContractTransactionRequest(Model):

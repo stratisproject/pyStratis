@@ -2,7 +2,7 @@ from typing import List
 from api import APIRequest, EndpointRegister, endpoint
 from api.addressbook.responsemodels import *
 from api.addressbook.requestmodels import *
-from pybitcoin import Address
+from pybitcoin.types import Address
 
 
 class AddressBook(APIRequest, metaclass=EndpointRegister):

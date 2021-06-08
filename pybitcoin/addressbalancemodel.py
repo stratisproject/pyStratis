@@ -1,11 +1,11 @@
 from pydantic import Field, BaseModel
-from pybitcoin.types import Money
+from pybitcoin.types import Address, Money
 from .cointype import CoinType
 
 
 class AddressBalanceModel(BaseModel):
     """An AddressBalanceModel."""
-    address: str
+    address: Address
     coin_type: CoinType = Field(alias='coinType')
     amount_confirmed: Money = Field(alias='amountConfirmed')
     amount_unconfirmed: Money = Field(alias='amountUnconfirmed')

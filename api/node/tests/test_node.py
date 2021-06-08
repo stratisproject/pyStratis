@@ -1,9 +1,13 @@
 import pytest
+import ast
 from pytest_mock import MockerFixture
 from api.node import Node
+from api.node.requestmodels import *
+from api.node.responsemodels import *
+from pybitcoin import FullNodeState, FeatureInitializationState, TransactionModel, LogRule
+from pybitcoin.networks import StraxMain, CirrusMain
 
 
-@pytest.mark.skip
 def test_all_strax_endpoints_implemented(strax_swagger_json):
     paths = [key.lower() for key in strax_swagger_json['paths'].keys()]
     for endpoint in paths:
@@ -11,7 +15,6 @@ def test_all_strax_endpoints_implemented(strax_swagger_json):
             assert endpoint in Node.endpoints
 
 
-@pytest.mark.skip
 def test_all_cirrus_endpoints_implemented(cirrus_swagger_json):
     paths = [key.lower() for key in cirrus_swagger_json['paths'].keys()]
     for endpoint in paths:
@@ -19,7 +22,6 @@ def test_all_cirrus_endpoints_implemented(cirrus_swagger_json):
             assert endpoint in Node.endpoints
 
 
-@pytest.mark.skip
 def test_all_interfluxstrax_endpoints_implemented(interfluxstrax_swagger_json):
     paths = [key.lower() for key in interfluxstrax_swagger_json['paths'].keys()]
     for endpoint in paths:
@@ -27,61 +29,297 @@ def test_all_interfluxstrax_endpoints_implemented(interfluxstrax_swagger_json):
             assert endpoint in Node.endpoints
 
 
-@pytest.mark.skip
 def test_all_interfluxcirrus_endpoints_implemented(interfluxcirrus_swagger_json):
     paths = [key.lower() for key in interfluxcirrus_swagger_json['paths'].keys()]
     for endpoint in paths:
         if Node.route + '/' in endpoint:
             assert endpoint in Node.endpoints
 
-# @pytest.mark.parametrize('network', [StraxMain()], ids=['StraxMain'])
+
+@pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
+def test_status(mocker: MockerFixture, network, fakeuri):
+    data = {
+        'agent': 'nodeagent',
+        'version': 'nodeversion',
+        'externalAddress': '[::0.0.0.0]',
+        'network': network.name,
+        'coin_ticker': 'STRAX' if 'Strax' in network.name else 'CRS',
+        'processId': '0',
+        'consensusHeight': 10,
+        'blockStoreHeight': 10,
+        'bestPeerHeight': 10,
+        'inboundPeers': [
+            {
+                'version': 1,
+                'remoteSocketEndpoint': '[::0.0.0.0]',
+                'tipHeight': 10
+            }
+        ],
+        'outboundPeers': [
+            {
+                'version': 1,
+                'remoteSocketEndpoint': '[::0.0.0.0]',
+                'tipHeight': 10
+            }
+        ],
+        'featuresData': [
+            {
+                'namespace': 'node.feature',
+                'state': FeatureInitializationState.Initialized
+            }
+        ],
+        'dataDirectoryPath': '/my/data/dir',
+        'runningTime': 'a long time',
+        'difficulty': 100000.0000,
+        'protocolVersion': 123,
+        'testnet': False,
+        'relayFee': 0,
+        'state': FullNodeState.Initialized
+    }
+    mocker.patch.object(Node, 'get', return_value=data)
+    node = Node(network=network, baseuri=fakeuri)
+
+    response = node.status()
+
+    assert response == StatusModel(**data)
+    # noinspection PyUnresolvedReferences
+    node.get.assert_called_once()
 
 
-def test_status():
-    # TODO
-    pass
+@pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
+def test_get_blockheader(mocker: MockerFixture, network, fakeuri, generate_uint256):
+    data = {
+        'version': 1,
+        'merkleroot': generate_uint256,
+        'nonce': 0,
+        'bits': 'bits',
+        'previousblockhash': generate_uint256,
+        'time': 1,
+    }
+    mocker.patch.object(Node, 'get', return_value=data)
+    node = Node(network=network, baseuri=fakeuri)
+    request_model = GetBlockHeaderRequest(
+        hash=generate_uint256,
+        is_json_format=True
+    )
 
-def test_get_blockheader():
-    # TODO
-    pass
+    response = node.get_blockheader(request_model)
 
-def test_get_raw_transaction():
-    # TODO
-    pass
+    assert response == BlockHeaderModel(**data)
+    # noinspection PyUnresolvedReferences
+    node.get.assert_called_once()
 
-def test_decode_raw_transaction():
-    # TODO
-    pass
 
-def test_validate_address():
-    # TODO
-    pass
+@pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
+def test_get_raw_transaction_verbose(mocker: MockerFixture, network, fakeuri, generate_coinbase_transaction, generate_uint256):
+    trxid = generate_uint256
+    data = generate_coinbase_transaction(trxid)
+    mocker.patch.object(Node, 'get', return_value=data)
+    node = Node(network=network, baseuri=fakeuri)
+    request_model = GetRawTransactionRequest(
+        trxid=trxid,
+        verbose=True
+    )
 
-def test_get_txout():
-    # TODO
-    pass
+    response = node.get_raw_transaction(request_model)
 
-def test_get_txout_proof():
-    # TODO
-    pass
+    assert response == TransactionModel(**data)
+    # noinspection PyUnresolvedReferences
+    node.get.assert_called_once()
 
-def test_shutdown():
-    # TODO
-    pass
 
-def test_stop():
-    # TODO
-    pass
+@pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
+def test_get_raw_transaction_nonverbose(mocker: MockerFixture, network, fakeuri, generate_coinbase_transaction, generate_uint256):
+    trxid = generate_uint256
+    data = generate_coinbase_transaction(trxid)
+    hexified_data = bytes(str(data), 'ascii').hex()
+    mocker.patch.object(Node, 'get', return_value=hexified_data)
+    node = Node(network=network, baseuri=fakeuri)
+    request_model = GetRawTransactionRequest(
+        trxid=trxid,
+        verbose=False
+    )
 
-def test_log_levels():
-    # TODO
-    pass
+    response = node.get_raw_transaction(request_model)
 
-def test_log_rules():
-    # TODO
-    pass
+    assert response == hexified_data
+    unserialized_response = ast.literal_eval(bytes.fromhex(hexified_data).decode('ascii'))
+    assert data == unserialized_response
+    # noinspection PyUnresolvedReferences
+    node.get.assert_called_once()
 
-def test_async_loops():
-    # TODO
-    pass
 
+@pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
+def test_decode_raw_transaction(mocker: MockerFixture, network, fakeuri, generate_uint256,
+                                generate_coinbase_transaction):
+    trxid = generate_uint256
+    data = generate_coinbase_transaction(trxid)
+    hexified_data = bytes(str(data), 'ascii').hex()
+    mocker.patch.object(Node, 'post', return_value=data)
+    node = Node(network=network, baseuri=fakeuri)
+    request_model = DecodeRawTransactionRequest(
+        raw_hex=hexified_data
+    )
+
+    response = node.decode_raw_transaction(request_model)
+
+    assert response == TransactionModel(**data)
+    # noinspection PyUnresolvedReferences
+    node.post.assert_called_once()
+
+
+@pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
+def test_validate_address(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address):
+    address = generate_p2pkh_address(network=network)
+    data = {
+        'isvalid': True,
+        'address': address,
+        'scriptPubKey': 'a scriptPubKey',
+        'isscript': False,
+        'iswitness': False
+    }
+    mocker.patch.object(Node, 'get', return_value=data)
+    node = Node(network=network, baseuri=fakeuri)
+    request_model = ValidateAddressRequest(
+        address=address
+    )
+
+    response = node.validate_address(request_model)
+
+    assert response == ValidateAddressModel(**data)
+    # noinspection PyUnresolvedReferences
+    node.get.assert_called_once()
+
+
+@pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
+def test_get_txout(mocker: MockerFixture, network, fakeuri, generate_uint256, generate_hexstring,
+                   generate_p2pkh_address):
+    data = {
+        'bestblock': generate_uint256,
+        'confirmations': 1,
+        'value': 5,
+        'scriptPubKey': {
+            'asm': generate_hexstring(128),
+            'hex': generate_hexstring(128),
+            'type': 'pubkey',
+            'reqSigs': 1,
+            "addresses": [
+                generate_p2pkh_address(network=network)
+            ]
+        },
+        'coinbase': False
+    }
+    mocker.patch.object(Node, 'get', return_value=data)
+    node = Node(network=network, baseuri=fakeuri)
+    request_model = GetTxOutRequest(
+        trxid=generate_uint256,
+        vout=0,
+        include_mempool=False
+    )
+
+    response = node.get_txout(request_model)
+
+    assert response == GetTxOutModel(**data)
+    # noinspection PyUnresolvedReferences
+    node.get.assert_called_once()
+
+
+@pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
+def test_get_txout_proof(mocker: MockerFixture, network, fakeuri, generate_uint256, generate_hexstring):
+    data = generate_hexstring(128)
+    mocker.patch.object(Node, 'get', return_value=data)
+    node = Node(network=network, baseuri=fakeuri)
+    request_model = GetTxOutProofRequest(
+        txids=[
+            generate_uint256,
+            generate_uint256
+        ],
+        blockhash=generate_uint256
+    )
+
+    response = node.get_txout_proof(request_model)
+
+    assert response == data
+    # noinspection PyUnresolvedReferences
+    node.get.assert_called_once()
+
+
+@pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
+def test_shutdown(mocker: MockerFixture, network, fakeuri):
+    data = None
+    mocker.patch.object(Node, 'post', return_value=data)
+    node = Node(network=network, baseuri=fakeuri)
+    request_model = ShutdownRequest()
+
+    node.shutdown(request_model)
+
+    # noinspection PyUnresolvedReferences
+    node.post.assert_called_once()
+
+
+@pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
+def test_stop(mocker: MockerFixture, network, fakeuri):
+    data = None
+    mocker.patch.object(Node, 'post', return_value=data)
+    node = Node(network=network, baseuri=fakeuri)
+    request_model = ShutdownRequest()
+
+    node.stop(request_model)
+
+    # noinspection PyUnresolvedReferences
+    node.post.assert_called_once()
+
+
+@pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
+def test_log_levels(mocker: MockerFixture, network, fakeuri):
+    data = None
+    mocker.patch.object(Node, 'put', return_value=data)
+    node = Node(network=network, baseuri=fakeuri)
+    request_model = LogRulesRequest(
+        log_rules=[
+            LogRule(rule_name='TestRule', log_level='Debug')
+        ]
+    )
+
+    node.log_levels(request_model)
+
+    # noinspection PyUnresolvedReferences
+    node.put.assert_called_once()
+
+
+@pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
+def test_log_rules(mocker: MockerFixture, network, fakeuri):
+    data = [
+        {
+            'ruleName': 'TestRule',
+            'logLevel': 'Debug',
+            'filename': 'filename'
+        }
+    ]
+
+    mocker.patch.object(Node, 'get', return_value=data)
+    node = Node(network=network, baseuri=fakeuri)
+
+    response = node.log_rules()
+
+    assert response == [LogRulesModel(**x) for x in data]
+    # noinspection PyUnresolvedReferences
+    node.get.assert_called_once()
+
+
+@pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
+def test_async_loops(mocker: MockerFixture, network, fakeuri):
+    data = [
+        {
+            'loopName': 'Loop1',
+            'status': 'Running'
+        }
+    ]
+    mocker.patch.object(Node, 'get', return_value=data)
+    node = Node(network=network, baseuri=fakeuri)
+
+    response = node.async_loops()
+
+    assert response == [AsyncLoopsModel(**x) for x in data]
+    # noinspection PyUnresolvedReferences
+    node.get.assert_called_once()

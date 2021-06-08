@@ -1,5 +1,4 @@
 from .accountbalancemodel import AccountBalanceModel
-from .address import Address
 from .addressbalancemodel import AddressBalanceModel
 from .addressesmodel import AddressesModel
 from .addressmodel import AddressModel
@@ -18,6 +17,8 @@ from .deposit import Deposit
 from .depositretrievaltype import DepositRetrievalType
 from .destinationchain import DestinationChain
 from .extpubkey import ExtPubKey
+from .featureinitializationstate import FeatureInitializationState
+from .fullnodestate import FullNodeState
 from .logrule import LogRule
 from .maturedblockinfomodel import MaturedBlockInfoModel
 from .model import Model

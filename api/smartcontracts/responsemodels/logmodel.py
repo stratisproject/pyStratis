@@ -1,6 +1,7 @@
 from typing import List, Optional
 from pydantic import Field
-from pybitcoin import Model, Address
+from pybitcoin import Model
+from pybitcoin.types import Address
 
 
 class LogModel(Model):

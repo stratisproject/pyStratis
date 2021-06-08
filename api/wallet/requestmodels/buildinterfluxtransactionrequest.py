@@ -1,7 +1,7 @@
 from typing import Optional, List
 from pydantic import Field, SecretStr, validator
-from pybitcoin import Address, DestinationChain, Model, Outpoint, Recipient
-from pybitcoin.types import Money
+from pybitcoin import DestinationChain, Model, Outpoint, Recipient
+from pybitcoin.types import Address, Money
 
 
 class BuildInterfluxTransactionRequest(Model):

@@ -2,8 +2,8 @@ import pytest
 import json
 from api.multisig.requestmodels import *
 from pybitcoin.networks import StraxMain, CirrusMain
-from pybitcoin import Address, MultisigSecret, Recipient
-from pybitcoin.types import Money
+from pybitcoin import MultisigSecret, Recipient
+from pybitcoin.types import Address, Money
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])

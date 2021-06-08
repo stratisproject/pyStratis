@@ -1,6 +1,5 @@
 from __future__ import annotations
 from pybitcoin.networks import BaseNetwork
-from pydantic import ValidationError
 
 
 class Address:
@@ -36,7 +35,4 @@ class Address:
     def validate_values(address: str, network: BaseNetwork) -> bool:
         if network.validate_address(address):
             return True
-        raise ValidationError(
-            [ValueError('Invalid address for given network.')],
-            model=Address,
-        )
+        raise ValueError('Invalid address for given network.')

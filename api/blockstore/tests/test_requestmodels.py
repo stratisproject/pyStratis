@@ -1,7 +1,7 @@
 import pytest
 import json
 from api.blockstore.requestmodels import *
-from pybitcoin import Address
+from pybitcoin.types import Address
 from pybitcoin.networks import StraxMain, CirrusMain
 
 

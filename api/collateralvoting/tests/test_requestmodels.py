@@ -2,8 +2,8 @@ import pytest
 import json
 from api.collateralvoting.requestmodels import *
 from pybitcoin.networks import StraxMain, CirrusMain
-from pybitcoin import Address, PubKey
-from pybitcoin.types import Money
+from pybitcoin import PubKey
+from pybitcoin.types import Address, Money
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])

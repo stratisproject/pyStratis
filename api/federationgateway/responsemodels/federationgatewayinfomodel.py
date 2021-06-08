@@ -1,6 +1,7 @@
 from typing import List, Optional
 from pydantic import Field, conint
-from pybitcoin import Address, Model, PubKey
+from pybitcoin import Model, PubKey
+from pybitcoin.types import Address
 
 
 class FederationGatewayInfoModel(Model):

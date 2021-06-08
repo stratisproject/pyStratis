@@ -1,8 +1,8 @@
 from api import APIRequest, EndpointRegister, endpoint
 from api.coldstaking.requestmodels import *
 from api.coldstaking.responsemodels import *
-from pybitcoin import Address, AddressDescriptor, BuildOfflineSignModel, UtxoDescriptor
-from pybitcoin.types import Money, uint256
+from pybitcoin import AddressDescriptor, BuildOfflineSignModel, UtxoDescriptor
+from pybitcoin.types import Address, Money, uint256
 
 
 class ColdStaking(APIRequest, metaclass=EndpointRegister):

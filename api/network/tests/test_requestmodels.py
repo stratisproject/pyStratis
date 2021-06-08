@@ -6,7 +6,6 @@ from api.network.requestmodels import *
 def test_clearbannedrequest():
     data = True
     request_model = ClearBannedRequest(
-
     )
     assert json.dumps(data) == request_model.json()
 

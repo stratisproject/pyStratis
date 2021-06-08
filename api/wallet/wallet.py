@@ -2,10 +2,11 @@ from typing import List
 from api import APIRequest, EndpointRegister, endpoint
 from api.wallet.requestmodels import *
 from api.wallet.responsemodels import *
-from pybitcoin import Address, AddressesModel, AddressBalanceModel, BuildTransactionModel, \
+from pybitcoin import AddressesModel, AddressBalanceModel, BuildTransactionModel, \
     BuildOfflineSignModel, RemovedTransactionModel, WalletGeneralInfoModel, \
-    WalletBalanceModel, WalletSendTransactionModel, SendTransactionRequest
-from pybitcoin.types import Money, hexstr, uint256
+    WalletBalanceModel, WalletSendTransactionModel, SendTransactionRequest, PubKey, \
+    TransactionOutputModel, ExtPubKey, UtxoDescriptor, AddressDescriptor
+from pybitcoin.types import Address, Money, hexstr, uint256
 
 
 class Wallet(APIRequest, metaclass=EndpointRegister):
@@ -67,7 +68,7 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
         return data
 
     @endpoint(f'{route}/pubkey')
-    def pubkey(self, request_model: PubKeyRequest, **kwargs) -> hexstr:
+    def pubkey(self, request_model: PubKeyRequest, **kwargs) -> PubKey:
         """Gets the public key for an address.
 
         Args:
@@ -75,13 +76,13 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
             **kwargs:
 
         Returns:
-            hexstr
+            PubKey
         Raises:
             APIError
         """
         data = self.post(request_model, **kwargs)
 
-        return data
+        return PubKey(data)
 
     @endpoint(f'{route}/verifymessage')
     def verify_message(self, request_model: VerifyMessageRequest, **kwargs) -> bool:
@@ -162,7 +163,7 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
 
         return WalletGeneralInfoModel(**data)
 
-    @endpoint(f'{route}/transactionCount')
+    @endpoint(f'{route}/transactioncount')
     def transaction_count(self, request_model: AccountRequest, **kwargs) -> int:
         """Get the transaction count for the specified Wallet and Account.
 
@@ -193,6 +194,17 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
             APIError
         """
         data = self.get(request_model, **kwargs)
+        for i in range(len(data['History'])):
+            for j in range(len(data['History'][i]['transactionsHistory'])):
+                data['History'][i]['transactionsHistory'][j]['toAddress'] = Address(
+                    address=data['History'][i]['transactionsHistory'][j]['toAddress'],
+                    network=self._network
+                )
+                for k in range(len(data['History'][i]['transactionsHistory'][j]['payments'])):
+                    data['History'][i]['transactionsHistory'][j]['payments'][k]['destinationAddress'] = Address(
+                        address=data['History'][i]['transactionsHistory'][j]['payments'][k]['destinationAddress'],
+                        network=self._network
+                    )
 
         return WalletHistoryModel(**data)
 
@@ -210,12 +222,18 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
             APIError
         """
         data = self.get(request_model, **kwargs)
+        for i in range(len(data['balances'])):
+            for j in range(len(data['balances'][i]['addresses'])):
+                data['balances'][i]['addresses'][j]['address'] = Address(
+                    address=data['balances'][i]['addresses'][j]['address'],
+                    network=self._network
+                )
 
         return WalletBalanceModel(**data)
 
     @endpoint(f'{route}/received-by-address')
     def received_by_address(self, request_model: ReceivedByAddressRequest, **kwargs) -> AddressBalanceModel:
-        """
+        """Retrieves transactions received by the specified address.
 
         Args:
             request_model: ReceivedByAddressRequest model
@@ -227,6 +245,7 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
             APIError
         """
         data = self.get(request_model, **kwargs)
+        data['address'] = Address(address=data['address'], network=self._network)
 
         return AddressBalanceModel(**data)
 
@@ -261,6 +280,11 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
             APIError
         """
         data = self.get(request_model, **kwargs)
+        for i in range(len(data['transactions'])):
+            data['transactions'][i]['address'] = Address(
+                address=data['transactions'][i]['address'],
+                network=self._network
+            )
 
         return SpendableTransactionsModel(**data)
 
@@ -280,7 +304,7 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
         """
         data = self.post(request_model, **kwargs)
 
-        return data
+        return Money(data)
 
     @endpoint(f'{route}/build-transaction')
     def build_transaction(self, request_model: BuildTransactionRequest, **kwargs) -> BuildTransactionModel:
@@ -333,6 +357,9 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
             APIError
         """
         data = self.post(request_model, **kwargs)
+        for i in range(len(data['outputs'])):
+            data['outputs'][i]['address'] = Address(address=data['outputs'][i]['address'], network=self._network)
+            data['outputs'][i] = TransactionOutputModel(**data['outputs'][i])
 
         return WalletSendTransactionModel(**data)
 
@@ -405,10 +432,10 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
         """
         data = self.get(request_model, **kwargs)
 
-        return data
+        return Address(address=data, network=self._network)
 
     @endpoint(f'{route}/unusedaddresses')
-    def unused_addresses(self, request_model: GetUnusedAddressesRequest, **kwargs) -> List[str]:
+    def unused_addresses(self, request_model: GetUnusedAddressesRequest, **kwargs) -> List[Address]:
         """Gets a specified number of unused addresses (in the Base58 format) for a wallet account.
 
         Args:
@@ -416,17 +443,17 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
             **kwargs:
 
         Returns:
-            List[str]
+            List[Address]
 
         Raises:
             APIError
         """
         data = self.get(request_model, **kwargs)
 
-        return data
+        return [Address(address=x, network=self._network) for x in data]
 
     @endpoint(f'{route}/newaddresses')
-    def new_addresses(self, request_model: GetNewAddressesRequest, **kwargs) -> List[str]:
+    def new_addresses(self, request_model: GetNewAddressesRequest, **kwargs) -> List[Address]:
         """Gets a specified number of new addresses (in the Base58 format) for a wallet account.
 
         Args:
@@ -434,7 +461,7 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
             **kwargs:
 
         Returns:
-            List[str]
+            List[Address]
 
         Raises:
             APIError
@@ -458,6 +485,8 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
             APIError
         """
         data = self.get(request_model, **kwargs)
+        for i in range(len(data['addresses'])):
+            data['addresses'][i]['address'] = Address(address=data['addresses'][i]['address'], network=self._network)
 
         return AddressesModel(**data)
 
@@ -495,7 +524,7 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
         self.delete(request_model, **kwargs)
 
     @endpoint(f'{route}/extpubkey')
-    def extpubkey(self, request_model: ExtPubKeyRequest, **kwargs) -> hexstr:
+    def extpubkey(self, request_model: ExtPubKeyRequest, **kwargs) -> ExtPubKey:
         """Gets the extended public key of a specified wallet account.
 
         Args:
@@ -503,14 +532,14 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
             **kwargs:
 
         Returns:
-            hexstr
+            ExtPubKey
 
         Raises:
             APIError
         """
         data = self.get(request_model, **kwargs)
 
-        return data
+        return ExtPubKey(data)
 
     @endpoint(f'{route}/privatekey')
     def private_key(self, request_model: PrivateKeyRequest, **kwargs) -> hexstr:
@@ -593,6 +622,9 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
             APIError
         """
         data = self.post(request_model, **kwargs)
+        for i in range(len(data['outputs'])):
+            data['outputs'][i]['address'] = Address(address=data['outputs'][i]['address'], network=self._network)
+            data['outputs'][i] = TransactionOutputModel(**data['outputs'][i])
 
         return WalletSendTransactionModel(**data)
 
@@ -610,11 +642,17 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
             APIError
         """
         data = self.post(request_model, **kwargs)
+        for i in range(len(data['WalletSendTransaction'])):
+            for j in range(len(data['WalletSendTransaction'][i]['outputs'])):
+                data['WalletSendTransaction'][i]['outputs'][j]['address'] = Address(
+                    address=data['WalletSendTransaction'][i]['outputs'][j]['address'],
+                    network=self._network
+                )
 
         return DistributeUtxoModel(**data)
 
     @endpoint(f'{route}/sweep')
-    def sweep(self, request_model: SweepRequest, **kwargs) -> List[str]:
+    def sweep(self, request_model: SweepRequest, **kwargs) -> List[uint256]:
         """Sweeps a wallet to specified address.
 
         Args:
@@ -622,13 +660,13 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
             **kwargs:
 
         Returns:
-            List[str]
+            List[uint256]
         Raises:
             APIError
         """
         data = self.post(request_model, **kwargs)
 
-        return data
+        return [uint256(x) for x in data]
 
     @endpoint(f'{route}/build-offline-sign-request')
     def build_offline_sign_request(self, request_model: BuildOfflineSignRequest, **kwargs) -> BuildOfflineSignModel:
@@ -644,6 +682,15 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
             APIError
         """
         data = self.post(request_model, **kwargs)
+        # Build the UtxoDescriptors
+        data['utxos'] = [UtxoDescriptor(**x) for x in data['utxos']]
+
+        # Build the AddressDescriptors
+        address_descriptors = []
+        for address_descriptor in data['addresses']:
+            address_descriptor['address'] = Address(address=address_descriptor['address'], network=self._network)
+            address_descriptors.append(address_descriptor)
+        data['addresses'] = [AddressDescriptor(**x) for x in address_descriptors]
 
         return BuildOfflineSignModel(**data)
 
@@ -680,4 +727,4 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
         """
         data = self.post(request_model, **kwargs)
 
-        return data
+        return uint256(data)

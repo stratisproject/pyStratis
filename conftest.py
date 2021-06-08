@@ -10,7 +10,7 @@ from binascii import unhexlify
 from random import choice, randint, random
 # noinspection PyPackageRequirements
 from sha3 import keccak_256
-from pybitcoin.types import hexstr
+from pybitcoin.types import uint256
 from pybitcoin.networks import BaseNetwork
 
 
@@ -160,6 +160,13 @@ def generate_privatekey() -> str:
 
 
 @pytest.fixture(scope='function')
+def generate_wif_privatekey(generate_privatekey) -> str:
+    private_key_bytes = unhexlify(generate_privatekey)
+    extended = b'\x80' + private_key_bytes
+    checksum = sha256(sha256(extended).digest()).digest()
+    return base58.b58encode(extended + checksum[:4]).decode('ascii')
+
+@pytest.fixture(scope='function')
 def generate_uncompressed_pubkey(generate_privatekey) -> str:
     private_key_bytes = unhexlify(generate_privatekey)
     key = ecdsa.SigningKey.from_string(private_key_bytes, curve=ecdsa.SECP256k1).verifying_key
@@ -279,7 +286,7 @@ def generate_block_no_tx_data(generate_hexstring, generate_uint256) -> dict:
 
 @pytest.fixture(scope='function')
 def generate_coinbase_transaction(generate_hexstring, generate_uint256):
-    def _generate_transaction(trxid: hexstr) -> dict:
+    def _generate_transaction(trxid: uint256) -> dict:
         data = {
             "hex": generate_hexstring(128),
             "txid": trxid,
@@ -322,7 +329,7 @@ def generate_coinbase_transaction(generate_hexstring, generate_uint256):
 
 @pytest.fixture(scope='function')
 def generate_transaction(generate_hexstring, generate_uint256, generate_p2pkh_address, generate_p2sh_address):
-    def _generate_transaction(trxid: hexstr, network: BaseNetwork) -> dict:
+    def _generate_transaction(trxid: uint256, network: BaseNetwork) -> dict:
         data = {
             "hex": generate_hexstring(128),
             "txid": trxid,

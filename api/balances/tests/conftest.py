@@ -1,6 +1,6 @@
 import pytest
 from typing import List
-from pybitcoin import Address
+from pybitcoin.types import Address
 
 
 @pytest.fixture(scope='function')

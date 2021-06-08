@@ -1,7 +1,7 @@
 from typing import Optional
 from pydantic import Field
-from pybitcoin import Model, Address
-from pybitcoin.types import Money
+from pybitcoin import Model
+from pybitcoin.types import Address, Money
 
 
 class TransferInfoModel(Model):

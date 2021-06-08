@@ -1,5 +1,6 @@
 from typing import Optional, List
-from pybitcoin import Address, Model
+from pybitcoin import Model
+from pybitcoin.types import Address
 from pydantic import Field
 from .balancechangesmodel import BalanceChangesModel
 

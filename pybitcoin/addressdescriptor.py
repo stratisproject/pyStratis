@@ -1,5 +1,5 @@
 from pydantic import Field, BaseModel
-from .address import Address
+from pybitcoin.types.address import Address
 
 
 class AddressDescriptor(BaseModel):

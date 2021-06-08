@@ -1,7 +1,7 @@
 from typing import Optional, List
 from pydantic import Field, validator
-from pybitcoin import Address, Model, Outpoint, Recipient
-from pybitcoin.types import Money
+from pybitcoin import Model, Outpoint, Recipient
+from pybitcoin.types import Address, Money
 
 
 class BuildOfflineSignRequest(Model):

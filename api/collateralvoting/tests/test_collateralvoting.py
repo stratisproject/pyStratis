@@ -2,8 +2,7 @@ import pytest
 from pytest_mock import MockerFixture
 from api.collateralvoting import CollateralVoting
 from api.collateralvoting.requestmodels import *
-from pybitcoin import Address
-from pybitcoin.types import Money
+from pybitcoin.types import Address, Money
 from pybitcoin.networks import StraxMain
 
 

@@ -1,7 +1,7 @@
 from typing import List, Optional
 from pydantic import Field, conint
-from pybitcoin import Address, Model, TransactionItemType
-from pybitcoin.types import Money, uint256
+from pybitcoin import Model, TransactionItemType
+from pybitcoin.types import Address, Money, uint256
 from .paymentdetailmodel import PaymentDetailModel
 
 

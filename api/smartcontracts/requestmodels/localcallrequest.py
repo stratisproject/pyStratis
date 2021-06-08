@@ -1,7 +1,7 @@
 from typing import Optional, List
 from pydantic import Field
-from pybitcoin import Address, Model, SmartContractParameter
-from pybitcoin.types import Money
+from pybitcoin import Model, SmartContractParameter
+from pybitcoin.types import Address, Money
 
 
 class LocalCallContractTransactionRequest(Model):

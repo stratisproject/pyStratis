@@ -1,6 +1,5 @@
 from pydantic import BaseModel, Field, conint
-from pybitcoin import Address
-from pybitcoin.types import Money, uint256
+from pybitcoin.types import Address, Money, uint256
 from .destinationchain import DestinationChain
 from .depositretrievaltype import DepositRetrievalType
 

@@ -1,9 +1,10 @@
+import ast
 from typing import List
 from api import APIRequest, EndpointRegister, endpoint
 from api.smartcontracts.requestmodels import *
 from api.smartcontracts.responsemodels import *
 from pybitcoin import BuildContractTransactionModel
-from pybitcoin.types import Money, hexstr
+from pybitcoin.types import Address, Money, hexstr
 
 
 class SmartContracts(APIRequest, metaclass=EndpointRegister):
@@ -46,7 +47,7 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
         """
         data = self.get(request_model, **kwargs)
 
-        return data
+        return Money(data)
 
     @endpoint(f'{route}/storage')
     def storage(self, request_model: StorageRequest, **kwargs) -> hexstr:
@@ -84,6 +85,11 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
             APIError
         """
         data = self.get(request_model, **kwargs)
+        data['To'] = Address(address=data['To'], network=self._network)
+        data['From'] = Address(address=data['From'], network=self._network)
+        data['NewContractAddress'] = Address(address=data['NewContractAddress'], network=self._network)
+        for i in range(len(data['Logs'])):
+            data['Logs'][i]['Address'] = Address(address=data['Logs'][i]['Address'], network=self._network)
 
         return ReceiptModel(**data)
 
@@ -102,6 +108,12 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
             APIError
         """
         data = self.get(request_model, **kwargs)
+        for i in range(len(data)):
+            data[i]['To'] = Address(address=data[i]['To'], network=self._network)
+            data[i]['From'] = Address(address=data[i]['From'], network=self._network)
+            data[i]['NewContractAddress'] = Address(address=data[i]['NewContractAddress'], network=self._network)
+            for j in range(len(data[i]['Logs'])):
+                data[i]['Logs'][j]['Address'] = Address(address=data[i]['Logs'][j]['Address'], network=self._network)
 
         return [ReceiptModel(**x) for x in data]
 
@@ -175,7 +187,7 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
         """
         data = self.post(request_model, **kwargs)
 
-        return data
+        return Money(data)
 
     @endpoint(f'{route}/build-and-send-create')
     def build_and_send_create(self, request_model: BuildAndSendCreateContractTransactionRequest, **kwargs) -> BuildContractTransactionModel:
@@ -228,6 +240,12 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
             APIError
         """
         data = self.post(request_model, **kwargs)
+        for i in range(len(data['InternalTransfers'])):
+            data['InternalTransfers'][i]['From'] = Address(address=data['InternalTransfers'][i]['From'], network=self._network)
+            data['InternalTransfers'][i]['To'] = Address(address=data['InternalTransfers'][i]['To'], network=self._network)
+        for i in range(len(data['Logs'])):
+            data['Logs'][i]['Address'] = Address(address=data['Logs'][i]['Address'], network=self._network)
+        data['Return'] = ast.literal_eval(data['Return'])
 
         return LocalExecutionResultModel(**data)
 
@@ -246,5 +264,7 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
             APIError
         """
         data = self.get(request_model, **kwargs)
+        for i in range(len(data)):
+            data[i]['Address'] = Address(address=data[i]['Address'], network=self._network)
 
         return [AddressBalanceModel(**x) for x in data]

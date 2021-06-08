@@ -1,3 +1,4 @@
+from .address import Address
 from .hexstr import hexstr
 from .money import Money
 from .int32 import int32

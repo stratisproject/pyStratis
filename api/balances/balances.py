@@ -1,7 +1,7 @@
 from typing import List
 from api import APIRequest, EndpointRegister, endpoint
 from api.balances.requestmodels import *
-from pybitcoin import Address
+from pybitcoin.types import Address
 
 
 class Balances(APIRequest, metaclass=EndpointRegister):

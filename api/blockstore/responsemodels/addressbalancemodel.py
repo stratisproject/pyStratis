@@ -1,6 +1,6 @@
 from typing import Optional
-from pybitcoin import Address, Model
-from pybitcoin.types import Money
+from pybitcoin import Model
+from pybitcoin.types import Address, Money
 
 
 class AddressBalanceModel(Model):

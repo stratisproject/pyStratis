@@ -1,14 +1,12 @@
 from __future__ import annotations
 from typing import Any
-from pydantic import ValidationError
-from pybitcoin import Address
-from pybitcoin.types import int32, int64, uint32, uint64, uint128, uint256
+from pybitcoin.types import Address, int32, int64, uint32, uint64, uint128, uint256
 from .smartcontractparametertype import SmartContractParameterType
 
 
 class SmartContractParameter:
-    def __init__(self, type: SmartContractParameterType, value: Any):
-        self.type = type
+    def __init__(self, value_type: SmartContractParameterType, value: Any):
+        self.type = value_type
         self.value = value
 
     def __str__(self) -> str:
@@ -43,44 +41,41 @@ class SmartContractParameter:
 
     @classmethod
     def validate_class(cls, instance) -> SmartContractParameter:
-        cls.validate_values(type=instance.type, value=instance.value)
+        cls.validate_values(value_type=instance.type, value=instance.value)
         return instance
 
     @staticmethod
-    def validate_values(type: SmartContractParameterType, value: Any) -> bool:
-        if type.Boolean and isinstance(value, bool):
+    def validate_values(value_type: SmartContractParameterType, value: Any) -> bool:
+        if value_type.Boolean and isinstance(value, bool):
             return True
         # noinspection PyTypeChecker
-        if type.Byte and isinstance(value, bytes) and len(value) == 1:
+        if value_type.Byte and isinstance(value, bytes) and len(value) == 1:
             return True
-        if type.Char and isinstance(value, str) and len(value) == 1:
+        if value_type.Char and isinstance(value, str) and len(value) == 1:
             return True
-        if type.String:
+        if value_type.String:
             if isinstance(value, str):
                 return True
             # noinspection PyBroadException
             try:
                 str(value)
                 return True
-            except:
-                pass
-        if type.UInt32 and isinstance(value, uint32):
+            except Exception:
+                raise ValueError('Could not cast to str.')
+        if value_type.UInt32 and isinstance(value, uint32):
             return True
-        if type.UInt64 and isinstance(value, uint64):
+        if value_type.UInt64 and isinstance(value, uint64):
             return True
-        if type.Int32 and isinstance(value, int32):
+        if value_type.Int32 and isinstance(value, int32):
             return True
-        if type.Int64 and isinstance(value, int64):
+        if value_type.Int64 and isinstance(value, int64):
             return True
-        if type.UInt128 and isinstance(value, uint128):
+        if value_type.UInt128 and isinstance(value, uint128):
             return True
-        if type.UInt256 and isinstance(value, uint256):
+        if value_type.UInt256 and isinstance(value, uint256):
             return True
-        if type.Address and isinstance(value, Address):
+        if value_type.Address and isinstance(value, Address):
             return True
-        if type.ByteArray and isinstance(value, bytearray):
+        if value_type.ByteArray and isinstance(value, bytearray):
             return True
-        raise ValidationError(
-            [ValueError(f'Invalid {type.name} parameter.')],
-            model=SmartContractParameter,
-        )
+        raise ValueError(f'Invalid {value_type.name} parameter.')

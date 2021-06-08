@@ -1,7 +1,7 @@
 from typing import Optional
 from pydantic import Field, conint
-from pybitcoin import Model, Address, ConversionRequestType
-from pybitcoin.types import Money, uint256
+from pybitcoin import Model, ConversionRequestType
+from pybitcoin.types import Address, Money, uint256
 
 
 class ConversionRequestModel(Model):
