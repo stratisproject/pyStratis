@@ -7,5 +7,4 @@ Unofficial python package for interacting with Stratis (STRAX) full node and Cir
 Testing status: 748 passed, 3 skipped
 
 TODO
-- Finalize node classes
 - Integration testing on regtest
