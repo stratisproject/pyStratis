@@ -1,4 +1,5 @@
 from typing import List
+import requests
 from pybitcoin.networks import BaseNetwork
 from api.addressbook import AddressBook
 from api.blockstore import BlockStore
@@ -25,20 +26,20 @@ class BaseNode:
         self._api_schema_endpoint = '/swagger/v1/swagger.json'
 
         # API endpoints
-        self._addressbook = AddressBook(baseuri=ipaddr, network=blockchainnetwork)
-        self._blockstore = BlockStore(baseuri=ipaddr, network=blockchainnetwork)
-        self._connection_manager = ConnectionManager(baseuri=ipaddr, network=blockchainnetwork)
-        self._consensus = Consensus(baseuri=ipaddr, network=blockchainnetwork)
-        self._dashboard = Dashboard(baseuri=ipaddr, network=blockchainnetwork)
-        self._mempool = Mempool(baseuri=ipaddr, network=blockchainnetwork)
-        self._network = Network(baseuri=ipaddr, network=blockchainnetwork)
-        self._node = Node(baseuri=ipaddr, network=blockchainnetwork)
-        self._rpc = RPC(baseuri=ipaddr, network=blockchainnetwork)
-        self._signalr = SignalR(baseuri=ipaddr, network=blockchainnetwork)
-        self._wallet = Wallet(baseuri=ipaddr, network=blockchainnetwork)
+        self._address_book = AddressBook(baseuri=self.api_route, network=blockchainnetwork)
+        self._blockstore = BlockStore(baseuri=self.api_route, network=blockchainnetwork)
+        self._connection_manager = ConnectionManager(baseuri=self.api_route, network=blockchainnetwork)
+        self._consensus = Consensus(baseuri=self.api_route, network=blockchainnetwork)
+        self._dashboard = Dashboard(baseuri=self.api_route, network=blockchainnetwork)
+        self._mempool = Mempool(baseuri=self.api_route, network=blockchainnetwork)
+        self._network = Network(baseuri=self.api_route, network=blockchainnetwork)
+        self._node = Node(baseuri=self.api_route, network=blockchainnetwork)
+        self._rpc = RPC(baseuri=self.api_route, network=blockchainnetwork)
+        self._signalr = SignalR(baseuri=self.api_route, network=blockchainnetwork)
+        self._wallet = Wallet(baseuri=self.api_route, network=blockchainnetwork)
 
         self._endpoints = [
-            *self._addressbook.endpoints,
+            *self._address_book.endpoints,
             *self._blockstore.endpoints,
             *self._connection_manager.endpoints,
             *self._consensus.endpoints,
@@ -64,12 +65,16 @@ class BaseNode:
         return self._blockchainnetwork
 
     @property
+    def api_route(self) -> str:
+        return f'{self.ipaddr}:{self.blockchainnetwork.API_PORT}'
+
+    @property
     def endpoints(self) -> List[str]:
         return self._endpoints
 
     @property
-    def addressbook(self) -> AddressBook:
-        return self._addressbook
+    def address_book(self) -> AddressBook:
+        return self._address_book
 
     @property
     def blockstore(self) -> BlockStore:
@@ -110,3 +115,15 @@ class BaseNode:
     @property
     def wallet(self) -> Wallet:
         return self._wallet
+
+    def check_all_endpoints_implemented(self) -> bool:
+        request_url = f'{self.api_route}{self._api_schema_endpoint}'
+        response = requests.get(
+            url=request_url,
+            params=None,
+            headers={'Accept': '*/*', 'Content-Type': 'application/json'},
+            timeout=5
+        )
+        swagger_schema = response.json()
+        paths = [key.lower() for key in swagger_schema['paths'].keys()]
+        return set(self.endpoints) == set(paths)

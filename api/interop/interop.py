@@ -24,11 +24,6 @@ class Interop(APIRequest, metaclass=EndpointRegister):
             APIError
         """
         data = self.get(**kwargs)
-        new_data = {
-            'mintRequests': [],
-            'burnRequests': [],
-            'receivedVotes': {}
-        }
         for i in range(len(data['mintRequests'])):
             data['mintRequests'][i]['destinationAddress'] = Address(
                 address=data['mintRequests'][i]['destinationAddress'],

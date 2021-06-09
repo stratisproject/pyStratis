@@ -1,5 +1,5 @@
 from .basenode import BaseNode
-from pybitcoin.networks import BaseNetwork, CirrusMain, StraxMain
+from pybitcoin.networks import BaseNetwork, CirrusMain, CirrusTest, CirrusRegTest, StraxTest, StraxRegTest, StraxMain
 from api.collateral import Collateral
 from api.collateralvoting import CollateralVoting
 from api.federationgateway import FederationGateway
@@ -17,16 +17,18 @@ from api.voting import Voting
 
 class InterfluxStraxNode(BaseNode):
     def __init__(self, ipaddr: str = 'https://localhost', blockchainnetwork: BaseNetwork = StraxMain()):
+        if not isinstance(blockchainnetwork, (StraxMain, StraxTest, StraxRegTest)):
+            raise ValueError('Invalid network. Must be one of: [StraxMain, StraxTest, StraxRegTest]')
         super(InterfluxStraxNode, self).__init__(name='InterfluxStrax', ipaddr=ipaddr, blockchainnetwork=blockchainnetwork)
 
         # API endpoints
-        self._collateral = Collateral(baseuri=ipaddr, network=blockchainnetwork)
-        self._collateral_voting = CollateralVoting(baseuri=ipaddr, network=blockchainnetwork)
-        self._federation_gateway = FederationGateway(baseuri=ipaddr, network=blockchainnetwork)
-        self._federation_wallet = FederationWallet(baseuri=ipaddr, network=blockchainnetwork)
-        self._mining = Mining(baseuri=ipaddr, network=blockchainnetwork)
-        self._multisig = Multisig(baseuri=ipaddr, network=blockchainnetwork)
-        self._staking = Staking(baseuri=ipaddr, network=blockchainnetwork)
+        self._collateral = Collateral(baseuri=self.api_route, network=blockchainnetwork)
+        self._collateral_voting = CollateralVoting(baseuri=self.api_route, network=blockchainnetwork)
+        self._federation_gateway = FederationGateway(baseuri=self.api_route, network=blockchainnetwork)
+        self._federation_wallet = FederationWallet(baseuri=self.api_route, network=blockchainnetwork)
+        self._mining = Mining(baseuri=self.api_route, network=blockchainnetwork)
+        self._multisig = Multisig(baseuri=self.api_route, network=blockchainnetwork)
+        self._staking = Staking(baseuri=self.api_route, network=blockchainnetwork)
 
         # Add InterfluxStrax specific endpoints to superclass endpoints.
         self._endpoints.extend(self._collateral.endpoints)
@@ -69,20 +71,22 @@ class InterfluxStraxNode(BaseNode):
 
 class InterfluxCirrusNode(BaseNode):
     def __init__(self, ipaddr: str = 'https://localhost', blockchainnetwork: BaseNetwork = CirrusMain()):
+        if not isinstance(blockchainnetwork, (CirrusMain, CirrusTest, CirrusRegTest)):
+            raise ValueError('Invalid network. Must be one of: [CirrusMain, CirrusTest, CirrusRegTest]')
         super(InterfluxCirrusNode, self).__init__(name='InterfluxCirrus', ipaddr=ipaddr, blockchainnetwork=blockchainnetwork)
 
         # API endpoints
-        self._balances = Balances(baseuri=ipaddr, network=blockchainnetwork)
-        self._collateral = Collateral(baseuri=ipaddr, network=blockchainnetwork)
-        self._collateral_voting = CollateralVoting(baseuri=ipaddr, network=blockchainnetwork)
-        self._federation = Federation(baseuri=ipaddr, network=blockchainnetwork)
-        self._federation_gateway = FederationGateway(baseuri=ipaddr, network=blockchainnetwork)
-        self._federation_wallet = FederationWallet(baseuri=ipaddr, network=blockchainnetwork)
-        self._interop = Interop(baseuri=ipaddr, network=blockchainnetwork)
-        self._multisig = Multisig(baseuri=ipaddr, network=blockchainnetwork)
-        self._smart_contracts = SmartContracts(baseuri=ipaddr, network=blockchainnetwork)
-        self._smart_contract_wallet = SmartContractWallet(baseuri=ipaddr, network=blockchainnetwork)
-        self._voting = Voting(baseuri=ipaddr, network=blockchainnetwork)
+        self._balances = Balances(baseuri=self.api_route, network=blockchainnetwork)
+        self._collateral = Collateral(baseuri=self.api_route, network=blockchainnetwork)
+        self._collateral_voting = CollateralVoting(baseuri=self.api_route, network=blockchainnetwork)
+        self._federation = Federation(baseuri=self.api_route, network=blockchainnetwork)
+        self._federation_gateway = FederationGateway(baseuri=self.api_route, network=blockchainnetwork)
+        self._federation_wallet = FederationWallet(baseuri=self.api_route, network=blockchainnetwork)
+        self._interop = Interop(baseuri=self.api_route, network=blockchainnetwork)
+        self._multisig = Multisig(baseuri=self.api_route, network=blockchainnetwork)
+        self._smart_contracts = SmartContracts(baseuri=self.api_route, network=blockchainnetwork)
+        self._smart_contract_wallet = SmartContractWallet(baseuri=self.api_route, network=blockchainnetwork)
+        self._voting = Voting(baseuri=self.api_route, network=blockchainnetwork)
 
         # Add InterfluxCirrus specific endpoints to superclass endpoints.
         self._endpoints.extend(self._balances.endpoints)

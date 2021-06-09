@@ -49,6 +49,10 @@ class customint:
 
     @classmethod
     def hex_to_int(cls, v: str) -> int:
+        # For unsigned ints
+        if cls._minvalue == 0:
+            return int(v, 16)
+        # For signed ints
         sign_mask = 1 << (len(v.replace('0x', '')) * 4 - 1)
         value_mask = sign_mask - 1
         value_int = int(v, 16)

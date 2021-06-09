@@ -1,4 +1,4 @@
-from pybitcoin.networks import BaseNetwork, StraxMain
+from pybitcoin.networks import BaseNetwork, StraxMain, StraxTest, StraxRegTest
 from .basenode import BaseNode
 from api.coldstaking import ColdStaking
 from api.diagnostic import Diagnostic
@@ -8,13 +8,15 @@ from api.staking import Staking
 
 class StraxNode(BaseNode):
     def __init__(self, ipaddr: str = 'https://localhost', blockchainnetwork: BaseNetwork = StraxMain()):
+        if not isinstance(blockchainnetwork, (StraxMain, StraxTest, StraxRegTest)):
+            raise ValueError('Invalid network. Must be one of: [StraxMain, StraxTest, StraxRegTest]')
         super(StraxNode, self).__init__(name='Strax', ipaddr=ipaddr, blockchainnetwork=blockchainnetwork)
 
         # API endpoints
-        self._coldstaking = ColdStaking(baseuri=ipaddr, network=blockchainnetwork)
-        self._diagnostic = Diagnostic(baseuri=ipaddr, network=blockchainnetwork)
-        self._mining = Mining(baseuri=ipaddr, network=blockchainnetwork)
-        self._staking = Staking(baseuri=ipaddr, network=blockchainnetwork)
+        self._coldstaking = ColdStaking(baseuri=self.api_route, network=blockchainnetwork)
+        self._diagnostic = Diagnostic(baseuri=self.api_route, network=blockchainnetwork)
+        self._mining = Mining(baseuri=self.api_route, network=blockchainnetwork)
+        self._staking = Staking(baseuri=self.api_route, network=blockchainnetwork)
 
         # Add Strax specific endpoints to superclass endpoints.
         self._endpoints.extend(self._coldstaking.endpoints)

@@ -21,7 +21,7 @@ class BlockModel(BaseModel):
     chainwork: str
     n_tx: int = Field(alias='nTx')
     previous_blockhash: str = Field(alias='previousblockhash')
-    next_blockhash: str = Field(alias='nextblockhash')
+    next_blockhash: Optional[str] = Field(alias='nextblockhash')
     signature: str
     modifier_v2: str = Field(alias='modifierv2')
     flags: str

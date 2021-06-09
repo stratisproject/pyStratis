@@ -27,3 +27,4 @@ class StatusModel(Model):
     testnet: Optional[bool]
     relay_fee: Optional[Money] = Field(alias='relayFee')
     state: Optional[FullNodeState]
+    in_ibd: Optional[bool] = Field(alias='inIbd')

@@ -1,3 +1,5 @@
+import json
+from json.decoder import JSONDecodeError
 from typing import Any
 from requests import get, post, delete, put
 from api import APIError
@@ -14,14 +16,24 @@ class APIRequest:
 
     def get(self, request_model: BaseModel = None, **kwargs) -> Any:
         """API get request."""
+        if request_model is None:
+            params = None
+        else:
+            # Needs to be a dict for use in requests, but use json() to serialize data first.
+            params_json = request_model.json()
+            params = json.loads(params_json)
         response = get(
             url=f'{self._baseuri}{kwargs["endpoint"]}',
-            params=None if request_model is None else request_model.json(),
+            params=params,
             headers=self._headers,
-            timeout=5
+            timeout=60
         )
         if response.status_code == 200:
-            return response.json()
+            if response is not None:
+                try:
+                    return response.json()
+                except JSONDecodeError:
+                    return response.text
         else:
             raise APIError(code=response.status_code, message=response.text)
 
@@ -29,12 +41,16 @@ class APIRequest:
         """API post request."""
         response = post(
             url=f'{self._baseuri}{kwargs["endpoint"]}',
-            params=request_model.json(),
+            data=request_model.json(),
             headers=self._headers,
-            timeout=5
+            timeout=60
         )
         if response.status_code == 200:
-            return response.json()
+            if response is not None:
+                try:
+                    return response.json()
+                except JSONDecodeError:
+                    return response.text
         else:
             raise APIError(code=response.status_code, message=response.text)
 
@@ -42,12 +58,16 @@ class APIRequest:
         """API delete request."""
         response = delete(
             url=f'{self._baseuri}{kwargs["endpoint"]}',
-            params=request_model.json(),
+            params=None if request_model is None else request_model.json(),
             headers=self._headers,
-            timeout=5
+            timeout=60
         )
         if response.status_code == 200:
-            return response.json()
+            if response is not None:
+                try:
+                    return response.json()
+                except JSONDecodeError:
+                    return response.text
         else:
             raise APIError(code=response.status_code, message=response.text)
 
@@ -55,11 +75,15 @@ class APIRequest:
         """API put request."""
         response = put(
             url=f'{self._baseuri}{kwargs["endpoint"]}',
-            params=None if request_model is None else request_model.json(),
+            data=None if request_model is None else request_model.json(),
             headers=self._headers,
-            timeout=5
+            timeout=60
         )
         if response.status_code == 200:
-            return response.json()
+            if response is not None:
+                try:
+                    return response.json()
+                except JSONDecodeError:
+                    return response.text
         else:
             raise APIError(code=response.status_code, message=response.text)

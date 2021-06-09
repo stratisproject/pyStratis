@@ -166,6 +166,7 @@ def generate_wif_privatekey(generate_privatekey) -> str:
     checksum = sha256(sha256(extended).digest()).digest()
     return base58.b58encode(extended + checksum[:4]).decode('ascii')
 
+
 @pytest.fixture(scope='function')
 def generate_uncompressed_pubkey(generate_privatekey) -> str:
     private_key_bytes = unhexlify(generate_privatekey)

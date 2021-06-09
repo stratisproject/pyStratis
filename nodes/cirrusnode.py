@@ -1,4 +1,4 @@
-from pybitcoin.networks import BaseNetwork, CirrusMain
+from pybitcoin.networks import BaseNetwork, CirrusMain, CirrusTest, CirrusRegTest
 from .basenode import BaseNode
 from api.balances import Balances
 from api.collateral import Collateral
@@ -10,15 +10,17 @@ from api.smartcontractwallet import SmartContractWallet
 
 class CirrusNode(BaseNode):
     def __init__(self, ipaddr: str = 'https://localhost', blockchainnetwork: BaseNetwork = CirrusMain()):
+        if not isinstance(blockchainnetwork, (CirrusMain, CirrusTest, CirrusRegTest)):
+            raise ValueError('Invalid network. Must be one of: [CirrusMain, CirrusTest, CirrusRegTest]')
         super(CirrusNode, self).__init__(name='Cirrus', ipaddr=ipaddr, blockchainnetwork=blockchainnetwork)
 
         # API endpoints
-        self._balances = Balances(baseuri=ipaddr, network=blockchainnetwork)
-        self._collateral = Collateral(baseuri=ipaddr, network=blockchainnetwork)
-        self._diagnostic = Diagnostic(baseuri=ipaddr, network=blockchainnetwork)
-        self._federation = Federation(baseuri=ipaddr, network=blockchainnetwork)
-        self._smart_contracts = SmartContracts(baseuri=ipaddr, network=blockchainnetwork)
-        self._smart_contract_wallet = SmartContractWallet(baseuri=ipaddr, network=blockchainnetwork)
+        self._balances = Balances(baseuri=self.api_route, network=blockchainnetwork)
+        self._collateral = Collateral(baseuri=self.api_route, network=blockchainnetwork)
+        self._diagnostic = Diagnostic(baseuri=self.api_route, network=blockchainnetwork)
+        self._federation = Federation(baseuri=self.api_route, network=blockchainnetwork)
+        self._smart_contracts = SmartContracts(baseuri=self.api_route, network=blockchainnetwork)
+        self._smart_contract_wallet = SmartContractWallet(baseuri=self.api_route, network=blockchainnetwork)
 
         # Add Cirrus specific endpoints to superclass endpoints.
         self._endpoints.extend(self._balances.endpoints)

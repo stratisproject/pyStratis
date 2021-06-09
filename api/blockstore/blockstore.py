@@ -56,7 +56,7 @@ class BlockStore(APIRequest, metaclass=EndpointRegister):
             return BlockModel(**data)
 
     @endpoint(f'{route}/getblockcount')
-    def get_blockcount(self, **kwargs) -> int:
+    def get_block_count(self, **kwargs) -> int:
         """Gets the current block count.
 
         Args:

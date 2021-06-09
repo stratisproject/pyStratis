@@ -210,7 +210,8 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
 
     @endpoint(f'{route}/balance')
     def balance(self, request_model: BalanceRequest, **kwargs) -> WalletBalanceModel:
-        """Gets the balance of a wallet in STRAx (or sidechain coin). Both the confirmed and unconfirmed balance are returned.
+        """Gets the balance of a wallet in STRAx (or sidechain coin).
+        Both the confirmed and unconfirmed balance are returned.
 
         Args:
             request_model: BalanceRequest model
@@ -267,8 +268,11 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
         return MaxSpendableAmountModel(**data)
 
     @endpoint(f'{route}/spendable-transactions')
-    def spendable_transactions(self, request_model: SpendableTransactionsRequest, **kwargs) -> SpendableTransactionsModel:
-        """Gets the spendable transactions for an account with the option to specify how many confirmations a transaction needs to be included.
+    def spendable_transactions(self,
+                               request_model: SpendableTransactionsRequest,
+                               **kwargs) -> SpendableTransactionsModel:
+        """Gets the spendable transactions for an account with the option to specify how many
+        confirmations a transaction needs to be included.
 
         Args:
             request_model: SpendableTransactionsRequest model
@@ -325,7 +329,9 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
         return BuildTransactionModel(**data)
 
     @endpoint(f'{route}/build-interflux-transaction')
-    def build_interflux_transaction(self, request_model: BuildInterfluxTransactionRequest, **kwargs) -> BuildTransactionModel:
+    def build_interflux_transaction(self,
+                                    request_model: BuildInterfluxTransactionRequest,
+                                    **kwargs) -> BuildTransactionModel:
         """Builds a transaction and returns the hex to use when executing the transaction.
 
         Args:

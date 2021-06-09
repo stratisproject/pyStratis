@@ -74,7 +74,8 @@ def test_status(mocker: MockerFixture, network, fakeuri):
         'protocolVersion': 123,
         'testnet': False,
         'relayFee': 0,
-        'state': FullNodeState.Initialized
+        'state': FullNodeState.Initialized,
+        'inIbd': False
     }
     mocker.patch.object(Node, 'get', return_value=data)
     node = Node(network=network, baseuri=fakeuri)
@@ -111,7 +112,8 @@ def test_get_blockheader(mocker: MockerFixture, network, fakeuri, generate_uint2
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_get_raw_transaction_verbose(mocker: MockerFixture, network, fakeuri, generate_coinbase_transaction, generate_uint256):
+def test_get_raw_transaction_verbose(mocker: MockerFixture, network, fakeuri,
+                                     generate_coinbase_transaction, generate_uint256):
     trxid = generate_uint256
     data = generate_coinbase_transaction(trxid)
     mocker.patch.object(Node, 'get', return_value=data)
@@ -129,7 +131,8 @@ def test_get_raw_transaction_verbose(mocker: MockerFixture, network, fakeuri, ge
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_get_raw_transaction_nonverbose(mocker: MockerFixture, network, fakeuri, generate_coinbase_transaction, generate_uint256):
+def test_get_raw_transaction_nonverbose(mocker: MockerFixture, network, fakeuri,
+                                        generate_coinbase_transaction, generate_uint256):
     trxid = generate_uint256
     data = generate_coinbase_transaction(trxid)
     hexified_data = bytes(str(data), 'ascii').hex()

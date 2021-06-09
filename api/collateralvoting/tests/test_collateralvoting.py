@@ -37,14 +37,14 @@ def test_all_interfluxcirrus_endpoints_implemented(interfluxcirrus_swagger_json)
 @pytest.mark.parametrize('network', [StraxMain()], ids=['Main'])
 def test_join_federation(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address,
                          generate_compressed_pubkey):
-    request = ScheduleVoteKickFedMemberRequest(
+    request_model = ScheduleVoteKickFedMemberRequest(
         pubkey_hex=generate_compressed_pubkey,
         collateral_amount_satoshis=Money(100000),
         collateral_mainchain_address=Address(address=generate_p2pkh_address(network=network), network=network),
     )
     mocker.patch.object(CollateralVoting, 'post', return_value=None)
     collateralvoting = CollateralVoting(network=network, baseuri=fakeuri)
-    collateralvoting.schedulevote_kickfedmember(request_model=request)
+    collateralvoting.schedulevote_kickfedmember(request_model=request_model)
 
     # noinspection PyUnresolvedReferences
     collateralvoting.post.assert_called_once()
