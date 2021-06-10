@@ -11,7 +11,7 @@ class BuildTransactionModel(BaseModel):
 
     class Config:
         json_encoders = {
-            Money: lambda v: str(v),
+            Money: lambda v: v.to_coin_unit(),
         }
         allow_population_by_field_name = True
 

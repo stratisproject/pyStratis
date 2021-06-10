@@ -23,5 +23,5 @@ def check_remove_address(node: BaseNode, label: str) -> bool:
 
 
 def check_get_address_book(node: BaseNode) -> bool:
-    node.address_book.get(GetRequest(skip=1, take=1))
+    node.address_book(GetRequest(skip=1, take=1))
     return True

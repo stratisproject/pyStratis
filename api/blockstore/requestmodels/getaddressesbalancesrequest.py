@@ -11,7 +11,7 @@ class GetAddressesBalancesRequest(Model):
     min_confirmations: Optional[int] = Field(default=0, alias='minConfirmations')
 
     def json(self, *args, **kwargs) -> str:
-        data = super(Model, self).dict(exclude_none=True, by_alias=True)
+        data = super(GetAddressesBalancesRequest, self).dict(exclude_none=True, by_alias=True)
         if isinstance(data['addresses'], list):
             data['addresses'] = ','.join([x.json() for x in data['addresses']])
         if isinstance(data['addresses'], Address):

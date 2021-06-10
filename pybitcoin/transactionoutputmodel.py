@@ -1,3 +1,4 @@
+from typing import Optional
 from pydantic import Field, BaseModel
 from pybitcoin.types import Address, Money
 
@@ -6,11 +7,11 @@ class TransactionOutputModel(BaseModel):
     """A TransactionOutputModel."""
     address: Address
     amount: Money
-    op_return_data: str = Field(alias='OpReturnData')
+    op_return_data: Optional[str] = Field(alias='OpReturnData')
 
     class Config:
         json_encoders = {
-            Money: lambda v: str(v),
+            Money: lambda v: v.to_coin_unit(),
         }
         allow_population_by_field_name = True
 

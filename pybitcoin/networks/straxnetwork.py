@@ -19,9 +19,10 @@ class StraxMain(BaseNetwork):
     ASSET_ID: StrictBytes = Field(default=bytes([23]))
     COLORED_ADDRESS: StrictBytes = Field(default=bytes([0x13]))
     BECH32_HRP = 'strax'
-    DEFAULT_PORT: Optional[int] = Field(17105)
-    API_PORT: Optional[int] = Field(17103)
-    SIGNALR_PORT: Optional[int] = Field(17102)
+    DEFAULT_PORT: Optional[int] = Field(default=17105)
+    RPC_PORT: Optional[int] = Field(default=17104)
+    API_PORT: Optional[int] = Field(default=17103)
+    SIGNALR_PORT: Optional[int] = Field(default=17102)
 
 
 class StraxTest(BaseNetwork):
@@ -40,9 +41,10 @@ class StraxTest(BaseNetwork):
     ASSET_ID: StrictBytes = Field(default=bytes([23]))
     COLORED_ADDRESS: StrictBytes = Field(default=bytes([0x13]))
     BECH32_HRP = 'tstrax'
-    DEFAULT_PORT: Optional[int] = Field(27105)
-    API_PORT: Optional[int] = Field(27103)
-    SIGNALR_PORT: Optional[int] = Field(27102)
+    DEFAULT_PORT: Optional[int] = Field(default=27105)
+    RPC_PORT: Optional[int] = Field(default=27104)
+    API_PORT: Optional[int] = Field(default=27103)
+    SIGNALR_PORT: Optional[int] = Field(default=27102)
 
 
 class StraxRegTest(BaseNetwork):
@@ -61,6 +63,7 @@ class StraxRegTest(BaseNetwork):
     ASSET_ID: StrictBytes = Field(default=bytes([23]))
     COLORED_ADDRESS: StrictBytes = Field(default=bytes([0x13]))
     BECH32_HRP = 'tstrax'
-    DEFAULT_PORT: Optional[int] = Field(37105)
-    API_PORT: Optional[int] = Field(37103)
-    SIGNALR_PORT: Optional[int] = Field(37102)
+    DEFAULT_PORT: Optional[int] = Field(default=37105)
+    RPC_PORT: Optional[int] = Field(default=37104)
+    API_PORT: Optional[int] = Field(default=37103)
+    SIGNALR_PORT: Optional[int] = Field(default=37102)

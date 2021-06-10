@@ -56,9 +56,15 @@ class APIRequest:
 
     def delete(self, request_model: BaseModel, **kwargs) -> Any:
         """API delete request."""
+        if request_model is None:
+            params = None
+        else:
+            # Needs to be a dict for use in requests, but use json() to serialize data first.
+            params_json = request_model.json()
+            params = json.loads(params_json)
         response = delete(
             url=f'{self._baseuri}{kwargs["endpoint"]}',
-            params=None if request_model is None else request_model.json(),
+            params=params,
             headers=self._headers,
             timeout=60
         )

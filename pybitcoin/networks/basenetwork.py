@@ -22,6 +22,7 @@ class BaseNetwork(BaseModel):
     COLORED_ADDRESS: Optional[StrictBytes]
     BECH32_HRP: Optional[str]
     DEFAULT_PORT:  Optional[int]
+    RPC_PORT: Optional[int]
     API_PORT: Optional[int]
     SIGNALR_PORT:  Optional[int]
 

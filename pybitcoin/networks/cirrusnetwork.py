@@ -20,6 +20,7 @@ class CirrusMain(BaseNetwork):
     COLORED_ADDRESS: StrictBytes = Field(default=bytes([0x13]))
     BECH32_HRP = 'tb'
     DEFAULT_PORT: Optional[int] = Field(default=16179)
+    RPC_PORT: Optional[int] = Field(default=16175)
     API_PORT: Optional[int] = Field(default=37223)
     SIGNALR_PORT: Optional[int] = Field(default=38823)
 
@@ -41,6 +42,7 @@ class CirrusTest(BaseNetwork):
     COLORED_ADDRESS: StrictBytes = Field(default=bytes([0x13]))
     BECH32_HRP = 'tb'
     DEFAULT_PORT: Optional[int] = Field(default=26179)
+    RPC_PORT: Optional[int] = Field(default=26175)
     API_PORT: Optional[int] = Field(default=38223)
     SIGNALR_PORT: Optional[int] = Field(default=39823)
 
@@ -62,5 +64,6 @@ class CirrusRegTest(BaseNetwork):
     COLORED_ADDRESS: StrictBytes = Field(default=bytes([0x13]))
     BECH32_HRP = 'tb'
     DEFAULT_PORT: Optional[int] = Field(default=26179)
+    RPC_PORT: Optional[int] = Field(default=26175)
     API_PORT: Optional[int] = Field(default=38223)
     SIGNALR_PORT: Optional[int] = Field(default=39823)

@@ -3,4 +3,5 @@ from nodes import InterfluxCirrusNode, InterfluxStraxNode
 
 
 def check_collateralvoting_endpoints(node: Union[InterfluxStraxNode, InterfluxCirrusNode]):
+    # TODO
     pass

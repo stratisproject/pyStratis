@@ -147,7 +147,7 @@ def test_buildofflinesignrequest(network, generate_uint256, generate_p2pkh_addre
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
 def test_buildtransactionrequest(network, generate_uint256, generate_p2pkh_address, generate_p2sh_address):
     data = {
-        'feeAmount': 1,
+        'feeAmount': '0.00000001',
         'password': 'password',
         'segwitChangeAddress': False,
         'walletName': 'Test',
@@ -163,11 +163,11 @@ def test_buildtransactionrequest(network, generate_uint256, generate_p2pkh_addre
                 'destinationAddress': generate_p2pkh_address(network=network),
                 'destinationScript': generate_p2sh_address(network=network),
                 'subtractFeeFromAmount': True,
-                'amount': 10
+                'amount': '0.00000010'
             }
         ],
         'opReturnData': 'opreturn',
-        'opReturnAmount': 1,
+        'opReturnAmount': '0.00000001',
         'feeType': 'low',
         'allowUnconfirmed': True,
         'shuffleOutputs': True,

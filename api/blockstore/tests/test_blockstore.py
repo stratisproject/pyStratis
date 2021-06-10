@@ -173,7 +173,7 @@ def test_getblockcount(mocker: MockerFixture, network, fakeuri, ):
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
 def test_getaddressbalances_single_address(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address):
-    address = Address(address=generate_p2pkh_address(network=network), network=network)
+    address = generate_p2pkh_address(network=network)
     data = {
         'balances': [
             {'address': address, 'balance': 5}
@@ -182,7 +182,7 @@ def test_getaddressbalances_single_address(mocker: MockerFixture, network, fakeu
     }
     mocker.patch.object(BlockStore, 'get', return_value=data)
     blockstore = BlockStore(network=network, baseuri=fakeuri)
-    request_model = GetAddressesBalancesRequest(addresses=address)
+    request_model = GetAddressesBalancesRequest(addresses=Address(address=address, network=network))
 
     response = blockstore.get_addresses_balances(request_model=request_model)
 
@@ -194,10 +194,10 @@ def test_getaddressbalances_single_address(mocker: MockerFixture, network, fakeu
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
 def test_getaddressbalances_multiple_addresses(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address, generate_p2sh_address, generate_p2wpkh_address, generate_p2wsh_address):
     addresses = [
-        Address(address=generate_p2pkh_address(network=network), network=network),
-        Address(address=generate_p2sh_address(network=network), network=network),
-        Address(address=generate_p2wpkh_address(network=network), network=network),
-        Address(address=generate_p2wsh_address(network=network), network=network)
+        generate_p2pkh_address(network=network),
+        generate_p2sh_address(network=network),
+        generate_p2wpkh_address(network=network),
+        generate_p2wsh_address(network=network)
     ]
     data = {
         'balances': [
@@ -210,7 +210,7 @@ def test_getaddressbalances_multiple_addresses(mocker: MockerFixture, network, f
     }
     mocker.patch.object(BlockStore, 'get', return_value=data)
     blockstore = BlockStore(network=network, baseuri=fakeuri)
-    request_model = GetAddressesBalancesRequest(addresses=addresses)
+    request_model = GetAddressesBalancesRequest(addresses=[Address(address=x, network=network) for x in addresses])
 
     response = blockstore.get_addresses_balances(request_model=request_model)
 
@@ -221,7 +221,7 @@ def test_getaddressbalances_multiple_addresses(mocker: MockerFixture, network, f
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
 def test_getverboseaddressbalances_single_address(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address):
-    address = Address(address=generate_p2pkh_address(network=network), network=network)
+    address = generate_p2pkh_address(network=network)
     data = {
         'balancesData': [
             {'address': address, 'balanceChanges': [{"deposited": True, "satoshi": 5, "balanceChangedHeight": 0}]}
@@ -231,7 +231,7 @@ def test_getverboseaddressbalances_single_address(mocker: MockerFixture, network
     }
     mocker.patch.object(BlockStore, 'get', return_value=data)
     blockstore = BlockStore(network=network, baseuri=fakeuri)
-    request_model = GetVerboseAddressesBalancesRequest(addresses=address)
+    request_model = GetVerboseAddressesBalancesRequest(addresses=Address(address=address, network=network))
 
     response = blockstore.get_verbose_addresses_balances(request_model=request_model)
 
@@ -243,10 +243,10 @@ def test_getverboseaddressbalances_single_address(mocker: MockerFixture, network
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
 def test_getverboseaddressbalances_multiple_addresses(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address, generate_p2sh_address, generate_p2wpkh_address, generate_p2wsh_address):
     addresses = [
-        Address(address=generate_p2pkh_address(network=network), network=network),
-        Address(address=generate_p2sh_address(network=network), network=network),
-        Address(address=generate_p2wpkh_address(network=network), network=network),
-        Address(address=generate_p2wsh_address(network=network), network=network)
+        generate_p2pkh_address(network=network),
+        generate_p2sh_address(network=network),
+        generate_p2wpkh_address(network=network),
+        generate_p2wsh_address(network=network)
     ]
     data = {
         'balancesData': [
@@ -261,7 +261,7 @@ def test_getverboseaddressbalances_multiple_addresses(mocker: MockerFixture, net
 
     mocker.patch.object(BlockStore, 'get', return_value=data)
     blockstore = BlockStore(network=network, baseuri=fakeuri)
-    request_model = GetVerboseAddressesBalancesRequest(addresses=addresses)
+    request_model = GetVerboseAddressesBalancesRequest(addresses=[Address(address=x, network=network) for x in addresses])
 
     response = blockstore.get_verbose_addresses_balances(request_model=request_model)
 
@@ -272,7 +272,7 @@ def test_getverboseaddressbalances_multiple_addresses(mocker: MockerFixture, net
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
 def test_getverboseaddressbalances_single_address_no_changes(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address):
-    address = Address(address=generate_p2pkh_address(network=network), network=network)
+    address = generate_p2pkh_address(network=network)
     data = {
         'balancesData': [
             {'address': address, 'balanceChanges': []}
@@ -283,7 +283,7 @@ def test_getverboseaddressbalances_single_address_no_changes(mocker: MockerFixtu
 
     mocker.patch.object(BlockStore, 'get', return_value=data)
     blockstore = BlockStore(network=network, baseuri=fakeuri)
-    request_model = GetVerboseAddressesBalancesRequest(addresses=address)
+    request_model = GetVerboseAddressesBalancesRequest(addresses=Address(address=address, network=network))
 
     response = blockstore.get_verbose_addresses_balances(request_model=request_model)
 

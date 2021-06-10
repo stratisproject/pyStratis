@@ -7,12 +7,12 @@ class AddressModel(BaseModel):
     address: Address
     is_used: bool = Field(alias='isUsed')
     is_change: bool = Field(alias='isChange')
-    amount_confirmed: Money = Field(alias='AmountConfirmed')
-    amount_unconfirmed: Money = Field(alias='AmountUnconfirmed')
+    amount_confirmed: Money = Field(alias='amountConfirmed')
+    amount_unconfirmed: Money = Field(alias='amountUnconfirmed')
 
     class Config:
         json_encoders = {
-            Money: lambda v: str(v),
+            Money: lambda v: v.to_coin_unit(),
         }
         allow_population_by_field_name = True
 

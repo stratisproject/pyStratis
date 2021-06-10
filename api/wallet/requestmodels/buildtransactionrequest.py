@@ -1,4 +1,5 @@
 from typing import Optional, List
+import json
 from pydantic import Field, SecretStr, validator
 from pybitcoin import Model, Outpoint, Recipient
 from pybitcoin.types import Address, Money
@@ -32,16 +33,22 @@ class BuildTransactionRequest(Model):
             raise ValueError(f'Invalid command. Must be: {allowed}')
         return v
 
-    class Config:
-        json_encoders = {
-            Address: lambda v: str(v),
-            bool: lambda v: str(v).lower(),
-            SecretStr: lambda v: v.get_secret_value(),
-            Money: lambda v: str(v),
-            List[Recipient]: lambda v: [x.json() for x in v],
-            List[Outpoint]: lambda v: [x.json() for x in v],
-        }
-        allow_population_by_field_name = True
-
     def json(self, *args, **kwargs) -> str:
-        return super(BuildTransactionRequest, self).json(exclude_none=True, by_alias=True)
+        data = super(BuildTransactionRequest, self).dict(exclude_none=True, by_alias=True)
+        data['password'] = data['password'].get_secret_value()
+        if data['feeAmount'] is not None:
+            data['feeAmount'] = data['feeAmount'].to_coin_unit()
+        for i in range(len(data['outpoints'])):
+            data['outpoints'][i]['transactionId'] = str(data['outpoints'][i]['transactionId'])
+        for i in range(len(data['recipients'])):
+            if data['recipients'][i]['destinationAddress'] is not None:
+                data['recipients'][i]['destinationAddress'] = str(data['recipients'][i]['destinationAddress'])
+            if data['recipients'][i]['destinationScript'] is not None:
+                data['recipients'][i]['destinationScript'] = str(data['recipients'][i]['destinationScript'])
+            data['recipients'][i]['amount'] = data['recipients'][i]['amount'].to_coin_unit()
+        if 'opReturnAmount' in data and data['opReturnAmount'] is not None:
+            data['opReturnAmount'] = data['opReturnAmount'].to_coin_unit()
+        if 'changeAddress' in data and data['changeAddress'] is not None:
+            data['changeAddress'] = str(data['changeAddress'])
+
+        return json.dumps(data)

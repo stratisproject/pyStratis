@@ -3,12 +3,14 @@ import os
 import shutil
 import subprocess
 import time
+from typing import List
 from requests.exceptions import ConnectionError
 from nodes import StraxNode, CirrusNode, InterfluxCirrusNode, InterfluxStraxNode, BaseNode
-from pybitcoin.networks import StraxRegTest, CirrusRegTest
+from pybitcoin.networks import StraxRegTest, CirrusRegTest, BaseNetwork
+from pybitcoin.types import Address
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope='function')
 def strax_start_regtest_node():
     def _strax_start_regtest_node(port: int) -> StraxNode:
         source_dir = os.path.join(os.getcwd(), 'StratisFullNode', 'src', 'Stratis.StraxD')
@@ -20,10 +22,14 @@ def strax_start_regtest_node():
         node = StraxNode(ipaddr=baseuri, blockchainnetwork=StraxRegTest(
             API_PORT=port,
             DEFAULT_PORT=port+1,
-            SIGNALR_PORT=port+2
+            SIGNALR_PORT=port+2,
+            RPC_PORT=port + 3
         ))
         os.chdir(source_dir)
-        subprocess.Popen(['dotnet', 'run', '-regtest', f'-datadir={data_dir}', '-addressindex=1', '-server=1', f'-apiport={port}', f'-port={port+1}', f'-signalrport={port+2}'])
+        subprocess.Popen([
+            'dotnet', 'run', '-regtest', f'-datadir={data_dir}', '-addressindex=1', '-server=1',
+            f'-apiport={port}', f'-port={port+1}', f'-signalrport={port+2}', f'-rpcport={port+3}'
+        ])
         os.chdir(root_dir)
         while True:
             try:
@@ -36,7 +42,7 @@ def strax_start_regtest_node():
     return _strax_start_regtest_node
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope='function')
 def cirrus_start_regtest_node():
     def _cirrus_start_regtest_node(port: int) -> CirrusNode:
         source_dir = os.path.join(os.getcwd(), 'StratisFullNode', 'src', 'Stratis.CirrusD')
@@ -48,10 +54,14 @@ def cirrus_start_regtest_node():
         node = CirrusNode(ipaddr=baseuri, blockchainnetwork=CirrusRegTest(
             API_PORT=port,
             DEFAULT_PORT=port + 1,
-            SIGNALR_PORT=port + 2
+            SIGNALR_PORT=port + 2,
+            RPC_PORT=port + 3
         ))
         os.chdir(source_dir)
-        subprocess.Popen(['dotnet', 'run', '-regtest', f'-datadir={data_dir}', '-addressindex=1', '-server=1' f'-apiport={port}', f'-port={port+1}', f'-signalrport={port+2}'])
+        subprocess.Popen([
+            'dotnet', 'run', '-regtest', f'-datadir={data_dir}', '-addressindex=1', '-server=1',
+            f'-apiport={port}', f'-port={port+1}', f'-signalrport={port+2}', f'-rpcport={port+3}'
+        ])
         os.chdir(root_dir)
         while True:
             try:
@@ -64,7 +74,7 @@ def cirrus_start_regtest_node():
     return _cirrus_start_regtest_node
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope='function')
 def interflux_strax_start_regtest_node():
     def _interflux_strax_start_regtest_node(port: int) -> InterfluxStraxNode:
         source_dir = os.path.join(os.getcwd(), 'StratisFullNode', 'src', 'Stratis.CirrusPegD')
@@ -75,11 +85,15 @@ def interflux_strax_start_regtest_node():
         node = InterfluxStraxNode(ipaddr=baseuri, blockchainnetwork=StraxRegTest(
             API_PORT=port,
             DEFAULT_PORT=port + 1,
-            SIGNALR_PORT=port + 2
+            SIGNALR_PORT=port + 2,
+            RPC_PORT=port + 3
         ))
         os.chdir(source_dir)
         # TODO fix startup options
-        subprocess.Popen(['dotnet', 'run', '-regtest', f'-datadir={data_dir}', '-addressindex=1', '-server=1' f'-apiport={port}', f'-port={port+1}', f'-signalrport={port+2}'])
+        subprocess.Popen([
+            'dotnet', 'run', '-regtest', f'-datadir={data_dir}', '-addressindex=1', '-server=1',
+            f'-apiport={port}', f'-port={port+1}', f'-signalrport={port+2}', f'-rpcport={port+3}'
+        ])
         os.chdir(root_dir)
         while True:
             try:
@@ -92,7 +106,7 @@ def interflux_strax_start_regtest_node():
     return _interflux_strax_start_regtest_node
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope='function')
 def interflux_cirrus_start_regtest_node():
     def _interflux_cirrus_start_regtest_node(port: int) -> InterfluxCirrusNode:
         source_dir = os.path.join(os.getcwd(), 'StratisFullNode', 'src', 'Stratis.CirrusPegD')
@@ -103,11 +117,14 @@ def interflux_cirrus_start_regtest_node():
         node = InterfluxCirrusNode(ipaddr=baseuri, blockchainnetwork=CirrusRegTest(
             API_PORT=port,
             DEFAULT_PORT=port + 1,
-            SIGNALR_PORT=port + 2
+            SIGNALR_PORT=port + 2,
+            RPC_PORT=port + 3
         ))
         os.chdir(source_dir)
         # TODO fix start options
-        subprocess.Popen(['dotnet', 'run', '-regtest', f'-datadir={data_dir}', '-addressindex=1', '-server=1' f'-apiport={port}', f'-port={port+1}', f'-signalrport={port+2}'])
+        subprocess.Popen([
+            'dotnet', 'run', '-regtest', f'-datadir={data_dir}', '-addressindex=1', '-server=1',
+            f'-apiport={port}', f'-port={port+1}', f'-signalrport={port+2}', f'-rpcport={port+3}'])
         os.chdir(root_dir)
         while True:
             try:
@@ -125,3 +142,16 @@ def stop_regtest_node():
     def _stop_regtest_node(regtest_node: BaseNode) -> None:
         regtest_node.node.stop()
     return _stop_regtest_node
+
+
+@pytest.fixture(scope='function')
+def random_addresses(generate_p2pkh_address):
+    def _random_addresses(network: BaseNetwork) -> List[Address]:
+        return [
+            Address(address=generate_p2pkh_address(network=network), network=network),
+            Address(address=generate_p2pkh_address(network=network), network=network),
+            Address(address=generate_p2pkh_address(network=network), network=network),
+            Address(address=generate_p2pkh_address(network=network), network=network),
+            Address(address=generate_p2pkh_address(network=network), network=network)
+        ]
+    return _random_addresses

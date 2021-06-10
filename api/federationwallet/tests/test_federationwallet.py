@@ -74,8 +74,8 @@ def test_balance(mocker: MockerFixture, network, fakeuri, get_base_keypath, gene
                         'address': generate_p2pkh_address(network=network),
                         'isUsed': True,
                         'isChange': False,
-                        'AmountConfirmed': 5,
-                        'AmountUnconfirmed': 0
+                        'amountConfirmed': 5,
+                        'amountUnconfirmed': 0
                     }
                 ]
             }
