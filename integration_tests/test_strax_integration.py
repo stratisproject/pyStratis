@@ -16,8 +16,9 @@ from rpc_endpoints import check_rpc_endpoints
 from signalr_endpoints import check_signalr_endpoints
 from staking_endpoints import check_staking_endpoints
 from wallet_endpoints import check_wallet_endpoints
-from pybitcoin.types import Money
-from pybitcoin import LogRule
+from pybitcoin.types import Money, Address
+from pybitcoin import LogRule, ExtPubKey
+from pybitcoin.networks import Ethereum
 from api.wallet.requestmodels import SpendableTransactionsRequest
 
 
@@ -31,7 +32,10 @@ def test_strax_integration(
         get_node_address_with_balance,
         get_node_unused_address,
         random_addresses,
+        get_datetime,
         get_node_endpoint,
+        generate_extpubkey,
+        generate_ethereum_checksum_address,
         stop_regtest_node) -> None:
     git_checkout_current_node_version(api.__version__)
 
@@ -101,7 +105,8 @@ def test_strax_integration(
             mining_address=mining_address,
             node_creates_a_wallet=node_creates_a_wallet,
             send_a_transaction=send_a_transaction,
-            node_mines_some_blocks_and_syncs=node_mines_some_blocks_and_syncs
+            node_mines_some_blocks_and_syncs=node_mines_some_blocks_and_syncs,
+            get_datetime=get_datetime
         )
     except api.APIError as e:
         print(e.message)
@@ -117,7 +122,10 @@ def test_strax_integration(
     check_rpc_endpoints(node=mining_node)
     check_signalr_endpoints(node=mining_node)
     check_staking_endpoints(node=mining_node)
-    # check_wallet_endpoints(node=mining_node)
+    check_wallet_endpoints(
+        node=mining_node, internal_address=mining_address, destination_address=receiving_address,
+        spendable_transactions=spendable_transactions, eth_address=Address(address=generate_ethereum_checksum_address, network=Ethereum()),
+        block_hash=tip_blockhash, extpubkey=ExtPubKey(generate_extpubkey))
 
     # Stop mining and disconnect from other node last.
     check_mining_endpoints(node=mining_node, num_blocks_to_mine=1)

@@ -47,7 +47,7 @@ def test_reconstruct(mocker: MockerFixture, network, fakeuri):
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_members_current(mocker: MockerFixture, network, fakeuri, generate_compressed_pubkey):
+def test_members_current(mocker: MockerFixture, network, fakeuri, generate_compressed_pubkey, get_datetime):
     data = {
         "pollStartBlockHeight": None,
         "pollNumberOfVotesAcquired": None,
@@ -60,7 +60,7 @@ def test_members_current(mocker: MockerFixture, network, fakeuri, generate_compr
         "rewardEstimatePerBlock": 0.05,
         "pubkey": generate_compressed_pubkey,
         "collateralAmount": 50000,
-        "lastActiveTime": "2021-01-01T01:01:01",
+        "lastActiveTime": get_datetime(5),
         "periodOfInactivity": "00:02:32.9200000"
     }
 
@@ -75,24 +75,24 @@ def test_members_current(mocker: MockerFixture, network, fakeuri, generate_compr
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_member(mocker: MockerFixture, network, fakeuri, generate_compressed_pubkey):
+def test_member(mocker: MockerFixture, network, fakeuri, generate_compressed_pubkey, get_datetime):
     data = [
         {
             "pubkey": generate_compressed_pubkey,
             "collateralAmount": 50000,
-            "lastActiveTime": "2021-01-01T01:01:01",
+            "lastActiveTime": get_datetime(5),
             "periodOfInactivity": "00:02:32.9200000"
         },
         {
             "pubkey": generate_compressed_pubkey,
             "collateralAmount": 50000,
-            "lastActiveTime": "2021-01-01T01:01:01",
+            "lastActiveTime": get_datetime(5),
             "periodOfInactivity": "00:02:33.9200000"
         },
         {
             "pubkey": generate_compressed_pubkey,
             "collateralAmount": 50000,
-            "lastActiveTime": "2021-01-01T01:01:01",
+            "lastActiveTime": get_datetime(5),
             "periodOfInactivity": "00:02:34.9200000"
         }
     ]

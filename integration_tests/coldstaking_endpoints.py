@@ -6,7 +6,6 @@ from pybitcoin.types import Address, Money
 from api.wallet.requestmodels import ExtPubRecoveryRequest, GetUnusedAddressRequest, \
     ExtPubKeyRequest, SendTransactionRequest, OfflineSignRequest
 import pdb
-from datetime import datetime, timedelta
 
 
 def check_coldstaking_endpoints(
@@ -15,6 +14,7 @@ def check_coldstaking_endpoints(
         mining_address: Address,
         node_creates_a_wallet: Callable,
         send_a_transaction: Callable,
+        get_datetime: Callable,
         node_mines_some_blocks_and_syncs: Callable) -> None:
     hot_wallet_name = 'Test'
     cold_node_default_wallet_name = 'mywallet'
@@ -25,7 +25,7 @@ def check_coldstaking_endpoints(
         cold_node=cold_node, hot_node=hot_node, mining_address=mining_address, node_creates_a_wallet=node_creates_a_wallet,
         send_a_transaction=send_a_transaction, node_mines_some_blocks_and_syncs=node_mines_some_blocks_and_syncs,
         hot_wallet_name=hot_wallet_name, cold_node_default_wallet_name=cold_node_default_wallet_name,
-        restored_cold_on_hot_wallet_name=restored_cold_on_hot_wallet_name
+        restored_cold_on_hot_wallet_name=restored_cold_on_hot_wallet_name, get_datetime=get_datetime
     )
     assert check_info(
         cold_node=cold_node, hot_node=hot_node, hot_wallet_name=hot_wallet_name,
@@ -107,6 +107,7 @@ def get_coldstaking_addresses_and_accounts(
         restored_cold_on_hot_wallet_name: str,
         node_creates_a_wallet: Callable,
         send_a_transaction: Callable,
+        get_datetime: Callable,
         node_mines_some_blocks_and_syncs: Callable) -> Tuple[Address, Address, AccountModel, AccountModel]:
     # Setup a wallet on the cold node.
     assert node_creates_a_wallet(cold_node, name=cold_node_default_wallet_name)
@@ -122,7 +123,7 @@ def get_coldstaking_addresses_and_accounts(
             extpubkey=cold_wallet_default_extpubkey,
             name=restored_cold_on_hot_wallet_name,
             account_index=0,
-            creation_date=(datetime.now() - timedelta(days=1)).isoformat().split('.')[0]
+            creation_date=get_datetime(days_back=1)
         )
     )
     # Setup the hot account from the hot node.

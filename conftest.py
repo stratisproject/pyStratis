@@ -12,11 +12,18 @@ from random import choice, randint, random
 from sha3 import keccak_256
 from pybitcoin.types import uint256
 from pybitcoin.networks import BaseNetwork
-
+from datetime import datetime, timedelta
 
 @pytest.fixture(scope='session')
 def fakeuri():
     return 'http://localhost:8888'
+
+
+@pytest.fixture(scope='function')
+def get_datetime():
+    def _get_datetime(days_back: int = 365) -> str:
+        return (datetime.now() - timedelta(days=days_back)).isoformat().split('.')[0]
+    return _get_datetime
 
 
 @pytest.fixture(scope='function')
