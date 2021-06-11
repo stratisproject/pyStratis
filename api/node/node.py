@@ -2,7 +2,7 @@ from typing import Union, List
 from api import APIRequest, EndpointRegister, endpoint
 from api.node.requestmodels import *
 from api.node.responsemodels import *
-from pybitcoin import TransactionModel, ScriptPubKey
+from pybitcoin import ScriptPubKey
 from pybitcoin.types import Address, hexstr
 
 
@@ -48,7 +48,7 @@ class Node(APIRequest, metaclass=EndpointRegister):
         return BlockHeaderModel(**data)
 
     @endpoint(f'{route}/getrawtransaction')
-    def get_raw_transaction(self, request_model: GetRawTransactionRequest, **kwargs) -> Union[str, TransactionModel]:
+    def get_raw_transaction(self, request_model: GetRawTransactionRequest, **kwargs) -> Union[hexstr, TransactionModel]:
         """Gets a raw transaction from a transaction id.
 
         Args:
@@ -56,15 +56,16 @@ class Node(APIRequest, metaclass=EndpointRegister):
             **kwargs:
 
         Returns:
-            Union[str, TransactionModel]
+            Union[hexstr, TransactionModel]
 
         Raises:
             APIError
         """
         data = self.get(request_model, **kwargs)
-
+        if data is None:
+            raise RuntimeWarning('Transaction not found. Is -txindex=1 enabled?')
         if not request_model.verbose:
-            return data
+            return hexstr(data)
         return TransactionModel(**data)
 
     @endpoint(f'{route}/decoderawtransaction')
@@ -119,8 +120,9 @@ class Node(APIRequest, metaclass=EndpointRegister):
             APIError
         """
         data = self.get(request_model, **kwargs)
-        data['scriptPubKey'] = ScriptPubKey(**data['scriptPubKey'])
-        return GetTxOutModel(**data)
+        if data is not None and 'scriptPubKey' in data:
+            data['scriptPubKey'] = ScriptPubKey(**data['scriptPubKey'])
+            return GetTxOutModel(**data)
 
     @endpoint(f'{route}/gettxoutproof')
     def get_txout_proof(self, request_model: GetTxOutProofRequest, **kwargs) -> hexstr:

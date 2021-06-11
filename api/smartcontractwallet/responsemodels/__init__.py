@@ -1,1 +1,3 @@
 from .contracttransactionitemmodel import ContractTransactionItemModel
+# noinspection PyUnresolvedReferences
+from pybitcoin import BuildContractTransactionModel, WalletSendTransactionModel, TransactionOutputModel

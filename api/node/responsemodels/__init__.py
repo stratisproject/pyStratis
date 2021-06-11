@@ -6,3 +6,5 @@ from .gettxoutmodel import GetTxOutModel
 from .logrulesmodel import LogRulesModel
 from .statusmodel import StatusModel
 from .validateaddressmodel import ValidateAddressModel
+# noinspection PyUnresolvedReferences
+from pybitcoin import TransactionModel

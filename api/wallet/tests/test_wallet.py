@@ -6,10 +6,8 @@ from api.wallet import Wallet
 from api.wallet.requestmodels import *
 from api.wallet.responsemodels import *
 from binascii import unhexlify
-from pybitcoin import PubKey, WalletGeneralInfoModel, WalletBalanceModel, \
-    CoinType, TransactionItemType, AddressBalanceModel, Recipient, Outpoint, BuildTransactionModel, \
-    DestinationChain, SendTransactionRequest, WalletSendTransactionModel, AddressesModel, \
-    RemovedTransactionModel, ExtPubKey, BuildOfflineSignModel, UtxoDescriptor, AddressDescriptor
+from pybitcoin import PubKey, CoinType, TransactionItemType, Recipient, Outpoint, \
+    DestinationChain, ExtPubKey, UtxoDescriptor, AddressDescriptor
 from pybitcoin.types import Address, Money, uint256
 from pybitcoin.networks import StraxMain, CirrusMain, Ethereum
 
@@ -43,7 +41,7 @@ def test_all_interfluxcirrus_endpoints_implemented(interfluxcirrus_swagger_json)
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_mnemnoic(mocker: MockerFixture, network, fakeuri):
+def test_mnemonic(mocker: MockerFixture, network, fakeuri):
     data = 'a b c d e f g h i j k l'
     mocker.patch.object(Wallet, 'get', return_value=data)
     wallet = Wallet(network=network, baseuri=fakeuri)
@@ -1036,7 +1034,7 @@ def test_build_offline_sign_request(mocker: MockerFixture, network, fakeuri, gen
 def test_offline_sign_request(mocker: MockerFixture, network, fakeuri, get_base_keypath,
                               generate_uint256, generate_hexstring, generate_p2pkh_address):
     data = {
-        'fee': 1,
+        'fee': Money(1),
         'hex': generate_hexstring(128),
         'transactionId': generate_uint256
     }
@@ -1047,7 +1045,7 @@ def test_offline_sign_request(mocker: MockerFixture, network, fakeuri, get_base_
         wallet_name='Test',
         wallet_account='account 0',
         unsigned_transaction=generate_hexstring(128),
-        fee=Money(1).to_coin_unit(),
+        fee=Money(1),
         utxos=[
             UtxoDescriptor(
                 transaction_id=generate_uint256,

@@ -35,3 +35,5 @@ from .sweeprequest import SweepRequest
 from .syncfromdaterequest import SyncFromDateRequest
 from .syncrequest import SyncRequest
 from .verifymessagerequest import VerifyMessageRequest
+# noinspection PyUnresolvedReferences
+from pybitcoin import SendTransactionRequest

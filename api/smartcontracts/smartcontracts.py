@@ -3,7 +3,6 @@ from typing import List
 from api import APIRequest, EndpointRegister, endpoint
 from api.smartcontracts.requestmodels import *
 from api.smartcontracts.responsemodels import *
-from pybitcoin import BuildContractTransactionModel
 from pybitcoin.types import Address, Money, hexstr
 
 

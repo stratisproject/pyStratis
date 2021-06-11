@@ -3,8 +3,7 @@ from pytest_mock import MockerFixture
 from api.smartcontracts import SmartContracts
 from api.smartcontracts.requestmodels import *
 from api.smartcontracts.responsemodels import *
-from pybitcoin import BuildContractTransactionModel, Outpoint, SmartContractParameter, \
-    SmartContractParameterType, Recipient
+from pybitcoin import Outpoint, SmartContractParameter, SmartContractParameterType, Recipient
 from pybitcoin.types import Address, Money, uint32, uint64, uint128, uint256, int32, int64
 from pybitcoin.networks import StraxMain, CirrusMain
 

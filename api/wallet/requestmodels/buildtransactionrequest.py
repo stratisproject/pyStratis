@@ -36,19 +36,19 @@ class BuildTransactionRequest(Model):
     def json(self, *args, **kwargs) -> str:
         data = super(BuildTransactionRequest, self).dict(exclude_none=True, by_alias=True)
         data['password'] = data['password'].get_secret_value()
-        if data['feeAmount'] is not None:
-            data['feeAmount'] = data['feeAmount'].to_coin_unit()
         for i in range(len(data['outpoints'])):
             data['outpoints'][i]['transactionId'] = str(data['outpoints'][i]['transactionId'])
         for i in range(len(data['recipients'])):
-            if data['recipients'][i]['destinationAddress'] is not None:
+            if 'destinationAddress' in data['recipients'][i] and data['recipients'][i]['destinationAddress'] is not None:
                 data['recipients'][i]['destinationAddress'] = str(data['recipients'][i]['destinationAddress'])
-            if data['recipients'][i]['destinationScript'] is not None:
+            if 'destinationScript' in data['recipients'][i] and data['recipients'][i]['destinationScript'] is not None:
                 data['recipients'][i]['destinationScript'] = str(data['recipients'][i]['destinationScript'])
             data['recipients'][i]['amount'] = data['recipients'][i]['amount'].to_coin_unit()
         if 'opReturnAmount' in data and data['opReturnAmount'] is not None:
             data['opReturnAmount'] = data['opReturnAmount'].to_coin_unit()
         if 'changeAddress' in data and data['changeAddress'] is not None:
             data['changeAddress'] = str(data['changeAddress'])
+        if 'feeAmount' in data and data['feeAmount'] is not None:
+            data['feeAmount'] = data['feeAmount'].to_coin_unit()
 
         return json.dumps(data)

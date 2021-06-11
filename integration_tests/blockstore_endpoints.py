@@ -24,28 +24,16 @@ def check_addressindexer_tip(node: BaseNode) -> bool:
 
 def check_block(node: BaseNode, block_hash: uint256) -> bool:
     # Request json output with maximum details.
-    request_model = BlockRequest(
-        hash=block_hash,
-        show_transaction_details=True,
-        output_json=True
-    )
+    request_model = BlockRequest(hash=block_hash, show_transaction_details=True, output_json=True)
     node.blockstore.block(request_model=request_model)
 
     # Request hex output.
-    request_model = BlockRequest(
-        hash=block_hash,
-        show_transaction_details=True,
-        output_json=False
-    )
+    request_model = BlockRequest(hash=block_hash, show_transaction_details=True, output_json=False)
     node.blockstore.block(request_model=request_model)
 
     # Request a hash that doesn't exist.
     bad_block_hash = uint256('fffdf')
-    request_model = BlockRequest(
-        hash=bad_block_hash,
-        show_transaction_details=True,
-        output_json=False
-    )
+    request_model = BlockRequest(hash=bad_block_hash, show_transaction_details=True, output_json=False)
     node.blockstore.block(request_model=request_model)
     return True
 

@@ -6,3 +6,5 @@ from .getlastbalanceupdatetransactionmodel import GetLastBalanceUpdateTransactio
 from .getverboseaddressesbalancesmodel import GetVerboseAddressesBalancesModel
 from .utxomodel import UTXOModel
 from .verboseaddressbalancemodel import VerboseAddressBalanceModel
+# noinspection PyUnresolvedReferences
+from pybitcoin import BlockTransactionDetailsModel, BlockModel

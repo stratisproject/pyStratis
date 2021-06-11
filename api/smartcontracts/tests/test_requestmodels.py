@@ -41,11 +41,11 @@ def test_buildandsendcallrequest(network, generate_p2pkh_address, generate_uint2
         ],
         'contractAddress': generate_p2pkh_address(network=network),
         'methodName': 'method',
-        'amount': 5,
-        'feeAmount': 1,
+        'amount': '0.00000005',
+        'feeAmount': '0.00000001',
         'password': 'password',
-        'gasPrice': 1,
-        'gasLimit': 10,
+        'gasPrice': '0.00000001',
+        'gasLimit': '0.00000010',
         'sender': generate_p2pkh_address(network=network),
         'parameters': ['1#true', '2#255', '3#c', '4#Stratis', '5#123', '6#-123',
                        '7#456', '8#-456', f'9#{parameter_address}', '10#04A6B9', '11#789', '12#987']
@@ -92,12 +92,12 @@ def test_buildandsendcreaterequest(network, generate_p2pkh_address, generate_uin
                 'index': 0
             }
         ],
-        'amount': 5,
-        'feeAmount': 1,
+        'amount': '0.00000005',
+        'feeAmount': '0.00000001',
         'password': 'password',
         'contractCode': 'codegoeshere',
-        'gasPrice': 1,
-        'gasLimit': 10,
+        'gasPrice': '0.00000001',
+        'gasLimit': '0.00000010',
         'sender': generate_p2pkh_address(network=network),
         'parameters': ['1#true', '2#255', '3#c', '4#Stratis', '5#123', '6#-123',
                        '7#456', '8#-456', f'9#{parameter_address}', '10#04A6B9', '11#789', '12#987']
@@ -146,11 +146,11 @@ def test_buildcallcontracttransactionrequest(network, generate_p2pkh_address, ge
         ],
         'contractAddress': contract_address,
         'methodName': 'method',
-        'amount': 5,
-        'feeAmount': 1,
+        'amount': '0.00000005',
+        'feeAmount': '0.00000001',
         'password': 'password',
-        'gasPrice': 1,
-        'gasLimit': 10,
+        'gasPrice': '0.00000001',
+        'gasLimit': '0.00000010',
         'sender': generate_p2pkh_address(network=network),
         'parameters': ['1#true', '2#255', '3#c', '4#Stratis', '5#123', '6#-123',
                        '7#456', '8#-456', f'9#{parameter_address}', '10#04A6B9', '11#789', '12#987']
@@ -197,12 +197,12 @@ def test_buildcreatecontracttransactionrequest(network, generate_p2pkh_address, 
                 'index': 0
             }
         ],
-        'amount': 5,
-        'feeAmount': 1,
+        'amount': '0.00000005',
+        'feeAmount': '0.00000001',
         'password': 'password',
         'contractCode': 'codegoeshere',
-        'gasPrice': 1,
-        'gasLimit': 10,
+        'gasPrice': '0.00000001',
+        'gasLimit': '0.00000010',
         'sender': generate_p2pkh_address(network=network),
         'parameters': ['1#true', '2#255', '3#c', '4#Stratis', '5#123', '6#-123',
                        '7#456', '8#-456', f'9#{parameter_address}', '10#04A6B9', '11#789', '12#987']
@@ -240,7 +240,7 @@ def test_buildcreatecontracttransactionrequest(network, generate_p2pkh_address, 
 def test_buildtransactionrequest(network, generate_p2pkh_address, generate_p2sh_address, generate_uint256):
     data = {
         'sender': generate_p2pkh_address(network=network),
-        'feeAmount': 1,
+        'feeAmount': '0.00000001',
         'password': 'password',
         'segwitChangeAddress': False,
         'walletName': 'Test',
@@ -256,11 +256,11 @@ def test_buildtransactionrequest(network, generate_p2pkh_address, generate_p2sh_
                 'destinationAddress': generate_p2pkh_address(network=network),
                 'destinationScript': generate_p2sh_address(network=network),
                 'subtractFeeFromAmount': True,
-                'amount': 10
+                'amount': '0.00000010'
             }
         ],
         'opReturnData': 'opreturn',
-        'opReturnAmount': 1,
+        'opReturnAmount': '0.00000001',
         'feeType': 'low',
         'allowUnconfirmed': True,
         'shuffleOutputs': True,
@@ -320,11 +320,11 @@ def test_estimatefeerequest(network, generate_p2pkh_address, generate_p2sh_addre
                 'destinationAddress': generate_p2pkh_address(network=network),
                 'destinationScript': generate_p2sh_address(network=network),
                 'subtractFeeFromAmount': True,
-                'amount': 10
+                'amount': '0.00000010'
             }
         ],
         'opReturnData': 'opreturn',
-        'opReturnAmount': 1,
+        'opReturnAmount': '0.00000001',
         'feeType': 'low',
         'allowUnconfirmed': True,
         'shuffleOutputs': True,
@@ -359,9 +359,9 @@ def test_localcallrequest(network, generate_p2pkh_address):
     data = {
         'contractAddress': generate_p2pkh_address(network=network),
         'methodName': 'method',
-        'amount': 10,
-        'gasPrice': 1,
-        'gasLimit': 10,
+        'amount': '0.00000010',
+        'gasPrice': '0.00000001',
+        'gasLimit': '0.00000010',
         'sender': generate_p2pkh_address(network=network),
         'parameters': ['1#true', '2#255', '3#c', '4#Stratis', '5#123', '6#-123',
                        '7#456', '8#-456', f'9#{parameter_address}', '10#04A6B9', '11#789', '12#987']

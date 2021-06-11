@@ -4,8 +4,7 @@ from api.federationwallet import FederationWallet
 from api.federationwallet.requestmodels import *
 from api.federationwallet.responsemodels import *
 from pybitcoin.networks import StraxMain, CirrusMain
-from pybitcoin import CoinType, CrossChainTransferStatus, RemovedTransactionModel,\
-    WalletBalanceModel, WalletGeneralInfoModel
+from pybitcoin import CoinType, CrossChainTransferStatus
 
 
 def test_all_strax_endpoints_implemented(strax_swagger_json):

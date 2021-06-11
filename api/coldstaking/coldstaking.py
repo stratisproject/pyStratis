@@ -1,8 +1,8 @@
 from api import APIRequest, EndpointRegister, endpoint
 from api.coldstaking.requestmodels import *
 from api.coldstaking.responsemodels import *
-from pybitcoin import AddressDescriptor, BuildOfflineSignModel, UtxoDescriptor
-from pybitcoin.types import Address, Money, uint256
+from pybitcoin import UtxoDescriptor, AddressDescriptor
+from pybitcoin.types import Address, Money, hexstr
 
 
 class ColdStaking(APIRequest, metaclass=EndpointRegister):
@@ -81,7 +81,7 @@ class ColdStaking(APIRequest, metaclass=EndpointRegister):
             APIError
         """
         data = self.post(request_model, **kwargs)
-        data['transactionHex'] = uint256(data['transactionHex'])
+        data['transactionHex'] = hexstr(data['transactionHex'])
 
         return SetupModel(**data)
 

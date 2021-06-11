@@ -4,7 +4,7 @@ from pytest_mock import MockerFixture
 from api.node import Node
 from api.node.requestmodels import *
 from api.node.responsemodels import *
-from pybitcoin import FullNodeState, FeatureInitializationState, TransactionModel, LogRule
+from pybitcoin import FullNodeState, FeatureInitializationState, LogRule
 from pybitcoin.networks import StraxMain, CirrusMain
 
 

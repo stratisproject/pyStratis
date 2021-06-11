@@ -41,7 +41,7 @@ def test_buildinterfluxtransactionrequest(network, generate_ethereum_checksum_ad
     data = {
         'destinationChain': DestinationChain.ETH,
         'destinationAddress': generate_ethereum_checksum_address,
-        'feeAmount': 1,
+        'feeAmount': '0.00000001',
         'password': 'password',
         'segwitChangeAddress': False,
         'walletName': 'Test',
@@ -57,11 +57,11 @@ def test_buildinterfluxtransactionrequest(network, generate_ethereum_checksum_ad
                 'destinationAddress': generate_p2pkh_address(network=network),
                 'destinationScript': generate_p2sh_address(network=network),
                 'subtractFeeFromAmount': True,
-                'amount': 10
+                'amount': '0.00000010'
             }
         ],
         'opReturnData': 'opreturn',
-        'opReturnAmount': 1,
+        'opReturnAmount': '0.00000001',
         'feeType': 'low',
         'allowUnconfirmed': True,
         'shuffleOutputs': True,
@@ -97,7 +97,7 @@ def test_buildinterfluxtransactionrequest(network, generate_ethereum_checksum_ad
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
 def test_buildofflinesignrequest(network, generate_uint256, generate_p2pkh_address, generate_p2sh_address):
     data = {
-        'feeAmount': 1,
+        'feeAmount': '0.00000001',
         'walletName': 'Test',
         'accountName': 'account 0',
         'outpoints': [
@@ -111,11 +111,11 @@ def test_buildofflinesignrequest(network, generate_uint256, generate_p2pkh_addre
                 'destinationAddress': generate_p2pkh_address(network=network),
                 'destinationScript': generate_p2sh_address(network=network),
                 'subtractFeeFromAmount': True,
-                'amount': 10
+                'amount': '0.00000010'
             }
         ],
         'opReturnData': 'opreturn',
-        'opReturnAmount': 1,
+        'opReturnAmount': '0.00000001',
         'feeType': 'low',
         'allowUnconfirmed': True,
         'shuffleOutputs': True,
@@ -205,7 +205,7 @@ def test_consolidaterequest(network, generate_p2pkh_address):
         'walletName': 'Test',
         'walletAccount': 'account 0',
         'destinationAddress': generate_p2pkh_address(network=network),
-        'utxoValueThreshold': 1,
+        'utxoValueThreshold': '0.00000001',
         'broadcast': False
     }
     request_model = ConsolidateRequest(
@@ -289,11 +289,11 @@ def test_estimatetxfeerequest(network, generate_uint256, generate_p2pkh_address,
                 'destinationAddress': generate_p2pkh_address(network=network),
                 'destinationScript': generate_p2sh_address(network=network),
                 'subtractFeeFromAmount': True,
-                'amount': 10
+                'amount': '0.00000010'
             }
         ],
         'opReturnData': 'opreturn',
-        'opReturnAmount': 1,
+        'opReturnAmount': '0.00000001',
         'feeType': 'low',
         'allowUnconfirmed': True,
         'shuffleOutputs': True,
@@ -519,7 +519,7 @@ def test_offlinesignrequest(network, generate_hexstring, generate_uint256, gener
                 'transactionId': generate_uint256,
                 'index': 0,
                 'scriptPubKey': 'scriptpubkey',
-                'amount': 1
+                'amount': '0.00000010'
             }
         ],
         'addresses': [
@@ -535,13 +535,13 @@ def test_offlinesignrequest(network, generate_hexstring, generate_uint256, gener
         wallet_name='Test',
         wallet_account='account 0',
         unsigned_transaction=data['unsignedTransaction'],
-        fee=Money(1).to_coin_unit(),
+        fee=Money(1),
         utxos=[
             UtxoDescriptor(
                 transaction_id=data['utxos'][0]['transactionId'],
                 index=0,
                 script_pubkey='scriptpubkey',
-                amount=Money(1)
+                amount=Money(10)
             )
         ],
         addresses=[
@@ -680,7 +680,7 @@ def test_splitcoinsrequest():
         'walletName': 'Test',
         'accountName': 'account 0',
         'walletPassword': 'password',
-        'totalAmountToSplit': 5,
+        'totalAmountToSplit': '0.00000005',
         'utxosCount': 5
     }
     request_model = SplitCoinsRequest(

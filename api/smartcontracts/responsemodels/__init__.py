@@ -4,3 +4,5 @@ from .localexecutionresultmodel import LocalExecutionResultModel
 from .logmodel import LogModel
 from .receiptmodel import ReceiptModel
 from .transferinfomodel import TransferInfoModel
+# noinspection PyUnresolvedReferences
+from pybitcoin import BuildContractTransactionModel

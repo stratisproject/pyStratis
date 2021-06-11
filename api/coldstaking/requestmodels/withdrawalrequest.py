@@ -12,4 +12,4 @@ class WithdrawalRequest(Model):
     account_name: Optional[str] = Field(alias='accountName')
     amount: Money
     subtract_fee_from_amount: Optional[bool] = Field(default=True, alias='subtractFeeFromAmount')
-    fees: Optional[str]
+    fees: Optional[Money]

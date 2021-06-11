@@ -5,8 +5,8 @@ from pybitcoin.types import Address, Money
 
 class TransactionOutputModel(BaseModel):
     """A TransactionOutputModel."""
-    address: Address
-    amount: Money
+    address: Optional[Address]
+    amount: Optional[Money]
     op_return_data: Optional[str] = Field(alias='OpReturnData')
 
     class Config:

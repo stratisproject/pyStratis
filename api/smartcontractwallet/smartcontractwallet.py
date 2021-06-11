@@ -2,8 +2,6 @@ from typing import List
 from api import APIRequest, EndpointRegister, endpoint
 from api.smartcontractwallet.requestmodels import *
 from api.smartcontractwallet.responsemodels import *
-from pybitcoin import BuildContractTransactionModel, WalletSendTransactionModel, \
-    TransactionOutputModel, SendTransactionRequest
 from pybitcoin.types import Address, Money, uint256
 
 

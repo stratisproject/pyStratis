@@ -2,10 +2,7 @@ from typing import List
 from api import APIRequest, EndpointRegister, endpoint
 from api.wallet.requestmodels import *
 from api.wallet.responsemodels import *
-from pybitcoin import AddressesModel, AddressBalanceModel, BuildTransactionModel, \
-    BuildOfflineSignModel, RemovedTransactionModel, WalletGeneralInfoModel, \
-    WalletBalanceModel, WalletSendTransactionModel, SendTransactionRequest, PubKey, \
-    TransactionOutputModel, ExtPubKey, UtxoDescriptor, AddressDescriptor
+from pybitcoin import PubKey, ExtPubKey, AddressDescriptor, UtxoDescriptor
 from pybitcoin.types import Address, Money, hexstr, uint256
 
 
@@ -364,7 +361,11 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
         """
         data = self.post(request_model, **kwargs)
         for i in range(len(data['outputs'])):
-            data['outputs'][i]['address'] = Address(address=data['outputs'][i]['address'], network=self._network)
+            if 'address' in data['outputs'][i]:
+                data['outputs'][i]['address'] = Address(address=data['outputs'][i]['address'], network=self._network)
+            else:
+                # No address in coldstaking transactions.
+                pass
             data['outputs'][i] = TransactionOutputModel(**data['outputs'][i])
 
         return WalletSendTransactionModel(**data)

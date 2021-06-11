@@ -70,14 +70,14 @@ def test_setban(mocker: MockerFixture, network, fakeuri):
 def test_getbans(mocker: MockerFixture, network, fakeuri):
     data = [
         {
-            'EndPoint': 'http://badpeer0',
-            'BanUntil': 'Forever',
-            'BanReason': 'Scammer'
+            'endPoint': 'http://badpeer0',
+            'banUntil': 'Forever',
+            'banReason': 'Scammer'
         },
         {
-            'EndPoint': 'http://badpeer1',
-            'BanUntil': 'Forever',
-            'BanReason': 'Scammer'
+            'endPoint': 'http://badpeer1',
+            'banUntil': 'Forever',
+            'banReason': 'Scammer'
         }
     ]
     mocker.patch.object(Network, 'get', return_value=data)

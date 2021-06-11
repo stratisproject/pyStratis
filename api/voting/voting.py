@@ -2,7 +2,6 @@ from typing import List
 from api import APIRequest, EndpointRegister, endpoint
 from api.voting.requestmodels import *
 from api.voting.responsemodels import *
-from pybitcoin import PollViewModel
 
 
 class Voting(APIRequest, metaclass=EndpointRegister):

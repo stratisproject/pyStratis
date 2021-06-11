@@ -1,1 +1,3 @@
 from .withdrawalmodel import WithdrawalModel
+# noinspection PyUnresolvedReferences
+from pybitcoin import RemovedTransactionModel, WalletBalanceModel, WalletGeneralInfoModel

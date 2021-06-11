@@ -2,7 +2,6 @@ from typing import Union, List
 from api import APIRequest, EndpointRegister, endpoint
 from api.blockstore.responsemodels import *
 from api.blockstore.requestmodels import *
-from pybitcoin import BlockTransactionDetailsModel, BlockModel
 from pybitcoin.types import Address, hexstr
 
 

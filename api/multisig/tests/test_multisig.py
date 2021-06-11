@@ -2,8 +2,9 @@ import pytest
 from pytest_mock import MockerFixture
 from api.multisig import Multisig
 from api.multisig.requestmodels import *
+from api.multisig.responsemodels import *
 from pybitcoin.networks import StraxMain, CirrusMain
-from pybitcoin import MultisigSecret, Recipient, BuildTransactionModel
+from pybitcoin import MultisigSecret, Recipient
 from pybitcoin.types import Address, Money
 
 

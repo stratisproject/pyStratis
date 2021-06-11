@@ -1,6 +1,6 @@
 from api import APIRequest, EndpointRegister, endpoint
 from api.multisig.requestmodels import *
-from pybitcoin import BuildTransactionModel
+from api.multisig.responsemodels import *
 
 
 class Multisig(APIRequest, metaclass=EndpointRegister):

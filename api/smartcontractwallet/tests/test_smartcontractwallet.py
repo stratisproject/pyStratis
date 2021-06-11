@@ -4,8 +4,7 @@ from api.smartcontractwallet import SmartContractWallet
 from api.smartcontractwallet.requestmodels import *
 from api.smartcontractwallet.responsemodels import *
 from pybitcoin.networks import StraxMain, CirrusMain
-from pybitcoin import BuildContractTransactionModel, ContractTransactionItemType, Outpoint, \
-    SmartContractParameter, SmartContractParameterType, SendTransactionRequest, WalletSendTransactionModel
+from pybitcoin import ContractTransactionItemType, Outpoint, SmartContractParameter, SmartContractParameterType
 from pybitcoin.types import Address, Money, uint32, uint64, uint128, uint256, int32, int64
 
 

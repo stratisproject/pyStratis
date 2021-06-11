@@ -2,7 +2,6 @@ from typing import List, Union
 from api import APIRequest, EndpointRegister, endpoint
 from api.federationwallet.requestmodels import *
 from api.federationwallet.responsemodels import *
-from pybitcoin import RemovedTransactionModel, WalletBalanceModel, WalletGeneralInfoModel
 from pybitcoin.types import Address
 
 
