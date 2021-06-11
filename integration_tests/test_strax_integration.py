@@ -124,8 +124,10 @@ def test_strax_integration(
     check_staking_endpoints(node=mining_node)
     check_wallet_endpoints(
         node=mining_node, internal_address=mining_address, destination_address=receiving_address,
-        spendable_transactions=spendable_transactions, eth_address=Address(address=generate_ethereum_checksum_address, network=Ethereum()),
-        block_hash=tip_blockhash, extpubkey=ExtPubKey(generate_extpubkey))
+        spendable_transactions=spendable_transactions, extpubkey=ExtPubKey(generate_extpubkey),
+        eth_address=Address(address=generate_ethereum_checksum_address, network=Ethereum()),
+        block_hash=tip_blockhash, get_datetime=get_datetime
+    )
 
     # Stop mining and disconnect from other node last.
     check_mining_endpoints(node=mining_node, num_blocks_to_mine=1)

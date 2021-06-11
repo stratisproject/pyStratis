@@ -12,6 +12,7 @@ def check_wallet_endpoints(
         spendable_transactions: List[uint256],
         eth_address: Address,
         block_hash: uint256,
+        get_datetime: Callable,
         extpubkey: ExtPubKey) -> None:
     assert check_mnemonic(node)
     mnemonic = node.wallet.mnemonic(MnemonicRequest(language='English', word_count=12))
@@ -22,8 +23,8 @@ def check_wallet_endpoints(
     assert check_pubkey(node, internal_address)
     # assert check_verify_message(node, signature, internal_address, message)
     assert check_load(node)
-    assert check_recover(node)
-    assert check_recover_via_extpubkey(node, extpubkey)
+    assert check_recover(node, get_datetime)
+    assert check_recover_via_extpubkey(node, extpubkey, get_datetime)
     assert check_general_info(node)
     assert check_transaction_count(node)
     assert check_history(node, internal_address)
@@ -43,12 +44,12 @@ def check_wallet_endpoints(
     assert check_unused_addresses(node)
     assert check_new_addresses(node)
     assert check_addresses(node)
-    assert check_remove_transactions(node, spendable_transactions)
+    assert check_remove_transactions(node, spendable_transactions, get_datetime)
     assert check_remove_wallet(node)
     assert check_extpubkey(node)
     assert check_private_key(node, internal_address)
     assert check_sync(node, block_hash)
-    assert check_sync_from_date(node)
+    assert check_sync_from_date(node, get_datetime)
     assert check_wallet_stats(node)
     assert check_split_coins(node)
     assert check_distribute_utxos(node, spendable_transactions)
