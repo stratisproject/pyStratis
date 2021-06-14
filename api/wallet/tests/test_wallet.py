@@ -221,7 +221,7 @@ def test_general_info(mocker: MockerFixture, network, fakeuri):
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
 def test_transaction_count(mocker: MockerFixture, network, fakeuri):
-    data = 5
+    data = {'transactionCount': 5}
     mocker.patch.object(Wallet, 'get', return_value=data)
     wallet = Wallet(network=network, baseuri=fakeuri)
     request_model = AccountRequest(
@@ -231,7 +231,7 @@ def test_transaction_count(mocker: MockerFixture, network, fakeuri):
 
     response = wallet.transaction_count(request_model)
 
-    assert response == data
+    assert response == data['transactionCount']
     # noinspection PyUnresolvedReferences
     wallet.get.assert_called_once()
 
