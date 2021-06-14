@@ -129,7 +129,7 @@ class ColdStaking(APIRequest, metaclass=EndpointRegister):
         """
         data = self.post(request_model, **kwargs)
 
-        return data
+        return Money.from_satoshi_units(data)
 
     @endpoint(f'{route}/estimate-offline-cold-staking-setup-tx-fee')
     def estimate_offline_setup_tx_fee(self, request_model: SetupOfflineRequest, **kwargs) -> Money:
@@ -147,7 +147,7 @@ class ColdStaking(APIRequest, metaclass=EndpointRegister):
         """
         data = self.post(request_model, **kwargs)
 
-        return data
+        return Money.from_satoshi_units(data)
 
     @endpoint(f'{route}/cold-staking-withdrawal')
     def withdrawal(self, request_model: WithdrawalRequest, **kwargs) -> WithdrawalModel:
@@ -182,8 +182,11 @@ class ColdStaking(APIRequest, metaclass=EndpointRegister):
             APIError
         """
         data = self.post(request_model, **kwargs)
+        data['fee'] = Money(data['fee'])
 
         # Build the UtxoDescriptors
+        for i in range(len(data['utxos'])):
+            data['utxos'][i]['amount'] = Money(data['utxos'][i]['amount'])
         data['utxos'] = [UtxoDescriptor(**x) for x in data['utxos']]
 
         # Build the AddressDescriptors
@@ -211,7 +214,7 @@ class ColdStaking(APIRequest, metaclass=EndpointRegister):
         """
         data = self.post(request_model, **kwargs)
 
-        return Money(data)
+        return Money.from_satoshi_units(data)
 
     @endpoint(f'{route}/estimate-cold-staking-withdrawal-tx-fee')
     def estimate_withdrawal_tx_fee(self, request_model: WithdrawalRequest, **kwargs) -> Money:
@@ -229,4 +232,4 @@ class ColdStaking(APIRequest, metaclass=EndpointRegister):
         """
         data = self.post(request_model, **kwargs)
 
-        return Money(data)
+        return Money.from_satoshi_units(data)

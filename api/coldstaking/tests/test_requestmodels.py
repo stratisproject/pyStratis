@@ -62,7 +62,7 @@ def test_offlinewithdrawalfeeestimationrequest(network, generate_p2pkh_address):
         'walletName': 'Test',
         'accountName': 'account 0',
         'receivingAddress': generate_p2pkh_address(network=network),
-        'amount': '0.00000005',
+        'amount': '5.00000000',
         'subtractFeeFromAmount': True
     }
     request_model = OfflineWithdrawalFeeEstimationRequest(
@@ -81,8 +81,8 @@ def test_offlinewithdrawalrequest(network, generate_p2pkh_address):
         'receivingAddress': generate_p2pkh_address(network=network),
         'walletName': 'Test',
         'accountName': 'account 0',
-        'amount': '0.00000005',
-        'fees': '0.00000001',
+        'amount': '5.00000000',
+        'fees': '0.00010000',
         'subtractFeeFromAmount': True
     }
     request_model = OfflineWithdrawalRequest(
@@ -90,7 +90,7 @@ def test_offlinewithdrawalrequest(network, generate_p2pkh_address):
         wallet_name='Test',
         account_name='account 0',
         amount=Money(5),
-        fees=Money(1),
+        fees=Money(0.0001),
         subtract_fee_from_amount=True
     )
     assert json.dumps(data) == request_model.json()
@@ -103,8 +103,8 @@ def test_setupofflinerequest(network, generate_p2pkh_address):
         'hotWalletAddress': generate_p2pkh_address(network=network),
         'walletName': 'Test',
         'walletAccount': 'account 0',
-        'amount': '0.00000005',
-        'fees': "0.00000001",
+        'amount': '5.00000000',
+        'fees': "0.00010000",
         'subtractFeeFromAmount': True,
         'splitCount': 1,
         'segwitChangeAddress': False
@@ -115,7 +115,7 @@ def test_setupofflinerequest(network, generate_p2pkh_address):
         wallet_name='Test',
         wallet_account='account 0',
         amount=Money(5),
-        fees=Money(1),
+        fees=Money(0.0001),
         subtract_fee_from_amount=True,
         split_count=1,
         segwit_change_address=False
@@ -130,8 +130,8 @@ def test_setuprequest(network, generate_p2pkh_address):
         'hotWalletAddress': generate_p2pkh_address(network=network),
         'walletName': 'Test',
         'walletAccount': 'account 0',
-        'amount': '0.00000005',
-        'fees': '0.00000001',
+        'amount': '5.00000000',
+        'fees': '0.00010000',
         'subtractFeeFromAmount': True,
         'splitCount': 1,
         'segwitChangeAddress': False,
@@ -143,7 +143,7 @@ def test_setuprequest(network, generate_p2pkh_address):
         wallet_name='Test',
         wallet_account='account 0',
         amount=Money(5),
-        fees=Money(1),
+        fees=Money(0.0001),
         subtract_fee_from_amount=True,
         split_count=1,
         segwit_change_address=False,
@@ -158,9 +158,9 @@ def test_withdrawalrequest(network, generate_p2pkh_address):
         'receivingAddress': generate_p2pkh_address(network=network),
         'walletPassword': 'password',
         'walletName': 'Test',
-        'amount': '0.00000005',
+        'amount': '5.00000000',
         'subtractFeeFromAmount': True,
-        'fees': '0.00000001'
+        'fees': '0.00010000'
     }
     request_model = WithdrawalRequest(
         receiving_address=Address(address=data['receivingAddress'], network=network),
@@ -168,6 +168,6 @@ def test_withdrawalrequest(network, generate_p2pkh_address):
         wallet_name='Test',
         amount=Money(5),
         subtract_fee_from_amount=True,
-        fees=Money(1)
+        fees=Money(0.0001)
     )
     assert json.dumps(data) == request_model.json()

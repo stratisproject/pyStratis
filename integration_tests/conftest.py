@@ -1,4 +1,5 @@
 import pytest
+import re
 import os
 import shutil
 import subprocess
@@ -6,23 +7,24 @@ import time
 from typing import List, Optional, Union
 from requests.exceptions import ConnectionError
 from nodes import StraxNode, CirrusNode, InterfluxCirrusNode, InterfluxStraxNode, BaseNode
-from pybitcoin.networks import StraxRegTest, CirrusRegTest, BaseNetwork
+from pybitcoin.networks import BaseNetwork
 from pybitcoin.types import Address, Money
 
 
-@pytest.fixture(scope='function')
+@pytest.fixture(scope='session')
 def start_regtest_node():
     def _start_regtest_node(
             node: Union[StraxNode, CirrusNode, InterfluxCirrusNode, InterfluxStraxNode],
             source_dir: str,
-            extra_cmd_ops: List[str] = None) -> Union[StraxNode, CirrusNode, InterfluxCirrusNode, InterfluxStraxNode]:
+            extra_cmd_ops: List[str] = None) -> None:
         # Kill any running nodes using same ports.
         try:
             node.node.stop()
             time.sleep(10)
         except ConnectionError:
             pass
-        data_dir = os.path.join(os.getcwd(), 'data_dir', f'{node.name}-node-{node.blockchainnetwork.API_PORT}')
+        root_dir = re.match(r'(.*)pystratis', os.getcwd())[0]
+        data_dir = os.path.join(root_dir, 'integration_tests', 'data_dir', f'{node.name}-node-{node.blockchainnetwork.API_PORT}')
         if os.path.exists(data_dir):
             shutil.rmtree(data_dir)
         root_dir = os.getcwd()
@@ -44,86 +46,10 @@ def start_regtest_node():
             except ConnectionError:
                 time.sleep(5)
         print('Node started.')
-        return node
     return _start_regtest_node
 
 
-@pytest.fixture(scope='function')
-def strax_start_regtest_node(start_regtest_node):
-    def _strax_start_regtest_node(port: int) -> StraxNode:
-        node = StraxNode(
-            ipaddr='http://localhost',
-            blockchainnetwork=StraxRegTest(
-                API_PORT=port,
-                DEFAULT_PORT=port+1,
-                SIGNALR_PORT=port+2,
-                RPC_PORT=port + 3
-            )
-        )
-        source_dir = os.path.join(os.getcwd(), 'StratisFullNode', 'src', 'Stratis.StraxD')
-        return start_regtest_node(node=node, source_dir=source_dir)
-    return _strax_start_regtest_node
-
-
-@pytest.fixture(scope='function')
-def cirrus_start_regtest_node():
-    def _cirrus_start_regtest_node(port: int) -> CirrusNode:
-        node = CirrusNode(
-            ipaddr='http://localhost',
-            blockchainnetwork=CirrusRegTest(
-                API_PORT=port,
-                DEFAULT_PORT=port + 1,
-                SIGNALR_PORT=port + 2,
-                RPC_PORT=port + 3
-            )
-        )
-        source_dir = os.path.join(os.getcwd(), 'StratisFullNode', 'src', 'Stratis.CirrusD')
-        return start_regtest_node(node=node, source_dir=source_dir)
-    return _cirrus_start_regtest_node
-
-
-@pytest.fixture(scope='function')
-def interflux_strax_start_regtest_node():
-    def _interflux_strax_start_regtest_node(port: int) -> InterfluxStraxNode:
-        node = InterfluxStraxNode(
-            ipaddr='http://localhost',
-            blockchainnetwork=StraxRegTest(
-                API_PORT=port,
-                DEFAULT_PORT=port + 1,
-                SIGNALR_PORT=port + 2,
-                RPC_PORT=port + 3
-            )
-        )
-        source_dir = os.path.join(os.getcwd(), 'StratisFullNode', 'src', 'Stratis.CirrusPegD')
-        return start_regtest_node(node=node, source_dir=source_dir)
-    return _interflux_strax_start_regtest_node
-
-
-@pytest.fixture(scope='function')
-def interflux_cirrus_start_regtest_node():
-    def _interflux_cirrus_start_regtest_node(port: int) -> InterfluxCirrusNode:
-        node = InterfluxCirrusNode(
-            ipaddr='http://localhost',
-            blockchainnetwork=CirrusRegTest(
-                API_PORT=port,
-                DEFAULT_PORT=port + 1,
-                SIGNALR_PORT=port + 2,
-                RPC_PORT=port + 3
-            )
-        )
-        source_dir = os.path.join(os.getcwd(), 'StratisFullNode', 'src', 'Stratis.CirrusPegD')
-        return start_regtest_node(node=node, source_dir=source_dir)
-    return _interflux_cirrus_start_regtest_node
-
-
-@pytest.fixture(scope='function')
-def stop_regtest_node():
-    def _stop_regtest_node(regtest_node: BaseNode) -> None:
-        regtest_node.node.stop()
-    return _stop_regtest_node
-
-
-@pytest.fixture(scope='function')
+@pytest.fixture(scope='session')
 def random_addresses(generate_p2pkh_address):
     def _random_addresses(network: BaseNetwork) -> List[Address]:
         return [
@@ -136,7 +62,7 @@ def random_addresses(generate_p2pkh_address):
     return _random_addresses
 
 
-@pytest.fixture(scope='function')
+@pytest.fixture(scope='session')
 def send_a_transaction():
     def _send_a_transaction(
             node: BaseNode,
@@ -179,7 +105,7 @@ def send_a_transaction():
     return _send_a_transaction
 
 
-@pytest.fixture(scope='function')
+@pytest.fixture(scope='session')
 def get_node_endpoint():
     def _get_node_endpoint(node: BaseNode) -> str:
         localhost_ip = node.ipaddr.replace('http://localhost', '[::ffff:127.0.0.1]')
@@ -187,21 +113,7 @@ def get_node_endpoint():
     return _get_node_endpoint
 
 
-@pytest.fixture(scope='function')
-def node_mines_some_blocks_and_syncs(sync_node_to_height):
-    def _node_mines_some_blocks_and_syncs(
-            mining_node: StraxNode,
-            syncing_node: StraxNode = None,
-            num_blocks_to_mine: int = 1) -> bool:
-        from api.mining.requestmodels import GenerateRequest
-        mining_node.mining.generate(GenerateRequest(block_count=num_blocks_to_mine))
-        if syncing_node is None:
-            return True
-        return sync_node_to_height(mining_node, syncing_node)
-    return _node_mines_some_blocks_and_syncs
-
-
-@pytest.fixture(scope='function')
+@pytest.fixture(scope='session')
 def sync_node_to_height():
     def _sync_node_to_height(a: BaseNode, b: BaseNode) -> bool:
         while True:
@@ -211,7 +123,7 @@ def sync_node_to_height():
     return _sync_node_to_height
 
 
-@pytest.fixture(scope='function')
+@pytest.fixture(scope='session')
 def node_creates_a_wallet():
     def _node_creates_a_wallet(node: BaseNode, name: str = 'Test') -> bool:
         from api.wallet.requestmodels import CreateRequest
@@ -220,7 +132,7 @@ def node_creates_a_wallet():
     return _node_creates_a_wallet
 
 
-@pytest.fixture(scope='function')
+@pytest.fixture(scope='session')
 def get_node_address_with_balance():
     def _get_node_address_with_balance(node: BaseNode) -> Optional[Address]:
         from api.wallet.requestmodels import BalanceRequest
@@ -236,7 +148,17 @@ def get_node_address_with_balance():
     return _get_node_address_with_balance
 
 
-@pytest.fixture(scope='function')
+@pytest.fixture(scope='session')
+def connect_two_nodes(get_node_endpoint):
+    def _connect_two_nodes(a: BaseNode, b: BaseNode):
+        from api.connectionmanager.requestmodels import AddNodeRequest
+        request_model = AddNodeRequest(endpoint=get_node_endpoint(b), command='add')
+        a.connection_manager.addnode(request_model)
+        return True
+    return _connect_two_nodes
+
+
+@pytest.fixture(scope='session')
 def get_node_unused_address():
     def _get_node_unused_address(node: BaseNode) -> Address:
         from api.wallet.requestmodels import GetUnusedAddressRequest
@@ -247,3 +169,31 @@ def get_node_unused_address():
         )
         return node.wallet.unused_address(request_model)
     return _get_node_unused_address
+
+
+@pytest.fixture(scope='session')
+def git_checkout_current_node_version():
+    def _git_checkout_current_node_version(version: str) -> None:
+        """Checks out the most current version of the StratisFullNode with the specified branch.
+
+        Returns:
+            None
+        """
+        project_uri = 'https://github.com/stratisproject/StratisFullNode.git'
+        root_dir = re.match(r'(.*)pystratis', os.getcwd())[0]
+        clone_dir = os.path.join(root_dir, 'integration_tests', 'StratisFullNode')
+
+        if not os.path.exists(os.path.join(clone_dir)):
+            os.system(f'git clone {project_uri} {clone_dir}')
+            os.chdir(clone_dir)
+            os.system('git fetch')
+            os.system(f'git checkout -b release/{version} origin/release/{version}')
+            os.system(f'git pull')
+            os.chdir(root_dir)
+        else:
+            os.chdir(clone_dir)
+            os.system('git fetch')
+            os.system(f'git checkout release/{version}')
+            os.system(f'git pull')
+            os.chdir(root_dir)
+    return _git_checkout_current_node_version

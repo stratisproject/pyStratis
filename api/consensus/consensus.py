@@ -43,7 +43,7 @@ class Consensus(APIRequest, metaclass=EndpointRegister):
         """
         data = self.get(**kwargs)
 
-        return data
+        return uint256(data)
 
     @endpoint(f'{route}/getblockhash')
     def get_blockhash(self, request_model: GetBlockHashRequest, **kwargs) -> uint256:
@@ -61,4 +61,4 @@ class Consensus(APIRequest, metaclass=EndpointRegister):
         """
         data = self.get(request_model, **kwargs)
 
-        return data
+        return uint256(data)

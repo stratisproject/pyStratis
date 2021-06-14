@@ -32,4 +32,14 @@ class BuildInterfluxTransactionRequest(Model):
         ]
         if v is not None and v not in allowed:
             raise ValueError(f'Invalid command. Must be: {allowed}')
+        if v is not None and values['fee_amount'] is not None:
+            raise ValueError('Both fee_type and fee_amount cannot be set.')
+        return v
+
+    # noinspection PyMethodParameters,PyUnusedLocal
+    @validator('fee_amount', always=True)
+    def check_fee_too_high(cls, v, values):
+        if v is not None:
+            if v > Money(1):
+                raise ValueError('Fee should not be more than 1. Check parameters.')
         return v

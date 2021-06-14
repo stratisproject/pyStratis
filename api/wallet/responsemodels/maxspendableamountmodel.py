@@ -6,5 +6,5 @@ from pybitcoin.types import Money
 
 class MaxSpendableAmountModel(Model):
     """A MaxSpendableAmountModel."""
-    max_spendable_amount: Optional[Money] = Field(alias='MaxSpendableAmount')
+    max_spendable_amount: Optional[Money] = Field(alias='maxSpendableAmount')
     fee: Optional[Money] = Field(alias='Fee')

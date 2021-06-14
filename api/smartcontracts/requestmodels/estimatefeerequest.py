@@ -29,4 +29,3 @@ class EstimateFeeRequest(Model):
         if v is not None and v not in allowed:
             raise ValueError(f'Invalid command. Must be: {allowed}')
         return v
-

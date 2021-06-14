@@ -1,11 +1,12 @@
 from typing import List
 from pydantic import Field, BaseModel
+from pybitcoin.types import uint256
 from .transactionoutputmodel import TransactionOutputModel
 
 
 class WalletSendTransactionModel(BaseModel):
     """A WalletSendTransactionModel."""
-    transaction_id: str = Field(alias='transactionId')
+    transaction_id: uint256 = Field(alias='transactionId')
     outputs: List[TransactionOutputModel]
 
     class Config:

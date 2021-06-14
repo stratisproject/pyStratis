@@ -164,7 +164,7 @@ def test_coldstaking_setup_coldstaking(mocker: MockerFixture, network, fakeuri,
         cold_wallet_address=Address(address=generate_p2pkh_address(network=network), network=network),
         hot_wallet_address=Address(address=generate_p2pkh_address(network=network), network=network),
         amount=Money(10),
-        fees=Money(1)
+        fees=Money(0.0001)
     )
     data = {'transactionHex': generate_hexstring(256)}
     mocker.patch.object(ColdStaking, 'post', return_value=data)
@@ -186,7 +186,7 @@ def test_coldstaking_setup_offline_coldstaking(mocker: MockerFixture, network, f
         cold_wallet_address=Address(address=generate_p2pkh_address(network=network), network=network),
         hot_wallet_address=Address(address=generate_p2pkh_address(network=network), network=network),
         amount=Money(10),
-        fees=Money(1)
+        fees=Money(0.0001)
     )
     data = {
         'walletName': 'Test',
@@ -224,14 +224,14 @@ def test_coldstaking_estimate_setup_tx_fee(mocker: MockerFixture, network, fakeu
         cold_wallet_address=Address(address=generate_p2pkh_address(network=network), network=network),
         hot_wallet_address=Address(address=generate_p2pkh_address(network=network), network=network),
         amount=Money(10),
-        fees=Money(1)
+        fees=Money(0.0001)
     )
-    data = 12
+    data = 10000
     mocker.patch.object(ColdStaking, 'post', return_value=data)
     coldstaking = ColdStaking(network=network, baseuri=fakeuri)
     response = coldstaking.estimate_setup_tx_fee(request_model=request_model)
 
-    assert response == Money(data)
+    assert response == Money.from_satoshi_units(data)
     # noinspection PyUnresolvedReferences
     coldstaking.post.assert_called_once()
 
@@ -245,14 +245,14 @@ def test_coldstaking_estimate_offline_setup_tx_fee(mocker: MockerFixture, networ
         cold_wallet_address=Address(address=generate_p2pkh_address(network=network), network=network),
         hot_wallet_address=Address(address=generate_p2pkh_address(network=network), network=network),
         amount=Money(10),
-        fees=Money(1)
+        fees=Money(0.0001)
     )
-    data = 12
+    data = 10000
     mocker.patch.object(ColdStaking, 'post', return_value=data)
     coldstaking = ColdStaking(network=network, baseuri=fakeuri)
     response = coldstaking.estimate_offline_setup_tx_fee(request_model=request_model)
 
-    assert response == Money(data)
+    assert response == Money.from_satoshi_units(data)
     # noinspection PyUnresolvedReferences
     coldstaking.post.assert_called_once()
 
@@ -265,7 +265,7 @@ def test_coldstaking_withdrawal(mocker: MockerFixture, network, fakeuri,
         wallet_password='password',
         receiving_address=Address(address=generate_p2pkh_address(network=network), network=network),
         amount=Money(10),
-        fees=Money(1)
+        fees=Money(0.0001)
     )
     data = {'transactionHex': generate_uint256}
     mocker.patch.object(ColdStaking, 'post', return_value=data)
@@ -286,13 +286,13 @@ def test_coldstaking_offline_withdrawal(mocker: MockerFixture, network, fakeuri,
         account_name='account 0',
         receiving_address=Address(address=generate_p2pkh_address(network=network), network=network),
         amount=Money(10),
-        fees=Money(1),
+        fees=Money(0.0001),
         subtractFeeFromAmount=True
     )
     data = {
         'walletName': 'Test',
         'walletAccount': 'account 0',
-        'fee': 1,
+        'fee': '0.0001',
         'unsignedTransaction': generate_hexstring(256),
         'utxos': [{
             'transactionId': generate_uint256,
@@ -324,12 +324,12 @@ def test_coldstaking_estimate_offline_withdrawal_fee(mocker: MockerFixture, netw
         receiving_address=Address(address=generate_p2pkh_address(network=network), network=network),
         amount=Money(10)
     )
-    data = 12
+    data = 10000
     mocker.patch.object(ColdStaking, 'post', return_value=data)
     coldstaking = ColdStaking(network=network, baseuri=fakeuri)
     response = coldstaking.estimate_offline_withdrawal_tx_fee(request_model=request_model)
 
-    assert response == Money(data)
+    assert response == Money.from_satoshi_units(data)
     # noinspection PyUnresolvedReferences
     coldstaking.post.assert_called_once()
 
@@ -343,13 +343,13 @@ def test_coldstaking_estimate_withdrawal_fee(mocker: MockerFixture, network, fak
         wallet_password='password',
         receiving_address=Address(address=generate_p2pkh_address(network=network), network=network),
         amount=Money(10),
-        fees=Money(1)
+        fees=Money(0.0001)
     )
-    data = 12
+    data = 10000
     mocker.patch.object(ColdStaking, 'post', return_value=data)
     coldstaking = ColdStaking(network=network, baseuri=fakeuri)
     response = coldstaking.estimate_withdrawal_tx_fee(request_model=request_model)
 
-    assert response == Money(data)
+    assert response == Money.from_satoshi_units(data)
     # noinspection PyUnresolvedReferences
     coldstaking.post.assert_called_once()

@@ -27,7 +27,7 @@ class Network(APIRequest, metaclass=EndpointRegister):
         self.post(request_model, **kwargs)
 
     @endpoint(f'{route}/setban')
-    def set_ban(self, request_model: SetBanRequest, **kwargs):
+    def set_ban(self, request_model: SetBanRequest, **kwargs) -> None:
         """Set a banned node.
 
         Args:
@@ -60,7 +60,7 @@ class Network(APIRequest, metaclass=EndpointRegister):
         return [BannedPeerModel(**x) for x in data]
 
     @endpoint(f'{route}/clearbanned')
-    def clear_banned(self, request_model: ClearBannedRequest = ClearBannedRequest(), **kwargs):
+    def clear_banned(self, request_model: ClearBannedRequest = ClearBannedRequest(), **kwargs) -> None:
         """Clear banned node list.
 
         Args:

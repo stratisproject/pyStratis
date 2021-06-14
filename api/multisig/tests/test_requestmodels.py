@@ -14,7 +14,7 @@ def test_buildtransactionrequest(network, generate_p2pkh_address, generate_p2sh_
                 'destinationAddress': generate_p2pkh_address(network=network),
                 'destinationScript': generate_p2sh_address(network=network),
                 'subtractFeeFromAmount': True,
-                'amount': '0.00000005'
+                'amount': '5.00000000'
             }
         ],
         'secrets': [

@@ -175,7 +175,7 @@ def test_getaddressbalances_single_address(mocker: MockerFixture, network, fakeu
     address = generate_p2pkh_address(network=network)
     data = {
         'balances': [
-            {'address': address, 'balance': 5}
+            {'address': address, 'balance': 500000000}
         ],
         'reason': None
     }

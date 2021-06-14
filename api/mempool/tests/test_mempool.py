@@ -2,6 +2,7 @@ import pytest
 from pytest_mock import MockerFixture
 from api.mempool import Mempool
 from pybitcoin.networks import StraxMain, CirrusMain
+from pybitcoin.types import uint256
 
 
 def test_all_strax_endpoints_implemented(strax_swagger_json):
@@ -44,6 +45,6 @@ def test_raw_mempool(mocker: MockerFixture, network, fakeuri, generate_uint256):
 
     response = mempool.get_raw_mempool()
 
-    assert response == data
+    assert response == [uint256(x) for x in data]
     # noinspection PyUnresolvedReferences
     mempool.get.assert_called_once()

@@ -1,5 +1,5 @@
 from typing import Optional
-from pydantic import Field, SecretStr
+from pydantic import Field, SecretStr, conint
 from pybitcoin import Model
 from pybitcoin.types import Address, Money
 
@@ -10,5 +10,5 @@ class ConsolidateRequest(Model):
     wallet_name: str = Field(alias='walletName')
     wallet_account: Optional[str] = Field(default='account 0', alias='walletAccount')
     destination_address: Address = Field(alias='destinationAddress')
-    utxo_value_threshold: Optional[Money] = Field(default='0', alias='utxoValueThreshold')
+    utxo_value_threshold_in_satoshis: conint(ge=1_0000_0000) = Field(default=1_0000_0000, alias='utxoValueThreshold')
     broadcast: Optional[bool] = False

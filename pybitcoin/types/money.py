@@ -1,26 +1,25 @@
 from __future__ import annotations
-from typing import Callable, Union
+from typing import Callable
 from functools import total_ordering
-from decimal import Decimal
+from decimal import Decimal, InvalidOperation
 
 
 @total_ordering
 class Money:
     """Represents Money."""
     def __init__(self, value):
-        if isinstance(value, float) or isinstance(value, Decimal):
-            value = self._float_to_satoshi(value)
-        if isinstance(value, Money):
-            value = value.value
         self._validate_value(value)
-        self._value = value
+        if isinstance(value, (float, Decimal, int, str)):
+            self._value = round(Decimal(value), 8)
+        if isinstance(value, Money):
+            self._value = Decimal(value.value)
 
     @property
-    def value(self) -> int:
+    def value(self) -> Decimal:
         return self._value
 
     @value.setter
-    def value(self, value: int) -> None:
+    def value(self, value: Decimal) -> None:
         self._validate_value(value)
         self._value = value
 
@@ -29,70 +28,75 @@ class Money:
         yield cls.validate
 
     @classmethod
-    def validate(cls, v) -> Money:
-        cls._validate_value(v)
-        return cls(v)
+    def from_satoshi_units(cls, value: int) -> Money:
+        value = Decimal(value) / Decimal(1e8)
+        return cls(value)
+
+    @classmethod
+    def validate(cls, value) -> Money:
+        cls._validate_value(value)
+        return cls(value)
 
     @classmethod
     def _validate_value(cls, v) -> None:
-        # Assume floats are given in reference to 1e8 satoshis.
+        if not isinstance(v, (int, str, Decimal, float, Money)):
+            raise ValueError(f'Value can only be converted from int, str, Decimal, float, and Money.')
+
         if isinstance(v, Money):
-            v = v.value
+            if v.value < 0:
+                raise ValueError('Must be positive.')
 
-        if isinstance(v, str):
-            # Try to validate a string in base 10.
+        if isinstance(v, (int, float, Decimal, str)):
             try:
-                v = int(v)
-            except ValueError:
-                pass
-            # Try to validate a float string.
-            try:
-                v = float(v)
-            except ValueError:
-                pass
-
-        if isinstance(v, float) or isinstance(v, Decimal):
-            v = cls._float_to_satoshi(v)
-
-        # Money must be positive.
-        if isinstance(v, int) and v < 0:
-            raise ValueError('Must be positive.')
-
-        # Final catch-all
-        if not isinstance(v, int):
-            raise ValueError(f'Invalid Money({v}).')
-
-    @classmethod
-    def _float_to_satoshi(cls, value: Union[float, Decimal]) -> int:
-        return int(Decimal(value) * Decimal(1e8))
+                v = Decimal(v)
+                if v < 0:
+                    raise ValueError('Must be positive.')
+            except InvalidOperation:
+                raise ValueError(f'Cannot convert {v} to Money.')
 
     def to_coin_unit(self) -> str:
         # noinspection PyTypeChecker
-        return '{:.8f}'.format(Decimal(self.value) / Decimal(1e8))
+        return '{:.8f}'.format(self.value)
 
     def __eq__(self, other) -> bool:
         if isinstance(other, Money):
             return self.value == other.value
-        if isinstance(other, int):
-            return self.value == other
+        if isinstance(other, (int, float, Decimal)):
+            try:
+                return self.value == Decimal(str(other))
+            except InvalidOperation:
+                raise ValueError(f'Error comparing Money with {other}')
         return False
 
     def __lt__(self, other) -> bool:
         if isinstance(other, Money):
             return self.value < other.value
-        if isinstance(other, int):
-            return self.value < other
+        if isinstance(other, (int, float, Decimal)):
+            try:
+                return self.value < Decimal(str(other))
+            except InvalidOperation:
+                raise ValueError(f'Error comparing Money with {other}')
         return False
 
     def __gt__(self, other) -> bool:
         if isinstance(other, Money):
             return self.value > other.value
-        if isinstance(other, int):
-            return self.value > other
+        if isinstance(other, (int, float, Decimal)):
+            try:
+                return self.value > Decimal(other)
+            except InvalidOperation:
+                raise ValueError(f'Error comparing Money with {other}')
         return False
 
+    def __add__(self, other) -> Money:
+        if isinstance(other, Money):
+            return Money(self.value + other.value)
+        if isinstance(other, (int, float, Decimal)):
+            return Money(self.value + other)
+        raise NotImplementedError(f'Addition between Money and {type(other)} is not defined.')
+
     def __hash__(self) -> int:
-        return self.value
+        return int(self.value * Decimal(1e8))
 
     def __repr__(self) -> str:
         return f'Money({self.value})'
@@ -101,4 +105,4 @@ class Money:
         return str(self.value)
 
     def __int__(self) -> int:
-        return int(self.value)
+        return int(self.value * Decimal(1e8))

@@ -1,10 +1,11 @@
 from pydantic import BaseModel, Field, conint
+from pybitcoin.types import Money
 from .scriptpubkey import ScriptPubKey
 
 
 class VOut(BaseModel):
     """A VOut."""
-    value: float
+    value: Money
     n: conint(ge=0)
     script_pubkey: ScriptPubKey = Field(alias='scriptPubKey')
 

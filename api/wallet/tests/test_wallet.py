@@ -239,7 +239,7 @@ def test_transaction_count(mocker: MockerFixture, network, fakeuri):
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
 def test_history(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address, generate_uint256):
     data = {
-        'History': [
+        'history': [
             {
                 'accountName': 'account 0',
                 'accountHdPath': 'hdpath',
@@ -249,15 +249,15 @@ def test_history(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address
                         'type': TransactionItemType.Received,
                         'toAddress': generate_p2pkh_address(network=network),
                         'id': generate_uint256,
-                        'amount': 5,
+                        'amount': '5.0',
                         'payments': [
                             {
                                 'destinationAddress': generate_p2pkh_address(network=network),
-                                'amount': 5,
+                                'amount': '5.0',
                                 'isChange': False
                             }
                         ],
-                        'fee': 1,
+                        'fee': '0.0001',
                         'confirmedInBlock': 2,
                         'timestamp': 'timestamp',
                         'txOutputTime': 1,
@@ -351,8 +351,8 @@ def test_received_by_address(mocker: MockerFixture, network, fakeuri, generate_p
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
 def test_max_balance(mocker: MockerFixture, network, fakeuri):
     data = {
-        'MaxSpendableAmount': 5,
-        'Fee': 1
+        'maxSpendableAmount': 5,
+        'Fee': '0.0001'
     }
     mocker.patch.object(Wallet, 'get', return_value=data)
     wallet = Wallet(network=network, baseuri=fakeuri)
@@ -379,7 +379,7 @@ def test_spendable_transactions(mocker: MockerFixture, network, fakeuri, generat
                 'index': 0,
                 'address': generate_p2pkh_address(network=network),
                 'isChange': True,
-                'amount': 5,
+                'amount': '5.0',
                 'creationTime': '2020-01-01T00:00:01',
                 'confirmations': 5,
             }
@@ -402,7 +402,7 @@ def test_spendable_transactions(mocker: MockerFixture, network, fakeuri, generat
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
 def test_estimate_txfee(mocker: MockerFixture, network, fakeuri, generate_uint256, generate_p2pkh_address):
-    data = 1
+    data = 10000
     mocker.patch.object(Wallet, 'post', return_value=data)
     wallet = Wallet(network=network, baseuri=fakeuri)
     request_model = EstimateTxFeeRequest(
@@ -418,7 +418,7 @@ def test_estimate_txfee(mocker: MockerFixture, network, fakeuri, generate_uint25
             )
         ],
         op_return_data='opreturn',
-        op_return_amount=Money(1),
+        op_return_amount=Money(0.00000001),
         fee_type='low',
         allow_unconfirmed=True,
         shuffle_outputs=True,
@@ -427,7 +427,7 @@ def test_estimate_txfee(mocker: MockerFixture, network, fakeuri, generate_uint25
 
     response = wallet.estimate_txfee(request_model)
 
-    assert response == Money(data)
+    assert response == Money.from_satoshi_units(data)
     # noinspection PyUnresolvedReferences
     wallet.post.assert_called_once()
 
@@ -436,14 +436,14 @@ def test_estimate_txfee(mocker: MockerFixture, network, fakeuri, generate_uint25
 def test_build_transaction(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address,
                            generate_uint256, generate_hexstring):
     data = {
-        'fee': 1,
+        'fee': '0.0001',
         'hex': generate_hexstring(128),
         'transactionId': generate_uint256
     }
     mocker.patch.object(Wallet, 'post', return_value=data)
     wallet = Wallet(network=network, baseuri=fakeuri)
     request_model = BuildTransactionRequest(
-        fee_amount=Money(1),
+        fee_amount=Money(0.0001),
         password='password',
         segwit_change_address=False,
         wallet_name='Test',
@@ -458,8 +458,7 @@ def test_build_transaction(mocker: MockerFixture, network, fakeuri, generate_p2p
             )
         ],
         op_return_data='opreturn',
-        op_return_amount=Money(1),
-        fee_type='low',
+        op_return_amount=Money(0.00000001),
         allow_unconfirmed=True,
         shuffle_outputs=True,
         change_address=Address(address=generate_p2pkh_address(network=network), network=network)
@@ -476,7 +475,7 @@ def test_build_transaction(mocker: MockerFixture, network, fakeuri, generate_p2p
 def test_build_interflux_transaction(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address,
                                      generate_ethereum_checksum_address, generate_uint256, generate_hexstring):
     data = {
-        'fee': 1,
+        'fee': '0.00010000',
         'hex': generate_hexstring(128),
         'transactionId': generate_uint256
     }
@@ -485,7 +484,7 @@ def test_build_interflux_transaction(mocker: MockerFixture, network, fakeuri, ge
     request_model = BuildInterfluxTransactionRequest(
         destination_chain=DestinationChain.ETH,
         destination_address=Address(address=generate_ethereum_checksum_address, network=Ethereum()),
-        fee_amount=Money(1),
+        fee_amount=Money(0.0001),
         password='password',
         segwit_change_address=False,
         wallet_name='Test',
@@ -500,8 +499,7 @@ def test_build_interflux_transaction(mocker: MockerFixture, network, fakeuri, ge
             )
         ],
         op_return_data='opreturn',
-        op_return_amount=Money(1),
-        fee_type='low',
+        op_return_amount=Money(0.00000001),
         allow_unconfirmed=True,
         shuffle_outputs=True,
         change_address=Address(address=generate_p2pkh_address(network=network), network=network)
@@ -522,7 +520,7 @@ def test_send_transaction(mocker: MockerFixture, network, fakeuri, generate_uint
         'outputs': [
             {
                 'address': generate_p2pkh_address(network=network),
-                'amount': 10,
+                'amount': '10',
                 'OpReturnData': f'{generate_p2pkh_address(network=network)}'
             }
         ]
@@ -542,7 +540,7 @@ def test_send_transaction(mocker: MockerFixture, network, fakeuri, generate_uint
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
 def test_list_wallets(mocker: MockerFixture, network, fakeuri):
-    data = ['Test']
+    data = {'walletNames': ['Test'], 'watchOnlyWallets': []}
     mocker.patch.object(Wallet, 'get', return_value=data)
     wallet = Wallet(network=network, baseuri=fakeuri)
 
@@ -742,8 +740,8 @@ def test_extpubkey(mocker: MockerFixture, network, fakeuri, generate_extpubkey):
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_private_key(mocker: MockerFixture, network, fakeuri, generate_wif_privatekey, generate_p2pkh_address):
-    data = generate_wif_privatekey
+def test_private_key(mocker: MockerFixture, network, fakeuri, generate_privatekey, generate_p2pkh_address):
+    data = generate_privatekey
     mocker.patch.object(Wallet, 'post', return_value=data)
     wallet = Wallet(network=network, baseuri=fakeuri)
     request_model = PrivateKeyRequest(
@@ -794,26 +792,26 @@ def test_sync_from_date(mocker: MockerFixture, network, fakeuri):
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
 def test_wallet_stats(mocker: MockerFixture, network, fakeuri):
     data = {
-        'WalletName': 'Test',
-        'TotalUtxoCount': 1,
-        'UniqueTransactionCount': 1,
-        'UniqueBlockCount': 1,
-        'CountOfTransactionsWithAtLeastMaxReorgConfirmations': 1,
-        'UtxoAmounts': [
+        'walletName': 'Test',
+        'totalUtxoCount': 1,
+        'uniqueTransactionCount': 1,
+        'uniqueBlockCount': 1,
+        'countOfTransactionsWithAtLeastMaxReorgConfirmations': 1,
+        'utxoAmounts': [
             {
-                'Amount': 5,
+                'amount': 5,
                 'Count': 1
             }
         ],
-        'UtxoPerTransaction': [
+        'utxoPerTransaction': [
             {
-                'UtxoPerTransaction': 1,
+                'utxoPerTransaction': 1,
                 'Count': 1
             }
         ],
-        'UtxoPerBlock': [
+        'utxoPerBlock': [
             {
-                'UtxoPerBlock': 1,
+                'utxoPerBlock': 1,
                 'Count': 1
             }
         ]
@@ -821,7 +819,7 @@ def test_wallet_stats(mocker: MockerFixture, network, fakeuri):
     mocker.patch.object(Wallet, 'get', return_value=data)
     wallet = Wallet(network=network, baseuri=fakeuri)
     request_model = StatsRequest(
-        wallet_name=data['WalletName'],
+        wallet_name=data['walletName'],
         account_name='account 0',
         min_confirmations=0,
         verbose=True
@@ -841,27 +839,27 @@ def test_split_coins(mocker: MockerFixture, network, fakeuri, generate_uint256, 
         'outputs': [
             {
                 'address': generate_p2pkh_address(network=network),
-                'amount': 1,
+                'amount': '1',
                 'OpReturnData': ''
             },
             {
                 'address': generate_p2pkh_address(network=network),
-                'amount': 1,
+                'amount': '1',
                 'OpReturnData': ''
             },
             {
                 'address': generate_p2pkh_address(network=network),
-                'amount': 1,
+                'amount': '1',
                 'OpReturnData': ''
             },
             {
                 'address': generate_p2pkh_address(network=network),
-                'amount': 1,
+                'amount': '1',
                 'OpReturnData': ''
             },
             {
                 'address': generate_p2pkh_address(network=network),
-                'amount': 1,
+                'amount': '1',
                 'OpReturnData': ''
             },
         ]
@@ -886,40 +884,40 @@ def test_split_coins(mocker: MockerFixture, network, fakeuri, generate_uint256, 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
 def test_distribute_utxos(mocker: MockerFixture, network, fakeuri, generate_uint256, generate_p2pkh_address):
     data = {
-        'WalletName': 'Test',
-        'UseUniqueAddressPerUtxo': True,
-        'UtxosCount': 5,
-        'UtxoPerTransaction': 1,
-        'TimestampDifferenceBetweenTransactions': 1,
-        'MinConfirmations': 0,
-        'DryRun': True,
-        'WalletSendTransaction': [
+        'walletName': 'Test',
+        'useUniqueAddressPerUtxo': True,
+        'utxosCount': 5,
+        'utxoPerTransaction': 1,
+        'timestampDifferenceBetweenTransactions': 1,
+        'minConfirmations': 0,
+        'dryRun': True,
+        'walletSendTransaction': [
             {
                 'transactionId': generate_uint256,
                 'outputs': [
                     {
                         'address': generate_p2pkh_address(network=network),
-                        'amount': 1,
+                        'amount': '1',
                         'OpReturnData': ''
                     },
                     {
                         'address': generate_p2pkh_address(network=network),
-                        'amount': 1,
+                        'amount': '1',
                         'OpReturnData': ''
                     },
                     {
                         'address': generate_p2pkh_address(network=network),
-                        'amount': 1,
+                        'amount': '1',
                         'OpReturnData': ''
                     },
                     {
                         'address': generate_p2pkh_address(network=network),
-                        'amount': 1,
+                        'amount': '1',
                         'OpReturnData': ''
                     },
                     {
                         'address': generate_p2pkh_address(network=network),
-                        'amount': 1,
+                        'amount': '1.0',
                         'OpReturnData': ''
                     },
                 ]
@@ -985,13 +983,13 @@ def test_build_offline_sign_request(mocker: MockerFixture, network, fakeuri, gen
     data = {
         'walletName': 'Test',
         'walletAccount': 'account 0',
-        'fee': 1,
+        'fee': '0.0001',
         'unsignedTransaction': generate_hexstring(256),
         'utxos': [{
             'transactionId': generate_uint256,
             'index': 0,
             'scriptPubKey': f'OP_DUP OP_HASH160 {generate_hexstring(40)} OP_EQUALVERIFY OP_CHECKSIG',
-            'amount': 10
+            'amount': '10.0'
         }],
         'addresses': [{
             'address': generate_p2pkh_address(network=network),
@@ -1003,7 +1001,7 @@ def test_build_offline_sign_request(mocker: MockerFixture, network, fakeuri, gen
     mocker.patch.object(Wallet, 'post', return_value=data)
     wallet = Wallet(network=network, baseuri=fakeuri)
     request_model = BuildOfflineSignRequest(
-        fee_amount=Money(1),
+        fee_amount=Money(0.0001),
         wallet_name=data['walletName'],
         account_name=data['walletAccount'],
         outpoints=[Outpoint(transaction_id=generate_uint256, index=0)],
@@ -1016,8 +1014,7 @@ def test_build_offline_sign_request(mocker: MockerFixture, network, fakeuri, gen
             )
         ],
         op_return_data='opreturn',
-        op_return_amount=Money(1),
-        fee_type='low',
+        op_return_amount=Money(0.00000001),
         allow_unconfirmed=True,
         shuffle_outputs=True,
         change_address=Address(address=generate_p2pkh_address(network=network), network=network)
@@ -1034,7 +1031,7 @@ def test_build_offline_sign_request(mocker: MockerFixture, network, fakeuri, gen
 def test_offline_sign_request(mocker: MockerFixture, network, fakeuri, get_base_keypath,
                               generate_uint256, generate_hexstring, generate_p2pkh_address):
     data = {
-        'fee': Money(1),
+        'fee': '0.0001',
         'hex': generate_hexstring(128),
         'transactionId': generate_uint256
     }
@@ -1045,7 +1042,7 @@ def test_offline_sign_request(mocker: MockerFixture, network, fakeuri, get_base_
         wallet_name='Test',
         wallet_account='account 0',
         unsigned_transaction=generate_hexstring(128),
-        fee=Money(1),
+        fee=Money(0.0001),
         utxos=[
             UtxoDescriptor(
                 transaction_id=generate_uint256,
@@ -1071,8 +1068,8 @@ def test_offline_sign_request(mocker: MockerFixture, network, fakeuri, get_base_
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_consolidate(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address, generate_uint256):
-    data = generate_uint256
+def test_consolidate(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address, generate_hexstring):
+    data = generate_hexstring(128)
     mocker.patch.object(Wallet, 'post', return_value=data)
     wallet = Wallet(network=network, baseuri=fakeuri)
     request_model = ConsolidateRequest(
@@ -1080,12 +1077,12 @@ def test_consolidate(mocker: MockerFixture, network, fakeuri, generate_p2pkh_add
         wallet_name='Test',
         wallet_account='account 0',
         destination_address=Address(address=generate_p2pkh_address(network=network), network=network),
-        utxo_value_threshold=Money(1),
+        utxo_value_threshold_in_satoshis=100_0000_0000,
         broadcast=False
     )
 
     response = wallet.consolidate(request_model)
 
-    assert response == uint256(data)
+    assert response == data
     # noinspection PyUnresolvedReferences
     wallet.post.assert_called_once()

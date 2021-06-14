@@ -6,23 +6,23 @@ SATOSHI_CONVERSION = 1e8
 
 def test_money_int():
     ten = 10
-    assert str(Money(ten)) == str(ten)
+    assert Money(10) == ten
     hundred = 100
-    assert str(Money(hundred)) == str(hundred)
+    assert Money(100) == hundred
 
 
 def test_money_float():
-    ten_point_five = 10.5
-    assert str(Money(10.5)) == str(int(Decimal(ten_point_five) * Decimal(SATOSHI_CONVERSION)))
-    one_hundreth = 0.01
-    assert str(Money(one_hundreth)) == str(int(Decimal(one_hundreth) * Decimal(SATOSHI_CONVERSION)))
+    assert Money(10.5) == 10.5
+    assert Money(0.1) == 0.1
 
 
 def test_money_base10_string():
-    ten = 10
-    assert str(Money(str(ten))) == str(ten)
-    hundred = 100
-    assert str(Money(str(hundred))) == str(hundred)
+    assert Money('10') == 10
+    assert Money('100') == 100
+
+
+def test_money_money():
+    assert Money(Money(10)) == Money(10)
 
 
 def test_money_negative():
@@ -30,6 +30,10 @@ def test_money_negative():
         Money(-10)
     with pytest.raises(ValueError):
         Money(-10.5)
+    with pytest.raises(ValueError):
+        Money('-10.5')
+    with pytest.raises(ValueError):
+        Money('-10')
     with pytest.raises(ValueError):
         Money(Decimal(-10.5))
 
@@ -48,4 +52,4 @@ def test_money_invalid():
 
 
 def test_money_to_coin():
-    assert Money(1).to_coin_unit() == '0.00000001'
+    assert Money(1).to_coin_unit() == '1.00000000'

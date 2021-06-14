@@ -15,7 +15,7 @@ def test_schedulevotekickfedmemberrequest(network, generate_compressed_pubkey, g
     }
     request_model = ScheduleVoteKickFedMemberRequest(
         pubkey_hex=PubKey(data['pubKeyHex']),
-        collateral_amount_satoshis=Money(100000_0000_0000),
+        collateral_amount_satoshis=Money(100000),
         collateral_mainchain_address=Address(address=data['collateralMainchainAddress'], network=network),
 
     )

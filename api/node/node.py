@@ -3,7 +3,7 @@ from api import APIRequest, EndpointRegister, endpoint
 from api.node.requestmodels import *
 from api.node.responsemodels import *
 from pybitcoin import ScriptPubKey
-from pybitcoin.types import Address, hexstr
+from pybitcoin.types import Address, hexstr, Money
 
 
 class Node(APIRequest, metaclass=EndpointRegister):
@@ -120,6 +120,7 @@ class Node(APIRequest, metaclass=EndpointRegister):
             APIError
         """
         data = self.get(request_model, **kwargs)
+        data['value'] = Money.from_satoshi_units(data['value'])
         if data is not None and 'scriptPubKey' in data:
             data['scriptPubKey'] = ScriptPubKey(**data['scriptPubKey'])
             return GetTxOutModel(**data)
@@ -142,7 +143,7 @@ class Node(APIRequest, metaclass=EndpointRegister):
         """
         data = self.get(request_model, **kwargs)
 
-        return data
+        return hexstr(data)
 
     @endpoint(f'{route}/shutdown')
     def shutdown(self, request_model: ShutdownRequest = ShutdownRequest(), **kwargs) -> None:

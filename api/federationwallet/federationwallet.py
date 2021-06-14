@@ -2,7 +2,7 @@ from typing import List, Union
 from api import APIRequest, EndpointRegister, endpoint
 from api.federationwallet.requestmodels import *
 from api.federationwallet.responsemodels import *
-from pybitcoin.types import Address
+from pybitcoin.types import Address, Money
 
 
 class FederationWallet(APIRequest, metaclass=EndpointRegister):
@@ -42,11 +42,16 @@ class FederationWallet(APIRequest, metaclass=EndpointRegister):
             APIError
         """
         data = self.get(**kwargs)
+
         for i in range(len(data['balances'])):
+            data['balances'][i]['amountConfirmed'] = Money.from_satoshi_units(data['balances'][i]['amountConfirmed'])
+            data['balances'][i]['amountUnconfirmed'] = Money.from_satoshi_units(data['balances'][i]['amountUnconfirmed'])
+            data['balances'][i]['spendableAmount'] = Money.from_satoshi_units(data['balances'][i]['spendableAmount'])
             for j in range(len(data['balances'][i]['addresses'])):
+                data['balances'][i]['addresses'][j]['amountConfirmed'] = Money.from_satoshi_units(data['balances'][i]['addresses'][j]['amountConfirmed'])
+                data['balances'][i]['addresses'][j]['amountUnconfirmed'] = Money.from_satoshi_units(data['balances'][i]['addresses'][j]['amountUnconfirmed'])
                 data['balances'][i]['addresses'][j]['address'] = Address(
-                    address=data['balances'][i]['addresses'][j]['address'],
-                    network=self._network
+                    address=data['balances'][i]['addresses'][j]['address'], network=self._network
                 )
 
         return WalletBalanceModel(**data)

@@ -2,7 +2,7 @@ from typing import Union, List
 from api import APIRequest, EndpointRegister, endpoint
 from api.blockstore.responsemodels import *
 from api.blockstore.requestmodels import *
-from pybitcoin.types import Address, hexstr
+from pybitcoin.types import Address, hexstr, Money
 
 
 class BlockStore(APIRequest, metaclass=EndpointRegister):
@@ -45,9 +45,11 @@ class BlockStore(APIRequest, metaclass=EndpointRegister):
         """
         data = self.get(request_model, **kwargs)
 
-        # Will capture str and hexstr
         if isinstance(data, str):
-            return data
+            try:
+                return hexstr(data)
+            except ValueError:
+                return data
 
         if request_model.show_transaction_details:
             return BlockTransactionDetailsModel(**data)
@@ -86,11 +88,13 @@ class BlockStore(APIRequest, metaclass=EndpointRegister):
             APIError
         """
         data = self.get(request_model, **kwargs)
+
         for i in range(len(data['balances'])):
             data['balances'][i]['address'] = Address(
                 address=data['balances'][i]['address'],
                 network=self._network
             )
+            data['balances'][i]['balance'] = Money.from_satoshi_units(data['balances'][i]['balance'])
         return GetAddressesBalancesModel(**data)
 
     @endpoint(f'{route}/getverboseaddressesbalances')
@@ -108,6 +112,7 @@ class BlockStore(APIRequest, metaclass=EndpointRegister):
             APIError
         """
         data = self.get(request_model, **kwargs)
+
         for i in range(len(data['balancesData'])):
             data['balancesData'][i]['address'] = Address(
                 address=data['balancesData'][i]['address'],

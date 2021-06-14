@@ -3,6 +3,7 @@ from pytest_mock import MockerFixture
 from api.consensus import Consensus
 from api.consensus.requestmodels import *
 from api.consensus.responsemodels import *
+from pybitcoin.types import uint256
 from pybitcoin.networks import StraxMain, CirrusMain
 
 
@@ -113,7 +114,7 @@ def test_get_best_block_hash(mocker: MockerFixture, network, fakeuri, generate_u
 
     response = consensus.get_best_blockhash()
 
-    assert response == data
+    assert response == uint256(data)
     # noinspection PyUnresolvedReferences
     consensus.get.assert_called_once()
 
@@ -129,6 +130,6 @@ def test_get_block_hash(mocker: MockerFixture, network, fakeuri, generate_uint25
 
     response = consensus.get_blockhash(request_model)
 
-    assert response == data
+    assert response == uint256(data)
     # noinspection PyUnresolvedReferences
     consensus.get.assert_called_once()

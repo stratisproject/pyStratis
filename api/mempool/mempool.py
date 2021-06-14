@@ -1,5 +1,6 @@
 from typing import List
 from api import APIRequest, EndpointRegister, endpoint
+from pybitcoin.types import uint256
 
 
 class Mempool(APIRequest, metaclass=EndpointRegister):
@@ -9,18 +10,18 @@ class Mempool(APIRequest, metaclass=EndpointRegister):
         super(Mempool, self).__init__(**kwargs)
 
     @endpoint(f'{route}/getrawmempool')
-    def get_raw_mempool(self, **kwargs) -> List[str]:
+    def get_raw_mempool(self, **kwargs) -> List[uint256]:
         """Gets a list of transaction hashes in the mempool.
 
         Args:
             **kwargs:
 
         Returns:
-            List[str]
+            List[uint256]
 
         Raises:
             APIError
         """
         data = self.get(**kwargs)
 
-        return data
+        return [uint256(x) for x in data]

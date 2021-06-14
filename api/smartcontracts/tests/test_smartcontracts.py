@@ -177,7 +177,7 @@ def test_receipt_search(mocker: MockerFixture, network, fakeuri, generate_uint25
 def test_build_create(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address,
                       generate_hexstring, generate_uint256):
     data = {
-        'fee': 1,
+        'fee': '0.00010000',
         'hex': generate_hexstring(128),
         'message': 'message',
         'success': True,
@@ -190,11 +190,11 @@ def test_build_create(mocker: MockerFixture, network, fakeuri, generate_p2pkh_ad
         account_name='account 0',
         outpoints=[Outpoint(transaction_id=generate_uint256, index=0)],
         amount=Money(5),
-        fee_amount=Money(1),
+        fee_amount=Money(0.0001),
         password='password',
         contract_code='codegoeshere',
-        gas_price=Money(1),
-        gas_limit=Money(10),
+        gas_price=Money(0.00001),
+        gas_limit=Money(0.0001),
         sender=Address(address=generate_p2pkh_address(network=network), network=network),
         parameters=[
             SmartContractParameter(value_type=SmartContractParameterType.Boolean, value=True),
@@ -224,7 +224,7 @@ def test_build_create(mocker: MockerFixture, network, fakeuri, generate_p2pkh_ad
 def test_build_call(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address, generate_uint256,
                     generate_hexstring):
     data = {
-        'fee': 1,
+        'fee': '0.00010000',
         'hex': generate_hexstring(128),
         'message': 'message',
         'success': True,
@@ -239,10 +239,10 @@ def test_build_call(mocker: MockerFixture, network, fakeuri, generate_p2pkh_addr
         contract_address=Address(address=generate_p2pkh_address(network=network), network=network),
         method_name='method',
         amount=Money(5),
-        fee_amount=Money(1),
+        fee_amount=Money(0.0001),
         password='password',
-        gas_price=Money(1),
-        gas_limit=Money(10),
+        gas_price=Money(0.00001),
+        gas_limit=Money(0.0001),
         sender=Address(address=generate_p2pkh_address(network=network), network=network),
         parameters=[
             SmartContractParameter(value_type=SmartContractParameterType.Boolean, value=True),
@@ -272,7 +272,7 @@ def test_build_call(mocker: MockerFixture, network, fakeuri, generate_p2pkh_addr
 def test_build_transaction(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address, generate_hexstring,
                            generate_uint256):
     data = {
-        'fee': 1,
+        'fee': '0.00010000',
         'hex': generate_hexstring(128),
         'message': 'message',
         'success': True,
@@ -282,7 +282,7 @@ def test_build_transaction(mocker: MockerFixture, network, fakeuri, generate_p2p
     smart_contracts = SmartContracts(network=network, baseuri=fakeuri)
     request_model = BuildTransactionRequest(
         sender=Address(address=generate_p2pkh_address(network=network), network=network),
-        fee_amount=Money(1),
+        fee_amount=Money(0.0001),
         password='password',
         segwit_change_address=False,
         wallet_name='Test',
@@ -297,8 +297,7 @@ def test_build_transaction(mocker: MockerFixture, network, fakeuri, generate_p2p
             )
         ],
         op_return_data='opreturn',
-        op_return_amount=Money(1),
-        fee_type='low',
+        op_return_amount=Money(0.00000001),
         allow_unconfirmed=True,
         shuffle_outputs=True,
         change_address=Address(address=generate_p2pkh_address(network=network), network=network)
@@ -331,7 +330,7 @@ def test_estimate_fee(mocker: MockerFixture, network, fakeuri, generate_uint256,
             )
         ],
         op_return_data='opreturn',
-        op_return_amount=Money(1),
+        op_return_amount=Money(0.00000001),
         fee_type='low',
         allow_unconfirmed=True,
         shuffle_outputs=True,
@@ -362,11 +361,11 @@ def test_build_and_send_create(mocker: MockerFixture, network, fakeuri, generate
         account_name='account 0',
         outpoints=[Outpoint(transaction_id=generate_uint256, index=0)],
         amount=Money(5),
-        fee_amount=Money(1),
+        fee_amount=Money(0.0001),
         password='password',
         contract_code='codegoeshere',
-        gas_price=Money(1),
-        gas_limit=Money(10),
+        gas_price=Money(0.0001),
+        gas_limit=Money(0.01),
         sender=Address(address=generate_p2pkh_address(network=network), network=network),
         parameters=[
             SmartContractParameter(value_type=SmartContractParameterType.Boolean, value=True),
@@ -411,10 +410,10 @@ def test_build_and_send_call(mocker: MockerFixture, network, fakeuri, generate_u
         contract_address=Address(address=generate_p2pkh_address(network=network), network=network),
         method_name='method',
         amount=Money(5),
-        fee_amount=Money(1),
+        fee_amount=Money(0.0001),
         password='password',
-        gas_price=Money(1),
-        gas_limit=Money(10),
+        gas_price=Money(0.0001),
+        gas_limit=Money(0.001),
         sender=Address(address=generate_p2pkh_address(network=network), network=network),
         parameters=[
             SmartContractParameter(value_type=SmartContractParameterType.Boolean, value=True),
@@ -471,8 +470,8 @@ def test_local_call(mocker: MockerFixture, network, fakeuri, generate_p2pkh_addr
         contract_address=Address(address=generate_p2pkh_address(network=network), network=network),
         method_name='method',
         amount=Money(10),
-        gas_price=Money(1),
-        gas_limit=Money(10),
+        gas_price=Money(0.0001),
+        gas_limit=Money(0.001),
         sender=Address(address=generate_p2pkh_address(network=network), network=network),
         parameters=[
             SmartContractParameter(value_type=SmartContractParameterType.Boolean, value=True),
