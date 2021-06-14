@@ -7,8 +7,8 @@ from pybitcoin.types import uint256
 
 @pytest.mark.integration_test
 @pytest.mark.strax_integration_test
-def test_generate(hot_node: StraxNode):
-    response = hot_node.mining.generate(GenerateRequest(block_count=1))
+def test_generate(strax_hot_node: StraxNode):
+    response = strax_hot_node.mining.generate(GenerateRequest(block_count=1))
     assert isinstance(response, GenerateBlocksModel)
     assert len(response.blocks) == 1
     for item in response.blocks:
@@ -17,6 +17,6 @@ def test_generate(hot_node: StraxNode):
 
 @pytest.mark.integration_test
 @pytest.mark.strax_integration_test
-def test_stop_mining(hot_node: StraxNode):
+def test_stop_mining(strax_hot_node: StraxNode):
     # Works, but interferes with other tests by killing and disposing of the miner.
     pass

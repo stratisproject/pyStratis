@@ -13,5 +13,5 @@ class SetupOfflineRequest(Model):
     amount: Money
     fees: Money
     subtract_fee_from_amount: Optional[bool] = Field(default=True, alias='subtractFeeFromAmount')
-    split_count: Optional[conint(ge=1)] = Field(default=None, alias='splitCount')
+    split_count: Optional[conint(ge=1)] = Field(default=1, alias='splitCount')
     segwit_change_address: Optional[bool] = Field(default=False, alias='segwitChangeAddress')

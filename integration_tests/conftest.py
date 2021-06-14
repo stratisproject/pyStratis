@@ -7,8 +7,37 @@ import time
 from typing import List, Optional, Union
 from requests.exceptions import ConnectionError
 from nodes import StraxNode, CirrusNode, InterfluxCirrusNode, InterfluxStraxNode, BaseNode
+from api.wallet.responsemodels import SpendableTransactionModel
 from pybitcoin.networks import BaseNetwork
 from pybitcoin.types import Address, Money
+
+
+@pytest.fixture(scope='session')
+def get_spendable_transactions():
+    def _get_spendable_transaction(node: BaseNode,
+                                   amount: Money,
+                                   fee_amount: Money = Money(0.0001),
+                                   op_return_amount: Money = Money(0.00000001),
+                                   wallet_name: str = 'Test') -> List[SpendableTransactionModel]:
+        from api.wallet.requestmodels import SpendableTransactionsRequest
+        request_model = SpendableTransactionsRequest(wallet_name=wallet_name, account_name='account 0', min_confirmations=10)
+        spendable_transactions = node.wallet.spendable_transactions(request_model)
+        spendable_transactions = [x for x in spendable_transactions.transactions]
+        sorted_spendable_transactions = sorted(spendable_transactions, key=lambda x: int(x.amount))
+        amount_to_send = amount
+        fee_amount = fee_amount
+        op_return_amount = op_return_amount
+        transactions = []
+        trxid_amount = Money(0)
+        for spendable_transaction in sorted_spendable_transactions:
+            transactions.append(spendable_transaction)
+            trxid_amount += spendable_transaction.amount
+            if trxid_amount >= amount_to_send + fee_amount + op_return_amount:
+                break
+        if trxid_amount < amount_to_send + fee_amount + op_return_amount:
+            raise RuntimeError('Not enough funds in spendable transactions for specified amount.')
+        return transactions
+    return _get_spendable_transaction
 
 
 @pytest.fixture(scope='session')
