@@ -12,7 +12,7 @@ def test_raw_mempool(cirrus_hot_node: BaseNode, syncing_node: BaseNode, send_a_t
     receiving_address = get_node_unused_address(syncing_node)
     assert send_a_transaction(
         node=cirrus_hot_node, sending_address=mining_address,
-        receiving_address=receiving_address, amount=Money(1)
+        receiving_address=receiving_address, amount_to_send=Money(1)
     )
     response = cirrus_hot_node.mempool.get_raw_mempool()
     time.sleep(5)

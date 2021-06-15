@@ -76,7 +76,7 @@ def setup_coldstaking_accounts_and_addresses(
     # Fund the cold wallet default address
     assert send_a_transaction(
         node=strax_hot_node, sending_address=mining_address, receiving_address=cold_default_address,
-        amount=Money(200)
+        amount_to_send=Money(200)
     )
     assert node_mines_some_blocks_and_syncs(mining_node=strax_hot_node, syncing_node=None, num_blocks_to_mine=15)
 

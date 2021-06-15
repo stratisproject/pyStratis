@@ -12,7 +12,7 @@ def test_raw_mempool(strax_hot_node: BaseNode, strax_syncing_node: BaseNode, sen
     receiving_address = get_node_unused_address(strax_syncing_node)
     assert send_a_transaction(
         node=strax_hot_node, sending_address=mining_address,
-        receiving_address=receiving_address, amount=Money(1)
+        receiving_address=receiving_address, amount_to_send=Money(1)
     )
     response = strax_hot_node.mempool.get_raw_mempool()
     time.sleep(5)

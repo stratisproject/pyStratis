@@ -6,6 +6,7 @@ from api.diagnostic import Diagnostic
 from api.federation import Federation
 from api.smartcontracts import SmartContracts
 from api.smartcontractwallet import SmartContractWallet
+from api.voting import Voting
 
 
 class CirrusNode(BaseNode):
@@ -21,6 +22,7 @@ class CirrusNode(BaseNode):
         self._federation = Federation(baseuri=self.api_route, network=blockchainnetwork)
         self._smart_contracts = SmartContracts(baseuri=self.api_route, network=blockchainnetwork)
         self._smart_contract_wallet = SmartContractWallet(baseuri=self.api_route, network=blockchainnetwork)
+        self._voting = Voting(baseuri=self.api_route, network=blockchainnetwork)
 
         # Add Cirrus specific endpoints to superclass endpoints.
         self._endpoints.extend(self._balances.endpoints)
@@ -29,6 +31,7 @@ class CirrusNode(BaseNode):
         self._endpoints.extend(self._federation.endpoints)
         self._endpoints.extend(self._smart_contracts.endpoints)
         self._endpoints.extend(self._smart_contract_wallet.endpoints)
+        self._endpoints.extend(self._voting.endpoints)
         self._endpoints.sort()
 
     @property
@@ -54,3 +57,7 @@ class CirrusNode(BaseNode):
     @property
     def smart_contract_wallet(self) -> SmartContractWallet:
         return self._smart_contract_wallet
+
+    @property
+    def voting(self) -> Voting:
+        return self._voting

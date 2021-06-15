@@ -210,27 +210,18 @@ def test_estimate_txfee(
         get_node_address_with_balance):
     destination_address = get_node_unused_address(strax_syncing_node)
     change_address = get_node_address_with_balance(strax_hot_node)
-    fee_amount = Money(0.0001)
     amount_to_send = Money(10)
     op_return_amount = Money(0.00000001)
-    transactions = get_spendable_transactions(
-        node=strax_hot_node, fee_amount=fee_amount, amount=amount_to_send, op_return_amount=op_return_amount, wallet_name='Test'
-    )
+    transactions = get_spendable_transactions(node=strax_hot_node, amount=amount_to_send, op_return_amount=op_return_amount, wallet_name='Test')
 
     request_model = EstimateTxFeeRequest(
         wallet_name='Test',
         account_name='account 0',
         outpoints=[Outpoint(transaction_id=x.transaction_id, index=x.index) for x in transactions],
-        recipients=[
-            Recipient(
-                destination_address=destination_address,
-                subtraction_fee_from_amount=True,
-                amount=amount_to_send
-            )
-        ],
+        recipients=[Recipient(destination_address=destination_address, subtraction_fee_from_amount=True, amount=amount_to_send)],
         op_return_data='opreturn test data',
         op_return_amount=op_return_amount,
-        fee_type='low',
+        fee_type='high',
         allow_unconfirmed=False,
         shuffle_outputs=True,
         change_address=change_address
@@ -252,9 +243,7 @@ def test_build_transaction(
     fee_amount = Money(0.0001)
     amount_to_send = Money(10)
     op_return_amount = Money(0.00000001)
-    transactions = get_spendable_transactions(
-        node=strax_hot_node, fee_amount=fee_amount, amount=amount_to_send, op_return_amount=op_return_amount, wallet_name='Test'
-    )
+    transactions = get_spendable_transactions(node=strax_hot_node, amount=amount_to_send, op_return_amount=op_return_amount, wallet_name='Test')
 
     request_model = BuildTransactionRequest(
         fee_amount=fee_amount,
@@ -263,13 +252,7 @@ def test_build_transaction(
         wallet_name='Test',
         account_name='account 0',
         outpoints=[Outpoint(transaction_id=x.transaction_id, index=x.index) for x in transactions],
-        recipients=[
-            Recipient(
-                destination_address=destination_address,
-                subtraction_fee_from_amount=True,
-                amount=amount_to_send
-            )
-        ],
+        recipients=[Recipient(destination_address=destination_address, subtraction_fee_from_amount=True, amount=amount_to_send)],
         op_return_data='opreturn',
         op_return_amount=op_return_amount,
         allow_unconfirmed=False,
@@ -297,9 +280,7 @@ def test_build_interflux_transaction(
     fee_amount = Money(0.0001)
     amount_to_send = Money(10)
     op_return_amount = Money(0.00000001)
-    transactions = get_spendable_transactions(
-        node=strax_hot_node, fee_amount=fee_amount, amount=amount_to_send, op_return_amount=op_return_amount, wallet_name='Test'
-    )
+    transactions = get_spendable_transactions(node=strax_hot_node, amount=amount_to_send, op_return_amount=op_return_amount, wallet_name='Test')
 
     request_model = BuildInterfluxTransactionRequest(
         destination_chain=DestinationChain.ETH,
@@ -310,13 +291,7 @@ def test_build_interflux_transaction(
         wallet_name='Test',
         account_name='account 0',
         outpoints=[Outpoint(transaction_id=x.transaction_id, index=x.index) for x in transactions],
-        recipients=[
-            Recipient(
-                destination_address=destination_address,
-                subtraction_fee_from_amount=True,
-                amount=amount_to_send
-            )
-        ],
+        recipients=[Recipient(destination_address=destination_address, subtraction_fee_from_amount=True, amount=amount_to_send)],
         op_return_data='opreturn',
         op_return_amount=op_return_amount,
         allow_unconfirmed=False,
@@ -339,9 +314,7 @@ def test_send_transaction(strax_hot_node: BaseNode, strax_syncing_node: BaseNode
     fee_amount = Money(0.0001)
     amount_to_send = Money(10)
     op_return_amount = Money(0.00000001)
-    transactions = get_spendable_transactions(
-        node=strax_hot_node, fee_amount=fee_amount, amount=amount_to_send, op_return_amount=op_return_amount, wallet_name='Test'
-    )
+    transactions = get_spendable_transactions(node=strax_hot_node, amount=amount_to_send, op_return_amount=op_return_amount, wallet_name='Test')
 
     request_model = BuildTransactionRequest(
         fee_amount=fee_amount,
@@ -350,13 +323,7 @@ def test_send_transaction(strax_hot_node: BaseNode, strax_syncing_node: BaseNode
         wallet_name='Test',
         account_name='account 0',
         outpoints=[Outpoint(transaction_id=x.transaction_id, index=x.index) for x in transactions],
-        recipients=[
-            Recipient(
-                destination_address=destination_address,
-                subtraction_fee_from_amount=True,
-                amount=amount_to_send
-            )
-        ],
+        recipients=[Recipient(destination_address=destination_address, subtraction_fee_from_amount=True, amount=amount_to_send)],
         op_return_data='opreturn',
         op_return_amount=op_return_amount,
         allow_unconfirmed=False,
@@ -623,22 +590,14 @@ def test_build_offline_sign_request(
     fee_amount = Money(0.0001)
     amount_to_send = Money(10)
     op_return_amount = Money(0.00000001)
-    transactions = get_spendable_transactions(
-        node=strax_hot_node, fee_amount=fee_amount, amount=amount_to_send, op_return_amount=op_return_amount, wallet_name='Test'
-    )
+    transactions = get_spendable_transactions(node=strax_hot_node, amount=amount_to_send, op_return_amount=op_return_amount, wallet_name='Test')
 
     request_model = BuildOfflineSignRequest(
         fee_amount=fee_amount,
         wallet_name='Test',
         account_name='account 0',
         outpoints=[Outpoint(transaction_id=x.transaction_id, index=x.index) for x in transactions],
-        recipients=[
-            Recipient(
-                destination_address=destination_address,
-                subtraction_fee_from_amount=True,
-                amount=amount_to_send
-            )
-        ],
+        recipients=[Recipient(destination_address=destination_address, subtraction_fee_from_amount=True, amount=amount_to_send)],
         op_return_data='opreturn',
         op_return_amount=op_return_amount,
         allow_unconfirmed=False,
@@ -664,22 +623,14 @@ def test_offline_sign_request(
     fee_amount = Money(0.0001)
     amount_to_send = Money(10)
     op_return_amount = Money(0.00000001)
-    transactions = get_spendable_transactions(
-        node=strax_hot_node, fee_amount=fee_amount, amount=amount_to_send, op_return_amount=op_return_amount, wallet_name='Test'
-    )
+    transactions = get_spendable_transactions(node=strax_hot_node, amount=amount_to_send, op_return_amount=op_return_amount, wallet_name='Test')
 
     request_model = BuildOfflineSignRequest(
         fee_amount=fee_amount,
         wallet_name='Test',
         account_name='account 0',
         outpoints=[Outpoint(transaction_id=x.transaction_id, index=x.index) for x in transactions],
-        recipients=[
-            Recipient(
-                destination_address=destination_address,
-                subtraction_fee_from_amount=False,
-                amount=amount_to_send
-            )
-        ],
+        recipients=[Recipient(destination_address=destination_address, subtraction_fee_from_amount=True, amount=amount_to_send)],
         op_return_data='opreturn',
         op_return_amount=op_return_amount,
         allow_unconfirmed=False,

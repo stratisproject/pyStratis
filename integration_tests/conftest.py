@@ -7,16 +7,22 @@ import time
 from typing import List, Optional, Union
 from requests.exceptions import ConnectionError
 from nodes import StraxNode, CirrusNode, InterfluxCirrusNode, InterfluxStraxNode, BaseNode
+from api.wallet.requestmodels import BuildTransactionRequest, SendTransactionRequest
 from api.wallet.responsemodels import SpendableTransactionModel
-from pybitcoin.networks import BaseNetwork
+from pybitcoin.networks import BaseNetwork, StraxRegTest, CirrusRegTest
 from pybitcoin.types import Address, Money
+from pybitcoin import Outpoint, Recipient
+STRAX_HOT_NODE_PORT = 12370
+STRAX_SYNCING_NODE_PORT = 12380
+STRAX_OFFLINE_NODE_PORT = 12390
+CIRRUS_HOT_NODE_PORT = 13370
+CIRRUS_SYNCING_NODE_PORT = 13380
 
 
 @pytest.fixture(scope='session')
 def get_spendable_transactions():
     def _get_spendable_transaction(node: BaseNode,
                                    amount: Money,
-                                   fee_amount: Money = Money(0.0001),
                                    op_return_amount: Money = Money(0.00000001),
                                    wallet_name: str = 'Test') -> List[SpendableTransactionModel]:
         from api.wallet.requestmodels import SpendableTransactionsRequest
@@ -25,16 +31,16 @@ def get_spendable_transactions():
         spendable_transactions = [x for x in spendable_transactions.transactions]
         sorted_spendable_transactions = sorted(spendable_transactions, key=lambda x: int(x.amount))
         amount_to_send = amount
-        fee_amount = fee_amount
         op_return_amount = op_return_amount
         transactions = []
         trxid_amount = Money(0)
+        high_fee = Money(0.0005)
         for spendable_transaction in sorted_spendable_transactions:
             transactions.append(spendable_transaction)
             trxid_amount += spendable_transaction.amount
-            if trxid_amount >= amount_to_send + fee_amount + op_return_amount:
+            if trxid_amount >= amount_to_send + high_fee + op_return_amount:
                 break
-        if trxid_amount < amount_to_send + fee_amount + op_return_amount:
+        if trxid_amount < amount_to_send + high_fee + op_return_amount:
             raise RuntimeError('Not enough funds in spendable transactions for specified amount.')
         return transactions
     return _get_spendable_transaction
@@ -92,39 +98,28 @@ def random_addresses(generate_p2pkh_address):
 
 
 @pytest.fixture(scope='session')
-def send_a_transaction():
+def send_a_transaction(get_spendable_transactions):
     def _send_a_transaction(
             node: BaseNode,
             sending_address: Address,
             receiving_address: Address,
-            amount: Money) -> bool:
-        from api.wallet.requestmodels import BuildTransactionRequest, SpendableTransactionsRequest
-        from pybitcoin import Outpoint, Recipient, SendTransactionRequest
-        request_model = SpendableTransactionsRequest(wallet_name='Test', account_name='account 0', min_confirmations=10)
-        spendable_outpoints = node.wallet.spendable_transactions(request_model)
-        spendable_outpoints = [x for x in spendable_outpoints.transactions]
+            amount_to_send: Money,
+            op_return_amount: Money = Money(0)) -> bool:
+        spendable_transactions = get_spendable_transactions(
+            node=node, amount=amount_to_send, op_return_amount=op_return_amount, wallet_name='Test'
+        )
         request_model = BuildTransactionRequest(
             password='password',
             segwit_change_address=False,
             wallet_name='Test',
             account_name='account 0',
-            outpoints=[Outpoint(
-                transaction_id=str(spendable_outpoints[0].transaction_id),
-                index=spendable_outpoints[0].index)
-            ],
-            recipients=[
-                Recipient(
-                    destination_address=receiving_address,
-                    subtraction_fee_from_amount=True,
-                    amount=amount
-                )
-            ],
-            fee_type='low',
+            outpoints=[Outpoint(transaction_id=str(x.transaction_id), index=x.index) for x in spendable_transactions],
+            recipients=[Recipient(destination_address=receiving_address, subtraction_fee_from_amount=True, amount=amount_to_send)],
+            fee_type='high',
             allow_unconfirmed=True,
             shuffle_outputs=True,
             change_address=sending_address
         )
-
         transaction = node.wallet.build_transaction(request_model)
         request_model = SendTransactionRequest(
             hex=transaction.hex
@@ -226,3 +221,122 @@ def git_checkout_current_node_version():
             os.system(f'git pull')
             os.chdir(root_dir)
     return _git_checkout_current_node_version
+
+
+@pytest.fixture(scope='session')
+def strax_regtest_node(start_regtest_node, request):
+    def _strax_regtest_node(port: int) -> StraxNode:
+        node = StraxNode(
+            ipaddr='http://localhost',
+            blockchainnetwork=StraxRegTest(
+                API_PORT=port,
+                DEFAULT_PORT=port+1,
+                SIGNALR_PORT=port+2,
+                RPC_PORT=port + 3
+            )
+        )
+
+        def stop_node():
+            node.node.stop()
+        request.addfinalizer(stop_node)
+        return node
+    return _strax_regtest_node
+
+
+@pytest.fixture(scope='session')
+def start_strax_regtest_node(start_regtest_node):
+    def _start_strax_regtest_node(node: StraxNode, extra_cmd_ops: List = None):
+        root_dir = re.match(r'(.*)pystratis', os.getcwd())[0]
+        source_dir = os.path.join(root_dir, 'integration_tests', 'StratisFullNode', 'src', 'Stratis.StraxD')
+        start_regtest_node(node=node, source_dir=source_dir, extra_cmd_ops=extra_cmd_ops)
+    return _start_strax_regtest_node
+
+
+@pytest.fixture(scope='session')
+def node_mines_some_blocks_and_syncs(sync_node_to_height):
+    def _node_mines_some_blocks_and_syncs(
+            mining_node: StraxNode,
+            syncing_node: StraxNode = None,
+            num_blocks_to_mine: int = 1) -> bool:
+        from api.mining.requestmodels import GenerateRequest
+        mining_node.mining.generate(GenerateRequest(block_count=num_blocks_to_mine))
+        if syncing_node is None:
+            return True
+        return sync_node_to_height(mining_node, syncing_node)
+    return _node_mines_some_blocks_and_syncs
+
+
+@pytest.fixture(scope='session')
+def strax_hot_node(strax_regtest_node):
+    return strax_regtest_node(port=STRAX_HOT_NODE_PORT)
+
+
+@pytest.fixture(scope='session')
+def strax_syncing_node(strax_regtest_node):
+    return strax_regtest_node(port=STRAX_SYNCING_NODE_PORT)
+
+
+@pytest.fixture(scope='session')
+def strax_offline_node(strax_regtest_node):
+    return strax_regtest_node(port=STRAX_OFFLINE_NODE_PORT)
+
+
+@pytest.fixture(scope='session')
+def cirrus_hot_node(cirrus_regtest_node):
+    return cirrus_regtest_node(port=CIRRUS_HOT_NODE_PORT)
+
+
+@pytest.fixture(scope='session')
+def cirrus_syncing_node(cirrus_regtest_node):
+    return cirrus_regtest_node(port=CIRRUS_SYNCING_NODE_PORT)
+
+
+@pytest.fixture(scope='session')
+def cirrus_regtest_node(start_regtest_node, request):
+    def _cirrus_regtest_node(port: int) -> CirrusNode:
+        node = CirrusNode(
+            ipaddr='http://localhost',
+            blockchainnetwork=CirrusRegTest(
+                API_PORT=port,
+                DEFAULT_PORT=port + 1,
+                SIGNALR_PORT=port + 2,
+                RPC_PORT=port + 3
+            )
+        )
+
+        def stop_node():
+            node.node.stop()
+
+        request.addfinalizer(stop_node)
+        return node
+
+    return _cirrus_regtest_node
+
+
+@pytest.fixture(scope='session')
+def cirrus_regtest_node(start_regtest_node, request):
+    def _cirrus_regtest_node(port: int) -> CirrusNode:
+        node = CirrusNode(
+            ipaddr='http://localhost',
+            blockchainnetwork=CirrusRegTest(
+                API_PORT=port,
+                DEFAULT_PORT=port+1,
+                SIGNALR_PORT=port+2,
+                RPC_PORT=port + 3
+            )
+        )
+
+        def stop_node():
+            node.node.stop()
+        request.addfinalizer(stop_node)
+        return node
+    return _cirrus_regtest_node
+
+
+@pytest.fixture(scope='session')
+def start_cirrus_regtest_node(start_regtest_node):
+    def _start_cirrus_regtest_node(node: CirrusNode, extra_cmd_ops: List[str]):
+        root_dir = re.match(r'(.*)pystratis', os.getcwd())[0]
+        source_dir = os.path.join(root_dir, 'integration_tests', 'StratisFullNode', 'src', 'Stratis.CirrusMinerD')
+        start_regtest_node(node=node, source_dir=source_dir, extra_cmd_ops=extra_cmd_ops)
+    return _start_cirrus_regtest_node
