@@ -81,7 +81,7 @@ def test_create(mocker: MockerFixture, network, fakeuri):
 def test_sign_message(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address,
                       generate_privatekey):
     message = 'This is my message'
-    private_key_bytes = unhexlify(generate_privatekey)
+    private_key_bytes = unhexlify(generate_privatekey())
     key = ecdsa.SigningKey.from_string(private_key_bytes, curve=ecdsa.SECP256k1)
     sig = base64.b64encode(key.sign(bytes(message, 'ascii'))).decode('ascii')
     data = sig
@@ -122,7 +122,7 @@ def test_pubkey(mocker: MockerFixture, network, fakeuri, generate_uncompressed_p
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
 def test_verify_message(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address, generate_privatekey):
     message = 'This is my message'
-    private_key_bytes = unhexlify(generate_privatekey)
+    private_key_bytes = unhexlify(generate_privatekey())
     key = ecdsa.SigningKey.from_string(private_key_bytes, curve=ecdsa.SECP256k1)
     sig = base64.b64encode(key.sign(bytes(message, 'ascii'))).decode('ascii')
     data = True
@@ -741,7 +741,7 @@ def test_extpubkey(mocker: MockerFixture, network, fakeuri, generate_extpubkey):
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
 def test_private_key(mocker: MockerFixture, network, fakeuri, generate_privatekey, generate_p2pkh_address):
-    data = generate_privatekey
+    data = generate_privatekey()
     mocker.patch.object(Wallet, 'post', return_value=data)
     wallet = Wallet(network=network, baseuri=fakeuri)
     request_model = PrivateKeyRequest(
@@ -953,9 +953,9 @@ def test_distribute_utxos(mocker: MockerFixture, network, fakeuri, generate_uint
 def test_sweep(mocker: MockerFixture, network, fakeuri, generate_privatekey, generate_uint256,
                generate_p2pkh_address):
     private_keys = [
-        generate_privatekey,
-        generate_privatekey,
-        generate_privatekey
+        generate_privatekey(),
+        generate_privatekey(),
+        generate_privatekey()
     ]
     data = [
         generate_uint256,

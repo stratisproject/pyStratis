@@ -7,7 +7,7 @@ from pybitcoin.types import Address
 
 class GetVerboseAddressesBalancesRequest(Model):
     """A GetVerboseAddressesBalancesRequest."""
-    addresses: Union[Address, List[Address]]
+    addresses: Union[List[Address], Address]
 
     # noinspection PyMethodParameters
     @validator('addresses', each_item=True)

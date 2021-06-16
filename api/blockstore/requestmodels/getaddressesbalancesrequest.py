@@ -7,7 +7,7 @@ from pybitcoin.types import Address
 
 class GetAddressesBalancesRequest(Model):
     """A GetAddressesBalancesRequest."""
-    addresses: Union[Address, List[Address]]
+    addresses: Union[List[Address], Address]
     min_confirmations: Optional[int] = Field(default=0, alias='minConfirmations')
 
     # noinspection PyMethodParameters

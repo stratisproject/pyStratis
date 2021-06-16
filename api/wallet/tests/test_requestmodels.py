@@ -707,9 +707,9 @@ def test_statsrequest():
 def test_sweeprequest(network, generate_privatekey, generate_p2pkh_address):
     data = {
         'privateKeys': [
-            generate_privatekey,
-            generate_privatekey,
-            generate_privatekey
+            generate_privatekey(),
+            generate_privatekey(),
+            generate_privatekey()
         ],
         'destinationAddress': generate_p2pkh_address(network=network),
         'broadcast': False
@@ -749,7 +749,7 @@ def test_syncrequest(generate_uint256):
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
 def test_verifymessagerequest(network, generate_p2pkh_address, generate_privatekey):
     message = 'This is my message'
-    private_key_bytes = unhexlify(generate_privatekey)
+    private_key_bytes = unhexlify(generate_privatekey())
     key = ecdsa.SigningKey.from_string(private_key_bytes, curve=ecdsa.SECP256k1)
     sig = base64.b64encode(key.sign(bytes(message, 'ascii'))).decode('ascii')
     data = {

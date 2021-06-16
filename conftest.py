@@ -163,7 +163,7 @@ def generate_hexstring():
 @pytest.fixture(scope='session')
 def generate_privatekey():
     def _generate_privatekey(words: str = None) -> str:
-        mnemo = mnemonic.Mnemonic(language='English')
+        mnemo = mnemonic.Mnemonic(language='english')
         if words is None:
             words = mnemo.generate()
         seed = mnemo.to_seed(words)
@@ -174,7 +174,7 @@ def generate_privatekey():
 
 @pytest.fixture(scope='session')
 def generate_wif_privatekey(generate_privatekey) -> str:
-    private_key_bytes = unhexlify(generate_privatekey)
+    private_key_bytes = unhexlify(generate_privatekey())
     extended = b'\x80' + private_key_bytes
     checksum = sha256(sha256(extended).digest()).digest()
     return base58.b58encode(extended + checksum[:4]).decode('ascii')
@@ -182,7 +182,7 @@ def generate_wif_privatekey(generate_privatekey) -> str:
 
 @pytest.fixture(scope='session')
 def generate_uncompressed_pubkey(generate_privatekey) -> str:
-    private_key_bytes = unhexlify(generate_privatekey)
+    private_key_bytes = unhexlify(generate_privatekey())
     key = ecdsa.SigningKey.from_string(private_key_bytes, curve=ecdsa.SECP256k1).verifying_key
     key_int = int.from_bytes(key.to_string(), 'big')
     return f"04{format(key_int, '0>128x')}"
