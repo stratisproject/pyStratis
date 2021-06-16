@@ -44,7 +44,7 @@ def test_join_federation(mocker: MockerFixture, strax_network, fakeuri, generate
         collateral_wallet_password='cirrus_password',
         wallet_name='Test_InterfluxCirrus_Wallet',
         wallet_account='account 0',
-        wallet_password='cirrus_assword',
+        wallet_password='cirrus_password',
     )
     data = {'MinerPublicKey': generate_compressed_pubkey}
     mocker.patch.object(Collateral, 'post', return_value=data)

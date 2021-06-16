@@ -3,6 +3,7 @@ from .basenode import BaseNode
 from api.coldstaking import ColdStaking
 from api.diagnostic import Diagnostic
 from api.mining import Mining
+from api.signalr import SignalR
 from api.staking import Staking
 
 
@@ -16,12 +17,14 @@ class StraxNode(BaseNode):
         self._coldstaking = ColdStaking(baseuri=self.api_route, network=blockchainnetwork)
         self._diagnostic = Diagnostic(baseuri=self.api_route, network=blockchainnetwork)
         self._mining = Mining(baseuri=self.api_route, network=blockchainnetwork)
+        self._signalr = SignalR(baseuri=self.api_route, network=blockchainnetwork)
         self._staking = Staking(baseuri=self.api_route, network=blockchainnetwork)
 
         # Add Strax specific endpoints to superclass endpoints.
         self._endpoints.extend(self._coldstaking.endpoints)
         self._endpoints.extend(self._diagnostic.endpoints)
         self._endpoints.extend(self._mining.endpoints)
+        self._endpoints.extend(self._signalr.endpoints)
         self._endpoints.extend(self._staking.endpoints)
         self._endpoints.sort()
 
@@ -36,6 +39,10 @@ class StraxNode(BaseNode):
     @property
     def mining(self) -> Mining:
         return self._mining
+
+    @property
+    def signalr(self) -> SignalR:
+        return self._signalr
 
     @property
     def staking(self) -> Staking:

@@ -10,7 +10,6 @@ from api.mempool import Mempool
 from api.network import Network
 from api.node import Node
 from api.rpc import RPC
-from api.signalr import SignalR
 from api.wallet import Wallet
 
 
@@ -35,7 +34,6 @@ class BaseNode:
         self._network = Network(baseuri=self.api_route, network=blockchainnetwork)
         self._node = Node(baseuri=self.api_route, network=blockchainnetwork)
         self._rpc = RPC(baseuri=self.api_route, network=blockchainnetwork)
-        self._signalr = SignalR(baseuri=self.api_route, network=blockchainnetwork)
         self._wallet = Wallet(baseuri=self.api_route, network=blockchainnetwork)
 
         self._endpoints = [
@@ -48,7 +46,6 @@ class BaseNode:
             *self._network.endpoints,
             *self._node.endpoints,
             *self._rpc.endpoints,
-            *self._signalr.endpoints,
             *self._wallet.endpoints,
         ]
 
@@ -109,10 +106,6 @@ class BaseNode:
         return self._rpc
 
     @property
-    def signalr(self) -> SignalR:
-        return self._signalr
-
-    @property
     def wallet(self) -> Wallet:
         return self._wallet
 
@@ -126,4 +119,8 @@ class BaseNode:
         )
         swagger_schema = response.json()
         paths = [key.lower() for key in swagger_schema['paths'].keys()]
+        if len([x for x in set(self.endpoints) if x not in set(paths)]) != 0:
+            print(f'API endpoints not found in swagger json: {[x for x in set(self.endpoints) if x not in set(paths)]}')
+        if len([x for x in set(paths) if x not in set(self.endpoints)]) != 0:
+            print(f'Swagger paths not mapped by API: {[x for x in set(paths) if x not in set(self.endpoints)]}')
         return set(self.endpoints) == set(paths)

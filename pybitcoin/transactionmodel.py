@@ -8,13 +8,13 @@ from pybitcoin.types import uint256, hexstr
 class TransactionModel(BaseModel):
     """A TransactionModel."""
     hex: Optional[hexstr]
-    txid: uint256
-    hash: uint256
-    version: conint(ge=0)
-    size: conint(ge=0)
-    vsize: conint(ge=0)
+    txid: Optional[uint256]
+    hash: Optional[uint256]
+    version: Optional[conint(ge=0)]
+    size: Optional[conint(ge=0)]
+    vsize: Optional[conint(ge=0)]
     weight: Optional[conint(ge=0)]
-    locktime: conint(ge=0)
+    locktime: Optional[conint(ge=0)]
     vin: Optional[List[VIn]]
     vout: Optional[List[VOut]]
     blockhash: Optional[uint256]

@@ -2,6 +2,7 @@ import pytest
 from nodes import BaseNode
 from api.node.requestmodels import *
 from api.node.responsemodels import *
+from api.wallet.requestmodels import SpendableTransactionsRequest
 from pybitcoin import LogRule
 from pybitcoin.types import uint256, hexstr, Money
 
@@ -27,7 +28,6 @@ def test_get_blockheader(strax_hot_node: BaseNode):
 @pytest.mark.integration_test
 @pytest.mark.strax_integration_test
 def test_get_raw_transaction(strax_hot_node: BaseNode):
-    from api.wallet.requestmodels import SpendableTransactionsRequest
     request_model = SpendableTransactionsRequest(wallet_name='Test', account_name='account 0', min_confirmations=10)
     spendable_transactions = strax_hot_node.wallet.spendable_transactions(request_model)
     spendable_transactions = [x for x in spendable_transactions.transactions]
@@ -44,7 +44,6 @@ def test_get_raw_transaction(strax_hot_node: BaseNode):
 @pytest.mark.integration_test
 @pytest.mark.strax_integration_test
 def test_decode_raw_transaction(strax_hot_node: BaseNode):
-    from api.wallet.requestmodels import SpendableTransactionsRequest
     request_model = SpendableTransactionsRequest(wallet_name='Test', account_name='account 0', min_confirmations=10)
     spendable_transactions = strax_hot_node.wallet.spendable_transactions(request_model)
     spendable_transactions = [x for x in spendable_transactions.transactions]
@@ -68,7 +67,6 @@ def test_validate_address(strax_hot_node: BaseNode, generate_p2pkh_address):
 @pytest.mark.integration_test
 @pytest.mark.strax_integration_test
 def test_get_txout(strax_hot_node: BaseNode):
-    from api.wallet.requestmodels import SpendableTransactionsRequest
     request_model = SpendableTransactionsRequest(wallet_name='Test', account_name='account 0', min_confirmations=10)
     spendable_transactions = strax_hot_node.wallet.spendable_transactions(request_model)
     spendable_transactions = [x for x in spendable_transactions.transactions]
@@ -83,7 +81,6 @@ def test_get_txout(strax_hot_node: BaseNode):
 @pytest.mark.integration_test
 @pytest.mark.strax_integration_test
 def test_get_txout_proof(strax_hot_node: BaseNode):
-    from api.wallet.requestmodels import SpendableTransactionsRequest
     request_model = SpendableTransactionsRequest(wallet_name='Test', account_name='account 0', min_confirmations=10)
     spendable_transactions = strax_hot_node.wallet.spendable_transactions(request_model)
     spendable_transactions = [x for x in spendable_transactions.transactions]

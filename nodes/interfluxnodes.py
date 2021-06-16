@@ -12,6 +12,7 @@ from api.federation import Federation
 from api.interop import Interop
 from api.smartcontracts import SmartContracts
 from api.smartcontractwallet import SmartContractWallet
+from api.signalr import SignalR
 from api.voting import Voting
 
 
@@ -28,6 +29,7 @@ class InterfluxStraxNode(BaseNode):
         self._federation_wallet = FederationWallet(baseuri=self.api_route, network=blockchainnetwork)
         self._mining = Mining(baseuri=self.api_route, network=blockchainnetwork)
         self._multisig = Multisig(baseuri=self.api_route, network=blockchainnetwork)
+        self._signalr = SignalR(baseuri=self.api_route, network=blockchainnetwork)
         self._staking = Staking(baseuri=self.api_route, network=blockchainnetwork)
 
         # Add InterfluxStrax specific endpoints to superclass endpoints.
@@ -37,6 +39,7 @@ class InterfluxStraxNode(BaseNode):
         self._endpoints.extend(self._federation_wallet.endpoints)
         self._endpoints.extend(self._mining.endpoints)
         self._endpoints.extend(self._multisig.endpoints)
+        self._endpoints.extend(self._signalr.endpoints)
         self._endpoints.extend(self._staking.endpoints)
         self._endpoints.sort()
 
@@ -65,6 +68,10 @@ class InterfluxStraxNode(BaseNode):
         return self._multisig
 
     @property
+    def signalr(self) -> SignalR:
+        return self._signalr
+
+    @property
     def staking(self) -> Staking:
         return self._staking
 
@@ -86,6 +93,7 @@ class InterfluxCirrusNode(BaseNode):
         self._multisig = Multisig(baseuri=self.api_route, network=blockchainnetwork)
         self._smart_contracts = SmartContracts(baseuri=self.api_route, network=blockchainnetwork)
         self._smart_contract_wallet = SmartContractWallet(baseuri=self.api_route, network=blockchainnetwork)
+        self._signalr = SignalR(baseuri=self.api_route, network=blockchainnetwork)
         self._voting = Voting(baseuri=self.api_route, network=blockchainnetwork)
 
         # Add InterfluxCirrus specific endpoints to superclass endpoints.
@@ -99,6 +107,7 @@ class InterfluxCirrusNode(BaseNode):
         self._endpoints.extend(self._multisig.endpoints)
         self._endpoints.extend(self._smart_contracts.endpoints)
         self._endpoints.extend(self._smart_contract_wallet.endpoints)
+        self._endpoints.extend(self._signalr.endpoints)
         self._endpoints.extend(self._voting.endpoints)
         self._endpoints.sort()
 
@@ -141,6 +150,10 @@ class InterfluxCirrusNode(BaseNode):
     @property
     def smart_contract_wallet(self) -> SmartContractWallet:
         return self._smart_contract_wallet
+
+    @property
+    def signalr(self) -> SignalR:
+        return self._signalr
 
     @property
     def voting(self) -> Voting:

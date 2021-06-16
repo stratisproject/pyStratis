@@ -5,6 +5,7 @@ base58check
 bech32
 pysha3
 ecdsa
+mnemonic
 
 # For testing
 pytest

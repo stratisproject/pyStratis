@@ -22,12 +22,12 @@ class BlockModel(BaseModel):
     n_tx: int = Field(alias='nTx')
     previous_blockhash: str = Field(alias='previousblockhash')
     next_blockhash: Optional[str] = Field(alias='nextblockhash')
-    signature: str
-    modifier_v2: str = Field(alias='modifierv2')
-    flags: str
-    hashproof: str
-    blocktrust: str
-    chaintrust: str
+    signature: Optional[str]
+    modifier_v2: Optional[str] = Field(alias='modifierv2')
+    flags: Optional[str]
+    hashproof: Optional[str]
+    blocktrust: Optional[str]
+    chaintrust: Optional[str]
 
     class Config:
         allow_population_by_field_name = True

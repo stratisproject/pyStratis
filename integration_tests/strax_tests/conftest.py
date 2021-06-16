@@ -16,7 +16,7 @@ def initialize_nodes(
         get_node_address_with_balance,
         get_node_unused_address,
         connect_two_nodes,
-        git_checkout_current_node_version) -> None:
+        git_checkout_current_node_version):
     git_checkout_current_node_version(api.__version__)
     # Start two nodes on the same regtest network.
     start_strax_regtest_node(strax_hot_node)

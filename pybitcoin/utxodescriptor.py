@@ -1,12 +1,13 @@
+from typing import Optional
 from pydantic import BaseModel, Field, conint
 from pybitcoin.types import Money, uint256
 
 
 class UtxoDescriptor(BaseModel):
     """A UtxoDescriptor."""
-    transaction_id: uint256 = Field(alias='transactionId')
-    index: conint(ge=0)
-    script_pubkey: str = Field(alias='scriptPubKey')
+    transaction_id: Optional[uint256] = Field(alias='transactionId')
+    index: Optional[conint(ge=0)]
+    script_pubkey: Optional[str] = Field(alias='scriptPubKey')
     amount: Money
 
     class Config:

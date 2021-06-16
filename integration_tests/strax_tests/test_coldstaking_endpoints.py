@@ -253,14 +253,14 @@ def test_withdrawal(
         strax_hot_node: StraxNode,
         strax_offline_node: StraxNode,
         connect_two_nodes,
-        sync_node_to_height,
+        sync_two_nodes,
         get_node_address_with_balance,
         offline_node_default_wallet_name,
         setup_coldstaking_accounts_and_addresses,
         setup_coldstaking_transaction_and_send):
     # Normally would keep the offline node offline, but need to have it sync to find the transactions here to test this endpoint.
     assert connect_two_nodes(strax_hot_node, strax_offline_node)
-    assert sync_node_to_height(strax_hot_node, strax_offline_node)
+    assert sync_two_nodes(strax_hot_node, strax_offline_node)
     assert setup_coldstaking_transaction_and_send
     receiving_address = get_node_address_with_balance(strax_hot_node)
     request_model = WithdrawalRequest(
@@ -285,12 +285,12 @@ def test_estimate_offline_withdrawal_fee(
         setup_coldstaking_accounts_and_addresses,
         setup_coldstaking_transaction_and_send,
         connect_two_nodes,
-        sync_node_to_height,
+        sync_two_nodes,
         offline_node_default_wallet_name,
         get_node_address_with_balance):
     # Normally would keep the offline node offline, but need to have it sync to find the transactions here to test this endpoint.
     assert connect_two_nodes(strax_hot_node, strax_offline_node)
-    assert sync_node_to_height(strax_hot_node, strax_offline_node)
+    assert sync_two_nodes(strax_hot_node, strax_offline_node)
     assert setup_coldstaking_transaction_and_send
     receiving_address = get_node_address_with_balance(strax_hot_node)
     request_model = OfflineWithdrawalFeeEstimationRequest(
@@ -309,14 +309,14 @@ def test_estimate_withdrawal_fee(
         strax_hot_node: StraxNode,
         strax_offline_node: StraxNode,
         connect_two_nodes,
-        sync_node_to_height,
+        sync_two_nodes,
         offline_node_default_wallet_name,
         setup_coldstaking_accounts_and_addresses,
         setup_coldstaking_transaction_and_send,
         get_node_address_with_balance):
     # Normally would keep the offline node offline, but need to have it sync to find the transactions here to test this endpoint.
     assert connect_two_nodes(strax_hot_node, strax_offline_node)
-    assert sync_node_to_height(strax_hot_node, strax_offline_node)
+    assert sync_two_nodes(strax_hot_node, strax_offline_node)
     assert setup_coldstaking_transaction_and_send
     receiving_address = get_node_address_with_balance(strax_hot_node)
     request_model = WithdrawalRequest(

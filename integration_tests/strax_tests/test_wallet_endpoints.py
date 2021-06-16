@@ -418,7 +418,6 @@ def test_addresses(strax_hot_node: BaseNode):
 @pytest.mark.integration_test
 @pytest.mark.strax_integration_test
 def test_remove_transactions(strax_hot_node: BaseNode, get_datetime):
-    from api.wallet.requestmodels import SpendableTransactionsRequest
     request_model = SpendableTransactionsRequest(wallet_name='Test', account_name='account 0', min_confirmations=10)
     spendable_transactions = strax_hot_node.wallet.spendable_transactions(request_model)
     trxids = [x.transaction_id for x in spendable_transactions.transactions]
@@ -532,7 +531,6 @@ def test_split_coins(strax_hot_node: BaseNode, node_mines_some_blocks_and_syncs)
 @pytest.mark.strax_integration_test
 def test_distribute_utxos(strax_hot_node: BaseNode, node_mines_some_blocks_and_syncs):
     node_mines_some_blocks_and_syncs(mining_node=strax_hot_node, num_blocks_to_mine=15)
-    from api.wallet.requestmodels import SpendableTransactionsRequest
     request_model = SpendableTransactionsRequest(wallet_name='Test', account_name='account 0', min_confirmations=10)
     spendable_transactions = strax_hot_node.wallet.spendable_transactions(request_model)
     spendable_transactions = [x for x in spendable_transactions.transactions]
@@ -659,7 +657,6 @@ def test_offline_sign_request(
 @pytest.mark.strax_integration_test
 def test_consolidate(strax_hot_node: BaseNode, get_node_address_with_balance, node_mines_some_blocks_and_syncs):
     node_mines_some_blocks_and_syncs(mining_node=strax_hot_node, num_blocks_to_mine=15)
-    from api.wallet.requestmodels import SpendableTransactionsRequest
     request_model = SpendableTransactionsRequest(wallet_name='Test', account_name='account 0', min_confirmations=10)
     spendable_transactions = strax_hot_node.wallet.spendable_transactions(request_model)
     spendable_transactions = [x for x in spendable_transactions.transactions if x.amount < 100_0000_0000]

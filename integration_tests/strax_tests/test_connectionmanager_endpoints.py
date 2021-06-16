@@ -1,5 +1,4 @@
 import pytest
-import time
 from nodes import BaseNode
 from api.connectionmanager.requestmodels import *
 from api.connectionmanager.responsemodels import *

@@ -1,4 +1,5 @@
 import pytest
+import mnemonic
 import secrets
 import os
 import json
@@ -6,7 +7,7 @@ from hashlib import sha256
 import base58
 import bech32
 import ecdsa
-from binascii import unhexlify
+from binascii import unhexlify, hexlify
 from random import choice, randint, random
 # noinspection PyPackageRequirements
 from sha3 import keccak_256
@@ -160,11 +161,15 @@ def generate_hexstring():
 
 
 @pytest.fixture(scope='session')
-def generate_privatekey() -> str:
-    big_int = secrets.randbits(256)
-    curve_order = int('FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEBAAEDCE6AF48A03BBFD25E8CD0364141', 16)
-    big_int = (big_int % (curve_order - 1)) + 1
-    return format(big_int, '0>64x')
+def generate_privatekey():
+    def _generate_privatekey(words: str = None) -> str:
+        mnemo = mnemonic.Mnemonic(language='English')
+        if words is None:
+            words = mnemo.generate()
+        seed = mnemo.to_seed(words)
+        private_key = sha256(seed).digest()
+        return hexlify(private_key).decode('ascii')
+    return _generate_privatekey
 
 
 @pytest.fixture(scope='session')
