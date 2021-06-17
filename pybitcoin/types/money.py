@@ -9,6 +9,7 @@ class Money:
     """Represents Money."""
     def __init__(self, value):
         self._validate_value(value)
+        value = self._fix_comma_separated_str(value)
         if isinstance(value, (float, Decimal, int, str)):
             self._value = round(Decimal(value), 8)
         if isinstance(value, Money):
@@ -48,6 +49,7 @@ class Money:
 
         if isinstance(v, (int, float, Decimal, str)):
             try:
+                v = cls._fix_comma_separated_str(v)
                 v = Decimal(v)
                 if v < 0:
                     raise ValueError('Must be positive.')
@@ -57,6 +59,12 @@ class Money:
     def to_coin_unit(self) -> str:
         # noinspection PyTypeChecker
         return '{:.8f}'.format(self.value)
+
+    @classmethod
+    def _fix_comma_separated_str(cls, value):
+        if isinstance(value, str):
+            return value.replace(',', '.')
+        return value
 
     def __eq__(self, other) -> bool:
         if isinstance(other, Money):
