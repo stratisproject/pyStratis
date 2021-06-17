@@ -65,6 +65,8 @@ def initialize_nodes(
     wait_x_blocks_and_sync(2)
     balance_funds_across_nodes(cirrusminer_node, cirrusminer_syncing_node)
     wait_x_blocks_and_sync(2)
+    balance_funds_across_nodes(cirrusminer_syncing_node, cirrus_node)
+    wait_x_blocks_and_sync(2)
 
 
 @pytest.fixture(scope='session')
@@ -112,13 +114,15 @@ def balance_funds_across_nodes(send_a_transaction, get_node_address_with_balance
             sending_address = get_node_address_with_balance(a)
             receiving_address = get_node_unused_address(b)
             sending_node = a
+            amount = a_balance.balances[0].amount_confirmed / 2
         else:
             sending_address = get_node_address_with_balance(b)
             receiving_address = get_node_unused_address(a)
             sending_node = b
+            amount = b_balance.balances[0].amount_confirmed / 2
 
         assert send_a_transaction(
             node=sending_node, sending_address=sending_address, wallet_name='Test',
-            receiving_address=receiving_address, amount_to_send=Money(500000), min_confirmations=2
+            receiving_address=receiving_address, amount_to_send=amount, min_confirmations=2
         )
     return _balance_funds_across_nodes
