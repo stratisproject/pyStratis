@@ -17,7 +17,7 @@ from api.voting import Voting
 
 
 class InterfluxStraxNode(BaseNode):
-    def __init__(self, ipaddr: str = 'https://localhost', blockchainnetwork: BaseNetwork = StraxMain()):
+    def __init__(self, ipaddr: str = 'http://localhost', blockchainnetwork: BaseNetwork = StraxMain()):
         if not isinstance(blockchainnetwork, (StraxMain, StraxTest, StraxRegTest)):
             raise ValueError('Invalid network. Must be one of: [StraxMain, StraxTest, StraxRegTest]')
         super(InterfluxStraxNode, self).__init__(name='InterfluxStrax', ipaddr=ipaddr, blockchainnetwork=blockchainnetwork)
@@ -77,7 +77,7 @@ class InterfluxStraxNode(BaseNode):
 
 
 class InterfluxCirrusNode(BaseNode):
-    def __init__(self, ipaddr: str = 'https://localhost', blockchainnetwork: BaseNetwork = CirrusMain()):
+    def __init__(self, ipaddr: str = 'http://localhost', blockchainnetwork: BaseNetwork = CirrusMain()):
         if not isinstance(blockchainnetwork, (CirrusMain, CirrusTest, CirrusRegTest)):
             raise ValueError('Invalid network. Must be one of: [CirrusMain, CirrusTest, CirrusRegTest]')
         super(InterfluxCirrusNode, self).__init__(name='InterfluxCirrus', ipaddr=ipaddr, blockchainnetwork=blockchainnetwork)
