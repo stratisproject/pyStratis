@@ -84,7 +84,7 @@ class APIRequest:
         """API put request."""
         response = put(
             url=f'{self._baseuri}{kwargs["endpoint"]}',
-            data=request_model.json(),
+            data=None if request_model is None else request_model.json(),
             headers=self._headers,
             timeout=60
         )

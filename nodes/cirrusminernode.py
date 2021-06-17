@@ -10,14 +10,17 @@ from api.voting import Voting
 
 
 class CirrusMinerNode(BaseNode):
-    def __init__(self, ipaddr: str = 'https://localhost', blockchainnetwork: BaseNetwork = CirrusMain()):
+    def __init__(self, ipaddr: str = 'https://localhost', blockchainnetwork: BaseNetwork = CirrusMain(), devmode=False):
         if not isinstance(blockchainnetwork, (CirrusMain, CirrusTest, CirrusRegTest)):
             raise ValueError('Invalid network. Must be one of: [CirrusMain, CirrusTest, CirrusRegTest]')
         super(CirrusMinerNode, self).__init__(name='Cirrus', ipaddr=ipaddr, blockchainnetwork=blockchainnetwork)
 
         # API endpoints
         self._balances = Balances(baseuri=self.api_route, network=blockchainnetwork)
-        self._collateral = Collateral(baseuri=self.api_route, network=blockchainnetwork)
+        if not devmode:
+            self._collateral = Collateral(baseuri=self.api_route, network=blockchainnetwork)
+            self._endpoints.extend(self._collateral.endpoints)
+            setattr(self.__class__, 'collateral', property(lambda p: self._collateral))
         self._federation = Federation(baseuri=self.api_route, network=blockchainnetwork)
         self._notifications = Notifications(baseuri=self.api_route, network=blockchainnetwork)
         self._smart_contracts = SmartContracts(baseuri=self.api_route, network=blockchainnetwork)
@@ -26,7 +29,6 @@ class CirrusMinerNode(BaseNode):
 
         # Add CirrusMiner specific endpoints to superclass endpoints.
         self._endpoints.extend(self._balances.endpoints)
-        self._endpoints.extend(self._collateral.endpoints)
         self._endpoints.extend(self._federation.endpoints)
         self._endpoints.extend(self._notifications.endpoints)
         self._endpoints.extend(self._smart_contracts.endpoints)
@@ -37,10 +39,6 @@ class CirrusMinerNode(BaseNode):
     @property
     def balances(self) -> Balances:
         return self._balances
-
-    @property
-    def collateral(self) -> Collateral:
-        return self._collateral
 
     @property
     def federation(self) -> Federation:

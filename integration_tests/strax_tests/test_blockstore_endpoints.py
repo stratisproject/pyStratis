@@ -1,5 +1,4 @@
 import pytest
-from typing import Callable
 from nodes import BaseNode
 from api.blockstore.requestmodels import *
 from api.blockstore.responsemodels import *
@@ -43,8 +42,7 @@ def test_get_block_count(strax_hot_node: BaseNode):
 
 @pytest.mark.integration_test
 @pytest.mark.strax_integration_test
-def test_get_addresses_balances(strax_hot_node: BaseNode, strax_syncing_node: BaseNode,
-                                get_node_address_with_balancecirrus_syncing_node):
+def test_get_addresses_balances(strax_hot_node: BaseNode, strax_syncing_node: BaseNode, get_node_address_with_balance):
     mining_address = get_node_address_with_balance(strax_hot_node)
     receiving_address = get_node_address_with_balance(strax_syncing_node)
     addresses = [mining_address, receiving_address]
@@ -63,8 +61,7 @@ def test_get_addresses_balances(strax_hot_node: BaseNode, strax_syncing_node: Ba
 
 @pytest.mark.integration_test
 @pytest.mark.strax_integration_test
-def test_get_verbose_addresses_balances(strax_hot_node: BaseNode, strax_syncing_node: BaseNode,
-                                        get_node_address_with_balancecirrus_syncing_node):
+def test_get_verbose_addresses_balances(strax_hot_node: BaseNode, strax_syncing_node: BaseNode, get_node_address_with_balance):
     mining_address = get_node_address_with_balance(strax_hot_node)
     receiving_address = get_node_address_with_balance(strax_syncing_node)
     addresses = [mining_address, receiving_address]
@@ -95,8 +92,7 @@ def test_get_utxoset(strax_hot_node: BaseNode):
 
 @pytest.mark.integration_test
 @pytest.mark.strax_integration_test
-def test_get_last_balance_update_transaction(strax_hot_node: BaseNode, strax_syncing_node: BaseNode,
-                                             get_node_address_with_balancecirrus_syncing_node):
+def test_get_last_balance_update_transaction(strax_hot_node: BaseNode, strax_syncing_node: BaseNode, get_node_address_with_balance):
     receiving_address = get_node_address_with_balance(strax_syncing_node)
     request_model = GetLastBalanceUpdateTransactionRequest(address=receiving_address)
     response = strax_hot_node.blockstore.get_last_balance_update_transaction(request_model=request_model)

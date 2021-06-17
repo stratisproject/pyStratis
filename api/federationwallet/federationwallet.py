@@ -47,12 +47,13 @@ class FederationWallet(APIRequest, metaclass=EndpointRegister):
             data['balances'][i]['amountConfirmed'] = Money.from_satoshi_units(data['balances'][i]['amountConfirmed'])
             data['balances'][i]['amountUnconfirmed'] = Money.from_satoshi_units(data['balances'][i]['amountUnconfirmed'])
             data['balances'][i]['spendableAmount'] = Money.from_satoshi_units(data['balances'][i]['spendableAmount'])
-            for j in range(len(data['balances'][i]['addresses'])):
-                data['balances'][i]['addresses'][j]['amountConfirmed'] = Money.from_satoshi_units(data['balances'][i]['addresses'][j]['amountConfirmed'])
-                data['balances'][i]['addresses'][j]['amountUnconfirmed'] = Money.from_satoshi_units(data['balances'][i]['addresses'][j]['amountUnconfirmed'])
-                data['balances'][i]['addresses'][j]['address'] = Address(
-                    address=data['balances'][i]['addresses'][j]['address'], network=self._network
-                )
+            if data['balances'][i]['addresses'] is not None:
+                for j in range(len(data['balances'][i]['addresses'])):
+                    data['balances'][i]['addresses'][j]['amountConfirmed'] = Money.from_satoshi_units(data['balances'][i]['addresses'][j]['amountConfirmed'])
+                    data['balances'][i]['addresses'][j]['amountUnconfirmed'] = Money.from_satoshi_units(data['balances'][i]['addresses'][j]['amountUnconfirmed'])
+                    data['balances'][i]['addresses'][j]['address'] = Address(
+                        address=data['balances'][i]['addresses'][j]['address'], network=self._network
+                    )
 
         return WalletBalanceModel(**data)
 

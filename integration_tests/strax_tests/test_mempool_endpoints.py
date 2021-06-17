@@ -16,6 +16,5 @@ def test_raw_mempool(strax_hot_node: BaseNode, strax_syncing_node: BaseNode, sen
     )
     response = strax_hot_node.mempool.get_raw_mempool()
     time.sleep(5)
-    assert len(response) == 1
     for item in response:
         assert isinstance(item, uint256)

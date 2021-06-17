@@ -37,7 +37,7 @@ def setup_coldstaking_accounts_and_addresses(
     mining_address = get_node_address_with_balance(strax_hot_node)
     credentials = {}
     # Setup a wallet on the cold node.
-    assert node_creates_a_wallet(strax_offline_node, name=offline_node_default_wallet_name)
+    assert node_creates_a_wallet(strax_offline_node, wallet_name=offline_node_default_wallet_name)
 
     # Get the extpubkey from the cold node so it can be restored on the hot node.
     offline_wallet_default_extpubkey = strax_offline_node.wallet.extpubkey(
