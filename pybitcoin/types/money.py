@@ -1,5 +1,5 @@
 from __future__ import annotations
-from typing import Callable
+from typing import Callable, Union
 from functools import total_ordering
 from decimal import Decimal, InvalidOperation
 
@@ -103,12 +103,16 @@ class Money:
             return Money(self.value + other)
         raise NotImplementedError(f'Addition between Money and {type(other)} is not defined.')
 
-    def __truediv__(self, other) -> Money:
+    def __truediv__(self, other) -> Union[Decimal, Money]:
+        if isinstance(other, Money):
+            return Decimal(self.value / other.value)
         if isinstance(other, (int, float, Decimal)):
             return Money(self.value / other)
         raise NotImplementedError(f'Division between Money and {type(other)} is not defined.')
 
-    def __floordiv__(self, other) -> Money:
+    def __floordiv__(self, other) -> Union[int, Money]:
+        if isinstance(other, Money):
+            return int(self.value // other.value)
         if isinstance(other, (int, float, Decimal)):
             return Money(self.value // other)
         raise NotImplementedError(f'Division between Money and {type(other)} is not defined.')
