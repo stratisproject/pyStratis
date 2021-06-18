@@ -104,22 +104,16 @@ class Money:
         raise NotImplementedError(f'Addition between Money and {type(other)} is not defined.')
 
     def __truediv__(self, other) -> Money:
-        if isinstance(other, Money):
-            return Money(self.value / other.value)
         if isinstance(other, (int, float, Decimal)):
             return Money(self.value / other)
         raise NotImplementedError(f'Division between Money and {type(other)} is not defined.')
 
     def __floordiv__(self, other) -> Money:
-        if isinstance(other, Money):
-            return Money(self.value // other.value)
         if isinstance(other, (int, float, Decimal)):
             return Money(self.value // other)
         raise NotImplementedError(f'Division between Money and {type(other)} is not defined.')
 
     def __mul__(self, other) -> Money:
-        if isinstance(other, Money):
-            return Money(self.value * other.value)
         if isinstance(other, (int, float, Decimal)):
             return Money(self.value * other)
         raise NotImplementedError(f'Multiplication between Money and {type(other)} is not defined.')
