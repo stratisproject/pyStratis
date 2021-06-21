@@ -8,7 +8,7 @@ class CallContractTransactionRequest(Model):
     """A CallContractTransactionRequest."""
     wallet_name: str = Field(alias='walletName')
     account_name: Optional[str] = Field(default='account 0', alias='accountName')
-    outpoints: List[Outpoint]
+    outpoints: Optional[List[Outpoint]]
     contract_address: Address = Field(alias='contractAddress')
     method_name: str = Field(alias='methodName')
     amount: Money

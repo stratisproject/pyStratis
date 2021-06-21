@@ -4,11 +4,8 @@ from pybitcoin.types import *
 
 
 def test_uint256(generate_uint256):
-    trx_hash = generate_uint256
-    block_hash = generate_uint256
-
-    assert uint256(trx_hash).to_hex() == trx_hash
-    assert uint256(block_hash).to_hex() == block_hash
+    hex_int = generate_uint256
+    uint256(hex_int)
 
 
 def test_uint256_invalid_hexstring():

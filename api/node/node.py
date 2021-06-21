@@ -120,9 +120,11 @@ class Node(APIRequest, metaclass=EndpointRegister):
             APIError
         """
         data = self.get(request_model, **kwargs)
-        data['value'] = Money.from_satoshi_units(data['value'])
-        if data is not None and 'scriptPubKey' in data:
-            data['scriptPubKey'] = ScriptPubKey(**data['scriptPubKey'])
+        if data is not None:
+            if 'value' in data:
+                data['value'] = Money.from_satoshi_units(data['value'])
+            if 'scriptPubKey' in data:
+                data['scriptPubKey'] = ScriptPubKey(**data['scriptPubKey'])
             return GetTxOutModel(**data)
 
     @endpoint(f'{route}/gettxoutproof')

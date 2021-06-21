@@ -1,6 +1,7 @@
 from __future__ import annotations
 from functools import total_ordering
 from typing import Callable, Union
+from .hexstr import hexstr
 
 
 # noinspection PyPep8Naming
@@ -49,7 +50,7 @@ class customint:
         return self.__hex__()
 
     @classmethod
-    def hex_to_int(cls, v: str) -> int:
+    def hex_to_int(cls, v: Union[str, hexstr]) -> int:
         # For unsigned ints
         if cls._minvalue == 0:
             return int(v, 16)
@@ -63,24 +64,30 @@ class customint:
     @classmethod
     def validate_class(cls, value) -> customint:
         cls.validate_allowed_types(value)
-        value = cls._convert_hexstr_to_int(value)
+        try:
+            value = int(value)
+        except ValueError:
+            value = cls._convert_hexstr_to_int(value)
         _check_value_out_of_range(value=value, minvalue=cls._minvalue, maxvalue=cls._maxvalue)
         return cls(value)
 
     def validate_value(self, value) -> int:
         self.validate_allowed_types(value)
-        value = self._convert_hexstr_to_int(value)
+        try:
+            value = int(value)
+        except ValueError:
+            value = self._convert_hexstr_to_int(value)
         _check_value_out_of_range(value=value, minvalue=self._minvalue, maxvalue=self._maxvalue)
         return int(value)
 
     @classmethod
     def validate_allowed_types(cls, value) -> None:
-        if isinstance(value, bool) or not isinstance(value, (str, int, customint)):
+        if isinstance(value, bool) or not isinstance(value, (str, int, hexstr, customint)):
             raise ValueError('Invalid type. Must be str, int, or customint subclass.')
 
     @classmethod
-    def _convert_hexstr_to_int(cls, value: Union[str, int]) -> int:
-        return cls.hex_to_int(value) if isinstance(value, str) else value
+    def _convert_hexstr_to_int(cls, value: Union[str, int, hexstr]) -> int:
+        return cls.hex_to_int(value) if isinstance(value, (hexstr, str)) else value
 
     def __repr__(self) -> str:
         return f'{self.__class__.__name__}({self.value})'

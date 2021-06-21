@@ -73,9 +73,11 @@ def initialize_nodes(
     balance_funds_across_nodes(cirrusminer_node, cirrusminer_syncing_node)
     wait_n_blocks_and_sync(2)
     fund_smartcontract_address(cirrusminer_node)
+    wait_n_blocks_and_sync(2)
     fund_smartcontract_address(cirrusminer_syncing_node)
     wait_n_blocks_and_sync(2)
     make_some_transactions_by_splitting(cirrusminer_node)
+    wait_n_blocks_and_sync(2)
     make_some_transactions_by_splitting(cirrusminer_syncing_node)
     wait_n_blocks_and_sync(2)
 

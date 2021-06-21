@@ -77,21 +77,21 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
         elif request_model.data_type == 4:
             return data
         elif request_model.data_type == 5:
-            return uint32(int(data))
+            return uint32(data)
         elif request_model.data_type == 6:
-            return int32(int(data))
+            return int32(data)
         elif request_model.data_type == 7:
-            return uint64(int(data))
+            return uint64(data)
         elif request_model.data_type == 8:
-            return int64(int(data))
+            return int64(data)
         elif request_model.data_type == 9:
             return Address(address=data, network=self._network)
         elif request_model.data_type == 10:
             return bytearray(unhexlify(data))
         elif request_model.data_type == 11:
-            return uint128(int(data))
+            return uint128(data)
         elif request_model.data_type == 12:
-            return uint256(int(data))
+            return uint256(data)
 
     @endpoint(f'{route}/receipt')
     def receipt(self, request_model: ReceiptRequest, **kwargs) -> ReceiptModel:

@@ -3,7 +3,6 @@ from api.smartcontractwallet.requestmodels import *
 from api.smartcontractwallet.responsemodels import *
 from pybitcoin import SmartContractParameter, SmartContractParameterType
 from pybitcoin.types import Address, Money, uint32, uint64, uint128, uint256, int32, int64
-from pybitcoin.networks import CirrusRegTest
 from nodes import CirrusMinerNode
 
 
@@ -19,8 +18,8 @@ def test_account_addresses(cirrusminer_node: CirrusMinerNode):
 
 @pytest.mark.integration_test
 @pytest.mark.cirrus_integration_test
-def test_address_balance(cirrusminer_node: CirrusMinerNode, get_smart_contract_address):
-    request_model = AddressBalanceRequest(address=get_smart_contract_address)
+def test_address_balance(cirrusminer_node: CirrusMinerNode, get_node_smart_contract_address):
+    request_model = AddressBalanceRequest(address=get_node_smart_contract_address(cirrusminer_node))
     response = cirrusminer_node.smart_contract_wallet.address_balance(request_model)
     assert isinstance(response, Money)
 
@@ -30,9 +29,7 @@ def test_address_balance(cirrusminer_node: CirrusMinerNode, get_smart_contract_a
 def test_history(cirrusminer_node: CirrusMinerNode, get_smart_contract_address):
     request_model = HistoryRequest(
         wallet_name='Test',
-        address=get_smart_contract_address,
-        skip=2,
-        take=2
+        address=get_smart_contract_address
     )
 
     response = cirrusminer_node.smart_contract_wallet.history(request_model)
@@ -55,7 +52,7 @@ def test_create(cirrusminer_node: CirrusMinerNode, apitestcontract_bytecode, get
         contract_code=apitestcontract_bytecode,
         gas_price=1000,
         gas_limit=250000,
-        sender=Address(address=sending_address, network=CirrusRegTest()),
+        sender=sending_address,
         parameters=[
             SmartContractParameter(value_type=SmartContractParameterType.Boolean, value=True),
             SmartContractParameter(value_type=SmartContractParameterType.Byte, value=b'\xff'),
@@ -65,8 +62,7 @@ def test_create(cirrusminer_node: CirrusMinerNode, apitestcontract_bytecode, get
             SmartContractParameter(value_type=SmartContractParameterType.Int32, value=int32(-123)),
             SmartContractParameter(value_type=SmartContractParameterType.UInt64, value=uint64(456)),
             SmartContractParameter(value_type=SmartContractParameterType.Int64, value=int64(-456)),
-            SmartContractParameter(value_type=SmartContractParameterType.Address,
-                                   value=Address(address=sending_address, network=CirrusRegTest())),
+            SmartContractParameter(value_type=SmartContractParameterType.Address, value=sending_address),
             SmartContractParameter(value_type=SmartContractParameterType.ByteArray, value=bytearray(b'\x04\xa6\xb9')),
             SmartContractParameter(value_type=SmartContractParameterType.UInt128, value=uint128(789)),
             SmartContractParameter(value_type=SmartContractParameterType.UInt256, value=uint256(987))
@@ -92,7 +88,7 @@ def test_call(cirrusminer_node: CirrusMinerNode, get_node_address_with_balance, 
         password='password',
         gas_price=1000,
         gas_limit=250000,
-        sender=Address(address=sending_address, network=CirrusRegTest()),
+        sender=sending_address,
         parameters=[
             SmartContractParameter(value_type=SmartContractParameterType.Boolean, value=True),
             SmartContractParameter(value_type=SmartContractParameterType.Byte, value=b'\xff'),
@@ -102,8 +98,7 @@ def test_call(cirrusminer_node: CirrusMinerNode, get_node_address_with_balance, 
             SmartContractParameter(value_type=SmartContractParameterType.Int32, value=int32(-123)),
             SmartContractParameter(value_type=SmartContractParameterType.UInt64, value=uint64(456)),
             SmartContractParameter(value_type=SmartContractParameterType.Int64, value=int64(-456)),
-            SmartContractParameter(value_type=SmartContractParameterType.Address,
-                                   value=Address(address=sending_address, network=CirrusRegTest())),
+            SmartContractParameter(value_type=SmartContractParameterType.Address, value=sending_address),
             SmartContractParameter(value_type=SmartContractParameterType.ByteArray, value=bytearray(b'\x04\xa6\xb9')),
             SmartContractParameter(value_type=SmartContractParameterType.UInt128, value=uint128(789)),
             SmartContractParameter(value_type=SmartContractParameterType.UInt256, value=uint256(987))
@@ -112,6 +107,9 @@ def test_call(cirrusminer_node: CirrusMinerNode, get_node_address_with_balance, 
 
     response = cirrusminer_node.smart_contract_wallet.call(request_model)
     assert isinstance(response, BuildContractTransactionModel)
+    # send the transaction to remove the utxo reservation
+    request_model = SendTransactionRequest(hex=response.hex)
+    cirrusminer_node.smart_contract_wallet.send_transaction(request_model)
 
 
 @pytest.mark.integration_test
@@ -129,7 +127,7 @@ def test_send_transaction(cirrusminer_node: CirrusMinerNode, get_node_address_wi
         password='password',
         gas_price=1000,
         gas_limit=250000,
-        sender=Address(address=sending_address, network=CirrusRegTest()),
+        sender=sending_address,
         parameters=[
             SmartContractParameter(value_type=SmartContractParameterType.Boolean, value=True),
             SmartContractParameter(value_type=SmartContractParameterType.Byte, value=b'\xff'),
@@ -139,8 +137,7 @@ def test_send_transaction(cirrusminer_node: CirrusMinerNode, get_node_address_wi
             SmartContractParameter(value_type=SmartContractParameterType.Int32, value=int32(-123)),
             SmartContractParameter(value_type=SmartContractParameterType.UInt64, value=uint64(456)),
             SmartContractParameter(value_type=SmartContractParameterType.Int64, value=int64(-456)),
-            SmartContractParameter(value_type=SmartContractParameterType.Address,
-                                   value=Address(address=sending_address, network=CirrusRegTest())),
+            SmartContractParameter(value_type=SmartContractParameterType.Address, value=sending_address),
             SmartContractParameter(value_type=SmartContractParameterType.ByteArray, value=bytearray(b'\x04\xa6\xb9')),
             SmartContractParameter(value_type=SmartContractParameterType.UInt128, value=uint128(789)),
             SmartContractParameter(value_type=SmartContractParameterType.UInt256, value=uint256(987))

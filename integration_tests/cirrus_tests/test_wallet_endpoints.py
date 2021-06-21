@@ -4,7 +4,7 @@ from api import APIError
 from api.wallet.requestmodels import *
 from api.wallet.responsemodels import *
 from pybitcoin.types import Money, Address, uint256, hexstr
-from pybitcoin import Recipient, Outpoint, DestinationChain, PubKey, ExtPubKey, AccountBalanceModel, AddressModel
+from pybitcoin import Recipient, Outpoint, DestinationChain, PubKey, ExtPubKey, AccountBalanceModel, AddressModel, Key
 from pybitcoin.networks import CirrusRegTest
 
 
@@ -292,7 +292,7 @@ def test_build_interflux_transaction(
 
     request_model = BuildInterfluxTransactionRequest(
         destination_chain=DestinationChain.ETH,
-        destination_address=Address(address=generate_p2sh_address, network=CirrusRegTest()),
+        destination_address=Address(address=generate_p2sh_address(network=CirrusRegTest()), network=CirrusRegTest()),
         fee_amount=fee_amount,
         password='password',
         segwit_change_address=False,
@@ -492,11 +492,11 @@ def test_extpubkey(cirrusminer_node: CirrusMinerNode):
 
 @pytest.mark.integration_test
 @pytest.mark.cirrus_integration_test
-def test_private_key(cirrusminer_node: CirrusMinerNode, get_node_address_with_balance):
-    address = get_node_address_with_balance(cirrusminer_node)
+def test_private_key(cirrusminer_syncing_node: CirrusMinerNode, get_node_address_with_balance):
+    address = get_node_address_with_balance(cirrusminer_syncing_node)
     request_model = PrivateKeyRequest(password='password', wallet_name='Test', address=address)
-    response = cirrusminer_node.wallet.private_key(request_model)
-    assert isinstance(response, str)
+    response = cirrusminer_syncing_node.wallet.private_key(request_model)
+    assert isinstance(response, Key)
 
 
 @pytest.mark.integration_test
@@ -531,7 +531,7 @@ def test_wallet_stats(cirrusminer_node: CirrusMinerNode):
 
 @pytest.mark.integration_test
 @pytest.mark.cirrus_integration_test
-def test_split_coins(cirrusminer_node: CirrusMinerNode, wait_n_blocks_and_sync):
+def test_split_coins(cirrusminer_syncing_node: CirrusMinerNode, wait_n_blocks_and_sync):
     wait_n_blocks_and_sync(1)
     request_model = SplitCoinsRequest(
         wallet_name='Test',
@@ -540,7 +540,7 @@ def test_split_coins(cirrusminer_node: CirrusMinerNode, wait_n_blocks_and_sync):
         total_amount_to_split=Money(10),
         utxos_count=5
     )
-    response = cirrusminer_node.wallet.split_coins(request_model)
+    response = cirrusminer_syncing_node.wallet.split_coins(request_model)
     assert isinstance(response, WalletSendTransactionModel)
     assert isinstance(response.transaction_id, uint256)
     for item in response.outputs:
@@ -651,12 +651,12 @@ def test_offline_sign_request(
         get_node_unused_address,
         wait_n_blocks_and_sync):
     wait_n_blocks_and_sync(3)
-    destination_address = get_node_unused_address(cirrusminer_syncing_node)
-    change_address = get_node_address_with_balance(cirrusminer_node)
+    destination_address = get_node_unused_address(cirrusminer_node)
+    change_address = get_node_address_with_balance(cirrusminer_syncing_node)
     fee_amount = Money(0.0001)
     amount_to_send = Money(10)
     op_return_amount = Money(0.00000001)
-    transactions = get_spendable_transactions(node=cirrusminer_node, amount=amount_to_send,
+    transactions = get_spendable_transactions(node=cirrusminer_syncing_node, amount=amount_to_send,
                                               op_return_amount=op_return_amount, wallet_name='Test', min_confirmations=2)
 
     request_model = BuildOfflineSignRequest(
@@ -667,11 +667,11 @@ def test_offline_sign_request(
         recipients=[Recipient(destination_address=destination_address, subtraction_fee_from_amount=True, amount=amount_to_send)],
         op_return_data='opreturn',
         op_return_amount=op_return_amount,
-        allow_unconfirmed=False,
+        allow_unconfirmed=True,
         shuffle_outputs=True,
         change_address=change_address
     )
-    offline_sign_model = cirrusminer_node.wallet.build_offline_sign_request(request_model)
+    offline_sign_model = cirrusminer_syncing_node.wallet.build_offline_sign_request(request_model)
 
     request_model = OfflineSignRequest(
         wallet_password='password',
@@ -685,7 +685,7 @@ def test_offline_sign_request(
     # Occasionally this will fail because of regtest environment setup. Try, try again.
     for i in range(5):
         try:
-            response = cirrusminer_node.wallet.offline_sign_request(request_model)
+            response = cirrusminer_syncing_node.wallet.offline_sign_request(request_model)
             assert isinstance(response, BuildTransactionModel)
             assert isinstance(response.transaction_id, uint256)
             assert isinstance(response.hex, hexstr)
