@@ -4,7 +4,7 @@ from api import APIError
 from api.wallet.requestmodels import *
 from api.wallet.responsemodels import *
 from pybitcoin.types import Money, Address, uint256, hexstr
-from pybitcoin import Recipient, Outpoint, DestinationChain, PubKey, ExtPubKey, AccountBalanceModel, AddressModel
+from pybitcoin import Recipient, Outpoint, DestinationChain, PubKey, ExtPubKey, AccountBalanceModel, AddressModel, Key
 from pybitcoin.networks import Ethereum
 
 
@@ -471,7 +471,7 @@ def test_private_key(strax_hot_node: BaseNode, get_node_address_with_balance):
     address = get_node_address_with_balance(strax_hot_node)
     request_model = PrivateKeyRequest(password='password', wallet_name='Test', address=address)
     response = strax_hot_node.wallet.private_key(request_model)
-    assert isinstance(response, str)
+    assert isinstance(response, Key)
 
 
 @pytest.mark.integration_test
