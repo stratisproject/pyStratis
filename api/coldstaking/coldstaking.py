@@ -110,7 +110,6 @@ class ColdStaking(APIRequest, metaclass=EndpointRegister):
             address_descriptor['address'] = Address(address=address_descriptor['address'], network=self._network)
             address_descriptors.append(address_descriptor)
         data['addresses'] = [AddressDescriptor(**x) for x in address_descriptors]
-        data['fee'] = Money.from_satoshi_units(data['fee'])
 
         return BuildOfflineSignModel(**data)
 
@@ -183,7 +182,6 @@ class ColdStaking(APIRequest, metaclass=EndpointRegister):
             APIError
         """
         data = self.post(request_model, **kwargs)
-        data['fee'] = Money.from_satoshi_units(data['fee'])
 
         # Build the UtxoDescriptors
         for i in range(len(data['utxos'])):
