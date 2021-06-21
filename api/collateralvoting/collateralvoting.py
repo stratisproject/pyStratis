@@ -6,7 +6,7 @@ class CollateralVoting(APIRequest, metaclass=EndpointRegister):
     route = '/api/collateralvoting'
 
     def __init__(self, **kwargs):
-        super(CollateralVoting, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
     @endpoint(f'{route}/schedulevote-kickfedmember')
     def schedulevote_kickfedmember(self, request_model: ScheduleVoteKickFedMemberRequest, **kwargs) -> None:

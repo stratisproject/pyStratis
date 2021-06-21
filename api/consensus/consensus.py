@@ -9,7 +9,7 @@ class Consensus(APIRequest, metaclass=EndpointRegister):
     route = '/api/consensus'
 
     def __init__(self, **kwargs):
-        super(Consensus, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
     @endpoint(f'{route}/deploymentflags')
     def deployment_flags(self, **kwargs) -> List[DeploymentFlagsModel]:

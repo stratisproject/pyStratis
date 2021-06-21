@@ -7,7 +7,7 @@ class Mining(APIRequest, metaclass=EndpointRegister):
     route = '/api/mining'
 
     def __init__(self, **kwargs):
-        super(Mining, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
     @endpoint(f'{route}/generate')
     def generate(self, request_model: GenerateRequest, **kwargs) -> GenerateBlocksModel:

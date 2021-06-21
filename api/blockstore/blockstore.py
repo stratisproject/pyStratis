@@ -10,7 +10,7 @@ class BlockStore(APIRequest, metaclass=EndpointRegister):
     route = '/api/blockstore'
 
     def __init__(self, **kwargs):
-        super(BlockStore, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
     @endpoint(f'{route}/addressindexertip')
     def addressindexer_tip(self, **kwargs) -> AddressIndexerTipModel:

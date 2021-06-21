@@ -13,7 +13,7 @@ class CirrusMinerNode(BaseNode):
     def __init__(self, ipaddr: str = 'http://localhost', blockchainnetwork: BaseNetwork = CirrusMain(), devmode=False):
         if not isinstance(blockchainnetwork, (CirrusMain, CirrusTest, CirrusRegTest)):
             raise ValueError('Invalid network. Must be one of: [CirrusMain, CirrusTest, CirrusRegTest]')
-        super(CirrusMinerNode, self).__init__(name='Cirrus', ipaddr=ipaddr, blockchainnetwork=blockchainnetwork)
+        super().__init__(name='Cirrus', ipaddr=ipaddr, blockchainnetwork=blockchainnetwork)
 
         # API endpoints
         self._balances = Balances(baseuri=self.api_route, network=blockchainnetwork)

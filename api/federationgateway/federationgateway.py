@@ -11,7 +11,7 @@ class FederationGateway(APIRequest, metaclass=EndpointRegister):
     route = '/api/federationgateway'
 
     def __init__(self, **kwargs):
-        super(FederationGateway, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
     @endpoint(f'{route}/deposits')
     def deposits(self, request_model: DepositsRequest, **kwargs) -> List[MaturedBlockDepositsModel]:

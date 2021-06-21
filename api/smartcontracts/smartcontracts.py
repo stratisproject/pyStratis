@@ -11,7 +11,7 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
     route = '/api/smartcontracts'
 
     def __init__(self, **kwargs):
-        super(SmartContracts, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
     @endpoint(f'{route}/code')
     def code(self, request_model: CodeRequest, **kwargs) -> GetCodeModel:

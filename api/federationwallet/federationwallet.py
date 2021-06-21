@@ -9,7 +9,7 @@ class FederationWallet(APIRequest, metaclass=EndpointRegister):
     route = '/api/federationwallet'
 
     def __init__(self, **kwargs):
-        super(FederationWallet, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
     @endpoint(f'{route}/general-info')
     def general_info(self, **kwargs) -> WalletGeneralInfoModel:

@@ -21,7 +21,7 @@ class GetAddressesBalancesRequest(Model):
         return v
 
     def json(self, *args, **kwargs) -> str:
-        data = super(GetAddressesBalancesRequest, self).dict(exclude_none=True, by_alias=True)
+        data = super().dict(exclude_none=True, by_alias=True)
         if isinstance(data['addresses'], list):
             data['addresses'] = ','.join([x.json() for x in data['addresses']])
         if isinstance(data['addresses'], Address):

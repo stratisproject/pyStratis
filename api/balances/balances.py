@@ -9,7 +9,7 @@ class Balances(APIRequest, metaclass=EndpointRegister):
     route = '/api/balances'
 
     def __init__(self, **kwargs):
-        super(Balances, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
     @endpoint(f'{route}/over-amount-at-height')
     def over_amount_at_height(self, request_model: OverAmountAtHeightRequest, **kwargs) -> List[Address]:

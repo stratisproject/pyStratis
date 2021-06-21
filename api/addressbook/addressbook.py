@@ -10,7 +10,7 @@ class AddressBook(APIRequest, metaclass=EndpointRegister):
     route = '/api/addressbook'
 
     def __init__(self, **kwargs):
-        super(AddressBook, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
     @endpoint(f'{route}/address')
     def add(self, request_model: AddRequest, **kwargs) -> AddressBookEntryModel:

@@ -15,4 +15,4 @@ class AddressDescriptor(BaseModel):
         allow_population_by_field_name = True
 
     def json(self, *args, **kwargs) -> str:
-        return super(AddressDescriptor, self).json(by_alias=True)
+        return super().json(by_alias=True)

@@ -10,7 +10,7 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
     route = '/api/wallet'
 
     def __init__(self, **kwargs):
-        super(Wallet, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
     @endpoint(f'{route}/mnemonic')
     def mnemonic(self, request_model: MnemonicRequest, **kwargs) -> List[str]:

@@ -8,7 +8,7 @@ class Diagnostic(APIRequest, metaclass=EndpointRegister):
     route = '/api/diagnostic'
 
     def __init__(self, **kwargs):
-        super(Diagnostic, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
     @endpoint(f'{route}/getconnectedpeersinfo')
     def get_connectedpeers_info(self, **kwargs) -> GetConnectedPeersInfoModel:

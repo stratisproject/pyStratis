@@ -11,4 +11,4 @@ class WalletBalanceModel(BaseModel):
         allow_population_by_field_name = True
 
     def json(self, *args, **kwargs) -> str:
-        return super(WalletBalanceModel, self).json(exclude_none=True, by_alias=True)
+        return super().json(exclude_none=True, by_alias=True)

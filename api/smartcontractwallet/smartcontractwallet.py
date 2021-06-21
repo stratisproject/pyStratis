@@ -9,7 +9,7 @@ class SmartContractWallet(APIRequest, metaclass=EndpointRegister):
     route = '/api/smartcontractwallet'
 
     def __init__(self, **kwargs):
-        super(SmartContractWallet, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
     @endpoint(f'{route}/account-addresses')
     def account_addresses(self, request_model: AccountAddressesRequest, **kwargs) -> List[Address]:

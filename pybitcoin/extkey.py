@@ -6,7 +6,7 @@ from .key import Key
 
 class ExtKey(Key):
     def __init__(self, value: Union[bytes, str, Key]):
-        super(ExtKey, self).__init__(value)
+        super().__init__(value)
 
     def generate_private_key_bytes(self) -> bytes:
         return self._keybytes[:32]

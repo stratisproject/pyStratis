@@ -9,7 +9,7 @@ class ColdStaking(APIRequest, metaclass=EndpointRegister):
     route = '/api/coldstaking'
 
     def __init__(self, **kwargs):
-        super(ColdStaking, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
     @endpoint(f'{route}/cold-staking-info')
     def info(self, request_model: InfoRequest, **kwargs) -> InfoModel:

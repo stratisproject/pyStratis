@@ -11,4 +11,4 @@ class Outpoint(BaseModel):
         allow_population_by_field_name = True
 
     def json(self, *args, **kwargs) -> str:
-        return super(Outpoint, self).json(by_alias=True, exclude_none=True)
+        return super().json(by_alias=True, exclude_none=True)

@@ -8,7 +8,7 @@ class Voting(APIRequest, metaclass=EndpointRegister):
     route = '/api/voting'
 
     def __init__(self, **kwargs):
-        super(Voting, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
     @endpoint(f'{route}/polls/pending')
     def pending_polls(self, request_model: PollsRequest, **kwargs) -> List[PollViewModel]:
