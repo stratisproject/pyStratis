@@ -5,7 +5,7 @@ class Dashboard(APIRequest, metaclass=EndpointRegister):
     route = '/api/dashboard'
 
     def __init__(self, **kwargs):
-        super(Dashboard, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
     @endpoint(f'{route}/stats')
     def stats(self, **kwargs) -> str:

@@ -6,7 +6,7 @@ class Notifications(APIRequest, metaclass=EndpointRegister):
     route = '/api/notifications'
 
     def __init__(self, **kwargs):
-        super(Notifications, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
     @endpoint(f'{route}/sync')
     def sync(self, request_model: SyncRequest, **kwargs) -> None:

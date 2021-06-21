@@ -55,4 +55,4 @@ class Model(BaseModel):
         extra = 'forbid'
     
     def json(self, *args, **kwargs) -> str:
-        return super(Model, self).json(exclude_none=True, by_alias=True)
+        return super().json(exclude_none=True, by_alias=True)

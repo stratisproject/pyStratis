@@ -7,7 +7,7 @@ class Collateral(APIRequest, metaclass=EndpointRegister):
     route = '/api/collateral'
 
     def __init__(self, **kwargs):
-        super(Collateral, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
     @endpoint(f'{route}/joinfederation')
     def join_federation(self, request_model: JoinFederationRequest, **kwargs) -> JoinFederationResponseModel:

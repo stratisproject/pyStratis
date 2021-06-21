@@ -6,7 +6,7 @@ class SignalR(APIRequest, metaclass=EndpointRegister):
     route = '/api/signalr'
 
     def __init__(self, **kwargs):
-        super(SignalR, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
     @endpoint(f'{route}/getconnectioninfo')
     def get_connection_info(self, **kwargs) -> GetConnectionInfoModel:

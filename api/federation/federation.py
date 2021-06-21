@@ -7,7 +7,7 @@ class Federation(APIRequest, metaclass=EndpointRegister):
     route = '/api/federation'
 
     def __init__(self, **kwargs):
-        super(Federation, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
     @endpoint(f'{route}/reconstruct')
     def reconstruct(self, **kwargs) -> str:

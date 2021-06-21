@@ -8,7 +8,7 @@ class RPC(APIRequest, metaclass=EndpointRegister):
     route = '/api/rpc'
 
     def __init__(self, **kwargs):
-        super(RPC, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
     @endpoint(f'{route}/callbyname')
     def call_by_name(self, request_model: CallByNameRequest, **kwargs) -> RPCCommandResponseModel:

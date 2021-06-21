@@ -44,7 +44,7 @@ class BuildTransactionRequest(Model):
         return v
 
     def json(self, *args, **kwargs) -> str:
-        data = super(BuildTransactionRequest, self).dict(exclude_none=True, by_alias=True)
+        data = super().dict(exclude_none=True, by_alias=True)
         data['password'] = data['password'].get_secret_value()
         for i in range(len(data['outpoints'])):
             data['outpoints'][i]['transactionId'] = str(data['outpoints'][i]['transactionId'])

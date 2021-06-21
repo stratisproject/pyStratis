@@ -10,7 +10,7 @@ class Node(APIRequest, metaclass=EndpointRegister):
     route = '/api/node'
 
     def __init__(self, **kwargs):
-        super(Node, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
     @endpoint(f'{route}/status')
     def status(self, **kwargs) -> StatusModel:

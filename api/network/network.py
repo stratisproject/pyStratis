@@ -8,7 +8,7 @@ class Network(APIRequest, metaclass=EndpointRegister):
     route = '/api/network'
 
     def __init__(self, **kwargs):
-        super(Network, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
     @endpoint(f'{route}/disconnect')
     def disconnect(self, request_model: DisconnectPeerRequest, **kwargs) -> None:

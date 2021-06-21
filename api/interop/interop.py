@@ -8,7 +8,7 @@ class Interop(APIRequest, metaclass=EndpointRegister):
     route = '/api/interop'
 
     def __init__(self, **kwargs):
-        super(Interop, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
     @endpoint(f'{route}/status')
     def status(self, **kwargs) -> StatusModel:

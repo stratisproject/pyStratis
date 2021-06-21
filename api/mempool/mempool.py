@@ -7,7 +7,7 @@ class Mempool(APIRequest, metaclass=EndpointRegister):
     route = '/api/mempool'
 
     def __init__(self, **kwargs):
-        super(Mempool, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
     @endpoint(f'{route}/getrawmempool')
     def get_raw_mempool(self, **kwargs) -> List[uint256]:

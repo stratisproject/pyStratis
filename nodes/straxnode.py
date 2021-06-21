@@ -11,7 +11,7 @@ class StraxNode(BaseNode):
     def __init__(self, ipaddr: str = 'http://localhost', blockchainnetwork: BaseNetwork = StraxMain()):
         if not isinstance(blockchainnetwork, (StraxMain, StraxTest, StraxRegTest)):
             raise ValueError('Invalid network. Must be one of: [StraxMain, StraxTest, StraxRegTest]')
-        super(StraxNode, self).__init__(name='Strax', ipaddr=ipaddr, blockchainnetwork=blockchainnetwork)
+        super().__init__(name='Strax', ipaddr=ipaddr, blockchainnetwork=blockchainnetwork)
 
         # API endpoints
         self._coldstaking = ColdStaking(baseuri=self.api_route, network=blockchainnetwork)

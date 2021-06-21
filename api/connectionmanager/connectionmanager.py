@@ -8,7 +8,7 @@ class ConnectionManager(APIRequest, metaclass=EndpointRegister):
     route = '/api/connectionmanager'
 
     def __init__(self, **kwargs):
-        super(ConnectionManager, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
     @endpoint(f'{route}/addnode')
     def addnode(self, request_model: AddNodeRequest, **kwargs) -> bool:

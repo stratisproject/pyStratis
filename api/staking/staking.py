@@ -7,7 +7,7 @@ class Staking(APIRequest, metaclass=EndpointRegister):
     route = '/api/staking'
 
     def __init__(self, **kwargs):
-        super(Staking, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
     @endpoint(f'{route}/getstakinginfo')
     def get_staking_info(self, **kwargs) -> GetStakingInfoModel:

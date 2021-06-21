@@ -8,7 +8,7 @@ class Multisig(APIRequest, metaclass=EndpointRegister):
     route = '/api/multisig'
 
     def __init__(self, **kwargs):
-        super(Multisig, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
     @endpoint(f'{route}/build-transaction')
     def build_transaction(self, request_model: BuildTransactionRequest, **kwargs) -> BuildTransactionModel:

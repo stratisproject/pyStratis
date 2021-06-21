@@ -20,7 +20,7 @@ class InterfluxStraxNode(BaseNode):
     def __init__(self, ipaddr: str = 'http://localhost', blockchainnetwork: BaseNetwork = StraxMain()):
         if not isinstance(blockchainnetwork, (StraxMain, StraxTest, StraxRegTest)):
             raise ValueError('Invalid network. Must be one of: [StraxMain, StraxTest, StraxRegTest]')
-        super(InterfluxStraxNode, self).__init__(name='InterfluxStrax', ipaddr=ipaddr, blockchainnetwork=blockchainnetwork)
+        super().__init__(name='InterfluxStrax', ipaddr=ipaddr, blockchainnetwork=blockchainnetwork)
 
         # API endpoints
         self._collateral = Collateral(baseuri=self.api_route, network=blockchainnetwork)
@@ -80,7 +80,7 @@ class InterfluxCirrusNode(BaseNode):
     def __init__(self, ipaddr: str = 'http://localhost', blockchainnetwork: BaseNetwork = CirrusMain()):
         if not isinstance(blockchainnetwork, (CirrusMain, CirrusTest, CirrusRegTest)):
             raise ValueError('Invalid network. Must be one of: [CirrusMain, CirrusTest, CirrusRegTest]')
-        super(InterfluxCirrusNode, self).__init__(name='InterfluxCirrus', ipaddr=ipaddr, blockchainnetwork=blockchainnetwork)
+        super().__init__(name='InterfluxCirrus', ipaddr=ipaddr, blockchainnetwork=blockchainnetwork)
 
         # API endpoints
         self._balances = Balances(baseuri=self.api_route, network=blockchainnetwork)
