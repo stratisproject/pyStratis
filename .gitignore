@@ -10,6 +10,12 @@ Makefile
 # pytest
 /.pytest_cache/
 /.coverage
+/.vscode
+/env
+
+# Cache files
+__pycache__/
+*.pyc
 
 # Integration test node
 /integration_tests/StratisFullNode/
