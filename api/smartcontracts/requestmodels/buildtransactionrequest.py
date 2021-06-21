@@ -12,7 +12,7 @@ class BuildTransactionRequest(Model):
     segwit_change_address: Optional[bool] = Field(default=False, alias='segwitChangeAddress')
     wallet_name: str = Field(alias='walletName')
     account_name: Optional[str] = Field(default='account 0', alias='accountName')
-    outpoints: List[Outpoint]
+    outpoints: Optional[List[Outpoint]]
     recipients: List[Recipient]
     op_return_data: Optional[str] = Field(alias='opReturnData')
     op_return_amount: Optional[Money] = Field(alias='opReturnAmount')

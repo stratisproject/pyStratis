@@ -45,7 +45,7 @@ class SmartContractWallet(APIRequest, metaclass=EndpointRegister):
         """
         data = self.get(request_model, **kwargs)
 
-        return Money(data)
+        return Money.from_satoshi_units(data)
 
     @endpoint(f'{route}/history')
     def history(self, request_model: HistoryRequest, **kwargs) -> List[ContractTransactionItemModel]:
@@ -63,7 +63,7 @@ class SmartContractWallet(APIRequest, metaclass=EndpointRegister):
         """
         data = self.get(request_model, **kwargs)
         for i in range(len(data)):
-            data[i]['To'] = Address(address=data[i]['To'], network=self._network)
+            data[i]['to'] = Address(address=data[i]['to'], network=self._network)
 
         return [ContractTransactionItemModel(**x) for x in data]
 
@@ -119,7 +119,11 @@ class SmartContractWallet(APIRequest, metaclass=EndpointRegister):
         """
         data = self.post(request_model, **kwargs)
         for i in range(len(data['outputs'])):
-            data['outputs'][i]['address'] = Address(address=data['outputs'][i]['address'], network=self._network)
+            if 'address' in data['outputs'][i]:
+                try:
+                    data['outputs'][i]['address'] = int(data['outputs'][i]['address'])
+                except ValueError:
+                    data['outputs'][i]['address'] = Address(address=data['outputs'][i]['address'], network=self._network)
             data['outputs'][i] = TransactionOutputModel(**data['outputs'][i])
 
         return WalletSendTransactionModel(**data)

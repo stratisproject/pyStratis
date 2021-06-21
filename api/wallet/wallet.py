@@ -2,7 +2,7 @@ from typing import List
 from api import APIRequest, EndpointRegister, endpoint
 from api.wallet.requestmodels import *
 from api.wallet.responsemodels import *
-from pybitcoin import PubKey, ExtPubKey, AddressDescriptor, UtxoDescriptor
+from pybitcoin import PubKey, ExtPubKey, AddressDescriptor, UtxoDescriptor, Key
 from pybitcoin.types import Address, Money, hexstr, uint256
 
 
@@ -198,14 +198,18 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
                     address=data['history'][i]['transactionsHistory'][j]['toAddress'],
                     network=self._network
                 )
-                for k in range(len(data['history'][i]['transactionsHistory'][j]['payments'])):
-                    data['history'][i]['transactionsHistory'][j]['payments'][k]['amount'] = Money.from_satoshi_units(data['history'][i]['transactionsHistory'][j]['payments'][k]['amount'])
-                    if 'fee' in data['history'][i]['transactionsHistory'][j]['payments'][k]:
-                        data['history'][i]['transactionsHistory'][j]['payments'][k]['fee'] = Money.from_satoshi_units(data['history'][i]['transactionsHistory'][j]['payments'][k]['fee'])
-                    data['history'][i]['transactionsHistory'][j]['payments'][k]['destinationAddress'] = Address(
-                        address=data['history'][i]['transactionsHistory'][j]['payments'][k]['destinationAddress'],
-                        network=self._network
-                    )
+                data['history'][i]['transactionsHistory'][j]['amount'] = Money.from_satoshi_units(data['history'][i]['transactionsHistory'][j]['amount'])
+                if 'fee' in data['history'][i]['transactionsHistory'][j]:
+                    data['history'][i]['transactionsHistory'][j]['fee'] = Money.from_satoshi_units(data['history'][i]['transactionsHistory'][j]['fee'])
+                if 'payments' in data['history'][i]['transactionsHistory'][j]:
+                    for k in range(len(data['history'][i]['transactionsHistory'][j]['payments'])):
+                        data['history'][i]['transactionsHistory'][j]['payments'][k]['amount'] = Money.from_satoshi_units(data['history'][i]['transactionsHistory'][j]['payments'][k]['amount'])
+                        if 'fee' in data['history'][i]['transactionsHistory'][j]['payments'][k]:
+                            data['history'][i]['transactionsHistory'][j]['payments'][k]['fee'] = Money.from_satoshi_units(data['history'][i]['transactionsHistory'][j]['payments'][k]['fee'])
+                        data['history'][i]['transactionsHistory'][j]['payments'][k]['destinationAddress'] = Address(
+                            address=data['history'][i]['transactionsHistory'][j]['payments'][k]['destinationAddress'],
+                            network=self._network
+                        )
 
         return WalletHistoryModel(**data)
 
@@ -276,6 +280,8 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
         """
         data = self.get(request_model, **kwargs)
         data['maxSpendableAmount'] = Money.from_satoshi_units(data['maxSpendableAmount'])
+        data['fee'] = Money.from_satoshi_units(data['fee'])
+
         return MaxSpendableAmountModel(**data)
 
     @endpoint(f'{route}/spendable-transactions')
@@ -338,6 +344,7 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
             APIError
         """
         data = self.post(request_model, **kwargs)
+        data['fee'] = Money.from_satoshi_units(data['fee'])
 
         return BuildTransactionModel(**data)
 
@@ -358,6 +365,7 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
             APIError
         """
         data = self.post(request_model, **kwargs)
+        data['fee'] = Money.from_satoshi_units(data['fee'])
 
         return BuildTransactionModel(**data)
 
@@ -570,7 +578,7 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
         return ExtPubKey(data)
 
     @endpoint(f'{route}/privatekey')
-    def private_key(self, request_model: PrivateKeyRequest, **kwargs) -> str:
+    def private_key(self, request_model: PrivateKeyRequest, **kwargs) -> Key:
         """Gets the private key of a specified wallet address.
 
         Args:
@@ -578,14 +586,14 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
             **kwargs:
 
         Returns:
-            str
+            Key
 
         Raises:
             APIError
         """
         data = self.post(request_model, **kwargs)
 
-        return data
+        return Key(data)
 
     @endpoint(f'{route}/sync')
     def sync(self, request_model: SyncRequest, **kwargs) -> None:
@@ -634,7 +642,7 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
         """
         data = self.get(request_model, **kwargs)
         for i in range(len(data['utxoAmounts'])):
-            data['utxoAmounts'][i]['amount'] = Money(data['utxoAmounts'][i]['amount'])
+            data['utxoAmounts'][i]['amount'] = Money.from_satoshi_units(data['utxoAmounts'][i]['amount'])
 
         return WalletStatsModel(**data)
 
@@ -654,6 +662,7 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
         data = self.post(request_model, **kwargs)
         for i in range(len(data['outputs'])):
             data['outputs'][i]['address'] = Address(address=data['outputs'][i]['address'], network=self._network)
+            data['outputs'][i]['amount'] = Money.from_satoshi_units(data['outputs'][i]['amount'])
             data['outputs'][i] = TransactionOutputModel(**data['outputs'][i])
 
         return WalletSendTransactionModel(**data)
@@ -744,6 +753,7 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
             APIError
         """
         data = self.post(request_model, **kwargs)
+        data['fee'] = Money.from_satoshi_units(data['fee'])
 
         return BuildTransactionModel(**data)
 

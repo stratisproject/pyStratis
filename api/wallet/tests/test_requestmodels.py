@@ -2,7 +2,6 @@ import pytest
 import json
 import ecdsa
 import base64
-from binascii import unhexlify
 from pybitcoin import DestinationChain, Outpoint, Recipient, UtxoDescriptor, AddressDescriptor
 from pybitcoin.types import Address, Money
 from api.wallet.requestmodels import *
@@ -719,6 +718,7 @@ def test_sweeprequest(network, generate_privatekey, generate_p2pkh_address):
         destination_address=Address(address=data['destinationAddress'], network=network),
         broadcast=False
     )
+    data['privateKeys'] = [str(x) for x in data['privateKeys']]
     assert json.dumps(data) == request_model.json()
 
 
@@ -749,7 +749,7 @@ def test_syncrequest(generate_uint256):
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
 def test_verifymessagerequest(network, generate_p2pkh_address, generate_privatekey):
     message = 'This is my message'
-    private_key_bytes = unhexlify(generate_privatekey())
+    private_key_bytes = generate_privatekey().get_bytes()
     key = ecdsa.SigningKey.from_string(private_key_bytes, curve=ecdsa.SECP256k1)
     sig = base64.b64encode(key.sign(bytes(message, 'ascii'))).decode('ascii')
     data = {

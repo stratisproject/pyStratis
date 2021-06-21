@@ -47,47 +47,55 @@ def get_spendable_transactions():
     return _get_spendable_transactions
 
 
-def start_regtest_node(
-        node: Union[StraxNode, CirrusNode, CirrusMinerNode, InterfluxCirrusNode, InterfluxStraxNode],
-        source_dir: str,
-        extra_cmd_ops: List[str] = None,
-        copy_private_key: bool = False,
-        key_index: int = 1):
-    # Kill any running nodes using same ports.
-    try:
-        node.node.stop()
-        time.sleep(10)
-    except ConnectionError:
-        pass
-    root_dir = re.match(r'(.*)pystratis', os.getcwd())[0]
-    data_dir = os.path.join(root_dir, 'integration_tests', 'data_dir', f'{node.name}-node-{node.blockchainnetwork.API_PORT}')
-    if os.path.exists(data_dir):
-        shutil.rmtree(data_dir)
-    if copy_private_key:
-        fed_keyfile_source_path = os.path.join(root_dir, 'integration_tests', f'federationKey{key_index}.dat')
-        os.makedirs(os.path.join(data_dir, 'cirrus', 'CirrusRegTest'), exist_ok=True)
-        fed_keyfile_target_path = os.path.join(data_dir, 'cirrus', 'CirrusRegTest', 'federationKey.dat')
-        shutil.copy(fed_keyfile_source_path, fed_keyfile_target_path)
-
-    root_dir = os.getcwd()
-    os.chdir(source_dir)
-    cmd_args = [
-        'dotnet', 'run', '-regtest', f'-datadir={data_dir}', '-addressindex=1', '-txindex=1', '-server=1',
-        f'-apiport={node.blockchainnetwork.API_PORT}', f'-port={node.blockchainnetwork.DEFAULT_PORT}',
-        f'-signalrport={node.blockchainnetwork.SIGNALR_PORT}', f'-rpcport={node.blockchainnetwork.RPC_PORT}'
-    ]
-    if extra_cmd_ops is not None:
-        cmd_args += extra_cmd_ops
-    subprocess.Popen(cmd_args)
-    os.chdir(root_dir)
-    # Wait for node to start.
-    while True:
+@pytest.fixture(scope='session')
+def start_regtest_node(request):
+    def _start_regtest_node(
+            node: Union[StraxNode, CirrusNode, CirrusMinerNode, InterfluxCirrusNode, InterfluxStraxNode],
+            source_dir: str,
+            extra_cmd_ops: List[str] = None,
+            private_key: bytes = None) -> BaseNode:
+        # Kill any running nodes using same ports.
         try:
-            node.node.status()
-            break
+            node.node.stop()
+            time.sleep(10)
         except ConnectionError:
-            time.sleep(5)
-    print('Node started.')
+            pass
+        root_dir = re.match(r'(.*)pystratis', os.getcwd())[0]
+        data_dir = os.path.join(root_dir, 'integration_tests', 'data_dir', f'{node.name}-node-{node.blockchainnetwork.API_PORT}')
+        if os.path.exists(data_dir):
+            shutil.rmtree(data_dir)
+        if private_key is not None:
+            os.makedirs(os.path.join(data_dir, 'cirrus', 'CirrusRegTest'), exist_ok=True)
+            fed_keyfile_target_path = os.path.join(data_dir, 'cirrus', 'CirrusRegTest', 'federationKey.dat')
+            with open(fed_keyfile_target_path, 'w+b') as f:
+                f.write(bytearray(private_key))
+
+        root_dir = os.getcwd()
+        os.chdir(source_dir)
+        cmd_args = [
+            'dotnet', 'run', '-regtest', f'-datadir={data_dir}', '-addressindex=1', '-txindex=1', '-server=1',
+            f'-apiport={node.blockchainnetwork.API_PORT}', f'-port={node.blockchainnetwork.DEFAULT_PORT}',
+            f'-signalrport={node.blockchainnetwork.SIGNALR_PORT}', f'-rpcport={node.blockchainnetwork.RPC_PORT}'
+        ]
+        if extra_cmd_ops is not None:
+            cmd_args += extra_cmd_ops
+        subprocess.Popen(cmd_args)
+        os.chdir(root_dir)
+        # Wait for node to start.
+        while True:
+            try:
+                node.node.status()
+                break
+            except ConnectionError:
+                time.sleep(5)
+        print('Node started.')
+
+        def stop_node():
+            node.node.stop()
+
+        request.addfinalizer(stop_node)
+        return node
+    return _start_regtest_node
 
 
 @pytest.fixture(scope='session')
@@ -246,7 +254,7 @@ def strax_regtest_node(port: int) -> StraxNode:
 
 
 @pytest.fixture(scope='session')
-def start_strax_regtest_node():
+def start_strax_regtest_node(start_regtest_node):
     def _start_strax_regtest_node(node: StraxNode, extra_cmd_ops: List = None):
         root_dir = re.match(r'(.*)pystratis', os.getcwd())[0]
         source_dir = os.path.join(root_dir, 'integration_tests', 'StratisFullNode', 'src', 'Stratis.StraxD')
@@ -325,16 +333,16 @@ def cirrus_regtest_node(port: int) -> CirrusNode:
 
 
 @pytest.fixture(scope='session')
-def start_cirrusminer_regtest_node():
-    def _start_cirrusminer_regtest_node(node: CirrusMinerNode, extra_cmd_ops: List[str], copy_private_key: bool = False, key_index: int = 1):
+def start_cirrusminer_regtest_node(start_regtest_node):
+    def _start_cirrusminer_regtest_node(node: CirrusMinerNode, extra_cmd_ops: List[str], private_key: bytes = None):
         root_dir = re.match(r'(.*)pystratis', os.getcwd())[0]
         source_dir = os.path.join(root_dir, 'integration_tests', 'StratisFullNode', 'src', 'Stratis.CirrusMinerD')
-        start_regtest_node(node=node, source_dir=source_dir, extra_cmd_ops=extra_cmd_ops, copy_private_key=copy_private_key, key_index=key_index)
+        start_regtest_node(node=node, source_dir=source_dir, extra_cmd_ops=extra_cmd_ops, private_key=private_key)
     return _start_cirrusminer_regtest_node
 
 
 @pytest.fixture(scope='session')
-def start_cirrus_regtest_node():
+def start_cirrus_regtest_node(start_regtest_node):
     def _start_cirrus_regtest_node(node: CirrusNode, extra_cmd_ops: List[str]):
         root_dir = re.match(r'(.*)pystratis', os.getcwd())[0]
         source_dir = os.path.join(root_dir, 'integration_tests', 'StratisFullNode', 'src', 'Stratis.CirrusD')

@@ -1,6 +1,7 @@
 from api import APIRequest, EndpointRegister, endpoint
 from api.multisig.requestmodels import *
 from api.multisig.responsemodels import *
+from pybitcoin.types import Money
 
 
 class Multisig(APIRequest, metaclass=EndpointRegister):
@@ -24,5 +25,6 @@ class Multisig(APIRequest, metaclass=EndpointRegister):
             APIError
         """
         data = self.post(request_model, **kwargs)
+        data['fee'] = Money.from_satoshi_units(data['fee'])
 
         return BuildTransactionModel(**data)

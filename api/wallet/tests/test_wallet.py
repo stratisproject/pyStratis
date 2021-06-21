@@ -5,8 +5,7 @@ import base64
 from api.wallet import Wallet
 from api.wallet.requestmodels import *
 from api.wallet.responsemodels import *
-from binascii import unhexlify
-from pybitcoin import PubKey, CoinType, TransactionItemType, Recipient, Outpoint, \
+from pybitcoin import PubKey, CoinType, Recipient, Outpoint, \
     DestinationChain, ExtPubKey, UtxoDescriptor, AddressDescriptor
 from pybitcoin.types import Address, Money, uint256
 from pybitcoin.networks import StraxMain, CirrusMain, Ethereum
@@ -81,7 +80,7 @@ def test_create(mocker: MockerFixture, network, fakeuri):
 def test_sign_message(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address,
                       generate_privatekey):
     message = 'This is my message'
-    private_key_bytes = unhexlify(generate_privatekey())
+    private_key_bytes = generate_privatekey().get_bytes()
     key = ecdsa.SigningKey.from_string(private_key_bytes, curve=ecdsa.SECP256k1)
     sig = base64.b64encode(key.sign(bytes(message, 'ascii'))).decode('ascii')
     data = sig
@@ -122,7 +121,7 @@ def test_pubkey(mocker: MockerFixture, network, fakeuri, generate_uncompressed_p
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
 def test_verify_message(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address, generate_privatekey):
     message = 'This is my message'
-    private_key_bytes = unhexlify(generate_privatekey())
+    private_key_bytes = generate_privatekey().get_bytes()
     key = ecdsa.SigningKey.from_string(private_key_bytes, curve=ecdsa.SECP256k1)
     sig = base64.b64encode(key.sign(bytes(message, 'ascii'))).decode('ascii')
     data = True
@@ -246,7 +245,7 @@ def test_history(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address
                 'coinType': CoinType.Strax,
                 'transactionsHistory': [
                     {
-                        'type': TransactionItemType.Received,
+                        'type': 'received',
                         'toAddress': generate_p2pkh_address(network=network),
                         'id': generate_uint256,
                         'amount': '5.0',
@@ -257,7 +256,7 @@ def test_history(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address
                                 'isChange': False
                             }
                         ],
-                        'fee': '0.0001',
+                        'fee': 10000,
                         'confirmedInBlock': 2,
                         'timestamp': 'timestamp',
                         'txOutputTime': 1,
@@ -352,7 +351,7 @@ def test_received_by_address(mocker: MockerFixture, network, fakeuri, generate_p
 def test_max_balance(mocker: MockerFixture, network, fakeuri):
     data = {
         'maxSpendableAmount': 5,
-        'Fee': '0.0001'
+        'fee': 10000
     }
     mocker.patch.object(Wallet, 'get', return_value=data)
     wallet = Wallet(network=network, baseuri=fakeuri)
@@ -436,7 +435,7 @@ def test_estimate_txfee(mocker: MockerFixture, network, fakeuri, generate_uint25
 def test_build_transaction(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address,
                            generate_uint256, generate_hexstring):
     data = {
-        'fee': '0.0001',
+        'fee': 10000,
         'hex': generate_hexstring(128),
         'transactionId': generate_uint256
     }
@@ -475,7 +474,7 @@ def test_build_transaction(mocker: MockerFixture, network, fakeuri, generate_p2p
 def test_build_interflux_transaction(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address,
                                      generate_ethereum_checksum_address, generate_uint256, generate_hexstring):
     data = {
-        'fee': '0.00010000',
+        'fee': 10000,
         'hex': generate_hexstring(128),
         'transactionId': generate_uint256
     }
@@ -983,7 +982,7 @@ def test_build_offline_sign_request(mocker: MockerFixture, network, fakeuri, gen
     data = {
         'walletName': 'Test',
         'walletAccount': 'account 0',
-        'fee': '0.0001',
+        'fee': 10000,
         'unsignedTransaction': generate_hexstring(256),
         'utxos': [{
             'transactionId': generate_uint256,
@@ -1031,7 +1030,7 @@ def test_build_offline_sign_request(mocker: MockerFixture, network, fakeuri, gen
 def test_offline_sign_request(mocker: MockerFixture, network, fakeuri, get_base_keypath,
                               generate_uint256, generate_hexstring, generate_p2pkh_address):
     data = {
-        'fee': '0.0001',
+        'fee': 10000,
         'hex': generate_hexstring(128),
         'transactionId': generate_uint256
     }

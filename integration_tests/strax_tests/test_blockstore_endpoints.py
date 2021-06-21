@@ -53,7 +53,7 @@ def test_get_addresses_balances(strax_hot_node: BaseNode, strax_syncing_node: Ba
     assert isinstance(response.balances[0], AddressBalanceModel)
 
     request_model = GetAddressesBalancesRequest(addresses=addresses)
-    strax_hot_node.blockstore.get_addresses_balances(request_model=request_model)
+    response = strax_hot_node.blockstore.get_addresses_balances(request_model=request_model)
     assert isinstance(response, GetAddressesBalancesModel)
     for item in response.balances:
         assert isinstance(item, AddressBalanceModel)

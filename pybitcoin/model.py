@@ -12,6 +12,8 @@ from .recipient import Recipient
 from .smartcontractparameter import SmartContractParameter
 from .utxodescriptor import UtxoDescriptor
 from .walletsecret import WalletSecret
+from .key import Key
+from .extkey import ExtKey
 
 
 class Model(BaseModel):
@@ -37,6 +39,8 @@ class Model(BaseModel):
             Recipient: lambda v: v.json(),
             Outpoint: lambda v: v.json(),
             SmartContractParameter: lambda v: str(v),
+            Key: lambda v: str(v),
+            ExtKey: lambda v: str(v),
             List[str]: lambda v: ','.join(v),
             List[AddressDescriptor]: lambda v: [x.json() for x in v],
             List[MultisigSecret]: lambda v: [x.json() for x in v],

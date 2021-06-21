@@ -1,14 +1,15 @@
+from typing import Optional
 from pydantic import BaseModel, Field
 from pybitcoin.types import Money, uint256, hexstr
 
 
 class BuildContractTransactionModel(BaseModel):
     """A BuildContractTransactionModel."""
-    fee: Money
-    hex: hexstr
-    message: str
-    success: bool
-    transaction_id: uint256 = Field(alias='transactionId')
+    fee: Optional[Money]
+    hex: Optional[hexstr]
+    message: Optional[str]
+    success: Optional[bool]
+    transaction_id: Optional[uint256] = Field(alias='transactionId')
 
     class Config:
         json_encoders = {

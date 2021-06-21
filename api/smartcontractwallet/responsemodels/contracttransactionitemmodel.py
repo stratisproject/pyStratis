@@ -6,10 +6,10 @@ from pybitcoin.types import Address, Money, uint256
 
 class ContractTransactionItemModel(Model):
     """A ContractTransactionItemModel."""
-    block_height: Optional[conint(ge=0)] = Field(alias='BlockHeight')
-    item_type: Optional[ContractTransactionItemType] = Field(alias='Type')
-    hash: Optional[uint256] = Field(alias='Hash')
-    to_address: Optional[Address] = Field(alias='To')
-    amount: Optional[Money] = Field(alias='Amount')
-    transaction_fee: Optional[Money] = Field(alias='TransactionFee')
-    gas_fee: Optional[Money] = Field(alias='GasFee')
+    block_height: Optional[conint(ge=0)] = Field(alias='blockHeight')
+    item_type: Optional[ContractTransactionItemType] = Field(alias='type')
+    hash: Optional[uint256]
+    to_address: Optional[Address] = Field(alias='to')
+    amount: Optional[Money]
+    transaction_fee: Optional[Money] = Field(alias='transactionFee')
+    gas_fee: Optional[Money] = Field(alias='gasFee')

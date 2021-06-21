@@ -1,9 +1,9 @@
-from enum import IntEnum
+from enum import Enum
 
 
-class TransactionItemType(IntEnum):
-    """ATransactionItemType."""
-    Received = 0
-    Send = 1
-    Staked = 2
-    Mined = 3
+class TransactionItemType(str, Enum):
+    """A TransactionItemType."""
+    Received = 'received'
+    Send = 'send'
+    Staked = 'staked'
+    Mined = 'mined'

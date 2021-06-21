@@ -68,7 +68,7 @@ def test_address_balance(mocker: MockerFixture, network, fakeuri, generate_p2pkh
 
     response = smart_contract_wallet.address_balance(request_model)
 
-    assert response == Money(data)
+    assert response == Money.from_satoshi_units(data)
     # noinspection PyUnresolvedReferences
     smart_contract_wallet.get.assert_called_once()
 
@@ -77,13 +77,13 @@ def test_address_balance(mocker: MockerFixture, network, fakeuri, generate_p2pkh
 def test_history(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address, generate_uint256):
     data = [
         {
-            'BlockHeight': 1,
-            'Type': ContractTransactionItemType.ContractCreate,
-            'Hash': generate_uint256,
-            'To': generate_p2pkh_address(network=network),
-            'Amount': 10,
-            'TransactionFee': 1,
-            'GasFee': 1
+            'blockHeight': 1,
+            'type': ContractTransactionItemType.ContractCreate,
+            'hash': generate_uint256,
+            'to': generate_p2pkh_address(network=network),
+            'amount': 10,
+            'transactionFee': 1,
+            'gasFee': 1
         }
     ]
     mocker.patch.object(SmartContractWallet, 'get', return_value=data)
@@ -103,7 +103,7 @@ def test_history(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_create(mocker: MockerFixture, network, fakeuri, generate_uint256, generate_p2pkh_address):
+def test_create(mocker: MockerFixture, network, fakeuri, generate_uint256, generate_p2pkh_address, generate_hexstring):
     data = generate_uint256
     mocker.patch.object(SmartContractWallet, 'post', return_value=data)
     smart_contract_wallet = SmartContractWallet(network=network, baseuri=fakeuri)
@@ -114,9 +114,9 @@ def test_create(mocker: MockerFixture, network, fakeuri, generate_uint256, gener
         amount=Money(5),
         fee_amount=Money(0.0001),
         password='password',
-        contract_code='codegoeshere',
-        gas_price=Money(0.0001),
-        gas_limit=Money(0.001),
+        contract_code=generate_hexstring(128),
+        gas_price=1000,
+        gas_limit=250000,
         sender=Address(address=generate_p2pkh_address(network=network), network=network),
         parameters=[
             SmartContractParameter(value_type=SmartContractParameterType.Boolean, value=True),
@@ -131,7 +131,7 @@ def test_create(mocker: MockerFixture, network, fakeuri, generate_uint256, gener
                                    value=Address(address=generate_p2pkh_address(network=network), network=network)),
             SmartContractParameter(value_type=SmartContractParameterType.ByteArray, value=bytearray(b'\x04\xa6\xb9')),
             SmartContractParameter(value_type=SmartContractParameterType.UInt128, value=uint128(789)),
-            SmartContractParameter(value_type=SmartContractParameterType.UInt256, value=uint256(987)),
+            SmartContractParameter(value_type=SmartContractParameterType.UInt256, value=uint256(987))
         ]
     )
 
@@ -163,8 +163,8 @@ def test_call(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address, g
         amount=Money(5),
         fee_amount=Money(0.0001),
         password='password',
-        gas_price=Money(0.0001),
-        gas_limit=Money(0.001),
+        gas_price=1000,
+        gas_limit=250000,
         sender=Address(address=generate_p2pkh_address(network=network), network=network),
         parameters=[
             SmartContractParameter(value_type=SmartContractParameterType.Boolean, value=True),
@@ -179,7 +179,7 @@ def test_call(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address, g
                                    value=Address(address=generate_p2pkh_address(network=network), network=network)),
             SmartContractParameter(value_type=SmartContractParameterType.ByteArray, value=bytearray(b'\x04\xa6\xb9')),
             SmartContractParameter(value_type=SmartContractParameterType.UInt128, value=uint128(789)),
-            SmartContractParameter(value_type=SmartContractParameterType.UInt256, value=uint256(987)),
+            SmartContractParameter(value_type=SmartContractParameterType.UInt256, value=uint256(987))
         ]
     )
 

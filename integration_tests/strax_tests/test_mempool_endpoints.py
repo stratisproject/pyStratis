@@ -1,5 +1,4 @@
 import pytest
-import time
 from pybitcoin.types import Money, uint256
 from nodes import BaseNode
 
@@ -15,6 +14,5 @@ def test_raw_mempool(strax_hot_node: BaseNode, strax_syncing_node: BaseNode, sen
         receiving_address=receiving_address, amount_to_send=Money(1)
     )
     response = strax_hot_node.mempool.get_raw_mempool()
-    time.sleep(5)
     for item in response:
         assert isinstance(item, uint256)

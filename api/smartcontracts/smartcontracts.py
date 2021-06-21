@@ -1,9 +1,10 @@
 import ast
-from typing import List
+from typing import List, Any
+from binascii import unhexlify
 from api import APIRequest, EndpointRegister, endpoint
 from api.smartcontracts.requestmodels import *
 from api.smartcontracts.responsemodels import *
-from pybitcoin.types import Address, Money, hexstr
+from pybitcoin.types import Address, Money, uint32, uint64, uint128, uint256, int32, int64
 
 
 class SmartContracts(APIRequest, metaclass=EndpointRegister):
@@ -49,7 +50,7 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
         return Money(data)
 
     @endpoint(f'{route}/storage')
-    def storage(self, request_model: StorageRequest, **kwargs) -> hexstr:
+    def storage(self, request_model: StorageRequest, **kwargs) -> Any:
         """Gets a single piece of smart contract data. Returns a serialized string, if exists.
 
         Args:
@@ -57,7 +58,7 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
             **kwargs:
 
         Returns:
-            hexstr
+            Any
 
         Raises:
             APIError
@@ -67,7 +68,30 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
 
         if hasattr(data, 'Message'):
             raise RuntimeError(data['Message'])
-        return data
+        if request_model.data_type == 1:
+            return bool(data)
+        elif request_model.data_type == 2:
+            return int(data).to_bytes(1, 'big')
+        elif request_model.data_type == 3:
+            return data
+        elif request_model.data_type == 4:
+            return data
+        elif request_model.data_type == 5:
+            return uint32(int(data))
+        elif request_model.data_type == 6:
+            return int32(int(data))
+        elif request_model.data_type == 7:
+            return uint64(int(data))
+        elif request_model.data_type == 8:
+            return int64(int(data))
+        elif request_model.data_type == 9:
+            return Address(address=data, network=self._network)
+        elif request_model.data_type == 10:
+            return bytearray(unhexlify(data))
+        elif request_model.data_type == 11:
+            return uint128(int(data))
+        elif request_model.data_type == 12:
+            return uint256(int(data))
 
     @endpoint(f'{route}/receipt')
     def receipt(self, request_model: ReceiptRequest, **kwargs) -> ReceiptModel:
@@ -84,11 +108,12 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
             APIError
         """
         data = self.get(request_model, **kwargs)
-        data['To'] = Address(address=data['To'], network=self._network)
-        data['From'] = Address(address=data['From'], network=self._network)
-        data['NewContractAddress'] = Address(address=data['NewContractAddress'], network=self._network)
-        for i in range(len(data['Logs'])):
-            data['Logs'][i]['Address'] = Address(address=data['Logs'][i]['Address'], network=self._network)
+        if data['to'] is not None:
+            data['to'] = Address(address=data['to'], network=self._network)
+        data['from'] = Address(address=data['from'], network=self._network)
+        data['newContractAddress'] = Address(address=data['newContractAddress'], network=self._network)
+        for i in range(len(data['logs'])):
+            data['logs'][i]['address'] = Address(address=data['logs'][i]['address'], network=self._network)
 
         return ReceiptModel(**data)
 
@@ -108,11 +133,13 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
         """
         data = self.get(request_model, **kwargs)
         for i in range(len(data)):
-            data[i]['To'] = Address(address=data[i]['To'], network=self._network)
-            data[i]['From'] = Address(address=data[i]['From'], network=self._network)
-            data[i]['NewContractAddress'] = Address(address=data[i]['NewContractAddress'], network=self._network)
-            for j in range(len(data[i]['Logs'])):
-                data[i]['Logs'][j]['Address'] = Address(address=data[i]['Logs'][j]['Address'], network=self._network)
+            if data[i]['to'] is not None:
+                data[i]['to'] = Address(address=data[i]['to'], network=self._network)
+            data[i]['from'] = Address(address=data[i]['from'], network=self._network)
+            if data[i]['newContractAddress'] is not None:
+                data[i]['newContractAddress'] = Address(address=data[i]['newContractAddress'], network=self._network)
+            for j in range(len(data[i]['logs'])):
+                data[i]['logs'][j]['address'] = Address(address=data[i]['logs'][j]['address'], network=self._network)
 
         return [ReceiptModel(**x) for x in data]
 
@@ -131,6 +158,7 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
             APIError
         """
         data = self.post(request_model, **kwargs)
+        data['fee'] = Money.from_satoshi_units(data['fee'])
 
         return BuildContractTransactionModel(**data)
 
@@ -149,6 +177,7 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
             APIError
         """
         data = self.post(request_model, **kwargs)
+        data['fee'] = Money.from_satoshi_units(data['fee'])
 
         return BuildContractTransactionModel(**data)
 
@@ -167,6 +196,7 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
             APIError
         """
         data = self.post(request_model, **kwargs)
+        data['fee'] = Money.from_satoshi_units(data['fee'])
 
         return BuildContractTransactionModel(**data)
 
@@ -186,7 +216,7 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
         """
         data = self.post(request_model, **kwargs)
 
-        return Money(data)
+        return Money.from_satoshi_units(data)
 
     @endpoint(f'{route}/build-and-send-create')
     def build_and_send_create(self, request_model: BuildAndSendCreateContractTransactionRequest, **kwargs) -> BuildContractTransactionModel:
@@ -203,6 +233,7 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
             APIError
         """
         data = self.post(request_model, **kwargs)
+        data['fee'] = Money.from_satoshi_units(data['fee'])
 
         return BuildContractTransactionModel(**data)
 
@@ -221,6 +252,7 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
             APIError
         """
         data = self.post(request_model, **kwargs)
+        data['fee'] = Money.from_satoshi_units(data['fee'])
 
         return BuildContractTransactionModel(**data)
 
@@ -239,12 +271,18 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
             APIError
         """
         data = self.post(request_model, **kwargs)
-        for i in range(len(data['InternalTransfers'])):
-            data['InternalTransfers'][i]['From'] = Address(address=data['InternalTransfers'][i]['From'], network=self._network)
-            data['InternalTransfers'][i]['To'] = Address(address=data['InternalTransfers'][i]['To'], network=self._network)
-        for i in range(len(data['Logs'])):
-            data['Logs'][i]['Address'] = Address(address=data['Logs'][i]['Address'], network=self._network)
-        data['Return'] = ast.literal_eval(data['Return'])
+        for i in range(len(data['internalTransfers'])):
+            data['internalTransfers'][i]['from'] = Address(address=data['internalTransfers'][i]['from'], network=self._network)
+            data['internalTransfers'][i]['to'] = Address(address=data['internalTransfers'][i]['to'], network=self._network)
+        for i in range(len(data['logs'])):
+            data['logs'][i]['address'] = Address(address=data['logs'][i]['address'], network=self._network)
+        if data['errorMessage'] is not None:
+            data['errorMessage'] = ast.literal_eval(data['errorMessage'])
+            data['errorMessage'] = data['errorMessage']['value']
+        if data['gasConsumed'] is not None:
+            data['gasConsumed'] = data['gasConsumed']['value']
+        if data['return'] is not None:
+            data['return'] = data['return']
 
         return LocalExecutionResultModel(**data)
 
@@ -264,6 +302,7 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
         """
         data = self.get(request_model, **kwargs)
         for i in range(len(data)):
-            data[i]['Address'] = Address(address=data[i]['Address'], network=self._network)
+            data[i]['address'] = Address(address=data[i]['address'], network=self._network)
+            data[i]['sum'] = Money.from_satoshi_units(data[i]['sum'])
 
         return [AddressBalanceModel(**x) for x in data]

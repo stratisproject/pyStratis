@@ -43,3 +43,5 @@ from .walletsecret import WalletSecret
 from .walletbalancemodel import WalletBalanceModel
 from .walletgeneralinfomodel import WalletGeneralInfoModel
 from .walletsendtransactionmodel import WalletSendTransactionModel
+from .key import Key
+from .extkey import ExtKey

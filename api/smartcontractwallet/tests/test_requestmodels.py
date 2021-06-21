@@ -44,8 +44,8 @@ def test_callcontracttransactionrequest(network, generate_uint256, generate_p2pk
         'amount': '5.00000000',
         'feeAmount': '0.00010000',
         'password': 'password',
-        'gasPrice': '0.00010000',
-        'gasLimit': '0.00100000',
+        'gasPrice': 1000,
+        'gasLimit': 250000,
         'sender': generate_p2pkh_address(network=network),
         'parameters': ['1#true', '2#255', '3#c', '4#Stratis', '5#123', '6#-123',
                        '7#456', '8#-456', f'9#{parameter_address}', '10#04A6B9', '11#789', '12#987']
@@ -60,8 +60,8 @@ def test_callcontracttransactionrequest(network, generate_uint256, generate_p2pk
         amount=Money(5),
         fee_amount=Money(0.0001),
         password='password',
-        gas_price=Money(0.0001),
-        gas_limit=Money(0.001),
+        gas_price=1000,
+        gas_limit=250000,
         sender=Address(address=data['sender'], network=network),
         parameters=[
             SmartContractParameter(value_type=SmartContractParameterType.Boolean, value=True),
@@ -75,14 +75,15 @@ def test_callcontracttransactionrequest(network, generate_uint256, generate_p2pk
             SmartContractParameter(value_type=SmartContractParameterType.Address, value=Address(address=parameter_address, network=network)),
             SmartContractParameter(value_type=SmartContractParameterType.ByteArray, value=bytearray(b'\x04\xa6\xb9')),
             SmartContractParameter(value_type=SmartContractParameterType.UInt128, value=uint128(789)),
-            SmartContractParameter(value_type=SmartContractParameterType.UInt256, value=uint256(987)),
+            SmartContractParameter(value_type=SmartContractParameterType.UInt256, value=uint256(987))
         ]
     )
     assert json.dumps(data) == request_model.json()
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_createtransactionrequest(network, generate_p2pkh_address, generate_uint256):
+def test_createtransactionrequest(network, generate_p2pkh_address, generate_uint256, generate_hexstring):
+    byte_code = generate_hexstring(128)
     parameter_address = generate_p2pkh_address(network=network)
     data = {
         'walletName': 'Test',
@@ -96,9 +97,9 @@ def test_createtransactionrequest(network, generate_p2pkh_address, generate_uint
         'amount': '5.00000000',
         'feeAmount': '0.00010000',
         'password': 'password',
-        'contractCode': 'codegoeshere',
-        'gasPrice': '0.00010000',
-        'gasLimit': '0.00100000',
+        'contractCode': byte_code,
+        'gasPrice': 1000,
+        'gasLimit': 250000,
         'sender': generate_p2pkh_address(network=network),
         'parameters': ['1#true', '2#255', '3#c', '4#Stratis', '5#123', '6#-123',
                        '7#456', '8#-456', f'9#{parameter_address}', '10#04A6B9', '11#789', '12#987']
@@ -111,9 +112,9 @@ def test_createtransactionrequest(network, generate_p2pkh_address, generate_uint
         amount=Money(5),
         fee_amount=Money(0.0001),
         password='password',
-        contract_code='codegoeshere',
-        gas_price=Money(0.0001),
-        gas_limit=Money(0.001),
+        contract_code=byte_code,
+        gas_price=1000,
+        gas_limit=250000,
         sender=Address(address=data['sender'], network=network),
         parameters=[
             SmartContractParameter(value_type=SmartContractParameterType.Boolean, value=True),
@@ -127,7 +128,7 @@ def test_createtransactionrequest(network, generate_p2pkh_address, generate_uint
             SmartContractParameter(value_type=SmartContractParameterType.Address, value=Address(address=parameter_address, network=network)),
             SmartContractParameter(value_type=SmartContractParameterType.ByteArray, value=bytearray(b'\x04\xa6\xb9')),
             SmartContractParameter(value_type=SmartContractParameterType.UInt128, value=uint128(789)),
-            SmartContractParameter(value_type=SmartContractParameterType.UInt256, value=uint256(987)),
+            SmartContractParameter(value_type=SmartContractParameterType.UInt256, value=uint256(987))
         ]
     )
     assert json.dumps(data) == request_model.json()

@@ -1,16 +1,19 @@
 import pytest
+import hashlib
 import mnemonic
 import secrets
 import os
 import json
 from hashlib import sha256
+import hmac
 import base58
 import bech32
 import ecdsa
-from binascii import unhexlify, hexlify
+from binascii import unhexlify
 from random import choice, randint, random
 # noinspection PyPackageRequirements
 from sha3 import keccak_256
+from pybitcoin import Key, ExtKey
 from pybitcoin.types import uint256
 from pybitcoin.networks import BaseNetwork
 from datetime import datetime, timedelta
@@ -162,28 +165,26 @@ def generate_hexstring():
 
 @pytest.fixture(scope='session')
 def generate_privatekey():
-    def _generate_privatekey(words: str = None) -> str:
+    def _generate_privatekey(words: str = None) -> Key:
+        hashkey = b'Bitcoin seed'
         mnemo = mnemonic.Mnemonic(language='english')
         if words is None:
             words = mnemo.generate()
         seed = mnemo.to_seed(words)
-        private_key = sha256(seed).digest()
-        return hexlify(private_key).decode('ascii')
+        # noinspection PyTypeChecker
+        extkey = ExtKey(hmac.digest(hashkey, seed, hashlib.sha512))
+        return extkey.generate_private_key()
     return _generate_privatekey
 
 
 @pytest.fixture(scope='session')
 def generate_wif_privatekey(generate_privatekey) -> str:
-    private_key_bytes = unhexlify(generate_privatekey())
-    extended = b'\x80' + private_key_bytes
-    checksum = sha256(sha256(extended).digest()).digest()
-    return base58.b58encode(extended + checksum[:4]).decode('ascii')
+    return generate_privatekey().generate_wif_key()
 
 
 @pytest.fixture(scope='session')
 def generate_uncompressed_pubkey(generate_privatekey) -> str:
-    private_key_bytes = unhexlify(generate_privatekey())
-    key = ecdsa.SigningKey.from_string(private_key_bytes, curve=ecdsa.SECP256k1).verifying_key
+    key = ecdsa.SigningKey.from_string(generate_privatekey().get_bytes(), curve=ecdsa.SECP256k1).verifying_key
     key_int = int.from_bytes(key.to_string(), 'big')
     return f"04{format(key_int, '0>128x')}"
 
@@ -417,3 +418,16 @@ def generate_block_with_tx_data(generate_block_no_tx_data, generate_coinbase_tra
         ]
         return data
     return _generate_block_with_tx_data
+
+
+@pytest.fixture(scope='session')
+def get_federation_private_key(generate_privatekey):
+    def _get_federation_private_key(index: int = 0) -> bytes:
+        mnemonics = [
+            'ensure feel swift crucial bridge charge cloud tell hobby twenty people mandate',
+            'quiz sunset vote alley draw turkey hill scrap lumber game differ fiction',
+            'fat chalk grant major hair possible adjust talent magnet lobster retreat siren'
+        ]
+        assert index < len(mnemonics)
+        return generate_privatekey(mnemonics[index]).get_bytes()
+    return _get_federation_private_key

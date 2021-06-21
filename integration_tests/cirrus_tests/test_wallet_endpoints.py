@@ -5,7 +5,7 @@ from api.wallet.requestmodels import *
 from api.wallet.responsemodels import *
 from pybitcoin.types import Money, Address, uint256, hexstr
 from pybitcoin import Recipient, Outpoint, DestinationChain, PubKey, ExtPubKey, AccountBalanceModel, AddressModel
-from pybitcoin.networks import Ethereum
+from pybitcoin.networks import CirrusRegTest
 
 
 @pytest.mark.integration_test
@@ -192,8 +192,8 @@ def test_max_balance(cirrusminer_node: CirrusMinerNode):
 
 @pytest.mark.integration_test
 @pytest.mark.cirrus_integration_test
-def test_spendable_transactions(cirrusminer_node: CirrusMinerNode, wait_x_blocks_and_sync):
-    wait_x_blocks_and_sync(1)
+def test_spendable_transactions(cirrusminer_node: CirrusMinerNode, wait_n_blocks_and_sync):
+    wait_n_blocks_and_sync(1)
     request_model = SpendableTransactionsRequest(wallet_name='Test', account_name='account 0', min_confirmations=0)
     response = cirrusminer_node.wallet.spendable_transactions(request_model)
     assert isinstance(response, SpendableTransactionsModel)
@@ -208,9 +208,9 @@ def test_estimate_txfee(
         cirrusminer_syncing_node: CirrusMinerNode,
         get_spendable_transactions,
         get_node_unused_address,
-        wait_x_blocks_and_sync,
+        wait_n_blocks_and_sync,
         get_node_address_with_balance):
-    wait_x_blocks_and_sync(2)
+    wait_n_blocks_and_sync(2)
     destination_address = get_node_unused_address(cirrusminer_syncing_node)
     change_address = get_node_address_with_balance(cirrusminer_node)
     amount_to_send = Money(10)
@@ -240,9 +240,9 @@ def test_build_transaction(
         cirrusminer_syncing_node: CirrusMinerNode,
         get_spendable_transactions,
         get_node_unused_address,
-        wait_x_blocks_and_sync,
+        wait_n_blocks_and_sync,
         get_node_address_with_balance):
-    wait_x_blocks_and_sync(1)
+    wait_n_blocks_and_sync(1)
     destination_address = get_node_unused_address(cirrusminer_syncing_node)
     change_address = get_node_address_with_balance(cirrusminer_node)
     fee_amount = Money(0.0001)
@@ -277,11 +277,12 @@ def test_build_interflux_transaction(
         cirrusminer_node: CirrusMinerNode,
         cirrusminer_syncing_node: CirrusMinerNode,
         get_spendable_transactions,
-        wait_x_blocks_and_sync,
+        wait_n_blocks_and_sync,
+        generate_p2sh_address,
         generate_ethereum_checksum_address,
         get_node_address_with_balance,
         get_node_unused_address):
-    wait_x_blocks_and_sync(1)
+    wait_n_blocks_and_sync(1)
     destination_address = get_node_unused_address(cirrusminer_syncing_node)
     change_address = get_node_address_with_balance(cirrusminer_node)
     fee_amount = Money(0.0001)
@@ -291,7 +292,7 @@ def test_build_interflux_transaction(
 
     request_model = BuildInterfluxTransactionRequest(
         destination_chain=DestinationChain.ETH,
-        destination_address=Address(address=generate_ethereum_checksum_address, network=Ethereum()),
+        destination_address=Address(address=generate_p2sh_address, network=CirrusRegTest()),
         fee_amount=fee_amount,
         password='password',
         segwit_change_address=False,
@@ -299,7 +300,7 @@ def test_build_interflux_transaction(
         account_name='account 0',
         outpoints=[Outpoint(transaction_id=x.transaction_id, index=x.index) for x in transactions],
         recipients=[Recipient(destination_address=destination_address, subtraction_fee_from_amount=True, amount=amount_to_send)],
-        op_return_data='opreturn',
+        op_return_data=generate_ethereum_checksum_address,
         op_return_amount=op_return_amount,
         allow_unconfirmed=False,
         shuffle_outputs=True,
@@ -317,10 +318,10 @@ def test_build_interflux_transaction(
 def test_send_transaction(cirrusminer_node: CirrusMinerNode,
                           cirrusminer_syncing_node: CirrusMinerNode,
                           get_spendable_transactions,
-                          wait_x_blocks_and_sync,
+                          wait_n_blocks_and_sync,
                           get_node_address_with_balance,
                           get_node_unused_address):
-    wait_x_blocks_and_sync(1)
+    wait_n_blocks_and_sync(1)
     destination_address = get_node_unused_address(cirrusminer_syncing_node)
     change_address = get_node_address_with_balance(cirrusminer_node)
     fee_amount = Money(0.0001)
@@ -346,7 +347,7 @@ def test_send_transaction(cirrusminer_node: CirrusMinerNode,
 
     request_model = SendTransactionRequest(hex=built_transaction.hex)
     response = cirrusminer_node.wallet.send_transaction(request_model)
-    wait_x_blocks_and_sync(1)
+    wait_n_blocks_and_sync(1)
     assert isinstance(response, WalletSendTransactionModel)
     assert isinstance(response.transaction_id, uint256)
     for item in response.outputs:
@@ -430,8 +431,8 @@ def test_addresses(cirrusminer_node: CirrusMinerNode):
 
 @pytest.mark.integration_test
 @pytest.mark.cirrus_integration_test
-def test_remove_transactions(cirrusminer_node: CirrusMinerNode, wait_x_blocks_and_sync, get_datetime):
-    wait_x_blocks_and_sync(2)
+def test_remove_transactions(cirrusminer_node: CirrusMinerNode, wait_n_blocks_and_sync, get_datetime):
+    wait_n_blocks_and_sync(2)
     request_model = SpendableTransactionsRequest(wallet_name='Test', account_name='account 0', min_confirmations=10)
     spendable_transactions = cirrusminer_node.wallet.spendable_transactions(request_model)
     trxids = [x.transaction_id for x in spendable_transactions.transactions]
@@ -530,8 +531,8 @@ def test_wallet_stats(cirrusminer_node: CirrusMinerNode):
 
 @pytest.mark.integration_test
 @pytest.mark.cirrus_integration_test
-def test_split_coins(cirrusminer_node: CirrusMinerNode, wait_x_blocks_and_sync):
-    wait_x_blocks_and_sync(1)
+def test_split_coins(cirrusminer_node: CirrusMinerNode, wait_n_blocks_and_sync):
+    wait_n_blocks_and_sync(1)
     request_model = SplitCoinsRequest(
         wallet_name='Test',
         account_name='account 0',
@@ -548,8 +549,8 @@ def test_split_coins(cirrusminer_node: CirrusMinerNode, wait_x_blocks_and_sync):
 
 @pytest.mark.integration_test
 @pytest.mark.cirrus_integration_test
-def test_distribute_utxos(cirrusminer_node: CirrusMinerNode, wait_x_blocks_and_sync):
-    wait_x_blocks_and_sync(2)
+def test_distribute_utxos(cirrusminer_node: CirrusMinerNode, wait_n_blocks_and_sync):
+    wait_n_blocks_and_sync(2)
     # Need to split the coins first
     request_model = SplitCoinsRequest(
         wallet_name='Test',
@@ -559,7 +560,7 @@ def test_distribute_utxos(cirrusminer_node: CirrusMinerNode, wait_x_blocks_and_s
         utxos_count=10
     )
     cirrusminer_node.wallet.split_coins(request_model)
-    wait_x_blocks_and_sync(3)
+    wait_n_blocks_and_sync(3)
     request_model = SpendableTransactionsRequest(wallet_name='Test', account_name='account 0', min_confirmations=2)
     spendable_transactions = cirrusminer_node.wallet.spendable_transactions(request_model)
     spendable_transactions = [x for x in spendable_transactions.transactions]
@@ -585,9 +586,10 @@ def test_distribute_utxos(cirrusminer_node: CirrusMinerNode, wait_x_blocks_and_s
 
 @pytest.mark.integration_test
 @pytest.mark.cirrus_integration_test
-def test_sweep(cirrusminer_node: CirrusMinerNode, wait_x_blocks_and_sync, get_node_address_with_balance):
-    wait_x_blocks_and_sync(3)
+def test_sweep(cirrusminer_node: CirrusMinerNode, wait_n_blocks_and_sync, get_node_address_with_balance, get_node_unused_address):
+    wait_n_blocks_and_sync(3)
     address = get_node_address_with_balance(cirrusminer_node)
+    receiving_address = get_node_unused_address(cirrusminer_node)
     request_model = PrivateKeyRequest(
         password='password',
         wallet_name='Test',
@@ -596,7 +598,7 @@ def test_sweep(cirrusminer_node: CirrusMinerNode, wait_x_blocks_and_sync, get_no
     private_key = cirrusminer_node.wallet.private_key(request_model)
     request_model = SweepRequest(
         private_keys=[private_key],
-        destination_address=address,
+        destination_address=receiving_address,
         broadcast=False
     )
     response = cirrusminer_node.wallet.sweep(request_model)
@@ -611,10 +613,10 @@ def test_build_offline_sign_request(
         cirrusminer_node: CirrusMinerNode,
         cirrusminer_syncing_node: CirrusMinerNode,
         get_spendable_transactions,
-        wait_x_blocks_and_sync,
+        wait_n_blocks_and_sync,
         get_node_address_with_balance,
         get_node_unused_address):
-    wait_x_blocks_and_sync(3)
+    wait_n_blocks_and_sync(3)
     destination_address = get_node_unused_address(cirrusminer_syncing_node)
     change_address = get_node_address_with_balance(cirrusminer_node)
     fee_amount = Money(0.0001)
@@ -647,8 +649,8 @@ def test_offline_sign_request(
         get_spendable_transactions,
         get_node_address_with_balance,
         get_node_unused_address,
-        wait_x_blocks_and_sync):
-    wait_x_blocks_and_sync(3)
+        wait_n_blocks_and_sync):
+    wait_n_blocks_and_sync(3)
     destination_address = get_node_unused_address(cirrusminer_syncing_node)
     change_address = get_node_address_with_balance(cirrusminer_node)
     fee_amount = Money(0.0001)
@@ -680,11 +682,18 @@ def test_offline_sign_request(
         utxos=offline_sign_model.utxos,
         addresses=offline_sign_model.addresses
     )
-    response = cirrusminer_node.wallet.offline_sign_request(request_model)
-    assert isinstance(response, BuildTransactionModel)
-    assert isinstance(response.transaction_id, uint256)
-    assert isinstance(response.hex, hexstr)
-    assert isinstance(response.fee, Money)
+    # Occasionally this will fail because of regtest environment setup. Try, try again.
+    for i in range(5):
+        try:
+            response = cirrusminer_node.wallet.offline_sign_request(request_model)
+            assert isinstance(response, BuildTransactionModel)
+            assert isinstance(response.transaction_id, uint256)
+            assert isinstance(response.hex, hexstr)
+            assert isinstance(response.fee, Money)
+            break
+        except APIError as e:
+            if i == 4:
+                raise e
 
 
 @pytest.mark.integration_test
@@ -692,8 +701,8 @@ def test_offline_sign_request(
 def test_consolidate(cirrusminer_node: CirrusMinerNode,
                      cirrusminer_syncing_node: CirrusMinerNode,
                      get_node_address_with_balance,
-                     wait_x_blocks_and_sync):
-    wait_x_blocks_and_sync(2)
+                     wait_n_blocks_and_sync):
+    wait_n_blocks_and_sync(2)
     # Need to split the coins first
     request_model = SplitCoinsRequest(
         wallet_name='Test',
@@ -704,7 +713,7 @@ def test_consolidate(cirrusminer_node: CirrusMinerNode,
     )
     cirrusminer_node.wallet.split_coins(request_model)
     cirrusminer_syncing_node.wallet.split_coins(request_model)
-    wait_x_blocks_and_sync(2)
+    wait_n_blocks_and_sync(2)
     request_model = SpendableTransactionsRequest(wallet_name='Test', account_name='account 0', min_confirmations=10)
     spendable_transactions = cirrusminer_node.wallet.spendable_transactions(request_model)
     spendable_transactions = [x for x in spendable_transactions.transactions if x.amount < 100_0000_0000]

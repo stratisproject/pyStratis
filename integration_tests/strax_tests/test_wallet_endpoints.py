@@ -139,12 +139,7 @@ def test_history(strax_hot_node: BaseNode, get_node_address_with_balance):
     request_model = HistoryRequest(
         wallet_name='Test',
         account_name='account 0',
-        address=address,
-        skip=2,
-        take=2,
-        prev_output_tx_time=0,
-        prev_output_index=0,
-        search_query='query'
+        address=address
     )
     response = strax_hot_node.wallet.history(request_model)
     assert isinstance(response, WalletHistoryModel)
@@ -556,8 +551,9 @@ def test_distribute_utxos(strax_hot_node: BaseNode, node_mines_some_blocks_and_s
 
 @pytest.mark.integration_test
 @pytest.mark.strax_integration_test
-def test_sweep(strax_hot_node: BaseNode, get_node_address_with_balance):
+def test_sweep(strax_hot_node: BaseNode, get_node_address_with_balance, get_node_unused_address):
     address = get_node_address_with_balance(strax_hot_node)
+    receiving_address = get_node_unused_address(strax_hot_node)
     request_model = PrivateKeyRequest(
         password='password',
         wallet_name='Test',
@@ -566,7 +562,7 @@ def test_sweep(strax_hot_node: BaseNode, get_node_address_with_balance):
     private_key = strax_hot_node.wallet.private_key(request_model)
     request_model = SweepRequest(
         private_keys=[private_key],
-        destination_address=address,
+        destination_address=receiving_address,
         broadcast=False
     )
     response = strax_hot_node.wallet.sweep(request_model)

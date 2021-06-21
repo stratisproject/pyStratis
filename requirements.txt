@@ -10,6 +10,7 @@ mnemonic
 # For testing
 pytest
 pytest_mock
+pytest_order
 coverage
 
 # For building

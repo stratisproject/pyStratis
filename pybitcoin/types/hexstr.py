@@ -1,5 +1,6 @@
 from __future__ import annotations
 from typing import Callable
+from binascii import hexlify
 
 
 # noinspection PyPep8Naming
@@ -32,3 +33,6 @@ class hexstr(str):
 
     def __str__(self):
         return super().__repr__().replace("'", '')
+
+    def to_bytes(self) -> bytes:
+        return hexlify(self)

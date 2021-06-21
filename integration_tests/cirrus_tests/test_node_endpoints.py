@@ -27,8 +27,8 @@ def test_get_blockheader(cirrusminer_node: CirrusMinerNode):
 
 @pytest.mark.integration_test
 @pytest.mark.cirrus_integration_test
-def test_get_raw_transaction(cirrusminer_node: CirrusMinerNode, wait_x_blocks_and_sync):
-    wait_x_blocks_and_sync(1)
+def test_get_raw_transaction(cirrusminer_node: CirrusMinerNode, wait_n_blocks_and_sync):
+    wait_n_blocks_and_sync(1)
     request_model = SpendableTransactionsRequest(wallet_name='Test', account_name='account 0', min_confirmations=10)
     spendable_transactions = cirrusminer_node.wallet.spendable_transactions(request_model)
     spendable_transactions = [x for x in spendable_transactions.transactions]
@@ -44,8 +44,8 @@ def test_get_raw_transaction(cirrusminer_node: CirrusMinerNode, wait_x_blocks_an
 
 @pytest.mark.integration_test
 @pytest.mark.cirrus_integration_test
-def test_decode_raw_transaction(cirrusminer_node: CirrusMinerNode, wait_x_blocks_and_sync):
-    wait_x_blocks_and_sync(1)
+def test_decode_raw_transaction(cirrusminer_node: CirrusMinerNode, wait_n_blocks_and_sync):
+    wait_n_blocks_and_sync(1)
     request_model = SpendableTransactionsRequest(wallet_name='Test', account_name='account 0', min_confirmations=10)
     spendable_transactions = cirrusminer_node.wallet.spendable_transactions(request_model)
     spendable_transactions = [x for x in spendable_transactions.transactions]
@@ -68,8 +68,8 @@ def test_validate_address(cirrusminer_node: CirrusMinerNode, generate_p2pkh_addr
 
 @pytest.mark.integration_test
 @pytest.mark.cirrus_integration_test
-def test_get_txout(cirrusminer_node: CirrusMinerNode, wait_x_blocks_and_sync):
-    wait_x_blocks_and_sync(1)
+def test_get_txout(cirrusminer_node: CirrusMinerNode, wait_n_blocks_and_sync):
+    wait_n_blocks_and_sync(1)
     request_model = SpendableTransactionsRequest(wallet_name='Test', account_name='account 0', min_confirmations=10)
     spendable_transactions = cirrusminer_node.wallet.spendable_transactions(request_model)
     spendable_transactions = [x for x in spendable_transactions.transactions]
@@ -83,8 +83,8 @@ def test_get_txout(cirrusminer_node: CirrusMinerNode, wait_x_blocks_and_sync):
 
 @pytest.mark.integration_test
 @pytest.mark.cirrus_integration_test
-def test_get_txout_proof(cirrusminer_node: CirrusMinerNode, wait_x_blocks_and_sync):
-    wait_x_blocks_and_sync(1)
+def test_get_txout_proof(cirrusminer_node: CirrusMinerNode, wait_n_blocks_and_sync):
+    wait_n_blocks_and_sync(1)
     request_model = SpendableTransactionsRequest(wallet_name='Test', account_name='account 0', min_confirmations=10)
     spendable_transactions = cirrusminer_node.wallet.spendable_transactions(request_model)
     spendable_transactions = [x for x in spendable_transactions.transactions]

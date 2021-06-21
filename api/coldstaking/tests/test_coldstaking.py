@@ -292,7 +292,7 @@ def test_coldstaking_offline_withdrawal(mocker: MockerFixture, network, fakeuri,
     data = {
         'walletName': 'Test',
         'walletAccount': 'account 0',
-        'fee': '0.0001',
+        'fee': 10000,
         'unsignedTransaction': generate_hexstring(256),
         'utxos': [{
             'transactionId': generate_uint256,

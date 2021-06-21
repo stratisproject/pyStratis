@@ -136,6 +136,8 @@ class BlockStore(APIRequest, metaclass=EndpointRegister):
             APIError
         """
         data = self.get(request_model, **kwargs)
+        for i in range(len(data)):
+            data[i]['value'] = Money.from_satoshi_units(data[i]['value'])
 
         return [UTXOModel(**x) for x in data]
 

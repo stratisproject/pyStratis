@@ -25,6 +25,7 @@ class customint:
     def value(self) -> int:
         return self._value
 
+    # noinspection PyUnresolvedReferences
     @value.setter
     def value(self, value: int) -> None:
         self._value = self.validate_value(value)

@@ -55,7 +55,7 @@ def test_get_addresses_balances(cirrusminer_node: CirrusMinerNode,
     assert isinstance(response.balances[0], AddressBalanceModel)
 
     request_model = GetAddressesBalancesRequest(addresses=addresses)
-    cirrusminer_node.blockstore.get_addresses_balances(request_model=request_model)
+    response = cirrusminer_node.blockstore.get_addresses_balances(request_model=request_model)
     assert isinstance(response, GetAddressesBalancesModel)
     for item in response.balances:
         assert isinstance(item, AddressBalanceModel)

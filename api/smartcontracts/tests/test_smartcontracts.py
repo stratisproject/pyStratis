@@ -75,7 +75,7 @@ def test_balance(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
 def test_storage(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address, generate_hexstring):
-    data = generate_hexstring(32)
+    data = True
     mocker.patch.object(SmartContracts, 'get', return_value=data)
     smart_contracts = SmartContracts(network=network, baseuri=fakeuri)
     request_model = StorageRequest(
@@ -96,24 +96,24 @@ def test_receipt(mocker: MockerFixture, network, fakeuri, generate_uint256, gene
                  generate_p2pkh_address):
     trxid = generate_uint256
     data = {
-        'TransactionHash': trxid,
-        'BlockHash': generate_uint256,
-        'PostState': generate_uint256,
-        'GasUsed': 10,
-        'From': generate_p2pkh_address(network=network),
-        'To': generate_p2pkh_address(network=network),
-        'NewContractAddress': generate_p2pkh_address(network=network),
-        'Success': True,
-        'ReturnValue': 'result',
-        'Bloom': generate_hexstring(64),
-        'Error': '',
-        'Logs': [
+        'transactionHash': trxid,
+        'blockHash': generate_uint256,
+        'postState': generate_uint256,
+        'gasUsed': 10,
+        'from': generate_p2pkh_address(network=network),
+        'to': generate_p2pkh_address(network=network),
+        'newContractAddress': generate_p2pkh_address(network=network),
+        'success': True,
+        'returnValue': 'result',
+        'bloom': generate_hexstring(64),
+        'error': '',
+        'logs': [
             {
-                'Address': generate_p2pkh_address(network=network),
-                'Topics': [
+                'address': generate_p2pkh_address(network=network),
+                'topics': [
                     generate_hexstring(32)
                 ],
-                'Data': generate_hexstring(32)
+                'data': generate_hexstring(32)
             }
         ]
     }
@@ -135,24 +135,24 @@ def test_receipt(mocker: MockerFixture, network, fakeuri, generate_uint256, gene
 def test_receipt_search(mocker: MockerFixture, network, fakeuri, generate_uint256,
                         generate_p2pkh_address, generate_hexstring):
     data = [{
-        'TransactionHash': generate_uint256,
-        'BlockHash': generate_uint256,
-        'PostState': generate_uint256,
-        'GasUsed': 10,
-        'From': generate_p2pkh_address(network=network),
-        'To': generate_p2pkh_address(network=network),
-        'NewContractAddress': generate_p2pkh_address(network=network),
-        'Success': True,
-        'ReturnValue': 'result',
-        'Bloom': generate_hexstring(64),
-        'Error': '',
-        'Logs': [
+        'transactionHash': generate_uint256,
+        'blockHash': generate_uint256,
+        'postState': generate_uint256,
+        'gasUsed': 10,
+        'from': generate_p2pkh_address(network=network),
+        'to': generate_p2pkh_address(network=network),
+        'newContractAddress': generate_p2pkh_address(network=network),
+        'success': True,
+        'returnValue': 'result',
+        'bloom': generate_hexstring(64),
+        'error': '',
+        'logs': [
             {
-                'Address': generate_p2pkh_address(network=network),
-                'Topics': [
+                'address': generate_p2pkh_address(network=network),
+                'topics': [
                     generate_hexstring(32)
                 ],
-                'Data': generate_hexstring(32)
+                'data': generate_hexstring(32)
             }
         ]
     }]
@@ -177,7 +177,7 @@ def test_receipt_search(mocker: MockerFixture, network, fakeuri, generate_uint25
 def test_build_create(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address,
                       generate_hexstring, generate_uint256):
     data = {
-        'fee': '0.00010000',
+        'fee': 10000,
         'hex': generate_hexstring(128),
         'message': 'message',
         'success': True,
@@ -192,9 +192,9 @@ def test_build_create(mocker: MockerFixture, network, fakeuri, generate_p2pkh_ad
         amount=Money(5),
         fee_amount=Money(0.0001),
         password='password',
-        contract_code='codegoeshere',
-        gas_price=Money(0.00001),
-        gas_limit=Money(0.0001),
+        contract_code=generate_hexstring(128),
+        gas_price=1000,
+        gas_limit=250000,
         sender=Address(address=generate_p2pkh_address(network=network), network=network),
         parameters=[
             SmartContractParameter(value_type=SmartContractParameterType.Boolean, value=True),
@@ -209,7 +209,7 @@ def test_build_create(mocker: MockerFixture, network, fakeuri, generate_p2pkh_ad
                                    value=Address(address=generate_p2pkh_address(network=network), network=network)),
             SmartContractParameter(value_type=SmartContractParameterType.ByteArray, value=bytearray(b'\x04\xa6\xb9')),
             SmartContractParameter(value_type=SmartContractParameterType.UInt128, value=uint128(789)),
-            SmartContractParameter(value_type=SmartContractParameterType.UInt256, value=uint256(987)),
+            SmartContractParameter(value_type=SmartContractParameterType.UInt256, value=uint256(987))
         ]
     )
 
@@ -224,7 +224,7 @@ def test_build_create(mocker: MockerFixture, network, fakeuri, generate_p2pkh_ad
 def test_build_call(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address, generate_uint256,
                     generate_hexstring):
     data = {
-        'fee': '0.00010000',
+        'fee': 10000,
         'hex': generate_hexstring(128),
         'message': 'message',
         'success': True,
@@ -241,8 +241,8 @@ def test_build_call(mocker: MockerFixture, network, fakeuri, generate_p2pkh_addr
         amount=Money(5),
         fee_amount=Money(0.0001),
         password='password',
-        gas_price=Money(0.00001),
-        gas_limit=Money(0.0001),
+        gas_price=1000,
+        gas_limit=250000,
         sender=Address(address=generate_p2pkh_address(network=network), network=network),
         parameters=[
             SmartContractParameter(value_type=SmartContractParameterType.Boolean, value=True),
@@ -257,7 +257,7 @@ def test_build_call(mocker: MockerFixture, network, fakeuri, generate_p2pkh_addr
                                    value=Address(address=generate_p2pkh_address(network=network), network=network)),
             SmartContractParameter(value_type=SmartContractParameterType.ByteArray, value=bytearray(b'\x04\xa6\xb9')),
             SmartContractParameter(value_type=SmartContractParameterType.UInt128, value=uint128(789)),
-            SmartContractParameter(value_type=SmartContractParameterType.UInt256, value=uint256(987)),
+            SmartContractParameter(value_type=SmartContractParameterType.UInt256, value=uint256(987))
         ]
     )
 
@@ -272,7 +272,7 @@ def test_build_call(mocker: MockerFixture, network, fakeuri, generate_p2pkh_addr
 def test_build_transaction(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address, generate_hexstring,
                            generate_uint256):
     data = {
-        'fee': '0.00010000',
+        'fee': 10000,
         'hex': generate_hexstring(128),
         'message': 'message',
         'success': True,
@@ -313,7 +313,7 @@ def test_build_transaction(mocker: MockerFixture, network, fakeuri, generate_p2p
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
 def test_estimate_fee(mocker: MockerFixture, network, fakeuri, generate_uint256,
                       generate_p2pkh_address):
-    data = 1
+    data = 10000
     mocker.patch.object(SmartContracts, 'post', return_value=data)
     smart_contracts = SmartContracts(network=network, baseuri=fakeuri)
     request_model = EstimateFeeRequest(
@@ -339,7 +339,7 @@ def test_estimate_fee(mocker: MockerFixture, network, fakeuri, generate_uint256,
 
     response = smart_contracts.estimate_fee(request_model)
 
-    assert response == Money(data)
+    assert response == Money.from_satoshi_units(data)
     # noinspection PyUnresolvedReferences
     smart_contracts.post.assert_called_once()
 
@@ -348,7 +348,7 @@ def test_estimate_fee(mocker: MockerFixture, network, fakeuri, generate_uint256,
 def test_build_and_send_create(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address,
                                generate_uint256, generate_hexstring):
     data = {
-        'fee': 1,
+        'fee': 10000,
         'hex': generate_hexstring(128),
         'message': 'message',
         'success': True,
@@ -363,9 +363,9 @@ def test_build_and_send_create(mocker: MockerFixture, network, fakeuri, generate
         amount=Money(5),
         fee_amount=Money(0.0001),
         password='password',
-        contract_code='codegoeshere',
-        gas_price=Money(0.0001),
-        gas_limit=Money(0.01),
+        contract_code=generate_hexstring(128),
+        gas_price=1000,
+        gas_limit=250000,
         sender=Address(address=generate_p2pkh_address(network=network), network=network),
         parameters=[
             SmartContractParameter(value_type=SmartContractParameterType.Boolean, value=True),
@@ -380,7 +380,7 @@ def test_build_and_send_create(mocker: MockerFixture, network, fakeuri, generate
                                    value=Address(address=generate_p2pkh_address(network=network), network=network)),
             SmartContractParameter(value_type=SmartContractParameterType.ByteArray, value=bytearray(b'\x04\xa6\xb9')),
             SmartContractParameter(value_type=SmartContractParameterType.UInt128, value=uint128(789)),
-            SmartContractParameter(value_type=SmartContractParameterType.UInt256, value=uint256(987)),
+            SmartContractParameter(value_type=SmartContractParameterType.UInt256, value=uint256(987))
         ]
     )
 
@@ -395,7 +395,7 @@ def test_build_and_send_create(mocker: MockerFixture, network, fakeuri, generate
 def test_build_and_send_call(mocker: MockerFixture, network, fakeuri, generate_uint256,
                              generate_p2pkh_address, generate_hexstring):
     data = {
-        'fee': 1,
+        'fee': 10000,
         'hex': generate_hexstring(128),
         'message': 'message',
         'success': True,
@@ -412,8 +412,8 @@ def test_build_and_send_call(mocker: MockerFixture, network, fakeuri, generate_u
         amount=Money(5),
         fee_amount=Money(0.0001),
         password='password',
-        gas_price=Money(0.0001),
-        gas_limit=Money(0.001),
+        gas_price=1000,
+        gas_limit=250000,
         sender=Address(address=generate_p2pkh_address(network=network), network=network),
         parameters=[
             SmartContractParameter(value_type=SmartContractParameterType.Boolean, value=True),
@@ -428,7 +428,7 @@ def test_build_and_send_call(mocker: MockerFixture, network, fakeuri, generate_u
                                    value=Address(address=generate_p2pkh_address(network=network), network=network)),
             SmartContractParameter(value_type=SmartContractParameterType.ByteArray, value=bytearray(b'\x04\xa6\xb9')),
             SmartContractParameter(value_type=SmartContractParameterType.UInt128, value=uint128(789)),
-            SmartContractParameter(value_type=SmartContractParameterType.UInt256, value=uint256(987)),
+            SmartContractParameter(value_type=SmartContractParameterType.UInt256, value=uint256(987))
         ]
     )
 
@@ -442,24 +442,24 @@ def test_build_and_send_call(mocker: MockerFixture, network, fakeuri, generate_u
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
 def test_local_call(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address, generate_hexstring):
     data = {
-        'InternalTransfers': [
+        'internalTransfers': [
             {
-                'From': generate_p2pkh_address(network=network),
-                'To': generate_p2pkh_address(network=network),
-                'Value': 5
+                'from': generate_p2pkh_address(network=network),
+                'to': generate_p2pkh_address(network=network),
+                'value': 5
             }
         ],
-        'GasConsumed': 1,
-        'Revert': False,
-        'ErrorMessage': '',
-        'Return': "{'key': 'value'}",
-        'Logs': [
+        'gasConsumed': {'value': 1500},
+        'revert': False,
+        'errorMessage': "{'value': 'Error Message.'}",
+        'return': "{'key': 'value'}",
+        'logs': [
             {
-                'Address': generate_p2pkh_address(network=network),
-                'Topics': [
+                'address': generate_p2pkh_address(network=network),
+                'topics': [
                     generate_hexstring(32)
                 ],
-                'Data': generate_hexstring(32)
+                'data': generate_hexstring(32)
             }
         ]
     }
@@ -470,8 +470,8 @@ def test_local_call(mocker: MockerFixture, network, fakeuri, generate_p2pkh_addr
         contract_address=Address(address=generate_p2pkh_address(network=network), network=network),
         method_name='method',
         amount=Money(10),
-        gas_price=Money(0.0001),
-        gas_limit=Money(0.001),
+        gas_price=1000,
+        gas_limit=250000,
         sender=Address(address=generate_p2pkh_address(network=network), network=network),
         parameters=[
             SmartContractParameter(value_type=SmartContractParameterType.Boolean, value=True),
@@ -486,7 +486,7 @@ def test_local_call(mocker: MockerFixture, network, fakeuri, generate_p2pkh_addr
                                    value=Address(address=generate_p2pkh_address(network=network), network=network)),
             SmartContractParameter(value_type=SmartContractParameterType.ByteArray, value=bytearray(b'\x04\xa6\xb9')),
             SmartContractParameter(value_type=SmartContractParameterType.UInt128, value=uint128(789)),
-            SmartContractParameter(value_type=SmartContractParameterType.UInt256, value=uint256(987)),
+            SmartContractParameter(value_type=SmartContractParameterType.UInt256, value=uint256(987))
         ]
     )
 
@@ -501,12 +501,12 @@ def test_local_call(mocker: MockerFixture, network, fakeuri, generate_p2pkh_addr
 def test_address_balances(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address):
     data = [
         {
-            'Address': generate_p2pkh_address(network=network),
-            'Sum': 5
+            'address': generate_p2pkh_address(network=network),
+            'sum': 5
         },
         {
-            'Address': generate_p2pkh_address(network=network),
-            'Sum': 10
+            'address': generate_p2pkh_address(network=network),
+            'sum': 10
         }
     ]
     mocker.patch.object(SmartContracts, 'get', return_value=data)

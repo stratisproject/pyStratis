@@ -1,11 +1,11 @@
-from typing import Optional
+from typing import Optional, Union
 from pydantic import Field, BaseModel
 from pybitcoin.types import Address, Money
 
 
 class TransactionOutputModel(BaseModel):
     """A TransactionOutputModel."""
-    address: Optional[Address]
+    address: Optional[Union[int, Address]]
     amount: Optional[Money]
     op_return_data: Optional[str] = Field(alias='OpReturnData')
 
