@@ -129,7 +129,7 @@ def test_member_info(mocker: MockerFixture, network, fakeuri, generate_compresse
         'nodeVersion': 1,
         'pubKey': generate_compressed_pubkey,
         'federationConnectionState': '1 out of 15',
-        'FederationMemberConnections': [
+        'federationMemberConnections': [
             {
                 'federationMemberIp': 'http://localhost',
                 'isConnected': True,

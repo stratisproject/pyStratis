@@ -57,7 +57,7 @@ class PubKey:
 
     def compressed(self) -> str:
         """Retreives a compressed pubkey."""
-        prefix = '02' if int(self.x, 16) % 2 == 0 else '03'
+        prefix = '02' if int(self.y, 16) % 2 == 0 else '03'
         return f'{prefix}{self.x}'
 
     @classmethod
