@@ -170,9 +170,9 @@ def sync_two_nodes():
 
 @pytest.fixture(scope='module')
 def node_creates_a_wallet():
-    def _node_creates_a_wallet(node: BaseNode, wallet_name: str = 'Test') -> bool:
+    def _node_creates_a_wallet(node: BaseNode, wallet_name: str = 'Test', mnemonic: str = None) -> bool:
         from api.wallet.requestmodels import CreateRequest
-        mnemonic = node.wallet.create(CreateRequest(name=wallet_name, password='password', passphrase='passphrase'))
+        mnemonic = node.wallet.create(CreateRequest(name=wallet_name, mnemonic=mnemonic, password='password', passphrase='passphrase'))
         return len(mnemonic) == 12
     return _node_creates_a_wallet
 
@@ -413,10 +413,10 @@ def start_interflux_strax_regtest_node(start_regtest_node):
 
 @pytest.fixture(scope='module')
 def start_interflux_cirrus_regtest_node(start_regtest_node):
-    def _start_interflux_cirrus_regtest_node(node: InterfluxCirrusNode, extra_cmd_ops: List = None):
+    def _start_interflux_cirrus_regtest_node(node: InterfluxCirrusNode, extra_cmd_ops: List = None, private_key: bytes = None):
         root_dir = re.match(r'(.*)pystratis', os.getcwd())[0]
         source_dir = os.path.join(root_dir, 'integration_tests', 'StratisFullNode', 'src', 'Stratis.CirrusPegD')
-        start_regtest_node(node=node, source_dir=source_dir, extra_cmd_ops=extra_cmd_ops)
+        start_regtest_node(node=node, source_dir=source_dir, extra_cmd_ops=extra_cmd_ops, private_key=private_key)
     return _start_interflux_cirrus_regtest_node
 
 
@@ -436,13 +436,13 @@ def wait_n_blocks_and_sync(cirrusminer_node: CirrusMinerNode,
 
 @pytest.fixture(scope='module')
 def interflux_wait_n_blocks_and_sync(interflux_cirrusminer_node: InterfluxCirrusNode,
-                                     interflux_cirrusminer_syncing_node: InterfluxCirrusNode,
+                                     cirrus_node: CirrusNode,
                                      check_at_or_above_given_block_height):
     def _interflux_wait_n_blocks_and_sync(num_blocks: int):
         current_height = cirrusminer_node.blockstore.get_block_count()
         target = current_height + num_blocks
         while True:
-            if check_at_or_above_given_block_height(interflux_cirrusminer_node, target) and check_at_or_above_given_block_height(interflux_cirrusminer_syncing_node, target):
+            if check_at_or_above_given_block_height(interflux_cirrusminer_node, target) and check_at_or_above_given_block_height(cirrus_node, target):
                 break
             time.sleep(1)
     return _interflux_wait_n_blocks_and_sync

@@ -1,11 +1,18 @@
+import time
+
 import pytest
 import api
+from api.federationwallet.requestmodels import EnableFederationRequest
 
 
 @pytest.fixture(scope='module', autouse=True)
 def initialize_nodes(
         start_interflux_strax_regtest_node,
         start_interflux_cirrus_regtest_node,
+        start_strax_regtest_node,
+        strax_hot_node,
+        start_cirrus_regtest_node,
+        cirrus_node,
         interflux_strax_node,
         interflux_strax_syncing_node,
         interflux_cirrusminer_node,
@@ -19,55 +26,56 @@ def initialize_nodes(
         sync_two_nodes,
         get_federation_private_key,
         get_federation_compressed_pubkey,
+        get_federation_mnemonic,
         interflux_wait_n_blocks_and_sync,
         transfer_funds_to_test,
         check_at_or_above_given_block_height,
+        generate_privatekey,
         git_checkout_current_node_version):
     git_checkout_current_node_version(api.__version__)
 
     # Start two masternodes nodes on the same regtest network.
     # Configs
-    redeem_script = f'2 {get_federation_compressed_pubkey(0)} {get_federation_compressed_pubkey(1)} {get_federation_compressed_pubkey(2)} 3 OP_CHECKMULTISIG'
-    interflux_strax_extra_cmd_ops_node_mining = ['-mainchain', f'-federationkeys={get_federation_compressed_pubkey(0)},{get_federation_compressed_pubkey(2)}',
-                                                 f'-publickey={get_federation_compressed_pubkey(0)}', '-mindepositconfirmations=1', '-federationips=0.0.0.0,0.0.0.1',
-                                                 f'-counterchainapiport={interflux_cirrusminer_node.blockchainnetwork.API_PORT}', f'-redeemscript={redeem_script}']
-    interflux_strax_extra_cmd_ops_node_syncing = ['-mainchain', f'-federationkeys={get_federation_compressed_pubkey(0)},{get_federation_compressed_pubkey(2)}',
-                                                  f'-publickey={get_federation_compressed_pubkey(2)}', '-mindepositconfirmations=1', '-federationips=0.0.0.0,0.0.0.1',
-                                                  f'-counterchainapiport={interflux_cirrusminer_syncing_node.blockchainnetwork.API_PORT}',  f'-redeemscript={redeem_script}']
-    interflux_cirrusminer_extra_cmd_ops_node_mining = ['-sidechain', '-devmode=miner', '-mincoinmaturity=1', '-mindepositconfirmations=1', '-bantime=1',
-                                                       f'-counterchainapiport={interflux_strax_node.blockchainnetwork.API_PORT}',  f'-redeemscript={redeem_script}']
-    interflux_cirrusminer_extra_cmd_ops_node_syncing = ['-sidechain', '-devmode=miner', '-mincoinmaturity=1', '-mindepositconfirmations=1', '-bantime=1',
-                                                        f'-whitelist=127.0.0.1:{interflux_cirrusminer_node.blockchainnetwork.DEFAULT_PORT}',
-                                                        f'-counterchainapiport={interflux_strax_syncing_node.blockchainnetwork.API_PORT}',  f'-redeemscript={redeem_script}']
-    start_interflux_strax_regtest_node(interflux_strax_node, extra_cmd_ops=interflux_strax_extra_cmd_ops_node_mining)
-    assert node_creates_a_wallet(interflux_strax_node)
-    node_mines_some_blocks_and_syncs(interflux_strax_node, None, 10)
-    start_interflux_cirrus_regtest_node(interflux_cirrusminer_node, extra_cmd_ops=interflux_cirrusminer_extra_cmd_ops_node_mining, private_key=get_federation_private_key(2))
-    assert node_creates_a_wallet(interflux_cirrusminer_node)
+    redeem_script = '0347f6ba6232037a68ce2b8ac988c07c071eee1e7edd0e6bb9b3dbda22772ad96a OP_FEDERATION OP_CHECKMULTISIG'
+    interflux_strax_extra_cmd_ops_node_0 = ['-mainchain', f'-publickey={get_federation_compressed_pubkey(index=0)}', '-federationips=127.0.0.1', '-mine=1',
+                                            f'-counterchainapiport={interflux_cirrusminer_node.blockchainnetwork.API_PORT}', f'-redeemscript={redeem_script}']
+    interflux_cirrusminer_extra_cmd_ops_node_0 = ['-sidechain', f'-publickey={get_federation_compressed_pubkey(index=0)}', '-federationips=127.0.0.1',
+                                                  f'-counterchainapiport={interflux_strax_node.blockchainnetwork.API_PORT}', f'-redeemscript={redeem_script}']
+    interflux_strax_extra_cmd_ops_node_1 = ['-mainchain', f'-publickey={get_federation_compressed_pubkey(index=1)}', '-federationips=127.0.0.1', '-mine=1',
+                                            f'-counterchainapiport={interflux_cirrusminer_node.blockchainnetwork.API_PORT}', f'-redeemscript={redeem_script}']
+    interflux_cirrusminer_extra_cmd_ops_node_1 = ['-sidechain', f'-publickey={get_federation_compressed_pubkey(index=1)}', '-federationips=127.0.0.1',
+                                                  f'-counterchainapiport={interflux_strax_node.blockchainnetwork.API_PORT}', f'-redeemscript={redeem_script}']
+    # Strax mining node
+    start_strax_regtest_node(strax_hot_node)
+    # 2 Gateway nodes
+    start_interflux_strax_regtest_node(interflux_strax_node, extra_cmd_ops=interflux_strax_extra_cmd_ops_node_0)
+    start_interflux_cirrus_regtest_node(interflux_cirrusminer_node, extra_cmd_ops=interflux_cirrusminer_extra_cmd_ops_node_0, private_key=get_federation_private_key(0))
+    start_interflux_strax_regtest_node(interflux_strax_syncing_node, extra_cmd_ops=interflux_strax_extra_cmd_ops_node_1)
+    start_interflux_cirrus_regtest_node(interflux_cirrusminer_syncing_node, extra_cmd_ops=interflux_cirrusminer_extra_cmd_ops_node_1, private_key=get_federation_private_key(1))
+    # Cirrus node
+    start_cirrus_regtest_node(cirrus_node, extra_cmd_ops=[])
 
-    # Delay starting 2nd masternode to give first a head start.
-    while True:
-        if check_at_or_above_given_block_height(interflux_strax_node, 5):
-            break
+    # Give a little time to startup.
+    time.sleep(10)
 
-    start_interflux_strax_regtest_node(interflux_strax_syncing_node, extra_cmd_ops=interflux_strax_extra_cmd_ops_node_syncing)
-    start_interflux_cirrus_regtest_node(interflux_cirrusminer_node, extra_cmd_ops=interflux_cirrusminer_extra_cmd_ops_node_syncing, private_key=get_federation_private_key(2))
-
-    # Check all endpoints
+    # Check all endpoints exist
+    assert strax_hot_node.check_all_endpoints_implemented()
     assert interflux_strax_node.check_all_endpoints_implemented()
+    assert interflux_strax_syncing_node.check_all_endpoints_implemented()
     assert interflux_cirrusminer_node.check_all_endpoints_implemented()
+    assert interflux_cirrusminer_syncing_node.check_all_endpoints_implemented()
+    assert cirrus_node.check_all_endpoints_implemented()
 
-    # Set up wallets for the second masternodes.
-    assert node_creates_a_wallet(interflux_strax_syncing_node)
-    assert node_creates_a_wallet(interflux_cirrusminer_syncing_node)
+    # Create wallets
+    assert node_creates_a_wallet(interflux_strax_node)
+    assert node_creates_a_wallet(interflux_cirrusminer_node)
+    assert node_creates_a_wallet(strax_hot_node)
+    assert node_creates_a_wallet(cirrus_node)
 
-    # Connect respective networks for each node.
-    assert connect_two_nodes(interflux_strax_node, interflux_strax_syncing_node)
-    assert connect_two_nodes(interflux_cirrusminer_node, interflux_cirrusminer_syncing_node)
-    interflux_wait_n_blocks_and_sync(2)
-
-    # Transfer the cirrusdev funds to the first node's wallet, balance the funds, and remove cirrusdev wallet from each.
-    transfer_funds_to_test(interflux_cirrusminer_node)
-    interflux_wait_n_blocks_and_sync(2)
-    transfer_funds_to_test(interflux_cirrusminer_syncing_node)
-    interflux_wait_n_blocks_and_sync(2)
+    # Enable the federation, connect the nodes.
+    assert connect_two_nodes(strax_hot_node, interflux_strax_node)
+    assert connect_two_nodes(interflux_cirrusminer_node, cirrus_node)
+    interflux_strax_node.federation_wallet.enable_federation(EnableFederationRequest(mnemonic=get_federation_mnemonic(0), password='password', timeout_seconds=60))
+    interflux_cirrusminer_node.federation_wallet.enable_federation(EnableFederationRequest(mnemonic=get_federation_mnemonic(0), password='password', timeout_seconds=60))
+    interflux_strax_syncing_node.federation_wallet.enable_federation(EnableFederationRequest(mnemonic=get_federation_mnemonic(1), password='password', timeout_seconds=60))
+    interflux_cirrusminer_syncing_node.federation_wallet.enable_federation(EnableFederationRequest(mnemonic=get_federation_mnemonic(1), password='password', timeout_seconds=60))

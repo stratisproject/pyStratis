@@ -12,7 +12,7 @@ class AccountBalanceModel(BaseModel):
     coin_type: CoinType = Field(alias='coinType')
     amount_confirmed: Money = Field(alias='amountConfirmed')
     amount_unconfirmed: Money = Field(alias='amountUnconfirmed')
-    spendable_amount: Money = Field(alias='spendableAmount')
+    spendable_amount: Optional[Money] = Field(alias='spendableAmount')
     addresses: Optional[List[AddressModel]]
 
     class Config:

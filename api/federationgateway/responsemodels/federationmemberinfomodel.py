@@ -17,4 +17,4 @@ class FederationMemberInfoModel(Model):
     node_version: Optional[str] = Field(alias='nodeVersion')
     pubkey: Optional[PubKey] = Field(alias='pubKey')
     federation_connection_state: Optional[str] = Field(alias='federationConnectionState')
-    federation_member_connections: Optional[List[FederationMemberConnectionInfo]] = Field(alias='FederationMemberConnections')
+    federation_member_connections: Optional[List[FederationMemberConnectionInfo]] = Field(alias='federationMemberConnections')

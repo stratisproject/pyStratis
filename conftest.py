@@ -194,7 +194,8 @@ def generate_compressed_pubkey(generate_uncompressed_pubkey) -> str:
     uncompressed_pubkey = generate_uncompressed_pubkey[2:]
     uncompressed_pubkey_bytes = unhexlify(uncompressed_pubkey)
     x = int.from_bytes(uncompressed_pubkey_bytes[:32], 'big')
-    prefix = '02' if x % 2 == 0 else '03'
+    y = int.from_bytes(uncompressed_pubkey_bytes[32:], 'big')
+    prefix = '02' if y % 2 == 0 else '03'
     return f"{prefix}{format(x, '0>64x')}"
 
 
@@ -421,15 +422,24 @@ def generate_block_with_tx_data(generate_block_no_tx_data, generate_coinbase_tra
 
 
 @pytest.fixture(scope='module')
-def get_federation_private_key(generate_privatekey):
+def get_federation_mnemonic():
+    def _get_federation_mnemonic(index: int = 0) -> str:
+        fed_mnemonics = [
+                'ensure feel swift crucial bridge charge cloud tell hobby twenty people mandate',
+                'quiz sunset vote alley draw turkey hill scrap lumber game differ fiction',
+                'exchange rent bronze pole post hurry oppose drama eternal voice client state',
+                'fat chalk grant major hair possible adjust talent magnet lobster retreat siren'
+            ]
+        assert index < len(fed_mnemonics)
+        return fed_mnemonics[index]
+    return _get_federation_mnemonic
+
+
+@pytest.fixture(scope='module')
+def get_federation_private_key(get_federation_mnemonic, generate_privatekey):
     def _get_federation_private_key(index: int = 0) -> bytes:
-        mnemonics = [
-            'ensure feel swift crucial bridge charge cloud tell hobby twenty people mandate',
-            'quiz sunset vote alley draw turkey hill scrap lumber game differ fiction',
-            'fat chalk grant major hair possible adjust talent magnet lobster retreat siren'
-        ]
-        assert index < len(mnemonics)
-        return generate_privatekey(mnemonics[index]).get_bytes()
+        fed_mnemonic = get_federation_mnemonic(index)
+        return generate_privatekey(fed_mnemonic).get_bytes()
     return _get_federation_private_key
 
 
@@ -439,6 +449,7 @@ def get_federation_compressed_pubkey(get_federation_private_key):
         private_key_bytes = get_federation_private_key(index=index)
         key = ecdsa.SigningKey.from_string(private_key_bytes, curve=ecdsa.SECP256k1).verifying_key
         x = int.from_bytes(key.to_string()[:32], 'big')
-        prefix = '02' if x % 2 == 0 else '03'
+        y = int.from_bytes(key.to_string()[32:], 'big')
+        prefix = '02' if y % 2 == 0 else '03'
         return hexstr(f"{prefix}{format(x, '0>64x')}")
     return _get_federation_compressed_pubkey

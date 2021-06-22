@@ -5,7 +5,7 @@ from pybitcoin import Model
 
 class EnableFederationRequest(Model):
     """A EnableFederationRequest."""
-    mnemonic: Optional[str]
+    mnemonic: str
     password: SecretStr
-    passphrase: SecretStr
+    passphrase: Optional[SecretStr]
     timeout_seconds: conint(ge=0) = Field(alias='timeoutSeconds')

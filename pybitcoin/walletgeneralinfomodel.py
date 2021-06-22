@@ -4,7 +4,7 @@ from pydantic import BaseModel, Field, conint
 
 class WalletGeneralInfoModel(BaseModel):
     """A WalletGeneralInfoModel."""
-    wallet_name: str = Field(alias='walletName')
+    wallet_name: Optional[str] = Field(alias='walletName')
     network: str
     creation_time: str = Field(alias='creationTime')
     is_decrypted: bool = Field(alias='isDecrypted')

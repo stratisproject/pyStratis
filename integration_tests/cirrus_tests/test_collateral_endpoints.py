@@ -6,7 +6,7 @@ from pybitcoin.types import Address
 from pybitcoin.networks import StraxRegTest
 
 
-@pytest.mark.skip(reason='Does not work in regtest environment.')
+@pytest.mark.skip(reason='Unable to test in regtest environment.')
 @pytest.mark.integration_test
 @pytest.mark.cirrus_integration_test
 def test_join_federation(cirrus_node: CirrusNode, generate_p2pkh_address, wait_n_blocks_and_sync):

@@ -24,15 +24,17 @@ class Interop(APIRequest, metaclass=EndpointRegister):
             APIError
         """
         data = self.get(**kwargs)
-        for i in range(len(data['mintRequests'])):
-            data['mintRequests'][i]['destinationAddress'] = Address(
-                address=data['mintRequests'][i]['destinationAddress'],
-                network=Ethereum()
-            )
-        for i in range(len(data['burnRequests'])):
-            data['burnRequests'][i]['destinationAddress'] = Address(
-                address=data['burnRequests'][i]['destinationAddress'],
-                network=self._network
-            )
+        if data['mintRequests'] is not None:
+            for i in range(len(data['mintRequests'])):
+                data['mintRequests'][i]['destinationAddress'] = Address(
+                    address=data['mintRequests'][i]['destinationAddress'],
+                    network=Ethereum()
+                )
+        if data['burnRequests'] is not None:
+            for i in range(len(data['burnRequests'])):
+                data['burnRequests'][i]['destinationAddress'] = Address(
+                    address=data['burnRequests'][i]['destinationAddress'],
+                    network=self._network
+                )
 
         return StatusModel(**data)
