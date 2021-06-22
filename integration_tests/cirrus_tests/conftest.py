@@ -54,15 +54,14 @@ def initialize_nodes(
     assert cirrusminer_node.check_all_endpoints_implemented()
     assert cirrusminer_syncing_node.check_all_endpoints_implemented()
     assert cirrus_node.check_all_endpoints_implemented()
+    cirrus_node.node.stop()
 
     # Set up wallets for the two nodes. Wallets need to be setup before mining or joining federation
     assert node_creates_a_wallet(cirrusminer_node)
     assert node_creates_a_wallet(cirrusminer_syncing_node)
-    assert node_creates_a_wallet(cirrus_node)
 
     # Connect federation nodes
     assert connect_two_nodes(cirrusminer_node, cirrusminer_syncing_node)
-    assert connect_two_nodes(cirrus_node, cirrusminer_node)
     wait_n_blocks_and_sync(2)
 
     # Transfer the cirrusdev funds to the first node's wallet, balance the funds, and remove cirrusdev wallet from each.
