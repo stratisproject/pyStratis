@@ -7,22 +7,22 @@ from api.wallet.requestmodels import ExtPubRecoveryRequest, GetUnusedAddressRequ
     ExtPubKeyRequest, SendTransactionRequest, OfflineSignRequest
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope='session')
 def hot_wallet_name() -> str:
     return 'Test'
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope='session')
 def offline_node_default_wallet_name() -> str:
     return 'mywallet'
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope='session')
 def restored_offline_on_hot_wallet_name() -> str:
     return 'coldwallet'
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope='session')
 def setup_coldstaking_accounts_and_addresses(
         strax_hot_node: StraxNode,
         strax_offline_node: StraxNode,
@@ -91,7 +91,7 @@ def setup_coldstaking_accounts_and_addresses(
     return credentials
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope='session')
 def setup_coldstaking_transaction_and_send(
         strax_hot_node: StraxNode, strax_offline_node: StraxNode,
         node_mines_some_blocks_and_syncs,

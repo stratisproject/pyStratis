@@ -45,7 +45,7 @@ def test_status(mocker: MockerFixture, network, fakeuri, generate_uint256, gener
                 'requestStatus': ConversionRequestStatus.Processed,
                 'blockHeight': 5,
                 'destinationAddress': generate_ethereum_checksum_address,
-                'amount': 5,
+                'amount': 5000000,
                 'processed': True
             }
         ],
@@ -56,7 +56,7 @@ def test_status(mocker: MockerFixture, network, fakeuri, generate_uint256, gener
                 'requestStatus': ConversionRequestStatus.Processed,
                 'blockHeight': 5,
                 'destinationAddress': generate_p2pkh_address(network=network),
-                'amount': 5,
+                'amount': 500000,
                 'processed': True
             }
         ],

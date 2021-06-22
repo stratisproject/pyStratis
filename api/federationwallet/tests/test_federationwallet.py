@@ -4,7 +4,7 @@ from api.federationwallet import FederationWallet
 from api.federationwallet.requestmodels import *
 from api.federationwallet.responsemodels import *
 from pybitcoin.networks import StraxMain, CirrusMain
-from pybitcoin import CoinType, CrossChainTransferStatus
+from pybitcoin import CoinType
 
 
 def test_all_strax_endpoints_implemented(strax_swagger_json):
@@ -94,26 +94,26 @@ def test_balance(mocker: MockerFixture, network, fakeuri, get_base_keypath, gene
 def test_history(mocker: MockerFixture, network, fakeuri, generate_uint256, generate_p2pkh_address):
     data = [
         {
-            'Id': generate_uint256,
-            'DepositId': generate_uint256,
-            'Amount': 5,
-            'PayingTo': generate_p2pkh_address(network=network),
-            'BlockHeight': 5,
-            'BlockHash': generate_uint256,
-            'SignatureCount': 5,
-            'SpendingOutputDetails': 'details',
-            'TransferStatus': CrossChainTransferStatus.FullySigned
+            'id': generate_uint256,
+            'depositId': generate_uint256,
+            'amount': 5,
+            'payingTo': 'Rewards',
+            'blockHeight': 5,
+            'blockHash': generate_uint256,
+            'signatureCount': 5,
+            'spendingOutputDetails': 'details',
+            'transferStatus': 'FullySigned'
         },
         {
-            'Id': generate_uint256,
-            'DepositId': generate_uint256,
-            'Amount': 5,
-            'PayingTo': generate_p2pkh_address(network=network),
-            'BlockHeight': 5,
-            'BlockHash': generate_uint256,
-            'SignatureCount': 5,
-            'SpendingOutputDetails': 'details',
-            'TransferStatus': CrossChainTransferStatus.FullySigned
+            'id': generate_uint256,
+            'depositId': generate_uint256,
+            'amount': 5,
+            'payingTo': generate_p2pkh_address(network=network),
+            'blockHeight': 5,
+            'blockHash': generate_uint256,
+            'signatureCount': 5,
+            'spendingOutputDetails': 'details',
+            'transferStatus': 'SeenInBlock'
         }
     ]
     mocker.patch.object(FederationWallet, 'get', return_value=data)

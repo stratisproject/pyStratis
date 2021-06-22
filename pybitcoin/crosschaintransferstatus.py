@@ -2,8 +2,8 @@ from enum import Enum
 
 
 class CrossChainTransferStatus(str, Enum):
-    Suspended = 'U'
-    Partial = 'P'
-    FullySigned = 'F'
-    SeenInBlock = 'S'
-    Rejected = 'R'
+    Suspended = 'Suspended'
+    Partial = 'Partial'
+    FullySigned = 'FullySigned'
+    SeenInBlock = 'SeenInBlock'
+    Rejected = 'Rejected'

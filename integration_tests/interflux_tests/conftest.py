@@ -5,7 +5,7 @@ import api
 from api.federationwallet.requestmodels import EnableFederationRequest
 
 
-@pytest.fixture(scope='module', autouse=True)
+@pytest.fixture(scope='session', autouse=True)
 def initialize_nodes(
         start_interflux_strax_regtest_node,
         start_interflux_cirrus_regtest_node,
@@ -36,7 +36,8 @@ def initialize_nodes(
 
     # Start two masternodes nodes on the same regtest network.
     # Configs
-    redeem_script = '0347f6ba6232037a68ce2b8ac988c07c071eee1e7edd0e6bb9b3dbda22772ad96a OP_FEDERATION OP_CHECKMULTISIG'
+    # redeem_script = '0347f6ba6232037a68ce2b8ac988c07c071eee1e7edd0e6bb9b3dbda22772ad96a OP_FEDERATION OP_CHECKMULTISIG'
+    redeem_script = f'2 {get_federation_compressed_pubkey(index=0)} {get_federation_compressed_pubkey(index=1)} {get_federation_compressed_pubkey(index=3)} 3 OP_CHECKMULTISIG'
     interflux_strax_extra_cmd_ops_node_0 = ['-mainchain', f'-publickey={get_federation_compressed_pubkey(index=0)}', '-federationips=127.0.0.1', '-mine=1',
                                             f'-counterchainapiport={interflux_cirrusminer_node.blockchainnetwork.API_PORT}', f'-redeemscript={redeem_script}']
     interflux_cirrusminer_extra_cmd_ops_node_0 = ['-sidechain', f'-publickey={get_federation_compressed_pubkey(index=0)}', '-federationips=127.0.0.1',

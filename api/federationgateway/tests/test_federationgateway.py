@@ -3,7 +3,7 @@ from pytest_mock import MockerFixture
 from api.federationgateway import FederationGateway
 from api.federationgateway.requestmodels import *
 from api.federationgateway.responsemodels import *
-from pybitcoin import CrossChainTransferStatus, DestinationChain, DepositRetrievalType
+from pybitcoin import CrossChainTransferStatus, DepositRetrievalType
 from pybitcoin.networks import StraxMain, CirrusMain
 
 
@@ -37,23 +37,23 @@ def test_all_interfluxcirrus_endpoints_implemented(interfluxcirrus_swagger_json)
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
 def test_deposits(mocker: MockerFixture, network, fakeuri, generate_uint256, generate_p2pkh_address):
+    target_network = StraxMain() if isinstance(network, CirrusMain) else CirrusMain()
     data = {
         'value': [{
-            'Deposits': [
+            'deposits': [
                 {
                     'id': generate_uint256,
                     'amount': 10,
-                    'TargetAddress': generate_p2pkh_address(network=StraxMain()),
-                    'TargetChain': DestinationChain.STRAX.value,
-                    'BlockNumber': 10,
-                    'BlockHash': generate_uint256,
-                    'RetrievalType': DepositRetrievalType.Small.value
+                    'targetAddress': generate_p2pkh_address(network=target_network),
+                    'blockNumber': 10,
+                    'blockHash': generate_uint256,
+                    'retrievalType': DepositRetrievalType.Small.value
                 }
             ],
-            'BlockInfo': {
-                'BlockHash': generate_uint256,
-                'BlockHeight': 10,
-                'BlockTime': 1
+            'blockInfo': {
+                'blockHash': generate_uint256,
+                'blockHeight': 10,
+                'blockTime': 1
             }
         }]
     }
@@ -243,8 +243,8 @@ def test_ip_replace(mocker: MockerFixture, network, fakeuri):
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
 def test_verify_transfer(mocker: MockerFixture, network, fakeuri, generate_uint256):
     data = {
-        'IsValid': True,
-        'Errors': []
+        'isValid': True,
+        'errors': []
     }
     mocker.patch.object(FederationGateway, 'get', return_value=data)
     federation_gateway = FederationGateway(network=network, baseuri=fakeuri)

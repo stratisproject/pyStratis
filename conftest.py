@@ -19,19 +19,19 @@ from pybitcoin.networks import BaseNetwork
 from datetime import datetime, timedelta
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope='session')
 def fakeuri():
     return 'http://localhost:8888'
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope='session')
 def get_datetime():
     def _get_datetime(days_back: int = 365) -> str:
         return (datetime.now() - timedelta(days=days_back)).isoformat().split('.')[0]
     return _get_datetime
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope='session')
 def generate_p2pkh_address():
     # noinspection PyUnresolvedReferences
     def _generate_p2pkh_address(network: 'BaseNetwork') -> str:
@@ -42,7 +42,7 @@ def generate_p2pkh_address():
     return _generate_p2pkh_address
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope='session')
 def generate_p2sh_address():
     # noinspection PyUnresolvedReferences
     def _generate_p2sh_address(network: 'BaseNetwork') -> str:
@@ -53,7 +53,7 @@ def generate_p2sh_address():
     return _generate_p2sh_address
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope='session')
 def generate_p2wpkh_address():
     # noinspection PyUnresolvedReferences
     def _generate_p2wpkh_address(network: 'BaseNetwork') -> str:
@@ -63,7 +63,7 @@ def generate_p2wpkh_address():
     return _generate_p2wpkh_address
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope='session')
 def generate_p2wsh_address():
     # noinspection PyUnresolvedReferences
     def _generate_p2wsh_address(network: 'BaseNetwork') -> str:
@@ -73,22 +73,22 @@ def generate_p2wsh_address():
     return _generate_p2wsh_address
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope='session')
 def get_base_keypath() -> str:
     return "m/44'/105'/0'/0/0"
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope='session')
 def generate_ethereum_lower_address() -> str:
     return generate_ethereum_address()
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope='session')
 def generate_ethereum_upper_address() -> str:
     return f'0x{generate_ethereum_address()[2:].upper()}'
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope='session')
 def generate_ethereum_checksum_address() -> str:
     address = generate_ethereum_address()
     address_hash = keccak_256(
@@ -103,7 +103,7 @@ def generate_ethereum_checksum_address() -> str:
     return f'0x{checksum_address}'
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope='session')
 def generate_uint256() -> str:
     first_digit = '01234567'
     hex_letters = '0123456789abcdef'
@@ -111,7 +111,7 @@ def generate_uint256() -> str:
     return f"{sign_char}{''.join(choice(hex_letters) for _ in range(63))}"
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope='session')
 def generate_uint128() -> str:
     first_digit = '01234567'
     hex_letters = '0123456789abcdef'
@@ -119,7 +119,7 @@ def generate_uint128() -> str:
     return f"{sign_char}{''.join(choice(hex_letters) for _ in range(31))}"
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope='session')
 def generate_uint64() -> str:
     first_digit = '01234567'
     hex_letters = '0123456789abcdef'
@@ -127,7 +127,7 @@ def generate_uint64() -> str:
     return f"{sign_char}{''.join(choice(hex_letters) for _ in range(15))}"
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope='session')
 def generate_uint32() -> str:
     first_digit = '01234567'
     hex_letters = '0123456789abcdef'
@@ -135,19 +135,19 @@ def generate_uint32() -> str:
     return f"{sign_char}{''.join(choice(hex_letters) for _ in range(7))}"
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope='session')
 def generate_int64() -> str:
     hex_letters = '0123456789abcdef'
     return ''.join(choice(hex_letters) for _ in range(16))
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope='session')
 def generate_int32() -> str:
     hex_letters = '0123456789abcdef'
     return ''.join(choice(hex_letters) for _ in range(8))
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope='session')
 def generate_uint160() -> str:
     first_digit = '01234567'
     hex_letters = '0123456789abcdef'
@@ -155,7 +155,7 @@ def generate_uint160() -> str:
     return f"{sign_char}{''.join(choice(hex_letters) for _ in range(39))}"
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope='session')
 def generate_hexstring():
     def _generate_hexstring(length: int = 128) -> str:
         letters = '0123456789abcdef'
@@ -163,7 +163,7 @@ def generate_hexstring():
     return _generate_hexstring
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope='session')
 def generate_privatekey():
     def _generate_privatekey(words: str = None) -> Key:
         hashkey = b'Bitcoin seed'
@@ -177,19 +177,19 @@ def generate_privatekey():
     return _generate_privatekey
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope='session')
 def generate_wif_privatekey(generate_privatekey) -> str:
     return generate_privatekey().generate_wif_key()
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope='session')
 def generate_uncompressed_pubkey(generate_privatekey) -> str:
     key = ecdsa.SigningKey.from_string(generate_privatekey().get_bytes(), curve=ecdsa.SECP256k1).verifying_key
     key_int = int.from_bytes(key.to_string(), 'big')
     return f"04{format(key_int, '0>128x')}"
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope='session')
 def generate_compressed_pubkey(generate_uncompressed_pubkey) -> str:
     uncompressed_pubkey = generate_uncompressed_pubkey[2:]
     uncompressed_pubkey_bytes = unhexlify(uncompressed_pubkey)
@@ -199,7 +199,7 @@ def generate_compressed_pubkey(generate_uncompressed_pubkey) -> str:
     return f"{prefix}{format(x, '0>64x')}"
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope='session')
 def generate_extpubkey() -> str:
     version = unhexlify('0488b21e')
     depth = secrets.token_bytes(1)
@@ -212,7 +212,7 @@ def generate_extpubkey() -> str:
     return base58.b58encode(payload_bytes + checksum[:4]).decode('ascii')
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope='session')
 def generate_extprvkey() -> str:
     version = unhexlify('0488ade4')
     depth = secrets.token_bytes(1)
@@ -225,7 +225,7 @@ def generate_extprvkey() -> str:
     return base58.b58encode(payload_bytes + checksum[:4]).decode('ascii')
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope='session')
 def strax_swagger_json() -> dict:
     root_dir = os.path.dirname(os.path.abspath(__file__))
     file_path = os.path.join(root_dir, 'api', 'strax-swagger.json')
@@ -233,7 +233,7 @@ def strax_swagger_json() -> dict:
         return json.load(f)
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope='session')
 def cirrus_swagger_json() -> dict:
     root_dir = os.path.dirname(os.path.abspath(__file__))
     file_path = os.path.join(root_dir, 'api', 'cirrus-swagger.json')
@@ -241,7 +241,7 @@ def cirrus_swagger_json() -> dict:
         return json.load(f)
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope='session')
 def interfluxstrax_swagger_json() -> dict:
     root_dir = os.path.dirname(os.path.abspath(__file__))
     file_path = os.path.join(root_dir, 'api', 'interfluxstrax-swagger.json')
@@ -249,7 +249,7 @@ def interfluxstrax_swagger_json() -> dict:
         return json.load(f)
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope='session')
 def interfluxcirrus_swagger_json() -> dict:
     root_dir = os.path.dirname(os.path.abspath(__file__))
     file_path = os.path.join(root_dir, 'api', 'interfluxcirrus-swagger.json')
@@ -265,7 +265,7 @@ def generate_ethereum_address() -> str:
     return f'0x{address}'
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope='session')
 def generate_block_no_tx_data(generate_hexstring, generate_uint256) -> dict:
     data = {
         "hash": generate_hexstring(128),
@@ -300,7 +300,7 @@ def generate_block_no_tx_data(generate_hexstring, generate_uint256) -> dict:
     return data
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope='session')
 def generate_coinbase_transaction(generate_hexstring, generate_uint256):
     def _generate_transaction(trxid: uint256) -> dict:
         data = {
@@ -343,7 +343,7 @@ def generate_coinbase_transaction(generate_hexstring, generate_uint256):
     return _generate_transaction
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope='session')
 def generate_transaction(generate_hexstring, generate_uint256, generate_p2pkh_address, generate_p2sh_address):
     def _generate_transaction(trxid: uint256, network: BaseNetwork) -> dict:
         data = {
@@ -408,7 +408,7 @@ def generate_transaction(generate_hexstring, generate_uint256, generate_p2pkh_ad
     return _generate_transaction
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope='session')
 def generate_block_with_tx_data(generate_block_no_tx_data, generate_coinbase_transaction, generate_transaction):
     def _generate_block_with_tx_data(network: BaseNetwork) -> dict:
         data = generate_block_no_tx_data
@@ -421,7 +421,7 @@ def generate_block_with_tx_data(generate_block_no_tx_data, generate_coinbase_tra
     return _generate_block_with_tx_data
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope='session')
 def get_federation_mnemonic():
     def _get_federation_mnemonic(index: int = 0) -> str:
         fed_mnemonics = [
@@ -435,7 +435,7 @@ def get_federation_mnemonic():
     return _get_federation_mnemonic
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope='session')
 def get_federation_private_key(get_federation_mnemonic, generate_privatekey):
     def _get_federation_private_key(index: int = 0) -> bytes:
         fed_mnemonic = get_federation_mnemonic(index)
@@ -443,7 +443,7 @@ def get_federation_private_key(get_federation_mnemonic, generate_privatekey):
     return _get_federation_private_key
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope='session')
 def get_federation_compressed_pubkey(get_federation_private_key):
     def _get_federation_compressed_pubkey(index: int = 0) -> hexstr:
         private_key_bytes = get_federation_private_key(index=index)

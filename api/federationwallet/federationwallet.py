@@ -76,7 +76,9 @@ class FederationWallet(APIRequest, metaclass=EndpointRegister):
         """
         data = self.get(request_model, **kwargs)
         for i in range(len(data)):
-            data[i]['PayingTo'] = Address(address=data[i]['PayingTo'], network=self._network)
+            data[i]['amount'] = Money.from_satoshi_units(data[i]['amount'])
+            if data[i]['payingTo'] != 'Rewards':
+                data[i]['payingTo'] = Address(address=data[i]['payingTo'], network=self._network)
         return [WithdrawalModel(**x) for x in data]
 
     @endpoint(f'{route}/sync')

@@ -4,7 +4,7 @@ import time
 import api
 
 
-@pytest.fixture(scope='module', autouse=True)
+@pytest.fixture(scope='session', autouse=True)
 def initialize_nodes(
         start_strax_regtest_node,
         strax_hot_node,

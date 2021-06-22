@@ -3,9 +3,9 @@ from pydantic import BaseModel, Field, conint
 
 class MaturedBlockInfoModel(BaseModel):
     """A MaturedBlockInfoModel."""
-    block_hash: str = Field(alias='BlockHash')
-    block_height: conint(ge=0) = Field(alias='BlockHeight')
-    block_time: conint(ge=0) = Field(alias='BlockTime')
+    block_hash: str = Field(alias='blockHash')
+    block_height: conint(ge=0) = Field(alias='blockHeight')
+    block_time: conint(ge=0) = Field(alias='blockTime')
 
     class Config:
         allow_population_by_field_name = True

@@ -3,7 +3,7 @@ from api import APIRequest, EndpointRegister, endpoint
 from api.federationgateway.requestmodels import *
 from api.federationgateway.responsemodels import *
 from pybitcoin import DestinationChain
-from pybitcoin.types import Address
+from pybitcoin.types import Address, Money, uint256
 from pybitcoin.networks import StraxMain, StraxTest, StraxRegTest, CirrusMain, CirrusTest, CirrusRegTest, Ethereum
 
 
@@ -33,21 +33,29 @@ class FederationGateway(APIRequest, metaclass=EndpointRegister):
 
         matured_block_deposit_models = []
         for item in serializable_result.value:
-            data = {'Deposits': [], 'BlockInfo': item['BlockInfo']}
-            for deposit in item['Deposits']:
-                if deposit['TargetChain'] == DestinationChain.STRAX.value:
-                    if self._network == StraxMain() or self._network == CirrusMain():
-                        deposit['TargetAddress'] = Address(address=deposit['TargetAddress'], network=StraxMain())
-                    if self._network == StraxTest() or self._network == CirrusTest():
-                        deposit['TargetAddress'] = Address(address=deposit['TargetAddress'], network=StraxTest())
-                    if self._network == StraxRegTest() or self._network == CirrusRegTest():
-                        deposit['TargetAddress'] = Address(address=deposit['TargetAddress'], network=StraxRegTest())
-                elif deposit['TargetChain'] == DestinationChain.ETH.value:
-                    deposit['TargetAddress'] = Address(address=deposit['TargetAddress'], network=Ethereum())
+            data = {'deposits': [], 'blockInfo': item['blockInfo']}
+            for deposit in item['deposits']:
+                deposit['amount'] = Money.from_satoshi_units(deposit['amount'])
+                if 'targetChain' in deposit:
+                    if deposit['targetChain'] == DestinationChain.ETH.value:
+                        deposit['targetAddress'] = Address(address=deposit['targetAddress'], network=Ethereum())
+                    else:
+                        chain_name = DestinationChain(deposit['targetChain']).name
+                        raise RuntimeWarning(f'Validation for {chain_name} not implemented.')
                 else:
-                    chain_name = DestinationChain(deposit["TargetChain"]).name
-                    raise RuntimeWarning(f'Validation for {chain_name} not implemented.')
-                data['Deposits'].append(deposit)
+                    if self._network == StraxMain():
+                        deposit['targetAddress'] = Address(address=deposit['targetAddress'], network=CirrusMain())
+                    if self._network == CirrusMain():
+                        deposit['targetAddress'] = Address(address=deposit['targetAddress'], network=StraxMain())
+                    if self._network == StraxTest():
+                        deposit['targetAddress'] = Address(address=deposit['targetAddress'], network=CirrusTest())
+                    if self._network == CirrusTest():
+                        deposit['targetAddress'] = Address(address=deposit['targetAddress'], network=StraxTest())
+                    if self._network == StraxRegTest() or self._network == CirrusRegTest():
+                        deposit['targetAddress'] = Address(address=deposit['targetAddress'], network=StraxRegTest())
+                    if self._network == StraxRegTest() or self._network == CirrusRegTest():
+                        deposit['targetAddress'] = Address(address=deposit['targetAddress'], network=StraxRegTest())
+                data['deposits'].append(deposit)
             matured_block_deposit_models.append(MaturedBlockDepositsModel(**data))
         return matured_block_deposit_models
 
