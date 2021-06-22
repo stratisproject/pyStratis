@@ -378,7 +378,6 @@ def check_at_or_above_given_block_height():
     return _check_at_or_above_given_block_height
 
 
-@pytest.fixture(scope='module')
 def interflux_strax_regtest_node(port: int) -> InterfluxStraxNode:
     return InterfluxStraxNode(
         ipaddr='http://localhost',
@@ -391,7 +390,6 @@ def interflux_strax_regtest_node(port: int) -> InterfluxStraxNode:
     )
 
 
-@pytest.fixture(scope='module')
 def interflux_cirrus_regtest_node(port: int) -> InterfluxCirrusNode:
     return InterfluxCirrusNode(
         ipaddr='http://localhost',
@@ -408,7 +406,7 @@ def interflux_cirrus_regtest_node(port: int) -> InterfluxCirrusNode:
 def start_interflux_strax_regtest_node(start_regtest_node):
     def _start_interflux_strax_regtest_node(node: InterfluxStraxNode, extra_cmd_ops: List = None):
         root_dir = re.match(r'(.*)pystratis', os.getcwd())[0]
-        source_dir = os.path.join(root_dir, 'integration_tests', 'StratisFullNode', 'src', 'Stratis.CirrsPegD')
+        source_dir = os.path.join(root_dir, 'integration_tests', 'StratisFullNode', 'src', 'Stratis.CirrusPegD')
         start_regtest_node(node=node, source_dir=source_dir, extra_cmd_ops=extra_cmd_ops)
     return _start_interflux_strax_regtest_node
 
@@ -417,7 +415,7 @@ def start_interflux_strax_regtest_node(start_regtest_node):
 def start_interflux_cirrus_regtest_node(start_regtest_node):
     def _start_interflux_cirrus_regtest_node(node: InterfluxCirrusNode, extra_cmd_ops: List = None):
         root_dir = re.match(r'(.*)pystratis', os.getcwd())[0]
-        source_dir = os.path.join(root_dir, 'integration_tests', 'StratisFullNode', 'src', 'Stratis.CirrsPegD')
+        source_dir = os.path.join(root_dir, 'integration_tests', 'StratisFullNode', 'src', 'Stratis.CirrusPegD')
         start_regtest_node(node=node, source_dir=source_dir, extra_cmd_ops=extra_cmd_ops)
     return _start_interflux_cirrus_regtest_node
 

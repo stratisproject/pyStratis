@@ -14,7 +14,7 @@ from random import choice, randint, random
 # noinspection PyPackageRequirements
 from sha3 import keccak_256
 from pybitcoin import Key, ExtKey
-from pybitcoin.types import uint256
+from pybitcoin.types import uint256, hexstr
 from pybitcoin.networks import BaseNetwork
 from datetime import datetime, timedelta
 
@@ -431,3 +431,14 @@ def get_federation_private_key(generate_privatekey):
         assert index < len(mnemonics)
         return generate_privatekey(mnemonics[index]).get_bytes()
     return _get_federation_private_key
+
+
+@pytest.fixture(scope='module')
+def get_federation_compressed_pubkey(get_federation_private_key):
+    def _get_federation_compressed_pubkey(index: int = 0) -> hexstr:
+        private_key_bytes = get_federation_private_key(index=index)
+        key = ecdsa.SigningKey.from_string(private_key_bytes, curve=ecdsa.SECP256k1).verifying_key
+        x = int.from_bytes(key.to_string()[:32], 'big')
+        prefix = '02' if x % 2 == 0 else '03'
+        return hexstr(f"{prefix}{format(x, '0>64x')}")
+    return _get_federation_compressed_pubkey
