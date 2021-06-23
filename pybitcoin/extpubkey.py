@@ -5,6 +5,19 @@ import base58
 
 
 class ExtPubKey:
+    """Type representing extended public key, as specified in BIP32_.
+
+    Corresponding type from StratisFullNode's implementation can be found here_.
+
+    Args:
+        extpubkey (str): encoded extended public key.
+
+    .. _BIP32
+        https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki
+
+    .. _here
+        https://github.com/stratisproject/StratisFullNode/blob/master/src/NBitcoin/BIP32/ExtPubKey.cs#L11
+    """
     # noinspection PyTypeChecker
     def __init__(self, extpubkey: str):
         self.version: bytes = None
@@ -17,6 +30,17 @@ class ExtPubKey:
         self.decode_extpubkey(extpubkey=extpubkey)
 
     def decode_extpubkey(self, extpubkey: str):
+        """Deserialize extended public key, as specified in BIP32_.
+
+        Args:
+            extpubkey (str): Base58 encoded serialized extended public key.
+
+        Raises:
+            AssertionError: extpubkey has incorrect format.
+
+        .. _BIP32
+            https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki#serialization-format
+        """
         data = base58.b58decode(extpubkey)
         self.version = data[:4]
         assert len(self.version) == 4
@@ -32,10 +56,26 @@ class ExtPubKey:
         assert len(self.key) == 33
 
     def get_payload(self) -> bytes:
+        """Serialize extended public key, as specified in BIP32_.
+
+        Returns:
+            bytes: serialized extended public key.
+
+        .. _BIP32
+            https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki#serialization-format
+        """
         return self.version + self.depth + self.parent_fingerprint + self.index + self.chain_code + self.key
 
     @staticmethod
     def calculate_checksum(payload: bytes) -> bytes:
+        """Calculates 4-bytes long checksum of payload
+
+        Args:
+            payload (bytes): data to calculate checksum from
+
+        Returns:
+            bytes: 4-bytes checksum
+        """
         return sha256(sha256(payload).digest()).digest()[:4]
 
     def __str__(self):
@@ -45,10 +85,12 @@ class ExtPubKey:
 
     @classmethod
     def __get_validators__(cls) -> Callable:
+        """pydantic model validation"""
         yield cls.validate_class
 
     @classmethod
     def validate_class(cls, value) -> ExtPubKey:
+        """pydantic model validation"""
         if isinstance(value, ExtPubKey):
             value = str(value)
         data = base58.b58decode(value)
