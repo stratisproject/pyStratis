@@ -53,7 +53,6 @@ class AddressBook(APIRequest, metaclass=EndpointRegister):
         """
         request_model = RemoveRequest(label=label)
         data = self.delete(request_model, **kwargs)
-
         data['address'] = Address(address=data['address'], network=self._network)
         return AddressBookEntryModel(**data)
 
@@ -80,7 +79,6 @@ class AddressBook(APIRequest, metaclass=EndpointRegister):
         """
         request_model = GetRequest(skip=skip, take=take)
         data = self.get(request_model, **kwargs)
-
         addressbook = [
             AddressBookEntryModel(
                 address=Address(address=item['address'], network=self._network), label=item['label']

@@ -1,4 +1,5 @@
 from __future__ import annotations
+from typing import Callable
 from pybitcoin.networks import BaseNetwork
 
 
@@ -16,14 +17,14 @@ class Address:
     def __str__(self) -> str:
         return self.address
 
-    def __eq__(self, other):
+    def __eq__(self, other) -> bool:
         return self.address == other
 
     def json(self) -> str:
         return self.address
 
     @classmethod
-    def __get_validators__(cls):
+    def __get_validators__(cls) -> Callable:
         yield cls.validate_class
 
     @classmethod

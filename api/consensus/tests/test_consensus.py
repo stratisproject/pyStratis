@@ -124,11 +124,8 @@ def test_get_block_hash(mocker: MockerFixture, network, fakeuri, generate_uint25
     data = generate_uint256
     mocker.patch.object(Consensus, 'get', return_value=data)
     consensus = Consensus(network=network, baseuri=fakeuri)
-    request_model = GetBlockHashRequest(
-        height=10
-    )
 
-    response = consensus.get_blockhash(request_model)
+    response = consensus.get_blockhash(height=10)
 
     assert response == uint256(data)
     # noinspection PyUnresolvedReferences

@@ -1,6 +1,5 @@
 import pytest
 from nodes import CirrusMinerNode
-from api.consensus.requestmodels import *
 from api.consensus.responsemodels import *
 from pybitcoin.types import uint256
 
@@ -24,6 +23,5 @@ def test_get_best_block_hash(cirrusminer_node: CirrusMinerNode):
 @pytest.mark.integration_test
 @pytest.mark.cirrus_integration_test
 def test_get_block_hash(cirrusminer_node: CirrusMinerNode):
-    request_model = GetBlockHashRequest(height=1)
-    response = cirrusminer_node.consensus.get_blockhash(request_model)
+    response = cirrusminer_node.consensus.get_blockhash(height=1)
     assert isinstance(response, uint256)

@@ -1,10 +1,7 @@
 import pytest
 from nodes import StraxNode
-from api.coldstaking.requestmodels import *
 from api.coldstaking.responsemodels import *
 from pybitcoin.types import Money, Address, hexstr
-from api.wallet.requestmodels import ExtPubRecoveryRequest, GetUnusedAddressRequest, \
-    ExtPubKeyRequest, SendTransactionRequest, OfflineSignRequest
 
 
 @pytest.fixture(scope='module')
@@ -56,37 +53,45 @@ def setup_coldstaking_accounts_and_addresses(
     )
     # Setup the hot account from the hot node.
     credentials['hot_account'] = strax_hot_node.coldstaking.account(
-        AccountRequest(wallet_name=hot_wallet_name, wallet_password='password',
-                       is_cold_wallet_account=False)
+        wallet_name=hot_wallet_name,
+        wallet_password='password',
+        is_cold_wallet_account=False
     )
 
     # Get the hot address from the hot node.
     credentials['hot_address'] = strax_hot_node.coldstaking.address(
-        request_model=AddressRequest(
-            wallet_name=hot_wallet_name, is_cold_wallet_address=False, segwit=False
-        )
+        wallet_name=hot_wallet_name,
+        is_cold_wallet_address=False,
+        segwit=False
     ).address
 
     # Get an address on the cold node for staking setup.
     cold_default_address = strax_hot_node.wallet.unused_address(
-        GetUnusedAddressRequest(wallet_name=restored_offline_on_hot_wallet_name, account_name='account 0', segwit=False)
+        wallet_name=restored_offline_on_hot_wallet_name,
+        account_name='account 0',
+        segwit=False
     )
     credentials['cold_default_address'] = cold_default_address
 
     # Fund the cold wallet default address
     assert send_a_transaction(
-        node=strax_hot_node, sending_address=mining_address, receiving_address=cold_default_address,
+        node=strax_hot_node,
+        sending_address=mining_address,
+        receiving_address=cold_default_address,
         amount_to_send=Money(200)
     )
     assert node_mines_some_blocks_and_syncs(mining_node=strax_hot_node, syncing_node=None, num_blocks_to_mine=15)
 
     # Set up cold staking account of cold node to get the cold address
     credentials['cold_account'] = strax_offline_node.coldstaking.account(
-        AccountRequest(wallet_name=offline_node_default_wallet_name, wallet_password='password',
-                       is_cold_wallet_account=True)
+        wallet_name=offline_node_default_wallet_name,
+        wallet_password='password',
+        is_cold_wallet_account=True
     )
     credentials['cold_address'] = strax_offline_node.coldstaking.address(
-        AddressRequest(wallet_name=offline_node_default_wallet_name, is_cold_wallet_address=True, segwit=False)
+        wallet_name=offline_node_default_wallet_name,
+        is_cold_wallet_address=True,
+        segwit=False
     ).address
     return credentials
 
@@ -98,7 +103,7 @@ def setup_coldstaking_transaction_and_send(
         restored_offline_on_hot_wallet_name,
         offline_node_default_wallet_name,
         setup_coldstaking_accounts_and_addresses) -> True:
-    request_model = SetupOfflineRequest(
+    offline_template = strax_hot_node.coldstaking.setup_offline(
         wallet_name=restored_offline_on_hot_wallet_name,
         wallet_account='account 0',
         cold_wallet_address=setup_coldstaking_accounts_and_addresses['cold_address'],
@@ -108,9 +113,7 @@ def setup_coldstaking_transaction_and_send(
         split_count=10
     )
 
-    offline_template = strax_hot_node.coldstaking.setup_offline(request_model=request_model)
-
-    request_model = OfflineSignRequest(
+    built_transaction = strax_offline_node.wallet.offline_sign_request(
         wallet_password='password',
         wallet_name=offline_node_default_wallet_name,
         wallet_account=offline_template.wallet_account,
@@ -119,10 +122,9 @@ def setup_coldstaking_transaction_and_send(
         utxos=offline_template.utxos,
         addresses=offline_template.addresses
     )
-    built_transaction = strax_offline_node.wallet.offline_sign_request(request_model)
 
     # Send the coldstaking creation transaction and mine some blocks to confirm.
-    strax_hot_node.wallet.send_transaction(SendTransactionRequest(hex=built_transaction.hex))
+    strax_hot_node.wallet.send_transaction(hex=built_transaction.hex)
     assert node_mines_some_blocks_and_syncs(mining_node=strax_hot_node, syncing_node=None, num_blocks_to_mine=15)
     return True
 
@@ -131,10 +133,10 @@ def setup_coldstaking_transaction_and_send(
 @pytest.mark.strax_integration_test
 def test_info(strax_hot_node: StraxNode, strax_offline_node: StraxNode, setup_coldstaking_accounts_and_addresses,
               hot_wallet_name, offline_node_default_wallet_name):
-    response = strax_hot_node.coldstaking.info(request_model=InfoRequest(wallet_name=hot_wallet_name))
+    response = strax_hot_node.coldstaking.info(wallet_name=hot_wallet_name)
     assert isinstance(response, InfoModel)
 
-    response = strax_offline_node.coldstaking.info(request_model=InfoRequest(wallet_name=offline_node_default_wallet_name))
+    response = strax_offline_node.coldstaking.info(wallet_name=offline_node_default_wallet_name)
     assert isinstance(response, InfoModel)
 
 
@@ -142,7 +144,9 @@ def test_info(strax_hot_node: StraxNode, strax_offline_node: StraxNode, setup_co
 @pytest.mark.strax_integration_test
 def test_account(strax_hot_node: StraxNode, setup_coldstaking_accounts_and_addresses, hot_wallet_name):
     response = strax_hot_node.coldstaking.account(
-        AccountRequest(wallet_name=hot_wallet_name, wallet_password='password', is_cold_wallet_account=False)
+        wallet_name=hot_wallet_name,
+        wallet_password='password',
+        is_cold_wallet_account=False
     )
     assert isinstance(response, AccountModel)
 
@@ -150,11 +154,7 @@ def test_account(strax_hot_node: StraxNode, setup_coldstaking_accounts_and_addre
 @pytest.mark.integration_test
 @pytest.mark.strax_integration_test
 def test_address(strax_hot_node: StraxNode, setup_coldstaking_accounts_and_addresses, hot_wallet_name):
-    response = strax_hot_node.coldstaking.address(
-        request_model=AddressRequest(
-            wallet_name=hot_wallet_name, is_cold_wallet_address=False
-        )
-    )
+    response = strax_hot_node.coldstaking.address(wallet_name=hot_wallet_name, is_cold_wallet_address=False)
     assert isinstance(response, AddressModel)
     assert isinstance(response.address, Address)
 
@@ -162,7 +162,7 @@ def test_address(strax_hot_node: StraxNode, setup_coldstaking_accounts_and_addre
 @pytest.mark.integration_test
 @pytest.mark.strax_integration_test
 def test_estimate_offline_setup_tx_fee(strax_hot_node: StraxNode, setup_coldstaking_accounts_and_addresses, restored_offline_on_hot_wallet_name):
-    request_model = SetupOfflineRequest(
+    response = strax_hot_node.coldstaking.estimate_offline_setup_tx_fee(
         wallet_name=restored_offline_on_hot_wallet_name,
         wallet_account='account 0',
         cold_wallet_address=setup_coldstaking_accounts_and_addresses['cold_address'],
@@ -171,14 +171,13 @@ def test_estimate_offline_setup_tx_fee(strax_hot_node: StraxNode, setup_coldstak
         fees=Money(0.0002),
         split_count=1
     )
-    response = strax_hot_node.coldstaking.estimate_offline_setup_tx_fee(request_model=request_model)
     assert isinstance(response, Money)
 
 
 @pytest.mark.integration_test
 @pytest.mark.strax_integration_test
 def test_setup_offline(strax_hot_node: StraxNode, setup_coldstaking_accounts_and_addresses, restored_offline_on_hot_wallet_name):
-    request_model = SetupOfflineRequest(
+    response = strax_hot_node.coldstaking.setup_offline(
         wallet_name=restored_offline_on_hot_wallet_name,
         wallet_account='account 0',
         cold_wallet_address=setup_coldstaking_accounts_and_addresses['cold_address'],
@@ -187,14 +186,13 @@ def test_setup_offline(strax_hot_node: StraxNode, setup_coldstaking_accounts_and
         fees=Money(0.0002),
         split_count=10
     )
-    response = strax_hot_node.coldstaking.setup_offline(request_model=request_model)
     assert isinstance(response, BuildOfflineSignModel)
 
 
 @pytest.mark.integration_test
 @pytest.mark.strax_integration_test
 def test_estimate_setup_tx_fee(strax_hot_node: StraxNode, setup_coldstaking_accounts_and_addresses, hot_wallet_name):
-    request_model = SetupRequest(
+    response = strax_hot_node.coldstaking.estimate_setup_tx_fee(
         wallet_name=hot_wallet_name,
         wallet_account='account 0',
         wallet_password='password',
@@ -204,14 +202,13 @@ def test_estimate_setup_tx_fee(strax_hot_node: StraxNode, setup_coldstaking_acco
         fees=Money(0.0002),
         split_count=1
     )
-    response = strax_hot_node.coldstaking.estimate_setup_tx_fee(request_model=request_model)
     assert isinstance(response, Money)
 
 
 @pytest.mark.integration_test
 @pytest.mark.strax_integration_test
 def test_setup(strax_hot_node: StraxNode, setup_coldstaking_accounts_and_addresses, hot_wallet_name):
-    request_model = SetupRequest(
+    response = strax_hot_node.coldstaking.setup(
         wallet_name=hot_wallet_name,
         wallet_account='account 0',
         wallet_password='password',
@@ -221,7 +218,6 @@ def test_setup(strax_hot_node: StraxNode, setup_coldstaking_accounts_and_address
         fees=Money(0.0002),
         split_count=1
     )
-    response = strax_hot_node.coldstaking.setup(request_model=request_model)
     assert isinstance(response, SetupModel)
     assert isinstance(response.transaction_hex, hexstr)
 
@@ -235,7 +231,7 @@ def test_offline_withdrawal(strax_hot_node: StraxNode,
                             get_node_address_with_balance):
     assert setup_coldstaking_transaction_and_send
     receiving_address = get_node_address_with_balance(strax_hot_node)
-    request_model = OfflineWithdrawalRequest(
+    response = strax_hot_node.coldstaking.offline_withdrawal(
         wallet_name=hot_wallet_name,
         account_name='account 0',
         receiving_address=receiving_address,
@@ -243,7 +239,6 @@ def test_offline_withdrawal(strax_hot_node: StraxNode,
         fees=Money(0.0002),
         subtractFeeFromAmount=True
     )
-    response = strax_hot_node.coldstaking.offline_withdrawal(request_model=request_model)
     assert isinstance(response, BuildOfflineSignModel)
 
 
@@ -263,7 +258,7 @@ def test_withdrawal(
     assert sync_two_nodes(strax_hot_node, strax_offline_node)
     assert setup_coldstaking_transaction_and_send
     receiving_address = get_node_address_with_balance(strax_hot_node)
-    request_model = WithdrawalRequest(
+    response = strax_offline_node.coldstaking.withdrawal(
         wallet_name=offline_node_default_wallet_name,
         account_name=setup_coldstaking_accounts_and_addresses['cold_account'].account_name,
         wallet_password='password',
@@ -272,7 +267,6 @@ def test_withdrawal(
         fees=Money(0.0002),
         subtractFeeFromAmount=True
     )
-    response = strax_offline_node.coldstaking.withdrawal(request_model=request_model)
     assert isinstance(response, WithdrawalModel)
     assert isinstance(response.transaction_hex, hexstr)
 
@@ -293,13 +287,12 @@ def test_estimate_offline_withdrawal_fee(
     assert sync_two_nodes(strax_hot_node, strax_offline_node)
     assert setup_coldstaking_transaction_and_send
     receiving_address = get_node_address_with_balance(strax_hot_node)
-    request_model = OfflineWithdrawalFeeEstimationRequest(
+    response = strax_offline_node.coldstaking.estimate_offline_withdrawal_tx_fee(
         wallet_name=offline_node_default_wallet_name,
         account_name=setup_coldstaking_accounts_and_addresses['cold_account'].account_name,
         receiving_address=receiving_address,
         amount=Money(4)
     )
-    response = strax_offline_node.coldstaking.estimate_offline_withdrawal_tx_fee(request_model=request_model)
     assert isinstance(response, Money)
 
 
@@ -319,7 +312,8 @@ def test_estimate_withdrawal_fee(
     assert sync_two_nodes(strax_hot_node, strax_offline_node)
     assert setup_coldstaking_transaction_and_send
     receiving_address = get_node_address_with_balance(strax_hot_node)
-    request_model = WithdrawalRequest(
+
+    response = strax_offline_node.coldstaking.estimate_withdrawal_tx_fee(
         wallet_name=offline_node_default_wallet_name,
         account_name=setup_coldstaking_accounts_and_addresses['cold_account'].account_name,
         wallet_password='password',
@@ -327,5 +321,4 @@ def test_estimate_withdrawal_fee(
         amount=Money(4),
         fees=Money(0.0002)
     )
-    response = strax_offline_node.coldstaking.estimate_withdrawal_tx_fee(request_model=request_model)
     assert isinstance(response, Money)

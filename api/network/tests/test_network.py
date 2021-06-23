@@ -39,11 +39,8 @@ def test_disconnect(mocker: MockerFixture, network, fakeuri):
     data = None
     mocker.patch.object(Network, 'post', return_value=data)
     network_controller = Network(network=network, baseuri=fakeuri)
-    request_model = DisconnectPeerRequest(
-        peer_address='http://peeraddress'
-    )
 
-    network_controller.disconnect(request_model)
+    network_controller.disconnect(peer_address='http://peeraddress')
 
     # noinspection PyUnresolvedReferences
     network_controller.post.assert_called_once()
@@ -54,13 +51,11 @@ def test_setban(mocker: MockerFixture, network, fakeuri):
     data = None
     mocker.patch.object(Network, 'post', return_value=data)
     network_controller = Network(network=network, baseuri=fakeuri)
-    request_model = SetBanRequest(
+    network_controller.set_ban(
         ban_command='add',
         ban_duration_seconds=60,
         peer_address='http://localhost'
     )
-
-    network_controller.set_ban(request_model)
 
     # noinspection PyUnresolvedReferences
     network_controller.post.assert_called_once()
@@ -95,9 +90,8 @@ def test_clear_banned(mocker: MockerFixture, network, fakeuri):
     data = None
     mocker.patch.object(Network, 'post', return_value=data)
     network_controller = Network(network=network, baseuri=fakeuri)
-    request_model = ClearBannedRequest()
 
-    network_controller.clear_banned(request_model)
+    network_controller.clear_banned()
 
     # noinspection PyUnresolvedReferences
     network_controller.post.assert_called_once()

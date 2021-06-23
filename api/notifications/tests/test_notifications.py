@@ -38,11 +38,8 @@ def test_sync(mocker: MockerFixture, network, fakeuri, generate_uint256):
     data = None
     mocker.patch.object(Notifications, 'get', return_value=data)
     notifications = Notifications(network=network, baseuri=fakeuri)
-    request_model = SyncRequest(
-        sync_from=generate_uint256
-    )
 
-    notifications.sync(request_model)
+    notifications.sync(sync_from=generate_uint256)
 
     # noinspection PyUnresolvedReferences
     notifications.get.assert_called_once()

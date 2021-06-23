@@ -44,11 +44,8 @@ def test_generate(mocker: MockerFixture, network, fakeuri, generate_uint256):
     }
     mocker.patch.object(Mining, 'post', return_value=data)
     mining = Mining(network=network, baseuri=fakeuri)
-    request_model = GenerateRequest(
-        block_count=2
-    )
 
-    response = mining.generate(request_model)
+    response = mining.generate(block_count=2)
 
     assert response == GenerateBlocksModel(**data)
     # noinspection PyUnresolvedReferences
@@ -60,10 +57,8 @@ def test_stop_mining(mocker: MockerFixture, network, fakeuri):
     data = None
     mocker.patch.object(Mining, 'post', return_value=data)
     mining = Mining(network=network, baseuri=fakeuri)
-    request_model = StopMiningRequest(
-    )
 
-    mining.stop_mining(request_model)
+    mining.stop_mining()
 
     # noinspection PyUnresolvedReferences
     mining.post.assert_called_once()

@@ -1,6 +1,5 @@
 import pytest
 from nodes import StraxNode
-from api.staking.requestmodels import *
 from api.staking.responsemodels import *
 from pybitcoin import WalletSecret
 
@@ -15,21 +14,18 @@ def test_get_staking_info(strax_hot_node: StraxNode):
 @pytest.mark.integration_test
 @pytest.mark.strax_integration_test
 def test_start_staking(strax_hot_node: StraxNode):
-    request_model = StartStakingRequest(name='Test', password='password')
-    strax_hot_node.staking.start_staking(request_model)
+    strax_hot_node.staking.start_staking(name='Test', password='password')
 
 
 @pytest.mark.integration_test
 @pytest.mark.strax_integration_test
 def test_start_multistaking(strax_hot_node: StraxNode):
-    request_model = StartMultiStakingRequest(
+    strax_hot_node.staking.start_multistaking(
         wallet_credentials=[WalletSecret(wallet_name='Test', wallet_password='password')]
     )
-    strax_hot_node.staking.start_multistaking(request_model)
 
 
 @pytest.mark.integration_test
 @pytest.mark.strax_integration_test
 def test_stop_staking(strax_hot_node: StraxNode):
-    request_model = StopStakingRequest()
-    strax_hot_node.staking.stop_staking(request_model)
+    strax_hot_node.staking.stop_staking()

@@ -112,11 +112,8 @@ def test_get_peer_statistics(mocker: MockerFixture, network, fakeuri):
     ]
     mocker.patch.object(Diagnostic, 'get', return_value=data)
     diagnostic = Diagnostic(network=network, baseuri=fakeuri)
-    request_model = GetPeerStatisticsRequest(
-        connected_only=True
-    )
 
-    response = diagnostic.get_peer_statistics(request_model)
+    response = diagnostic.get_peer_statistics(connected_only=True)
 
     assert response == [PeerStatisticsModel(**x) for x in data]
     # noinspection PyUnresolvedReferences

@@ -27,7 +27,6 @@ class BlockStore(APIRequest, metaclass=EndpointRegister):
             APIError
         """
         data = self.get(**kwargs)
-
         return AddressIndexerTipModel(**data)
 
     @endpoint(f'{route}/block')
@@ -55,13 +54,11 @@ class BlockStore(APIRequest, metaclass=EndpointRegister):
             block_hash = uint256(block_hash)
         request_model = BlockRequest(block_hash=block_hash, show_transaction_details=show_transaction_details, output_json=output_json)
         data = self.get(request_model, **kwargs)
-
         if isinstance(data, str):
             try:
                 return hexstr(data)
             except ValueError:
                 return data
-
         if request_model.show_transaction_details:
             return BlockTransactionDetailsModel(**data)
         else:
@@ -81,7 +78,6 @@ class BlockStore(APIRequest, metaclass=EndpointRegister):
             APIError
         """
         data = self.get(**kwargs)
-
         return data
 
     @endpoint(f'{route}/getaddressesbalances')
@@ -110,7 +106,6 @@ class BlockStore(APIRequest, metaclass=EndpointRegister):
             addresses = Address(address=addresses, network=self._network)
         request_model = GetAddressesBalancesRequest(addresses=addresses, min_confirmations=min_confirmations)
         data = self.get(request_model, **kwargs)
-
         for i in range(len(data['balances'])):
             data['balances'][i]['address'] = Address(address=data['balances'][i]['address'], network=self._network)
             data['balances'][i]['balance'] = Money.from_satoshi_units(data['balances'][i]['balance'])
@@ -140,10 +135,8 @@ class BlockStore(APIRequest, metaclass=EndpointRegister):
             addresses = Address(address=addresses, network=self._network)
         request_model = GetVerboseAddressesBalancesRequest(addresses=addresses)
         data = self.get(request_model, **kwargs)
-
         for i in range(len(data['balancesData'])):
             data['balancesData'][i]['address'] = Address(address=data['balancesData'][i]['address'], network=self._network)
-
         return GetVerboseAddressesBalancesModel(**data)
 
     @endpoint(f'{route}/getutxoset')
@@ -166,7 +159,6 @@ class BlockStore(APIRequest, metaclass=EndpointRegister):
         data = self.get(request_model, **kwargs)
         for i in range(len(data)):
             data[i]['value'] = Money.from_satoshi_units(data[i]['value'])
-
         return [UTXOModel(**x) for x in data]
 
     @endpoint(f'{route}/getlastbalanceupdatetransaction')
@@ -189,5 +181,4 @@ class BlockStore(APIRequest, metaclass=EndpointRegister):
             address = Address(address=address, network=self._network)
         request_model = GetLastBalanceUpdateTransactionRequest(address=address)
         data = self.get(request_model, **kwargs)
-
         return None if data is None else GetLastBalanceUpdateTransactionModel(**data)

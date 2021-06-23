@@ -1,7 +1,6 @@
 import pytest
 from nodes import BaseNode
 from api import APIError
-from api.wallet.requestmodels import *
 from api.wallet.responsemodels import *
 from pybitcoin.types import Money, Address, uint256, hexstr
 from pybitcoin import Recipient, Outpoint, DestinationChain, PubKey, ExtPubKey, AccountBalanceModel, AddressModel, Key
@@ -11,8 +10,7 @@ from pybitcoin.networks import Ethereum
 @pytest.mark.integration_test
 @pytest.mark.strax_integration_test
 def test_mnemonic(strax_hot_node: BaseNode):
-    request_model = MnemonicRequest(language='English', word_count=12)
-    response = strax_hot_node.wallet.mnemonic(request_model)
+    response = strax_hot_node.wallet.mnemonic(language='English', word_count=12)
     assert len(response) == 12
     for item in response:
         assert isinstance(item, str)
@@ -21,16 +19,14 @@ def test_mnemonic(strax_hot_node: BaseNode):
 @pytest.mark.integration_test
 @pytest.mark.strax_integration_test
 def test_create(strax_hot_node: BaseNode):
-    request_model = MnemonicRequest(language='English', word_count=12)
-    mnemonic = strax_hot_node.wallet.mnemonic(request_model)
+    mnemonic = strax_hot_node.wallet.mnemonic(language='English', word_count=12)
     mnemonic = ' '.join(mnemonic)
-    request_model = CreateRequest(
+    response = strax_hot_node.wallet.create(
         mnemonic=mnemonic,
         password='password',
         passphrase='passphrase',
         name='TestCreate'
     )
-    response = strax_hot_node.wallet.create(request_model)
     assert isinstance(response, list)
     assert len(response) == 12
 
@@ -40,13 +36,12 @@ def test_create(strax_hot_node: BaseNode):
 def test_sign_message(strax_hot_node: BaseNode, get_node_address_with_balance):
     message = 'The Times 03/Jan/2009 Chancellor on brink of second bailout for banks.'
     address = get_node_address_with_balance(strax_hot_node)
-    request_model = SignMessageRequest(
+    response = strax_hot_node.wallet.sign_message(
         wallet_name='Test',
         password='password',
         external_address=address,
         message=message
     )
-    response = strax_hot_node.wallet.sign_message(request_model)
     assert isinstance(response, str)
 
 
@@ -54,8 +49,7 @@ def test_sign_message(strax_hot_node: BaseNode, get_node_address_with_balance):
 @pytest.mark.strax_integration_test
 def test_pubkey(strax_hot_node: BaseNode, get_node_address_with_balance):
     address = get_node_address_with_balance(strax_hot_node)
-    request_model = PubKeyRequest(wallet_name='Test', external_address=address)
-    response = strax_hot_node.wallet.pubkey(request_model)
+    response = strax_hot_node.wallet.pubkey(wallet_name='Test', external_address=address)
     assert isinstance(response, PubKey)
 
 
@@ -64,71 +58,62 @@ def test_pubkey(strax_hot_node: BaseNode, get_node_address_with_balance):
 def test_verify_message(strax_hot_node: BaseNode, get_node_address_with_balance):
     message = 'The Times 03/Jan/2009 Chancellor on brink of second bailout for banks.'
     address = get_node_address_with_balance(strax_hot_node)
-    request_model = SignMessageRequest(
+    signature = strax_hot_node.wallet.sign_message(
         wallet_name='Test',
         password='password',
         external_address=address,
         message=message
     )
-    signature = strax_hot_node.wallet.sign_message(request_model)
-    request_model = VerifyMessageRequest(
+    assert strax_hot_node.wallet.verify_message(
         signature=signature,
         external_address=address,
         message=message
     )
-    assert strax_hot_node.wallet.verify_message(request_model)
 
 
 @pytest.mark.integration_test
 @pytest.mark.strax_integration_test
 def test_load(strax_hot_node: BaseNode):
-    request_model = LoadRequest(name='Test', password='password')
-    strax_hot_node.wallet.load(request_model)
+    strax_hot_node.wallet.load(name='Test', password='password')
 
 
 @pytest.mark.integration_test
 @pytest.mark.strax_integration_test
 def test_recover(strax_hot_node: BaseNode, get_datetime):
-    request_model = MnemonicRequest(language='English', word_count=12)
-    mnemonic = strax_hot_node.wallet.mnemonic(request_model)
+    mnemonic = strax_hot_node.wallet.mnemonic(language='English', word_count=12)
     mnemonic = ' '.join(mnemonic)
-    request_model = RecoverRequest(
+    strax_hot_node.wallet.recover(
         mnemonic=mnemonic,
         password='password',
         passphrase='passphrase',
         name='TestRecover',
         creation_date=get_datetime(365)
     )
-    strax_hot_node.wallet.recover(request_model)
 
 
 @pytest.mark.integration_test
 @pytest.mark.strax_integration_test
 def test_recover_via_extpubkey(strax_hot_node: BaseNode, get_datetime):
-    request_model = ExtPubKeyRequest(wallet_name='Test', account_name='account 0')
-    extpubkey = strax_hot_node.wallet.extpubkey(request_model)
-    request_model = ExtPubRecoveryRequest(
+    extpubkey = strax_hot_node.wallet.extpubkey(wallet_name='Test', account_name='account 0')
+    strax_hot_node.wallet.recover_via_extpubkey(
         extpubkey=extpubkey,
         account_index=0,
         name='TestRecoverPubkey',
         creation_date=get_datetime(365)
     )
-    strax_hot_node.wallet.recover_via_extpubkey(request_model)
 
 
 @pytest.mark.integration_test
 @pytest.mark.strax_integration_test
 def test_general_info(strax_hot_node: BaseNode):
-    request_model = GeneralInfoRequest(name='Test')
-    response = strax_hot_node.wallet.general_info(request_model)
+    response = strax_hot_node.wallet.general_info(name='Test')
     assert isinstance(response, WalletGeneralInfoModel)
 
 
 @pytest.mark.integration_test
 @pytest.mark.strax_integration_test
 def test_transaction_count(strax_hot_node: BaseNode):
-    request_model = AccountRequest(wallet_name='Test', account_name='account 0')
-    response = strax_hot_node.wallet.transaction_count(request_model)
+    response = strax_hot_node.wallet.transaction_count(wallet_name='Test', account_name='account 0')
     assert isinstance(response, int)
 
 
@@ -136,12 +121,11 @@ def test_transaction_count(strax_hot_node: BaseNode):
 @pytest.mark.strax_integration_test
 def test_history(strax_hot_node: BaseNode, get_node_address_with_balance):
     address = get_node_address_with_balance(strax_hot_node)
-    request_model = HistoryRequest(
+    response = strax_hot_node.wallet.history(
         wallet_name='Test',
         account_name='account 0',
         address=address
     )
-    response = strax_hot_node.wallet.history(request_model)
     assert isinstance(response, WalletHistoryModel)
     for item in response.history:
         assert isinstance(item, AccountHistoryModel)
@@ -152,12 +136,11 @@ def test_history(strax_hot_node: BaseNode, get_node_address_with_balance):
 @pytest.mark.integration_test
 @pytest.mark.strax_integration_test
 def test_balance(strax_hot_node: BaseNode):
-    request_model = BalanceRequest(
+    response = strax_hot_node.wallet.balance(
         wallet_name='Test',
         account_name='account 0',
         include_balance_by_address=True
     )
-    response = strax_hot_node.wallet.balance(request_model)
     assert isinstance(response, WalletBalanceModel)
     for item in response.balances:
         assert isinstance(item, AccountBalanceModel)
@@ -167,29 +150,26 @@ def test_balance(strax_hot_node: BaseNode):
 @pytest.mark.strax_integration_test
 def test_received_by_address(strax_hot_node: BaseNode, get_node_address_with_balance):
     address = get_node_address_with_balance(strax_hot_node)
-    request_model = ReceivedByAddressRequest(address=address)
-    response = strax_hot_node.wallet.received_by_address(request_model)
+    response = strax_hot_node.wallet.received_by_address(address=address)
     assert isinstance(response, AddressBalanceModel)
 
 
 @pytest.mark.integration_test
 @pytest.mark.strax_integration_test
 def test_max_balance(strax_hot_node: BaseNode):
-    request_model = MaxBalanceRequest(
+    response = strax_hot_node.wallet.max_balance(
         wallet_name='Test',
         account_name='account 0',
         fee_type='low',
         allow_unconfirmed=True
     )
-    response = strax_hot_node.wallet.max_balance(request_model)
     assert isinstance(response, MaxSpendableAmountModel)
 
 
 @pytest.mark.integration_test
 @pytest.mark.strax_integration_test
 def test_spendable_transactions(strax_hot_node: BaseNode):
-    request_model = SpendableTransactionsRequest(wallet_name='Test', account_name='account 0', min_confirmations=0)
-    response = strax_hot_node.wallet.spendable_transactions(request_model)
+    response = strax_hot_node.wallet.spendable_transactions(wallet_name='Test', account_name='account 0', min_confirmations=0)
     assert isinstance(response, SpendableTransactionsModel)
     for item in response.transactions:
         assert isinstance(item, SpendableTransactionModel)
@@ -209,7 +189,7 @@ def test_estimate_txfee(
     op_return_amount = Money(0.00000001)
     transactions = get_spendable_transactions(node=strax_hot_node, amount=amount_to_send, op_return_amount=op_return_amount, wallet_name='Test')
 
-    request_model = EstimateTxFeeRequest(
+    response = strax_hot_node.wallet.estimate_txfee(
         wallet_name='Test',
         account_name='account 0',
         outpoints=[Outpoint(transaction_id=x.transaction_id, index=x.index) for x in transactions],
@@ -221,7 +201,6 @@ def test_estimate_txfee(
         shuffle_outputs=True,
         change_address=change_address
     )
-    response = strax_hot_node.wallet.estimate_txfee(request_model)
     assert isinstance(response, Money)
 
 
@@ -240,7 +219,7 @@ def test_build_transaction(
     op_return_amount = Money(0.00000001)
     transactions = get_spendable_transactions(node=strax_hot_node, amount=amount_to_send, op_return_amount=op_return_amount, wallet_name='Test')
 
-    request_model = BuildTransactionRequest(
+    response = strax_hot_node.wallet.build_transaction(
         fee_amount=fee_amount,
         password='password',
         segwit_change_address=False,
@@ -254,7 +233,6 @@ def test_build_transaction(
         shuffle_outputs=True,
         change_address=change_address
     )
-    response = strax_hot_node.wallet.build_transaction(request_model)
     assert isinstance(response, BuildTransactionModel)
     assert isinstance(response.transaction_id, uint256)
     assert isinstance(response.hex, hexstr)
@@ -277,7 +255,7 @@ def test_build_interflux_transaction(
     op_return_amount = Money(0.00000001)
     transactions = get_spendable_transactions(node=strax_hot_node, amount=amount_to_send, op_return_amount=op_return_amount, wallet_name='Test')
 
-    request_model = BuildInterfluxTransactionRequest(
+    response = strax_hot_node.wallet.build_interflux_transaction(
         destination_chain=DestinationChain.ETH,
         destination_address=Address(address=generate_ethereum_checksum_address, network=Ethereum()),
         fee_amount=fee_amount,
@@ -293,7 +271,6 @@ def test_build_interflux_transaction(
         shuffle_outputs=True,
         change_address=change_address
     )
-    response = strax_hot_node.wallet.build_interflux_transaction(request_model)
     assert isinstance(response, BuildTransactionModel)
     assert isinstance(response.transaction_id, uint256)
     assert isinstance(response.hex, hexstr)
@@ -311,7 +288,7 @@ def test_send_transaction(strax_hot_node: BaseNode, strax_syncing_node: BaseNode
     op_return_amount = Money(0.00000001)
     transactions = get_spendable_transactions(node=strax_hot_node, amount=amount_to_send, op_return_amount=op_return_amount, wallet_name='Test')
 
-    request_model = BuildTransactionRequest(
+    built_transaction = strax_hot_node.wallet.build_transaction(
         fee_amount=fee_amount,
         password='password',
         segwit_change_address=False,
@@ -325,10 +302,8 @@ def test_send_transaction(strax_hot_node: BaseNode, strax_syncing_node: BaseNode
         shuffle_outputs=True,
         change_address=change_address
     )
-    built_transaction = strax_hot_node.wallet.build_transaction(request_model)
 
-    request_model = SendTransactionRequest(hex=built_transaction.hex)
-    response = strax_hot_node.wallet.send_transaction(request_model)
+    response = strax_hot_node.wallet.send_transaction(hex=built_transaction.hex)
     assert isinstance(response, WalletSendTransactionModel)
     assert isinstance(response.transaction_id, uint256)
     for item in response.outputs:
@@ -347,16 +322,14 @@ def test_list_wallets(strax_hot_node: BaseNode):
 @pytest.mark.integration_test
 @pytest.mark.strax_integration_test
 def test_account(strax_hot_node: BaseNode):
-    request_model = GetUnusedAccountRequest(password='password', wallet_name='Test')
-    response = strax_hot_node.wallet.account(request_model)
+    response = strax_hot_node.wallet.account(password='password', wallet_name='Test')
     assert isinstance(response, str)
 
 
 @pytest.mark.integration_test
 @pytest.mark.strax_integration_test
 def test_accounts(strax_hot_node: BaseNode):
-    request_model = GetAccountsRequest(wallet_name='Test')
-    response = strax_hot_node.wallet.accounts(request_model)
+    response = strax_hot_node.wallet.accounts(wallet_name='Test')
     assert isinstance(response, list)
     for item in response:
         assert isinstance(item, str)
@@ -365,21 +338,19 @@ def test_accounts(strax_hot_node: BaseNode):
 @pytest.mark.integration_test
 @pytest.mark.strax_integration_test
 def test_unused_address(strax_hot_node: BaseNode):
-    request_model = GetUnusedAddressRequest(wallet_name='Test', account_name='account 0', segwit=False)
-    response = strax_hot_node.wallet.unused_address(request_model)
+    response = strax_hot_node.wallet.unused_address(wallet_name='Test', account_name='account 0', segwit=False)
     assert isinstance(response, Address)
 
 
 @pytest.mark.integration_test
 @pytest.mark.strax_integration_test
 def test_unused_addresses(strax_hot_node: BaseNode):
-    request_model = GetUnusedAddressesRequest(
+    response = strax_hot_node.wallet.unused_addresses(
         wallet_name='Test',
         account_name='account 0',
         count=2,
         segwit=False
     )
-    response = strax_hot_node.wallet.unused_addresses(request_model)
     assert isinstance(response, list)
     for item in response:
         assert isinstance(item, Address)
@@ -388,13 +359,12 @@ def test_unused_addresses(strax_hot_node: BaseNode):
 @pytest.mark.integration_test
 @pytest.mark.strax_integration_test
 def test_new_addresses(strax_hot_node: BaseNode):
-    request_model = GetNewAddressesRequest(
+    response = strax_hot_node.wallet.new_addresses(
         wallet_name='Test',
         account_name='account 0',
         count=2,
         segwit=False
     )
-    response = strax_hot_node.wallet.new_addresses(request_model)
     assert isinstance(response, list)
     for item in response:
         assert isinstance(item, Address)
@@ -403,8 +373,7 @@ def test_new_addresses(strax_hot_node: BaseNode):
 @pytest.mark.integration_test
 @pytest.mark.strax_integration_test
 def test_addresses(strax_hot_node: BaseNode):
-    request_model = GetAddressesRequest(wallet_name='Test', account_name='account 0', segwit=False)
-    response = strax_hot_node.wallet.addresses(request_model)
+    response = strax_hot_node.wallet.addresses(wallet_name='Test', account_name='account 0', segwit=False)
     assert isinstance(response, AddressesModel)
     for item in response.addresses:
         assert isinstance(item, AddressModel)
@@ -413,25 +382,24 @@ def test_addresses(strax_hot_node: BaseNode):
 @pytest.mark.integration_test
 @pytest.mark.strax_integration_test
 def test_remove_transactions(strax_hot_node: BaseNode, get_datetime):
-    request_model = SpendableTransactionsRequest(wallet_name='Test', account_name='account 0', min_confirmations=10)
-    spendable_transactions = strax_hot_node.wallet.spendable_transactions(request_model)
+    spendable_transactions = strax_hot_node.wallet.spendable_transactions(
+        wallet_name='Test', account_name='account 0', min_confirmations=10
+    )
     trxids = [x.transaction_id for x in spendable_transactions.transactions]
-    request_model = RemoveTransactionsRequest(
+    response = strax_hot_node.wallet.remove_transactions(
         wallet_name='Test',
         ids=trxids[:2],
         resync=True
     )
-    response = strax_hot_node.wallet.remove_transactions(request_model)
     assert isinstance(response, list)
     for item in response:
         assert isinstance(item, RemovedTransactionModel)
-    request_model = RemoveTransactionsRequest(
-        wallet_name='Test',
-        from_date=get_datetime(365),
-        resync=True
-    )
     try:
-        response = strax_hot_node.wallet.remove_transactions(request_model)
+        response = strax_hot_node.wallet.remove_transactions(
+            wallet_name='Test',
+            from_date=get_datetime(365),
+            resync=True
+        )
         assert isinstance(response, list)
         for item in response:
             assert isinstance(item, RemovedTransactionModel)
@@ -443,25 +411,21 @@ def test_remove_transactions(strax_hot_node: BaseNode, get_datetime):
 @pytest.mark.integration_test
 @pytest.mark.strax_integration_test
 def test_remove_wallet(strax_hot_node: BaseNode):
-    request_model = MnemonicRequest(language='English', word_count=12)
-    mnemonic = strax_hot_node.wallet.mnemonic(request_model)
+    mnemonic = strax_hot_node.wallet.mnemonic(language='English', word_count=12)
     mnemonic = ' '.join(mnemonic)
-    request_model = CreateRequest(
+    strax_hot_node.wallet.create(
         mnemonic=mnemonic,
         password='password',
         passphrase='passphrase',
         name='TestRemove'
     )
-    strax_hot_node.wallet.create(request_model)
-    request_model = RemoveWalletRequest(wallet_name='TestRemove')
-    strax_hot_node.wallet.remove_wallet(request_model)
+    strax_hot_node.wallet.remove_wallet(wallet_name='TestRemove')
 
 
 @pytest.mark.integration_test
 @pytest.mark.strax_integration_test
 def test_extpubkey(strax_hot_node: BaseNode):
-    request_model = ExtPubKeyRequest(wallet_name='Test', account_name='account 0')
-    response = strax_hot_node.wallet.extpubkey(request_model)
+    response = strax_hot_node.wallet.extpubkey(wallet_name='Test', account_name='account 0')
     assert isinstance(response, ExtPubKey)
 
 
@@ -469,38 +433,32 @@ def test_extpubkey(strax_hot_node: BaseNode):
 @pytest.mark.strax_integration_test
 def test_private_key(strax_hot_node: BaseNode, get_node_address_with_balance):
     address = get_node_address_with_balance(strax_hot_node)
-    request_model = PrivateKeyRequest(password='password', wallet_name='Test', address=address)
-    response = strax_hot_node.wallet.private_key(request_model)
+    response = strax_hot_node.wallet.private_key(password='password', wallet_name='Test', address=address)
     assert isinstance(response, Key)
 
 
 @pytest.mark.integration_test
 @pytest.mark.strax_integration_test
 def test_sync(strax_hot_node: BaseNode):
-    from api.consensus.requestmodels import GetBlockHashRequest
-    request_model = GetBlockHashRequest(height=1)
-    block_hash = strax_hot_node.consensus.get_blockhash(request_model)
-    request_model = SyncRequest(hash=block_hash)
-    strax_hot_node.wallet.sync(request_model)
+    block_hash = strax_hot_node.consensus.get_blockhash(height=1)
+    strax_hot_node.wallet.sync(block_hash=block_hash)
 
 
 @pytest.mark.integration_test
 @pytest.mark.strax_integration_test
 def test_sync_from_date(strax_hot_node: BaseNode, get_datetime):
-    request_model = SyncFromDateRequest(date=get_datetime(365), all=True, wallet_name='Test')
-    strax_hot_node.wallet.sync_from_date(request_model)
+    strax_hot_node.wallet.sync_from_date(date=get_datetime(365), all=True, wallet_name='Test')
 
 
 @pytest.mark.integration_test
 @pytest.mark.strax_integration_test
 def test_wallet_stats(strax_hot_node: BaseNode):
-    request_model = StatsRequest(
+    response = strax_hot_node.wallet.wallet_stats(
         wallet_name='Test',
         account_name='account 0',
         min_confirmations=0,
         verbose=True
     )
-    response = strax_hot_node.wallet.wallet_stats(request_model)
     assert isinstance(response, WalletStatsModel)
 
 
@@ -508,14 +466,13 @@ def test_wallet_stats(strax_hot_node: BaseNode):
 @pytest.mark.strax_integration_test
 def test_split_coins(strax_hot_node: BaseNode, node_mines_some_blocks_and_syncs):
     node_mines_some_blocks_and_syncs(mining_node=strax_hot_node, num_blocks_to_mine=15)
-    request_model = SplitCoinsRequest(
+    response = strax_hot_node.wallet.split_coins(
         wallet_name='Test',
         account_name='account 0',
         wallet_password='password',
         total_amount_to_split=Money(10),
         utxos_count=5
     )
-    response = strax_hot_node.wallet.split_coins(request_model)
     assert isinstance(response, WalletSendTransactionModel)
     assert isinstance(response.transaction_id, uint256)
     for item in response.outputs:
@@ -526,10 +483,11 @@ def test_split_coins(strax_hot_node: BaseNode, node_mines_some_blocks_and_syncs)
 @pytest.mark.strax_integration_test
 def test_distribute_utxos(strax_hot_node: BaseNode, node_mines_some_blocks_and_syncs):
     node_mines_some_blocks_and_syncs(mining_node=strax_hot_node, num_blocks_to_mine=15)
-    request_model = SpendableTransactionsRequest(wallet_name='Test', account_name='account 0', min_confirmations=10)
-    spendable_transactions = strax_hot_node.wallet.spendable_transactions(request_model)
+    spendable_transactions = strax_hot_node.wallet.spendable_transactions(
+        wallet_name='Test', account_name='account 0', min_confirmations=10
+    )
     spendable_transactions = [x for x in spendable_transactions.transactions]
-    request_model = DistributeUTXOsRequest(
+    response = strax_hot_node.wallet.distribute_utxos(
         wallet_name='Test',
         account_name='account 0',
         wallet_password='password',
@@ -543,7 +501,6 @@ def test_distribute_utxos(strax_hot_node: BaseNode, node_mines_some_blocks_and_s
         outpoints=[Outpoint(transaction_id=x.transaction_id, index=x.index) for x in spendable_transactions],
         dry_run=True
     )
-    response = strax_hot_node.wallet.distribute_utxos(request_model)
     assert isinstance(response, DistributeUtxoModel)
     for item in response.wallet_send_transaction:
         assert isinstance(item, WalletSendTransactionModel)
@@ -554,18 +511,16 @@ def test_distribute_utxos(strax_hot_node: BaseNode, node_mines_some_blocks_and_s
 def test_sweep(strax_hot_node: BaseNode, get_node_address_with_balance, get_node_unused_address):
     address = get_node_address_with_balance(strax_hot_node)
     receiving_address = get_node_unused_address(strax_hot_node)
-    request_model = PrivateKeyRequest(
+    private_key = strax_hot_node.wallet.private_key(
         password='password',
         wallet_name='Test',
         address=address
     )
-    private_key = strax_hot_node.wallet.private_key(request_model)
-    request_model = SweepRequest(
+    response = strax_hot_node.wallet.sweep(
         private_keys=[private_key],
         destination_address=receiving_address,
         broadcast=False
     )
-    response = strax_hot_node.wallet.sweep(request_model)
     assert isinstance(response, list)
     for item in response:
         assert isinstance(item, uint256)
@@ -586,7 +541,7 @@ def test_build_offline_sign_request(
     op_return_amount = Money(0.00000001)
     transactions = get_spendable_transactions(node=strax_hot_node, amount=amount_to_send, op_return_amount=op_return_amount, wallet_name='Test')
 
-    request_model = BuildOfflineSignRequest(
+    response = strax_hot_node.wallet.build_offline_sign_request(
         fee_amount=fee_amount,
         wallet_name='Test',
         account_name='account 0',
@@ -598,7 +553,6 @@ def test_build_offline_sign_request(
         shuffle_outputs=True,
         change_address=change_address
     )
-    response = strax_hot_node.wallet.build_offline_sign_request(request_model)
     assert isinstance(response, BuildOfflineSignModel)
 
 
@@ -619,7 +573,7 @@ def test_offline_sign_request(
     op_return_amount = Money(0.00000001)
     transactions = get_spendable_transactions(node=strax_hot_node, amount=amount_to_send, op_return_amount=op_return_amount, wallet_name='Test')
 
-    request_model = BuildOfflineSignRequest(
+    offline_sign_model = strax_hot_node.wallet.build_offline_sign_request(
         fee_amount=fee_amount,
         wallet_name='Test',
         account_name='account 0',
@@ -631,9 +585,8 @@ def test_offline_sign_request(
         shuffle_outputs=True,
         change_address=change_address
     )
-    offline_sign_model = strax_hot_node.wallet.build_offline_sign_request(request_model)
 
-    request_model = OfflineSignRequest(
+    response = strax_hot_node.wallet.offline_sign_request(
         wallet_password='password',
         wallet_name='Test',
         wallet_account='account 0',
@@ -642,7 +595,6 @@ def test_offline_sign_request(
         utxos=offline_sign_model.utxos,
         addresses=offline_sign_model.addresses
     )
-    response = strax_hot_node.wallet.offline_sign_request(request_model)
     assert isinstance(response, BuildTransactionModel)
     assert isinstance(response.transaction_id, uint256)
     assert isinstance(response.hex, hexstr)
@@ -653,12 +605,11 @@ def test_offline_sign_request(
 @pytest.mark.strax_integration_test
 def test_consolidate(strax_hot_node: BaseNode, get_node_address_with_balance, node_mines_some_blocks_and_syncs):
     node_mines_some_blocks_and_syncs(mining_node=strax_hot_node, num_blocks_to_mine=15)
-    request_model = SpendableTransactionsRequest(wallet_name='Test', account_name='account 0', min_confirmations=10)
-    spendable_transactions = strax_hot_node.wallet.spendable_transactions(request_model)
+    spendable_transactions = strax_hot_node.wallet.spendable_transactions(wallet_name='Test', account_name='account 0', min_confirmations=10)
     spendable_transactions = [x for x in spendable_transactions.transactions if x.amount < 100_0000_0000]
     assert len(spendable_transactions) > 1  # Count must be more than 1 to consolidate.
     destination_address = get_node_address_with_balance(strax_hot_node)
-    request_model = ConsolidateRequest(
+    response = strax_hot_node.wallet.consolidate(
         wallet_password='password',
         wallet_name='Test',
         wallet_account='account 0',
@@ -666,5 +617,4 @@ def test_consolidate(strax_hot_node: BaseNode, get_node_address_with_balance, no
         utxo_value_threshold_in_satoshis=100_0000_0000,
         broadcast=False
     )
-    response = strax_hot_node.wallet.consolidate(request_model)
     assert isinstance(response, hexstr)

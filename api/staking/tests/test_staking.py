@@ -66,12 +66,7 @@ def test_start_staking(mocker: MockerFixture, network, fakeuri):
     data = None
     mocker.patch.object(Staking, 'post', return_value=data)
     staking = Staking(network=network, baseuri=fakeuri)
-    request_model = StartStakingRequest(
-        name='Name',
-        password='password'
-    )
-
-    staking.start_staking(request_model)
+    staking.start_staking(name='Name', password='password')
 
     # noinspection PyUnresolvedReferences
     staking.post.assert_called_once()
@@ -82,15 +77,13 @@ def test_start_multistaking(mocker: MockerFixture, network, fakeuri):
     data = None
     mocker.patch.object(Staking, 'post', return_value=data)
     staking = Staking(network=network, baseuri=fakeuri)
-    request_model = StartMultiStakingRequest(
+    staking.start_multistaking(
         wallet_credentials=[
             WalletSecret(wallet_name='Wallet0', wallet_password='password0'),
             WalletSecret(wallet_name='Wallet1', wallet_password='password1'),
             WalletSecret(wallet_name='Wallet2', wallet_password='password2'),
         ]
     )
-
-    staking.start_multistaking(request_model)
 
     # noinspection PyUnresolvedReferences
     staking.post.assert_called_once()
@@ -101,9 +94,7 @@ def test_stop_staking(mocker: MockerFixture, network, fakeuri):
     data = None
     mocker.patch.object(Staking, 'post', return_value=data)
     staking = Staking(network=network, baseuri=fakeuri)
-    request_model = StopStakingRequest()
-
-    staking.stop_staking(request_model)
+    staking.stop_staking()
 
     # noinspection PyUnresolvedReferences
     staking.post.assert_called_once()

@@ -1,6 +1,5 @@
 import pytest
 from nodes import BaseNode
-from api.consensus.requestmodels import *
 from api.consensus.responsemodels import *
 from pybitcoin.types import uint256
 
@@ -24,6 +23,5 @@ def test_get_best_block_hash(strax_hot_node: BaseNode):
 @pytest.mark.integration_test
 @pytest.mark.strax_integration_test
 def test_get_block_hash(strax_hot_node: BaseNode):
-    request_model = GetBlockHashRequest(height=1)
-    response = strax_hot_node.consensus.get_blockhash(request_model)
+    response = strax_hot_node.consensus.get_blockhash(height=1)
     assert isinstance(response, uint256)

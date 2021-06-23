@@ -38,18 +38,17 @@ def test_all_interfluxcirrus_endpoints_implemented(interfluxcirrus_swagger_json)
 @pytest.mark.parametrize('strax_network', [StraxMain()], ids=['Main'])
 def test_join_federation(mocker: MockerFixture, strax_network, fakeuri, generate_p2pkh_address,
                          generate_compressed_pubkey):
-    request_model = JoinFederationRequest(
+    data = {'MinerPublicKey': generate_compressed_pubkey}
+    mocker.patch.object(Collateral, 'post', return_value=data)
+    collateral = Collateral(network=strax_network, baseuri=fakeuri)
+    response = collateral.join_federation(
         collateral_address=Address(address=generate_p2pkh_address(network=strax_network), network=strax_network),
         collateral_wallet_name='Test_InterfluxStrax_Wallet',
         collateral_wallet_password='cirrus_password',
         wallet_name='Test_InterfluxCirrus_Wallet',
         wallet_account='account 0',
-        wallet_password='cirrus_password',
+        wallet_password='cirrus_password'
     )
-    data = {'MinerPublicKey': generate_compressed_pubkey}
-    mocker.patch.object(Collateral, 'post', return_value=data)
-    collateral = Collateral(network=strax_network, baseuri=fakeuri)
-    response = collateral.join_federation(request_model=request_model)
 
     assert response == JoinFederationResponseModel(**data)
     # noinspection PyUnresolvedReferences

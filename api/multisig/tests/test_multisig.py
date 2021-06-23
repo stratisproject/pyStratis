@@ -46,7 +46,7 @@ def test_build_transaction(mocker: MockerFixture, network, fakeuri, generate_p2p
     }
     mocker.patch.object(Multisig, 'post', return_value=data)
     multisig = Multisig(network=network, baseuri=fakeuri)
-    request_model = BuildTransactionRequest(
+    response = multisig.build_transaction(
         recipients=[
             Recipient(
                 destination_address=Address(address=generate_p2pkh_address(network=network), network=network),
@@ -55,15 +55,8 @@ def test_build_transaction(mocker: MockerFixture, network, fakeuri, generate_p2p
                 amount=Money(5)
             )
         ],
-        secrets=[
-            MultisigSecret(
-                mnemonic='mnemonic',
-                passphrase='passphrase'
-            )
-        ]
+        secrets=[MultisigSecret(mnemonic='mnemonic', passphrase='passphrase')]
     )
-
-    response = multisig.build_transaction(request_model)
 
     assert response == BuildTransactionModel(**data)
     # noinspection PyUnresolvedReferences

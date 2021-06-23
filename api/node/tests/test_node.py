@@ -99,12 +99,10 @@ def test_get_blockheader(mocker: MockerFixture, network, fakeuri, generate_uint2
     }
     mocker.patch.object(Node, 'get', return_value=data)
     node = Node(network=network, baseuri=fakeuri)
-    request_model = GetBlockHeaderRequest(
-        hash=generate_uint256,
+    response = node.get_blockheader(
+        block_hash=generate_uint256,
         is_json_format=True
     )
-
-    response = node.get_blockheader(request_model)
 
     assert response == BlockHeaderModel(**data)
     # noinspection PyUnresolvedReferences
@@ -118,12 +116,8 @@ def test_get_raw_transaction_verbose(mocker: MockerFixture, network, fakeuri,
     data = generate_coinbase_transaction(trxid)
     mocker.patch.object(Node, 'get', return_value=data)
     node = Node(network=network, baseuri=fakeuri)
-    request_model = GetRawTransactionRequest(
-        trxid=trxid,
-        verbose=True
-    )
 
-    response = node.get_raw_transaction(request_model)
+    response = node.get_raw_transaction(trxid=trxid, verbose=True)
 
     assert response == TransactionModel(**data)
     # noinspection PyUnresolvedReferences
@@ -138,12 +132,8 @@ def test_get_raw_transaction_nonverbose(mocker: MockerFixture, network, fakeuri,
     hexified_data = bytes(str(data), 'ascii').hex()
     mocker.patch.object(Node, 'get', return_value=hexified_data)
     node = Node(network=network, baseuri=fakeuri)
-    request_model = GetRawTransactionRequest(
-        trxid=trxid,
-        verbose=False
-    )
 
-    response = node.get_raw_transaction(request_model)
+    response = node.get_raw_transaction(trxid=trxid, verbose=False)
 
     assert response == hexified_data
     unserialized_response = ast.literal_eval(bytes.fromhex(hexified_data).decode('ascii'))
@@ -160,11 +150,8 @@ def test_decode_raw_transaction(mocker: MockerFixture, network, fakeuri, generat
     hexified_data = bytes(str(data), 'ascii').hex()
     mocker.patch.object(Node, 'post', return_value=data)
     node = Node(network=network, baseuri=fakeuri)
-    request_model = DecodeRawTransactionRequest(
-        raw_hex=hexified_data
-    )
 
-    response = node.decode_raw_transaction(request_model)
+    response = node.decode_raw_transaction(raw_hex=hexified_data)
 
     assert response == TransactionModel(**data)
     # noinspection PyUnresolvedReferences
@@ -183,11 +170,8 @@ def test_validate_address(mocker: MockerFixture, network, fakeuri, generate_p2pk
     }
     mocker.patch.object(Node, 'get', return_value=data)
     node = Node(network=network, baseuri=fakeuri)
-    request_model = ValidateAddressRequest(
-        address=address
-    )
 
-    response = node.validate_address(request_model)
+    response = node.validate_address(address=address)
 
     assert response == ValidateAddressModel(**data)
     # noinspection PyUnresolvedReferences
@@ -214,13 +198,8 @@ def test_get_txout(mocker: MockerFixture, network, fakeuri, generate_uint256, ge
     }
     mocker.patch.object(Node, 'get', return_value=data)
     node = Node(network=network, baseuri=fakeuri)
-    request_model = GetTxOutRequest(
-        trxid=generate_uint256,
-        vout=0,
-        include_mempool=False
-    )
 
-    response = node.get_txout(request_model)
+    response = node.get_txout(trxid=generate_uint256, vout=0, include_mempool=False)
 
     assert response == GetTxOutModel(**data)
     # noinspection PyUnresolvedReferences
@@ -232,15 +211,13 @@ def test_get_txout_proof(mocker: MockerFixture, network, fakeuri, generate_uint2
     data = generate_hexstring(128)
     mocker.patch.object(Node, 'get', return_value=data)
     node = Node(network=network, baseuri=fakeuri)
-    request_model = GetTxOutProofRequest(
+    response = node.get_txout_proof(
         txids=[
             generate_uint256,
             generate_uint256
         ],
         blockhash=generate_uint256
     )
-
-    response = node.get_txout_proof(request_model)
 
     assert response == data
     # noinspection PyUnresolvedReferences
@@ -252,9 +229,8 @@ def test_shutdown(mocker: MockerFixture, network, fakeuri):
     data = None
     mocker.patch.object(Node, 'post', return_value=data)
     node = Node(network=network, baseuri=fakeuri)
-    request_model = ShutdownRequest()
 
-    node.shutdown(request_model)
+    node.shutdown()
 
     # noinspection PyUnresolvedReferences
     node.post.assert_called_once()
@@ -265,9 +241,8 @@ def test_stop(mocker: MockerFixture, network, fakeuri):
     data = None
     mocker.patch.object(Node, 'post', return_value=data)
     node = Node(network=network, baseuri=fakeuri)
-    request_model = ShutdownRequest()
 
-    node.stop(request_model)
+    node.stop()
 
     # noinspection PyUnresolvedReferences
     node.post.assert_called_once()
@@ -278,13 +253,8 @@ def test_log_levels(mocker: MockerFixture, network, fakeuri):
     data = None
     mocker.patch.object(Node, 'put', return_value=data)
     node = Node(network=network, baseuri=fakeuri)
-    request_model = LogRulesRequest(
-        log_rules=[
-            LogRule(rule_name='TestRule', log_level='Debug')
-        ]
-    )
 
-    node.log_levels(request_model)
+    node.log_levels(log_rules=[LogRule(rule_name='TestRule', log_level='Debug')])
 
     # noinspection PyUnresolvedReferences
     node.put.assert_called_once()

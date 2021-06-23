@@ -44,15 +44,11 @@ def test_mnemonic(mocker: MockerFixture, network, fakeuri):
     data = 'a b c d e f g h i j k l'
     mocker.patch.object(Wallet, 'get', return_value=data)
     wallet = Wallet(network=network, baseuri=fakeuri)
-    request_model = MnemonicRequest(
-        language='English',
-        word_count=12
-    )
 
-    response = wallet.mnemonic(request_model)
+    response = wallet.mnemonic(language='English', word_count=12)
 
     assert response == data.split(' ')
-    assert len(response) == request_model.word_count
+    assert len(response) == 12
     # noinspection PyUnresolvedReferences
     wallet.get.assert_called_once()
 
@@ -62,14 +58,13 @@ def test_create(mocker: MockerFixture, network, fakeuri):
     data = 'a b c d e f g h i j k l'
     mocker.patch.object(Wallet, 'post', return_value=data)
     wallet = Wallet(network=network, baseuri=fakeuri)
-    request_model = CreateRequest(
+
+    response = wallet.create(
         mnemonic=data,
         password='password',
         passphrase='passphrase',
         name='Test'
     )
-
-    response = wallet.create(request_model)
 
     assert response == data.split(' ')
     # noinspection PyUnresolvedReferences
@@ -86,14 +81,13 @@ def test_sign_message(mocker: MockerFixture, network, fakeuri, generate_p2pkh_ad
     data = sig
     mocker.patch.object(Wallet, 'post', return_value=data)
     wallet = Wallet(network=network, baseuri=fakeuri)
-    request_model = SignMessageRequest(
+
+    response = wallet.sign_message(
         wallet_name='Test',
         password='password',
         external_address=Address(address=generate_p2pkh_address(network=network), network=network),
         message=message
     )
-
-    response = wallet.sign_message(request_model)
 
     assert response == data
     # noinspection PyUnresolvedReferences
@@ -106,12 +100,11 @@ def test_pubkey(mocker: MockerFixture, network, fakeuri, generate_uncompressed_p
     data = generate_uncompressed_pubkey
     mocker.patch.object(Wallet, 'post', return_value=data)
     wallet = Wallet(network=network, baseuri=fakeuri)
-    request_model = PubKeyRequest(
+
+    response = wallet.pubkey(
         wallet_name='Test',
         external_address=Address(address=generate_p2pkh_address(network=network), network=network)
     )
-
-    response = wallet.pubkey(request_model)
 
     assert response == PubKey(data)
     # noinspection PyUnresolvedReferences
@@ -127,13 +120,11 @@ def test_verify_message(mocker: MockerFixture, network, fakeuri, generate_p2pkh_
     data = True
     mocker.patch.object(Wallet, 'post', return_value=data)
     wallet = Wallet(network=network, baseuri=fakeuri)
-    request_model = VerifyMessageRequest(
+    response = wallet.verify_message(
         signature=sig,
         external_address=Address(address=generate_p2pkh_address(network=network), network=network),
         message=message
     )
-
-    response = wallet.verify_message(request_model)
 
     assert response == data
     # noinspection PyUnresolvedReferences
@@ -145,12 +136,8 @@ def test_load(mocker: MockerFixture, network, fakeuri):
     data = None
     mocker.patch.object(Wallet, 'post', return_value=data)
     wallet = Wallet(network=network, baseuri=fakeuri)
-    request_model = LoadRequest(
-        name='Test',
-        password='password'
-    )
 
-    wallet.load(request_model)
+    wallet.load(name='Test', password='password')
 
     # noinspection PyUnresolvedReferences
     wallet.post.assert_called_once()
@@ -161,15 +148,13 @@ def test_recover(mocker: MockerFixture, network, fakeuri):
     data = None
     mocker.patch.object(Wallet, 'post', return_value=data)
     wallet = Wallet(network=network, baseuri=fakeuri)
-    request_model = RecoverRequest(
+    wallet.recover(
         mnemonic='mnemonic',
         password='password',
         passphrase='passphrase',
         name='Test',
         creation_date='2020-01-01T00:00:01'
     )
-
-    wallet.recover(request_model)
 
     # noinspection PyUnresolvedReferences
     wallet.post.assert_called_once()
@@ -180,14 +165,12 @@ def test_recover_via_extpubkey(mocker: MockerFixture, network, fakeuri, generate
     data = None
     mocker.patch.object(Wallet, 'post', return_value=data)
     wallet = Wallet(network=network, baseuri=fakeuri)
-    request_model = ExtPubRecoveryRequest(
+    wallet.recover_via_extpubkey(
         extpubkey=generate_extpubkey,
         account_index=0,
         name='Test',
         creation_date='2020-01-01T00:00:01'
     )
-
-    wallet.recover_via_extpubkey(request_model)
 
     # noinspection PyUnresolvedReferences
     wallet.post.assert_called_once()
@@ -207,11 +190,7 @@ def test_general_info(mocker: MockerFixture, network, fakeuri):
     }
     mocker.patch.object(Wallet, 'get', return_value=data)
     wallet = Wallet(network=network, baseuri=fakeuri)
-    request_model = GeneralInfoRequest(
-        name='Test'
-    )
-
-    response = wallet.general_info(request_model)
+    response = wallet.general_info(name='Test')
 
     assert response == WalletGeneralInfoModel(**data)
     # noinspection PyUnresolvedReferences
@@ -223,12 +202,11 @@ def test_transaction_count(mocker: MockerFixture, network, fakeuri):
     data = {'transactionCount': 5}
     mocker.patch.object(Wallet, 'get', return_value=data)
     wallet = Wallet(network=network, baseuri=fakeuri)
-    request_model = AccountRequest(
+
+    response = wallet.transaction_count(
         wallet_name='Test',
         account_name='account 0'
     )
-
-    response = wallet.transaction_count(request_model)
 
     assert response == data['transactionCount']
     # noinspection PyUnresolvedReferences
@@ -269,7 +247,8 @@ def test_history(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address
     }
     mocker.patch.object(Wallet, 'get', return_value=data)
     wallet = Wallet(network=network, baseuri=fakeuri)
-    request_model = HistoryRequest(
+
+    response = wallet.history(
         wallet_name='Test',
         account_name='account 0',
         address=Address(address=generate_p2pkh_address(network=network), network=network),
@@ -279,8 +258,6 @@ def test_history(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address
         prev_output_index=0,
         search_query='query'
     )
-
-    response = wallet.history(request_model)
 
     assert response == WalletHistoryModel(**data)
     # noinspection PyUnresolvedReferences
@@ -312,13 +289,11 @@ def test_balance(mocker: MockerFixture, network, fakeuri, get_base_keypath, gene
     }
     mocker.patch.object(Wallet, 'get', return_value=data)
     wallet = Wallet(network=network, baseuri=fakeuri)
-    request_model = BalanceRequest(
+    response = wallet.balance(
         wallet_name='Test',
         account_name='account 0',
         include_balance_by_address=True
     )
-
-    response = wallet.balance(request_model)
 
     assert response == WalletBalanceModel(**data)
     # noinspection PyUnresolvedReferences
@@ -336,11 +311,8 @@ def test_received_by_address(mocker: MockerFixture, network, fakeuri, generate_p
     }
     mocker.patch.object(Wallet, 'get', return_value=data)
     wallet = Wallet(network=network, baseuri=fakeuri)
-    request_model = ReceivedByAddressRequest(
-        address=Address(address=data['address'], network=network)
-    )
 
-    response = wallet.received_by_address(request_model)
+    response = wallet.received_by_address(address=Address(address=data['address'], network=network))
 
     assert response == AddressBalanceModel(**data)
     # noinspection PyUnresolvedReferences
@@ -355,14 +327,13 @@ def test_max_balance(mocker: MockerFixture, network, fakeuri):
     }
     mocker.patch.object(Wallet, 'get', return_value=data)
     wallet = Wallet(network=network, baseuri=fakeuri)
-    request_model = MaxBalanceRequest(
+
+    response = wallet.max_balance(
         wallet_name='Test',
         account_name='account 0',
         fee_type='low',
         allow_unconfirmed=True
     )
-
-    response = wallet.max_balance(request_model)
 
     assert response == MaxSpendableAmountModel(**data)
     # noinspection PyUnresolvedReferences
@@ -386,13 +357,11 @@ def test_spendable_transactions(mocker: MockerFixture, network, fakeuri, generat
     }
     mocker.patch.object(Wallet, 'get', return_value=data)
     wallet = Wallet(network=network, baseuri=fakeuri)
-    request_model = SpendableTransactionsRequest(
+    response = wallet.spendable_transactions(
         wallet_name='Test',
         account_name='account 0',
         min_confirmations=0
     )
-
-    response = wallet.spendable_transactions(request_model)
 
     assert response == SpendableTransactionsModel(**data)
     # noinspection PyUnresolvedReferences
@@ -404,7 +373,7 @@ def test_estimate_txfee(mocker: MockerFixture, network, fakeuri, generate_uint25
     data = 10000
     mocker.patch.object(Wallet, 'post', return_value=data)
     wallet = Wallet(network=network, baseuri=fakeuri)
-    request_model = EstimateTxFeeRequest(
+    response = wallet.estimate_txfee(
         wallet_name='Test',
         account_name='account 0',
         outpoints=[Outpoint(transaction_id=generate_uint256, index=0)],
@@ -424,8 +393,6 @@ def test_estimate_txfee(mocker: MockerFixture, network, fakeuri, generate_uint25
         change_address=Address(address=generate_p2pkh_address(network=network), network=network)
     )
 
-    response = wallet.estimate_txfee(request_model)
-
     assert response == Money.from_satoshi_units(data)
     # noinspection PyUnresolvedReferences
     wallet.post.assert_called_once()
@@ -441,7 +408,8 @@ def test_build_transaction(mocker: MockerFixture, network, fakeuri, generate_p2p
     }
     mocker.patch.object(Wallet, 'post', return_value=data)
     wallet = Wallet(network=network, baseuri=fakeuri)
-    request_model = BuildTransactionRequest(
+
+    response = wallet.build_transaction(
         fee_amount=Money(0.0001),
         password='password',
         segwit_change_address=False,
@@ -463,8 +431,6 @@ def test_build_transaction(mocker: MockerFixture, network, fakeuri, generate_p2p
         change_address=Address(address=generate_p2pkh_address(network=network), network=network)
     )
 
-    response = wallet.build_transaction(request_model)
-
     assert response == BuildTransactionModel(**data)
     # noinspection PyUnresolvedReferences
     wallet.post.assert_called_once()
@@ -480,7 +446,8 @@ def test_build_interflux_transaction(mocker: MockerFixture, network, fakeuri, ge
     }
     mocker.patch.object(Wallet, 'post', return_value=data)
     wallet = Wallet(network=network, baseuri=fakeuri)
-    request_model = BuildInterfluxTransactionRequest(
+
+    response = wallet.build_interflux_transaction(
         destination_chain=DestinationChain.ETH,
         destination_address=Address(address=generate_ethereum_checksum_address, network=Ethereum()),
         fee_amount=Money(0.0001),
@@ -504,8 +471,6 @@ def test_build_interflux_transaction(mocker: MockerFixture, network, fakeuri, ge
         change_address=Address(address=generate_p2pkh_address(network=network), network=network)
     )
 
-    response = wallet.build_interflux_transaction(request_model)
-
     assert response == BuildTransactionModel(**data)
     # noinspection PyUnresolvedReferences
     wallet.post.assert_called_once()
@@ -526,11 +491,8 @@ def test_send_transaction(mocker: MockerFixture, network, fakeuri, generate_uint
     }
     mocker.patch.object(Wallet, 'post', return_value=data)
     wallet = Wallet(network=network, baseuri=fakeuri)
-    request_model = SendTransactionRequest(
-        hex=generate_hexstring(128)
-    )
 
-    response = wallet.send_transaction(request_model)
+    response = wallet.send_transaction(hex=generate_hexstring(128))
 
     assert response == WalletSendTransactionModel(**data)
     # noinspection PyUnresolvedReferences
@@ -555,12 +517,8 @@ def test_account(mocker: MockerFixture, network, fakeuri):
     data = 'Test'
     mocker.patch.object(Wallet, 'post', return_value=data)
     wallet = Wallet(network=network, baseuri=fakeuri)
-    request_model = GetUnusedAccountRequest(
-        password='password',
-        wallet_name='Test'
-    )
 
-    response = wallet.account(request_model)
+    response = wallet.account(password='password', wallet_name='Test')
 
     assert response == data
     # noinspection PyUnresolvedReferences
@@ -572,11 +530,8 @@ def test_accounts(mocker: MockerFixture, network, fakeuri):
     data = ['account 0', 'account 1']
     mocker.patch.object(Wallet, 'get', return_value=data)
     wallet = Wallet(network=network, baseuri=fakeuri)
-    request_model = GetAccountsRequest(
-        wallet_name='Test'
-    )
 
-    response = wallet.accounts(request_model)
+    response = wallet.accounts(wallet_name='Test')
 
     assert response == data
     # noinspection PyUnresolvedReferences
@@ -588,13 +543,12 @@ def test_unused_address(mocker: MockerFixture, network, fakeuri, generate_p2pkh_
     data = generate_p2pkh_address(network=network)
     mocker.patch.object(Wallet, 'get', return_value=data)
     wallet = Wallet(network=network, baseuri=fakeuri)
-    request_model = GetUnusedAddressRequest(
+
+    response = wallet.unused_address(
         wallet_name='Test',
         account_name='account 0',
         segwit=False
     )
-
-    response = wallet.unused_address(request_model)
 
     assert response == Address(address=data, network=network)
     # noinspection PyUnresolvedReferences
@@ -609,14 +563,13 @@ def test_unused_addresses(mocker: MockerFixture, network, fakeuri, generate_p2pk
     ]
     mocker.patch.object(Wallet, 'get', return_value=data)
     wallet = Wallet(network=network, baseuri=fakeuri)
-    request_model = GetUnusedAddressesRequest(
+
+    response = wallet.unused_addresses(
         wallet_name='Test',
         account_name='account 0',
         count=2,
         segwit=False
     )
-
-    response = wallet.unused_addresses(request_model)
 
     assert response == [Address(address=x, network=network) for x in data]
     # noinspection PyUnresolvedReferences
@@ -631,14 +584,13 @@ def test_new_addresses(mocker: MockerFixture, network, fakeuri, generate_p2pkh_a
     ]
     mocker.patch.object(Wallet, 'get', return_value=data)
     wallet = Wallet(network=network, baseuri=fakeuri)
-    request_model = GetNewAddressesRequest(
+
+    response = wallet.new_addresses(
         wallet_name='Test',
         account_name='account 0',
         count=2,
         segwit=False
     )
-
-    response = wallet.new_addresses(request_model)
 
     assert response == [Address(address=x, network=network) for x in data]
     # noinspection PyUnresolvedReferences
@@ -660,13 +612,12 @@ def test_addresses(mocker: MockerFixture, network, fakeuri, generate_p2pkh_addre
     }
     mocker.patch.object(Wallet, 'get', return_value=data)
     wallet = Wallet(network=network, baseuri=fakeuri)
-    request_model = GetAddressesRequest(
+
+    response = wallet.addresses(
         wallet_name='Test',
         account_name='account 0',
         segwit=False
     )
-
-    response = wallet.addresses(request_model)
 
     assert response == AddressesModel(**data)
     # noinspection PyUnresolvedReferences
@@ -691,15 +642,14 @@ def test_remove_transactions(mocker: MockerFixture, network, fakeuri, generate_u
     ]
     mocker.patch.object(Wallet, 'delete', return_value=data)
     wallet = Wallet(network=network, baseuri=fakeuri)
-    request_model = RemoveTransactionsRequest(
+
+    response = wallet.remove_transactions(
         wallet_name='Test',
         ids=ids,
         from_date='2020-01-01T00:00:01',
         all=True,
         resync=True
     )
-
-    response = wallet.remove_transactions(request_model)
 
     assert response == [RemovedTransactionModel(**x) for x in data]
     # noinspection PyUnresolvedReferences
@@ -711,11 +661,8 @@ def test_remove_wallet(mocker: MockerFixture, network, fakeuri):
     data = None
     mocker.patch.object(Wallet, 'delete', return_value=data)
     wallet = Wallet(network=network, baseuri=fakeuri)
-    request_model = RemoveWalletRequest(
-        wallet_name='Test'
-    )
 
-    wallet.remove_wallet(request_model)
+    wallet.remove_wallet(wallet_name='Test')
 
     # noinspection PyUnresolvedReferences
     wallet.delete.assert_called_once()
@@ -726,12 +673,8 @@ def test_extpubkey(mocker: MockerFixture, network, fakeuri, generate_extpubkey):
     data = generate_extpubkey
     mocker.patch.object(Wallet, 'get', return_value=data)
     wallet = Wallet(network=network, baseuri=fakeuri)
-    request_model = ExtPubKeyRequest(
-        wallet_name='Test',
-        account_name='account 0'
-    )
 
-    response = wallet.extpubkey(request_model)
+    response = wallet.extpubkey(wallet_name='Test', account_name='account 0')
 
     assert str(response) == str(ExtPubKey(data))
     # noinspection PyUnresolvedReferences
@@ -743,13 +686,12 @@ def test_private_key(mocker: MockerFixture, network, fakeuri, generate_privateke
     data = generate_privatekey()
     mocker.patch.object(Wallet, 'post', return_value=data)
     wallet = Wallet(network=network, baseuri=fakeuri)
-    request_model = PrivateKeyRequest(
+
+    response = wallet.private_key(
         password='password',
         wallet_name='Test',
         address=Address(address=generate_p2pkh_address(network=network), network=network)
     )
-
-    response = wallet.private_key(request_model)
 
     assert response == data
     # noinspection PyUnresolvedReferences
@@ -761,11 +703,8 @@ def test_sync(mocker: MockerFixture, network, fakeuri, generate_uint256):
     data = None
     mocker.patch.object(Wallet, 'post', return_value=data)
     wallet = Wallet(network=network, baseuri=fakeuri)
-    request_model = SyncRequest(
-        hash=generate_uint256
-    )
 
-    wallet.sync(request_model)
+    wallet.sync(block_hash=generate_uint256)
 
     # noinspection PyUnresolvedReferences
     wallet.post.assert_called_once()
@@ -776,13 +715,12 @@ def test_sync_from_date(mocker: MockerFixture, network, fakeuri):
     data = None
     mocker.patch.object(Wallet, 'post', return_value=data)
     wallet = Wallet(network=network, baseuri=fakeuri)
-    request_model = SyncFromDateRequest(
+
+    wallet.sync_from_date(
         date='2020-01-01T00:00:01',
         all=True,
         wallet_name='Test'
     )
-
-    wallet.sync_from_date(request_model)
 
     # noinspection PyUnresolvedReferences
     wallet.post.assert_called_once()
@@ -817,14 +755,13 @@ def test_wallet_stats(mocker: MockerFixture, network, fakeuri):
     }
     mocker.patch.object(Wallet, 'get', return_value=data)
     wallet = Wallet(network=network, baseuri=fakeuri)
-    request_model = StatsRequest(
+
+    response = wallet.wallet_stats(
         wallet_name=data['walletName'],
         account_name='account 0',
         min_confirmations=0,
         verbose=True
     )
-
-    response = wallet.wallet_stats(request_model)
 
     assert response == WalletStatsModel(**data)
     # noinspection PyUnresolvedReferences
@@ -865,15 +802,14 @@ def test_split_coins(mocker: MockerFixture, network, fakeuri, generate_uint256, 
     }
     mocker.patch.object(Wallet, 'post', return_value=data)
     wallet = Wallet(network=network, baseuri=fakeuri)
-    request_model = SplitCoinsRequest(
+
+    response = wallet.split_coins(
         wallet_name='Test',
         account_name='account 0',
         wallet_password='password',
         total_amount_to_split=Money(5),
         utxos_count=5
     )
-
-    response = wallet.split_coins(request_model)
 
     assert response == WalletSendTransactionModel(**data)
     # noinspection PyUnresolvedReferences
@@ -926,7 +862,8 @@ def test_distribute_utxos(mocker: MockerFixture, network, fakeuri, generate_uint
 
     mocker.patch.object(Wallet, 'post', return_value=data)
     wallet = Wallet(network=network, baseuri=fakeuri)
-    request_model = DistributeUTXOsRequest(
+
+    response = wallet.distribute_utxos(
         wallet_name='Test',
         account_name='account 0',
         wallet_password='password',
@@ -940,8 +877,6 @@ def test_distribute_utxos(mocker: MockerFixture, network, fakeuri, generate_uint
         outpoints=[Outpoint(transaction_id=generate_uint256, index=0)],
         dry_run=True
     )
-
-    response = wallet.distribute_utxos(request_model)
 
     assert response == DistributeUtxoModel(**data)
     # noinspection PyUnresolvedReferences
@@ -963,13 +898,12 @@ def test_sweep(mocker: MockerFixture, network, fakeuri, generate_privatekey, gen
     ]
     mocker.patch.object(Wallet, 'post', return_value=data)
     wallet = Wallet(network=network, baseuri=fakeuri)
-    request_model = SweepRequest(
+
+    response = wallet.sweep(
         private_keys=private_keys,
         destination_address=Address(address=generate_p2pkh_address(network=network), network=network),
         broadcast=False
     )
-
-    response = wallet.sweep(request_model)
 
     assert response == [uint256(x) for x in data]
     # noinspection PyUnresolvedReferences
@@ -999,7 +933,8 @@ def test_build_offline_sign_request(mocker: MockerFixture, network, fakeuri, gen
 
     mocker.patch.object(Wallet, 'post', return_value=data)
     wallet = Wallet(network=network, baseuri=fakeuri)
-    request_model = BuildOfflineSignRequest(
+
+    response = wallet.build_offline_sign_request(
         fee_amount=Money(0.0001),
         wallet_name=data['walletName'],
         account_name=data['walletAccount'],
@@ -1019,8 +954,6 @@ def test_build_offline_sign_request(mocker: MockerFixture, network, fakeuri, gen
         change_address=Address(address=generate_p2pkh_address(network=network), network=network)
     )
 
-    response = wallet.build_offline_sign_request(request_model)
-
     assert response == BuildOfflineSignModel(**data)
     # noinspection PyUnresolvedReferences
     wallet.post.assert_called_once()
@@ -1036,7 +969,8 @@ def test_offline_sign_request(mocker: MockerFixture, network, fakeuri, get_base_
     }
     mocker.patch.object(Wallet, 'post', return_value=data)
     wallet = Wallet(network=network, baseuri=fakeuri)
-    request_model = OfflineSignRequest(
+
+    response = wallet.offline_sign_request(
         wallet_password='password',
         wallet_name='Test',
         wallet_account='account 0',
@@ -1059,8 +993,6 @@ def test_offline_sign_request(mocker: MockerFixture, network, fakeuri, get_base_
         ]
     )
 
-    response = wallet.offline_sign_request(request_model)
-
     assert response == BuildTransactionModel(**data)
     # noinspection PyUnresolvedReferences
     wallet.post.assert_called_once()
@@ -1071,7 +1003,8 @@ def test_consolidate(mocker: MockerFixture, network, fakeuri, generate_p2pkh_add
     data = generate_hexstring(128)
     mocker.patch.object(Wallet, 'post', return_value=data)
     wallet = Wallet(network=network, baseuri=fakeuri)
-    request_model = ConsolidateRequest(
+
+    response = wallet.consolidate(
         wallet_password='password',
         wallet_name='Test',
         wallet_account='account 0',
@@ -1079,8 +1012,6 @@ def test_consolidate(mocker: MockerFixture, network, fakeuri, generate_p2pkh_add
         utxo_value_threshold_in_satoshis=100_0000_0000,
         broadcast=False
     )
-
-    response = wallet.consolidate(request_model)
 
     assert response == data
     # noinspection PyUnresolvedReferences

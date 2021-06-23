@@ -1,7 +1,6 @@
 import pytest
 import time
 from nodes import StraxNode
-from api.diagnostic.requestmodels import *
 from api.diagnostic.responsemodels import *
 
 
@@ -30,8 +29,7 @@ def test_get_peer_statistics(strax_hot_node: StraxNode):
     strax_hot_node.diagnostic.start_collecting_peerstatistics()
     # collect some stats
     time.sleep(20)
-    request_model = GetPeerStatisticsRequest(connected_only=True)
-    response = strax_hot_node.diagnostic.get_peer_statistics(request_model)
+    response = strax_hot_node.diagnostic.get_peer_statistics(connected_only=True)
     assert isinstance(response, list)
     for item in response:
         assert isinstance(item, PeerStatisticsModel)

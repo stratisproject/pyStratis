@@ -43,11 +43,8 @@ def test_call_by_name(mocker: MockerFixture, network, fakeuri):
     }
     mocker.patch.object(RPC, 'post', return_value=data)
     rpc = RPC(network=network, baseuri=fakeuri)
-    request_model = CallByNameRequest(
-        command='rpccommand'
-    )
 
-    response = rpc.call_by_name(request_model)
+    response = rpc.call_by_name(command='rpccommand')
 
     assert response == RPCCommandResponseModel(**data)
     # noinspection PyUnresolvedReferences

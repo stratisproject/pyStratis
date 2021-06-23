@@ -46,11 +46,8 @@ def test_account_addresses(mocker: MockerFixture, network, fakeuri, generate_p2p
     ]
     mocker.patch.object(SmartContractWallet, 'get', return_value=data)
     smart_contract_wallet = SmartContractWallet(network=network, baseuri=fakeuri)
-    request_model = AccountAddressesRequest(
-        wallet_name='Test'
-    )
 
-    response = smart_contract_wallet.account_addresses(request_model)
+    response = smart_contract_wallet.account_addresses(wallet_name='Test')
 
     assert response == [Address(address=x, network=network) for x in data]
     # noinspection PyUnresolvedReferences
@@ -62,11 +59,9 @@ def test_address_balance(mocker: MockerFixture, network, fakeuri, generate_p2pkh
     data = 100
     mocker.patch.object(SmartContractWallet, 'get', return_value=data)
     smart_contract_wallet = SmartContractWallet(network=network, baseuri=fakeuri)
-    request_model = AddressBalanceRequest(
+    response = smart_contract_wallet.address_balance(
         address=Address(address=generate_p2pkh_address(network=network), network=network)
     )
-
-    response = smart_contract_wallet.address_balance(request_model)
 
     assert response == Money.from_satoshi_units(data)
     # noinspection PyUnresolvedReferences
@@ -88,14 +83,12 @@ def test_history(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address
     ]
     mocker.patch.object(SmartContractWallet, 'get', return_value=data)
     smart_contract_wallet = SmartContractWallet(network=network, baseuri=fakeuri)
-    request_model = HistoryRequest(
+    response = smart_contract_wallet.history(
         wallet_name='Test',
         address=Address(address=generate_p2pkh_address(network=network), network=network),
         skip=2,
         take=2
     )
-
-    response = smart_contract_wallet.history(request_model)
 
     assert response == [ContractTransactionItemModel(**x) for x in data]
     # noinspection PyUnresolvedReferences
@@ -107,7 +100,7 @@ def test_create(mocker: MockerFixture, network, fakeuri, generate_uint256, gener
     data = generate_uint256
     mocker.patch.object(SmartContractWallet, 'post', return_value=data)
     smart_contract_wallet = SmartContractWallet(network=network, baseuri=fakeuri)
-    request_model = CreateContractTransactionRequest(
+    response = smart_contract_wallet.create(
         wallet_name='Test',
         account_name='account 0',
         outpoints=[Outpoint(transaction_id=generate_uint256, index=0)],
@@ -135,8 +128,6 @@ def test_create(mocker: MockerFixture, network, fakeuri, generate_uint256, gener
         ]
     )
 
-    response = smart_contract_wallet.create(request_model)
-
     assert response == uint256(data)
     # noinspection PyUnresolvedReferences
     smart_contract_wallet.post.assert_called_once()
@@ -154,7 +145,8 @@ def test_call(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address, g
     }
     mocker.patch.object(SmartContractWallet, 'post', return_value=data)
     smart_contract_wallet = SmartContractWallet(network=network, baseuri=fakeuri)
-    request_model = CallContractTransactionRequest(
+
+    response = smart_contract_wallet.call(
         wallet_name='Test',
         account_name='account 0',
         outpoints=[Outpoint(transaction_id=generate_uint256, index=0)],
@@ -183,8 +175,6 @@ def test_call(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address, g
         ]
     )
 
-    response = smart_contract_wallet.call(request_model)
-
     assert response == BuildContractTransactionModel(**data)
     # noinspection PyUnresolvedReferences
     smart_contract_wallet.post.assert_called_once()
@@ -205,11 +195,7 @@ def test_send_transaction(mocker: MockerFixture, network, fakeuri, generate_hexs
     }
     mocker.patch.object(SmartContractWallet, 'post', return_value=data)
     smart_contract_wallet = SmartContractWallet(network=network, baseuri=fakeuri)
-    request_model = SendTransactionRequest(
-        hex=generate_hexstring(128)
-    )
-
-    response = smart_contract_wallet.send_transaction(request_model)
+    response = smart_contract_wallet.send_transaction(hex=generate_hexstring(128))
 
     assert response == WalletSendTransactionModel(**data)
     # noinspection PyUnresolvedReferences

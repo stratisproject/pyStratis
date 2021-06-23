@@ -6,5 +6,5 @@ from pybitcoin.types import uint256
 
 class GetBlockHeaderRequest(Model):
     """A GetBlockHeaderRequest."""
-    hash: uint256
+    block_hash: uint256
     is_json_format: Optional[bool] = Field(default=True, alias='isJsonFormat')

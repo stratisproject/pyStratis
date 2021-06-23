@@ -1,5 +1,4 @@
 import pytest
-from api.smartcontractwallet.requestmodels import *
 from api.smartcontractwallet.responsemodels import *
 from pybitcoin import SmartContractParameter, SmartContractParameterType
 from pybitcoin.types import Address, Money, uint32, uint64, uint128, uint256, int32, int64
@@ -9,8 +8,7 @@ from nodes import CirrusMinerNode
 @pytest.mark.integration_test
 @pytest.mark.cirrus_integration_test
 def test_account_addresses(cirrusminer_node: CirrusMinerNode):
-    request_model = AccountAddressesRequest(wallet_name='Test')
-    response = cirrusminer_node.smart_contract_wallet.account_addresses(request_model)
+    response = cirrusminer_node.smart_contract_wallet.account_addresses(wallet_name='Test')
     assert isinstance(response, list)
     for item in response:
         assert isinstance(item, Address)
@@ -19,20 +17,17 @@ def test_account_addresses(cirrusminer_node: CirrusMinerNode):
 @pytest.mark.integration_test
 @pytest.mark.cirrus_integration_test
 def test_address_balance(cirrusminer_node: CirrusMinerNode, get_node_smart_contract_address):
-    request_model = AddressBalanceRequest(address=get_node_smart_contract_address(cirrusminer_node))
-    response = cirrusminer_node.smart_contract_wallet.address_balance(request_model)
+    response = cirrusminer_node.smart_contract_wallet.address_balance(address=get_node_smart_contract_address(cirrusminer_node))
     assert isinstance(response, Money)
 
 
 @pytest.mark.integration_test
 @pytest.mark.cirrus_integration_test
 def test_history(cirrusminer_node: CirrusMinerNode, get_smart_contract_address):
-    request_model = HistoryRequest(
+    response = cirrusminer_node.smart_contract_wallet.history(
         wallet_name='Test',
         address=get_smart_contract_address
     )
-
-    response = cirrusminer_node.smart_contract_wallet.history(request_model)
     assert isinstance(response, list)
     for item in response:
         assert isinstance(item, ContractTransactionItemModel)
@@ -42,7 +37,7 @@ def test_history(cirrusminer_node: CirrusMinerNode, get_smart_contract_address):
 @pytest.mark.cirrus_integration_test
 def test_create(cirrusminer_node: CirrusMinerNode, apitestcontract_bytecode, get_node_address_with_balance):
     sending_address = get_node_address_with_balance(cirrusminer_node)
-    request_model = CreateContractTransactionRequest(
+    response = cirrusminer_node.smart_contract_wallet.create(
         wallet_name='Test',
         account_name='account 0',
         outpoints=None,
@@ -68,8 +63,6 @@ def test_create(cirrusminer_node: CirrusMinerNode, apitestcontract_bytecode, get
             SmartContractParameter(value_type=SmartContractParameterType.UInt256, value=uint256(987))
         ]
     )
-
-    response = cirrusminer_node.smart_contract_wallet.create(request_model)
     assert isinstance(response, uint256)
 
 
@@ -77,7 +70,7 @@ def test_create(cirrusminer_node: CirrusMinerNode, apitestcontract_bytecode, get
 @pytest.mark.cirrus_integration_test
 def test_call(cirrusminer_node: CirrusMinerNode, get_node_address_with_balance, get_smart_contract_address):
     sending_address = get_node_address_with_balance(cirrusminer_node)
-    request_model = CallContractTransactionRequest(
+    response = cirrusminer_node.smart_contract_wallet.call(
         wallet_name='Test',
         account_name='account 0',
         outpoints=None,
@@ -104,19 +97,16 @@ def test_call(cirrusminer_node: CirrusMinerNode, get_node_address_with_balance, 
             SmartContractParameter(value_type=SmartContractParameterType.UInt256, value=uint256(987))
         ]
     )
-
-    response = cirrusminer_node.smart_contract_wallet.call(request_model)
     assert isinstance(response, BuildContractTransactionModel)
     # send the transaction to remove the utxo reservation
-    request_model = SendTransactionRequest(hex=response.hex)
-    cirrusminer_node.smart_contract_wallet.send_transaction(request_model)
+    cirrusminer_node.smart_contract_wallet.send_transaction(hex=response.hex)
 
 
 @pytest.mark.integration_test
 @pytest.mark.cirrus_integration_test
 def test_send_transaction(cirrusminer_node: CirrusMinerNode, get_node_address_with_balance, get_smart_contract_address):
     sending_address = get_node_address_with_balance(cirrusminer_node)
-    request_model = CallContractTransactionRequest(
+    response = cirrusminer_node.smart_contract_wallet.call(
         wallet_name='Test',
         account_name='account 0',
         outpoints=None,
@@ -143,9 +133,5 @@ def test_send_transaction(cirrusminer_node: CirrusMinerNode, get_node_address_wi
             SmartContractParameter(value_type=SmartContractParameterType.UInt256, value=uint256(987))
         ]
     )
-
-    response = cirrusminer_node.smart_contract_wallet.call(request_model)
-    request_model = SendTransactionRequest(hex=response.hex)
-
-    response = cirrusminer_node.smart_contract_wallet.send_transaction(request_model)
+    response = cirrusminer_node.smart_contract_wallet.send_transaction(hex=response.hex)
     assert isinstance(response, WalletSendTransactionModel)

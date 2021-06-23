@@ -21,8 +21,7 @@ def test_balance(interflux_strax_node):
 @pytest.mark.integration_test
 @pytest.mark.interflux_integration_test
 def test_history(interflux_strax_node):
-    request_model = HistoryRequest(max_entries_to_return=2)
-    response = interflux_strax_node.federation_wallet.history(request_model)
+    response = interflux_strax_node.federation_wallet.history(max_entries_to_return=2)
     assert isinstance(response, list)
     for item in response:
         assert isinstance(item, WithdrawalModel)
@@ -33,27 +32,24 @@ def test_history(interflux_strax_node):
 @pytest.mark.interflux_integration_test
 def test_sync(interflux_strax_node):
     block_hash = interflux_strax_node.consensus.get_blockhash(GetBlockHashRequest(height=2))
-    request_model = SyncRequest(hash=block_hash)
-    interflux_strax_node.federation_wallet.sync(request_model)
+    interflux_strax_node.federation_wallet.sync(block_hash=block_hash)
 
 
 @pytest.mark.integration_test
 @pytest.mark.interflux_integration_test
 def test_enable_federation(interflux_strax_node):
-    request_model = EnableFederationRequest(
+    interflux_strax_node.federation_wallet.enable_federation(
         mnemonic='secret mnemonic',
         password='password',
         passphrase='passphrase',
         timeout_seconds=60
     )
-    interflux_strax_node.federation_wallet.enable_federation(request_model)
 
 
 @pytest.mark.integration_test
 @pytest.mark.interflux_integration_test
 def test_remove_transactions(interflux_strax_node):
-    request_model = RemoveTransactionsRequest(resync=True)
-    response = interflux_strax_node.federation_wallet.remove_transactions(request_model)
+    response = interflux_strax_node.federation_wallet.remove_transactions(resync=True)
     assert isinstance(response, list)
     for item in response:
         assert isinstance(item, RemovedTransactionModel)

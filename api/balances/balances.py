@@ -31,5 +31,4 @@ class Balances(APIRequest, metaclass=EndpointRegister):
         """
         request_model = OverAmountAtHeightRequest(block_height=block_height, amount=amount)
         data = self.get(request_model, **kwargs)
-
         return [Address(address=item, network=self._network) for item in data]

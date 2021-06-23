@@ -46,11 +46,8 @@ def test_code(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address):
     }
     mocker.patch.object(SmartContracts, 'get', return_value=data)
     smart_contracts = SmartContracts(network=network, baseuri=fakeuri)
-    request_model = CodeRequest(
-        address=Address(address=generate_p2pkh_address(network), network=network)
-    )
 
-    response = smart_contracts.code(request_model)
+    response = smart_contracts.code(address=Address(address=generate_p2pkh_address(network), network=network))
 
     assert response == GetCodeModel(**data)
     # noinspection PyUnresolvedReferences
@@ -62,11 +59,8 @@ def test_balance(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address
     data = 1
     mocker.patch.object(SmartContracts, 'get', return_value=data)
     smart_contracts = SmartContracts(network=network, baseuri=fakeuri)
-    request_model = BalanceRequest(
-        address=Address(address=generate_p2pkh_address(network), network=network)
-    )
 
-    response = smart_contracts.balance(request_model)
+    response = smart_contracts.balance(address=Address(address=generate_p2pkh_address(network), network=network))
 
     assert response == Money(data)
     # noinspection PyUnresolvedReferences
@@ -78,13 +72,11 @@ def test_storage(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address
     data = True
     mocker.patch.object(SmartContracts, 'get', return_value=data)
     smart_contracts = SmartContracts(network=network, baseuri=fakeuri)
-    request_model = StorageRequest(
+    response = smart_contracts.storage(
         contract_address=Address(address=generate_p2pkh_address(network=network), network=network),
         storage_key='key',
         data_type=1
     )
-
-    response = smart_contracts.storage(request_model)
 
     assert response == data
     # noinspection PyUnresolvedReferences
@@ -120,11 +112,8 @@ def test_receipt(mocker: MockerFixture, network, fakeuri, generate_uint256, gene
 
     mocker.patch.object(SmartContracts, 'get', return_value=data)
     smart_contracts = SmartContracts(network=network, baseuri=fakeuri)
-    request_model = ReceiptRequest(
-        tx_hash=trxid
-    )
 
-    response = smart_contracts.receipt(request_model)
+    response = smart_contracts.receipt(tx_hash=trxid)
 
     assert response == ReceiptModel(**data)
     # noinspection PyUnresolvedReferences
@@ -158,15 +147,14 @@ def test_receipt_search(mocker: MockerFixture, network, fakeuri, generate_uint25
     }]
     mocker.patch.object(SmartContracts, 'get', return_value=data)
     smart_contracts = SmartContracts(network=network, baseuri=fakeuri)
-    request_model = ReceiptSearchRequest(
+
+    response = smart_contracts.receipt_search(
         contract_address=Address(address=generate_p2pkh_address(network=network), network=network),
         event_name='event',
         topics=['topic0', 'topic1'],
         from_block=10,
         to_block=15
     )
-
-    response = smart_contracts.receipt_search(request_model)
 
     assert response == [ReceiptModel(**x) for x in data]
     # noinspection PyUnresolvedReferences
@@ -185,7 +173,8 @@ def test_build_create(mocker: MockerFixture, network, fakeuri, generate_p2pkh_ad
     }
     mocker.patch.object(SmartContracts, 'post', return_value=data)
     smart_contracts = SmartContracts(network=network, baseuri=fakeuri)
-    request_model = BuildCreateContractTransactionRequest(
+
+    response = smart_contracts.build_create(
         wallet_name='Test',
         account_name='account 0',
         outpoints=[Outpoint(transaction_id=generate_uint256, index=0)],
@@ -213,8 +202,6 @@ def test_build_create(mocker: MockerFixture, network, fakeuri, generate_p2pkh_ad
         ]
     )
 
-    response = smart_contracts.build_create(request_model)
-
     assert response == BuildContractTransactionModel(**data)
     # noinspection PyUnresolvedReferences
     smart_contracts.post.assert_called_once()
@@ -232,7 +219,8 @@ def test_build_call(mocker: MockerFixture, network, fakeuri, generate_p2pkh_addr
     }
     mocker.patch.object(SmartContracts, 'post', return_value=data)
     smart_contracts = SmartContracts(network=network, baseuri=fakeuri)
-    request_model = BuildCallContractTransactionRequest(
+
+    response = smart_contracts.build_call(
         wallet_name='Test',
         account_name='account 0',
         outpoints=[Outpoint(transaction_id=generate_uint256, index=0)],
@@ -261,8 +249,6 @@ def test_build_call(mocker: MockerFixture, network, fakeuri, generate_p2pkh_addr
         ]
     )
 
-    response = smart_contracts.build_call(request_model)
-
     assert response == BuildContractTransactionModel(**data)
     # noinspection PyUnresolvedReferences
     smart_contracts.post.assert_called_once()
@@ -280,7 +266,7 @@ def test_build_transaction(mocker: MockerFixture, network, fakeuri, generate_p2p
     }
     mocker.patch.object(SmartContracts, 'post', return_value=data)
     smart_contracts = SmartContracts(network=network, baseuri=fakeuri)
-    request_model = BuildTransactionRequest(
+    response = smart_contracts.build_transaction(
         sender=Address(address=generate_p2pkh_address(network=network), network=network),
         fee_amount=Money(0.0001),
         password='password',
@@ -303,8 +289,6 @@ def test_build_transaction(mocker: MockerFixture, network, fakeuri, generate_p2p
         change_address=Address(address=generate_p2pkh_address(network=network), network=network)
     )
 
-    response = smart_contracts.build_transaction(request_model)
-
     assert response == BuildContractTransactionModel(**data)
     # noinspection PyUnresolvedReferences
     smart_contracts.post.assert_called_once()
@@ -316,7 +300,8 @@ def test_estimate_fee(mocker: MockerFixture, network, fakeuri, generate_uint256,
     data = 10000
     mocker.patch.object(SmartContracts, 'post', return_value=data)
     smart_contracts = SmartContracts(network=network, baseuri=fakeuri)
-    request_model = EstimateFeeRequest(
+
+    response = smart_contracts.estimate_fee(
         sender=Address(address=generate_p2pkh_address(network=network), network=network),
         wallet_name='Test',
         account_name='account 0',
@@ -337,8 +322,6 @@ def test_estimate_fee(mocker: MockerFixture, network, fakeuri, generate_uint256,
         change_address=Address(address=generate_p2pkh_address(network=network), network=network)
     )
 
-    response = smart_contracts.estimate_fee(request_model)
-
     assert response == Money.from_satoshi_units(data)
     # noinspection PyUnresolvedReferences
     smart_contracts.post.assert_called_once()
@@ -356,7 +339,8 @@ def test_build_and_send_create(mocker: MockerFixture, network, fakeuri, generate
     }
     mocker.patch.object(SmartContracts, 'post', return_value=data)
     smart_contracts = SmartContracts(network=network, baseuri=fakeuri)
-    request_model = BuildAndSendCreateContractTransactionRequest(
+
+    response = smart_contracts.build_and_send_create(
         wallet_name='Test',
         account_name='account 0',
         outpoints=[Outpoint(transaction_id=generate_uint256, index=0)],
@@ -384,8 +368,6 @@ def test_build_and_send_create(mocker: MockerFixture, network, fakeuri, generate
         ]
     )
 
-    response = smart_contracts.build_and_send_create(request_model)
-
     assert response == BuildContractTransactionModel(**data)
     # noinspection PyUnresolvedReferences
     smart_contracts.post.assert_called_once()
@@ -403,7 +385,8 @@ def test_build_and_send_call(mocker: MockerFixture, network, fakeuri, generate_u
     }
     mocker.patch.object(SmartContracts, 'post', return_value=data)
     smart_contracts = SmartContracts(network=network, baseuri=fakeuri)
-    request_model = BuildAndSendCallContractTransactionRequest(
+
+    response = smart_contracts.build_and_send_call(
         wallet_name='Test',
         account_name='account 0',
         outpoints=[Outpoint(transaction_id=generate_uint256, index=0)],
@@ -431,8 +414,6 @@ def test_build_and_send_call(mocker: MockerFixture, network, fakeuri, generate_u
             SmartContractParameter(value_type=SmartContractParameterType.UInt256, value=uint256(987))
         ]
     )
-
-    response = smart_contracts.build_and_send_call(request_model)
 
     assert response == BuildContractTransactionModel(**data)
     # noinspection PyUnresolvedReferences
@@ -466,7 +447,7 @@ def test_local_call(mocker: MockerFixture, network, fakeuri, generate_p2pkh_addr
 
     mocker.patch.object(SmartContracts, 'post', return_value=data)
     smart_contracts = SmartContracts(network=network, baseuri=fakeuri)
-    request_model = LocalCallContractTransactionRequest(
+    response = smart_contracts.local_call(
         contract_address=Address(address=generate_p2pkh_address(network=network), network=network),
         method_name='method',
         amount=Money(10),
@@ -490,8 +471,6 @@ def test_local_call(mocker: MockerFixture, network, fakeuri, generate_p2pkh_addr
         ]
     )
 
-    response = smart_contracts.local_call(request_model)
-
     assert response == LocalExecutionResultModel(**data)
     # noinspection PyUnresolvedReferences
     smart_contracts.post.assert_called_once()
@@ -511,11 +490,8 @@ def test_address_balances(mocker: MockerFixture, network, fakeuri, generate_p2pk
     ]
     mocker.patch.object(SmartContracts, 'get', return_value=data)
     smart_contracts = SmartContracts(network=network, baseuri=fakeuri)
-    request_model = BalancesRequest(
-        wallet_name='Test'
-    )
 
-    response = smart_contracts.address_balances(request_model)
+    response = smart_contracts.address_balances(wallet_name='Test')
 
     assert response == [AddressBalanceModel(**x) for x in data]
     # noinspection PyUnresolvedReferences
