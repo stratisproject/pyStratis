@@ -104,13 +104,13 @@ def start_regtest_node(request):
 
 @pytest.fixture(scope='module')
 def random_addresses(generate_p2pkh_address):
-    def _random_addresses(network: BaseNetwork) -> List[Address]:
+    def _random_addresses(network: BaseNetwork) -> List[str]:
         return [
-            Address(address=generate_p2pkh_address(network=network), network=network),
-            Address(address=generate_p2pkh_address(network=network), network=network),
-            Address(address=generate_p2pkh_address(network=network), network=network),
-            Address(address=generate_p2pkh_address(network=network), network=network),
-            Address(address=generate_p2pkh_address(network=network), network=network)
+            generate_p2pkh_address(network=network),
+            generate_p2pkh_address(network=network),
+            generate_p2pkh_address(network=network),
+            generate_p2pkh_address(network=network),
+            generate_p2pkh_address(network=network),
         ]
     return _random_addresses
 

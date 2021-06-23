@@ -1,7 +1,6 @@
 import pytest
 from pytest_mock import MockerFixture
 from api.addressbook import AddressBook
-from api.addressbook.requestmodels import *
 from pybitcoin.types import Address
 from pybitcoin.networks import StraxMain, CirrusMain
 
@@ -39,12 +38,8 @@ def test_add_address_p2pkh(mocker: MockerFixture, network, fakeuri, addressbooke
     data = addressbookentry_p2pkh(network)
     mocker.patch.object(AddressBook, 'post', return_value=data)
     addressbook = AddressBook(network=network, baseuri=fakeuri)
-    request_model = AddRequest(
-        address=Address(address=data['address'], network=network),
-        label=data['label']
-    )
 
-    response = addressbook.add(request_model)
+    response = addressbook.add(address=data['address'], label=data['label'])
 
     assert response.address == data['address']
     assert response.label == data['label']
@@ -57,12 +52,8 @@ def test_add_address_p2sh(mocker: MockerFixture, network, fakeuri, addressbooken
     data = addressbookentry_p2sh(network)
     mocker.patch.object(AddressBook, 'post', return_value=data)
     addressbook = AddressBook(network=network, baseuri=fakeuri)
-    request_model = AddRequest(
-        address=Address(address=data['address'], network=network),
-        label=data['label']
-    )
 
-    response = addressbook.add(request_model)
+    response = addressbook.add(address=data['address'], label=data['label'])
 
     assert response.address == data['address']
     assert response.label == data['label']
@@ -75,12 +66,8 @@ def test_add_address_p2wpkh(mocker: MockerFixture, fakeuri, addressbookentry_p2w
     data = addressbookentry_p2wpkh(network)
     mocker.patch.object(AddressBook, 'post', return_value=data)
     addressbook = AddressBook(network=network, baseuri=fakeuri)
-    request_model = AddRequest(
-        address=Address(address=data['address'], network=network),
-        label=data['label']
-    )
 
-    response = addressbook.add(request_model)
+    response = addressbook.add(address=data['address'], label=data['label'])
 
     assert response.address == data['address']
     assert response.label == data['label']
@@ -93,12 +80,8 @@ def test_add_address_p2wsh(mocker: MockerFixture, network, fakeuri, addressbooke
     data = addressbookentry_p2wsh(network)
     mocker.patch.object(AddressBook, 'post', return_value=data)
     addressbook = AddressBook(network=network, baseuri=fakeuri)
-    request_model = AddRequest(
-        address=Address(address=data['address'], network=network),
-        label=data['label']
-    )
 
-    response = addressbook.add(request_model)
+    response = addressbook.add(address=data['address'], label=data['label'])
 
     assert response.address == data['address']
     assert response.label == data['label']
@@ -111,9 +94,8 @@ def test_remove_address(mocker: MockerFixture, network, fakeuri, addressbookentr
     data = addressbookentry_p2pkh(network)
     mocker.patch.object(AddressBook, 'delete', return_value=data)
     addressbook = AddressBook(network=network, baseuri=fakeuri)
-    request_model = RemoveRequest(label=data['label'])
 
-    response = addressbook.remove(request_model)
+    response = addressbook.remove(label=data['label'])
 
     assert response.address == data['address']
     assert response.label == data['label']
@@ -190,9 +172,8 @@ def test_get_addressbook_paginated_p2pkh(mocker: MockerFixture, network, fakeuri
     data = partialaddressbook_p2pkh(network)
     mocker.patch.object(AddressBook, 'get', return_value=data)
     addressbook = AddressBook(network=network, baseuri=fakeuri)
-    request_model = GetRequest(skip=2, take=2)
 
-    response = addressbook(request_model)
+    response = addressbook(skip=2, take=2)
 
     assert len(response) == 2
     for i in range(len(response)):
@@ -207,9 +188,8 @@ def test_get_addressbook_paginated_p2sh(mocker: MockerFixture, network, fakeuri,
     data = partialaddressbook_p2sh(network)
     mocker.patch.object(AddressBook, 'get', return_value=data)
     addressbook = AddressBook(network=network, baseuri=fakeuri)
-    request_model = GetRequest(skip=2, take=2)
 
-    response = addressbook(request_model)
+    response = addressbook(skip=2, take=2)
 
     assert len(response) == 2
     for i in range(len(response)):
@@ -224,9 +204,8 @@ def test_get_addressbook_paginated_p2wpkh(mocker: MockerFixture, network, fakeur
     data = partialaddressbook_p2wpkh(network)
     mocker.patch.object(AddressBook, 'get', return_value=data)
     addressbook = AddressBook(network=network, baseuri=fakeuri)
-    request_model = GetRequest(skip=2, take=2)
 
-    response = addressbook(request_model)
+    response = addressbook(skip=2, take=2)
 
     assert len(response) == 2
     for i in range(len(response)):
@@ -241,9 +220,8 @@ def test_get_addressbook_paginated_p2wsh(mocker: MockerFixture, network, fakeuri
     data = partialaddressbook_p2wsh(network)
     mocker.patch.object(AddressBook, 'get', return_value=data)
     addressbook = AddressBook(network=network, baseuri=fakeuri)
-    request_model = GetRequest(skip=2, take=2)
 
-    response = addressbook(request_model)
+    response = addressbook(skip=2, take=2)
 
     assert len(response) == 2
     for i in range(len(response)):
