@@ -4,7 +4,7 @@ Unofficial python package for interacting with Stratis (STRAX) full node and Cir
 **Current version: 1.0.9.0** (shadows StratisFullNode)
 
 ## Work in progress - TODO
-Status: 961 passed, 0 failed, 1 skipped.
+Status: 973 passed, 0 failed, 7 skipped.
 
 DONE
 - Pybitcoin networks, types and primatives. Status: All passed.
@@ -12,9 +12,9 @@ DONE
 - Per endpoint unit tests. Status: All passed.
 - Strax integration testing. Status: All passed.
 - Cirrus integration testing. Status: All passed. 
+- Interflux integration testing. Status: All passed, 7 skipped due to regtest environment. 
 
 TODO
-- Interflux integration tests: Next
 - Improve documentation on request models and API methods.
 - Generate Sphinx documentation
 
