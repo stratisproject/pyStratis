@@ -12,7 +12,7 @@ def test_blockrequest(generate_uint256):
         'OutputJson': True
     }
     request_model = BlockRequest(
-        hash=data['Hash'],
+        block_hash=data['Hash'],
         show_transaction_details=True
     )
     assert json.dumps(data) == request_model.json()

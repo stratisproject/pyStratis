@@ -25,7 +25,7 @@ class BaseNode:
         self._api_schema_endpoint = '/swagger/v1/swagger.json'
 
         # API endpoints
-        self._address_book = AddressBook(baseuri=self.api_route, network=blockchainnetwork)
+        self._addressbook = AddressBook(baseuri=self.api_route, network=blockchainnetwork)
         self._blockstore = BlockStore(baseuri=self.api_route, network=blockchainnetwork)
         self._connection_manager = ConnectionManager(baseuri=self.api_route, network=blockchainnetwork)
         self._consensus = Consensus(baseuri=self.api_route, network=blockchainnetwork)
@@ -37,7 +37,7 @@ class BaseNode:
         self._wallet = Wallet(baseuri=self.api_route, network=blockchainnetwork)
 
         self._endpoints = [
-            *self._address_book.endpoints,
+            *self._addressbook.endpoints,
             *self._blockstore.endpoints,
             *self._connection_manager.endpoints,
             *self._consensus.endpoints,
@@ -70,8 +70,8 @@ class BaseNode:
         return self._endpoints
 
     @property
-    def address_book(self) -> AddressBook:
-        return self._address_book
+    def addressbook(self) -> AddressBook:
+        return self._addressbook
 
     @property
     def blockstore(self) -> BlockStore:
@@ -118,7 +118,7 @@ class BaseNode:
             timeout=5
         )
         swagger_schema = response.json()
-        paths = [key.lower() for key in swagger_schema['paths'].keys()]
+        paths = [key.lower() for key in swagger_schema['paths']]
         if len([x for x in set(self.endpoints) if x not in set(paths)]) != 0:
             print(f'API endpoints not found in swagger json: {[x for x in set(self.endpoints) if x not in set(paths)]}')
         if len([x for x in set(paths) if x not in set(self.endpoints)]) != 0:

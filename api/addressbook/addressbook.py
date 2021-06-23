@@ -13,7 +13,10 @@ class AddressBook(APIRequest, metaclass=EndpointRegister):
         super().__init__(**kwargs)
 
     @endpoint(f'{route}/address')
-    def add(self, address: Union[str, Address], label: str, **kwargs) -> AddressBookEntryModel:
+    def add(self,
+            address: Union[str, Address],
+            label: str,
+            **kwargs) -> AddressBookEntryModel:
         """Adds an entry to the address book.
 
         Args:
@@ -34,7 +37,9 @@ class AddressBook(APIRequest, metaclass=EndpointRegister):
         return AddressBookEntryModel(**data)
 
     @endpoint(f'{route}/address')
-    def remove(self, label: str, **kwargs) -> AddressBookEntryModel:
+    def remove(self,
+               label: str,
+               **kwargs) -> AddressBookEntryModel:
         """Removes an entry from the address book.
 
         Args:
@@ -53,7 +58,10 @@ class AddressBook(APIRequest, metaclass=EndpointRegister):
         return AddressBookEntryModel(**data)
 
     @endpoint(f'{route}')
-    def __call__(self, skip: int = None, take: int = None, **kwargs) -> List[AddressBookEntryModel]:
+    def __call__(self,
+                 skip: int = None,
+                 take: int = None,
+                 **kwargs) -> List[AddressBookEntryModel]:
         """Gets the address book entries with option to implement pagination.
 
         Args:
@@ -75,7 +83,6 @@ class AddressBook(APIRequest, metaclass=EndpointRegister):
 
         addressbook = [
             AddressBookEntryModel(
-                address=Address(address=item['address'], network=self._network),
-                label=item['label']
+                address=Address(address=item['address'], network=self._network), label=item['label']
             ) for item in data['addresses']]
         return addressbook

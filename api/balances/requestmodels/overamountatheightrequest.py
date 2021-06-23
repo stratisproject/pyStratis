@@ -4,7 +4,12 @@ from pybitcoin.types import Money
 
 
 class OverAmountAtHeightRequest(Model):
-    """An OverAmountAtHeightRequest."""
+    """A request model for the balances over-amount-at-height endpoint.
+
+    Args:
+        block_height (conint(ge=0)): The specified chain height.
+        amount (Money): The specified amount, in coin units.
+    """
     block_height: conint(ge=0) = Field(alias='blockHeight')
     amount: Money
 

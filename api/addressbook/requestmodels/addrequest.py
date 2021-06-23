@@ -3,7 +3,7 @@ from pybitcoin.types import Address
 
 
 class AddRequest(Model):
-    """A request model for the add addressbook endpoint.
+    """A request model for the addressbook/address endpoint.
 
     Args:
         address (Address): The address to add to the address book.

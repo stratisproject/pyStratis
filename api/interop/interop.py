@@ -41,7 +41,7 @@ class Interop(APIRequest, metaclass=EndpointRegister):
                 )
         received_votes = {}
         if data['receivedVotes'] is not None:
-            for key in data['receivedVotes'].keys():
+            for key in data['receivedVotes']:
                 values = [PubKey(x) for x in data['receivedVotes'][key]]
                 received_votes[uint256(key)] = values
         data['receivedVotes'] = received_votes

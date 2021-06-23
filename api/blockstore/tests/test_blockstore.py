@@ -3,7 +3,6 @@ from random import randint
 import pickle
 from pytest_mock import MockerFixture
 from api.blockstore import BlockStore
-from api.blockstore.requestmodels import *
 from api.blockstore.responsemodels import *
 from pybitcoin.types import Address
 from pybitcoin.networks import StraxMain, CirrusMain
@@ -73,13 +72,12 @@ def test_block_output_hexstr_no_details(mocker: MockerFixture, network, fakeuri,
     data = pickle.dumps(generate_block_no_tx_data).hex()
     mocker.patch.object(BlockStore, 'get', return_value=data)
     blockstore = BlockStore(network=network, baseuri=fakeuri)
-    request_model = BlockRequest(
-        hash=generate_uint256,
+
+    response = blockstore.block(
+        block_hash=generate_uint256,
         show_transaction_details=True,
         output_json=False
     )
-
-    response = blockstore.block(request_model=request_model)
 
     assert response == data
     # noinspection PyUnresolvedReferences
@@ -91,13 +89,12 @@ def test_block_output_hexstr_include_details(mocker: MockerFixture, network, fak
     data = pickle.dumps(generate_block_with_tx_data(network=network)).hex()
     mocker.patch.object(BlockStore, 'get', return_value=data)
     blockstore = BlockStore(network=network, baseuri=fakeuri)
-    request_model = BlockRequest(
-        hash=generate_uint256,
+
+    response = blockstore.block(
+        block_hash=generate_uint256,
         show_transaction_details=True,
         output_json=False
     )
-
-    response = blockstore.block(request_model=request_model)
 
     assert response == data
     # noinspection PyUnresolvedReferences
@@ -109,13 +106,12 @@ def test_block_output_json_no_details(mocker: MockerFixture, network, fakeuri, g
     data = generate_block_no_tx_data
     mocker.patch.object(BlockStore, 'get', return_value=data)
     blockstore = BlockStore(network=network, baseuri=fakeuri)
-    request_model = BlockRequest(
-        hash=generate_uint256,
+
+    response = blockstore.block(
+        block_hash=generate_uint256,
         show_transaction_details=False,
         output_json=True
     )
-
-    response = blockstore.block(request_model=request_model)
 
     assert response == BlockModel(**data)
     # noinspection PyUnresolvedReferences
@@ -127,13 +123,12 @@ def test_block_output_json_include_details(mocker: MockerFixture, network, fakeu
     data = generate_block_with_tx_data(network=network)
     mocker.patch.object(BlockStore, 'get', return_value=data)
     blockstore = BlockStore(network=network, baseuri=fakeuri)
-    request_model = BlockRequest(
-        hash=generate_uint256,
+
+    response = blockstore.block(
+        block_hash=generate_uint256,
         show_transaction_details=True,
         output_json=True
     )
-
-    response = blockstore.block(request_model=request_model)
 
     assert response == BlockTransactionDetailsModel(**data)
     # noinspection PyUnresolvedReferences
@@ -145,13 +140,12 @@ def test_block_no_found(mocker: MockerFixture, network, fakeuri, generate_uint25
     data = 'Block not found'
     mocker.patch.object(BlockStore, 'get', return_value=data)
     blockstore = BlockStore(network=network, baseuri=fakeuri)
-    request_model = BlockRequest(
-        hash=generate_uint256,
+
+    response = blockstore.block(
+        block_hash=generate_uint256,
         show_transaction_details=True,
         output_json=True
     )
-
-    response = blockstore.block(request_model=request_model)
 
     assert response == data
     # noinspection PyUnresolvedReferences
@@ -181,9 +175,8 @@ def test_getaddressbalances_single_address(mocker: MockerFixture, network, fakeu
     }
     mocker.patch.object(BlockStore, 'get', return_value=data)
     blockstore = BlockStore(network=network, baseuri=fakeuri)
-    request_model = GetAddressesBalancesRequest(addresses=Address(address=address, network=network))
 
-    response = blockstore.get_addresses_balances(request_model=request_model)
+    response = blockstore.get_addresses_balances(addresses=address)
 
     assert response == GetAddressesBalancesModel(**data)
     # noinspection PyUnresolvedReferences
@@ -209,9 +202,8 @@ def test_getaddressbalances_multiple_addresses(mocker: MockerFixture, network, f
     }
     mocker.patch.object(BlockStore, 'get', return_value=data)
     blockstore = BlockStore(network=network, baseuri=fakeuri)
-    request_model = GetAddressesBalancesRequest(addresses=[Address(address=x, network=network) for x in addresses])
 
-    response = blockstore.get_addresses_balances(request_model=request_model)
+    response = blockstore.get_addresses_balances(addresses=addresses)
 
     assert response == GetAddressesBalancesModel(**data)
     # noinspection PyUnresolvedReferences
@@ -230,9 +222,8 @@ def test_getverboseaddressbalances_single_address(mocker: MockerFixture, network
     }
     mocker.patch.object(BlockStore, 'get', return_value=data)
     blockstore = BlockStore(network=network, baseuri=fakeuri)
-    request_model = GetVerboseAddressesBalancesRequest(addresses=Address(address=address, network=network))
 
-    response = blockstore.get_verbose_addresses_balances(request_model=request_model)
+    response = blockstore.get_verbose_addresses_balances(addresses=address)
 
     assert response == GetVerboseAddressesBalancesModel(**data)
     # noinspection PyUnresolvedReferences
@@ -260,9 +251,8 @@ def test_getverboseaddressbalances_multiple_addresses(mocker: MockerFixture, net
 
     mocker.patch.object(BlockStore, 'get', return_value=data)
     blockstore = BlockStore(network=network, baseuri=fakeuri)
-    request_model = GetVerboseAddressesBalancesRequest(addresses=[Address(address=x, network=network) for x in addresses])
 
-    response = blockstore.get_verbose_addresses_balances(request_model=request_model)
+    response = blockstore.get_verbose_addresses_balances(addresses=addresses)
 
     assert response == GetVerboseAddressesBalancesModel(**data)
     # noinspection PyUnresolvedReferences
@@ -282,9 +272,8 @@ def test_getverboseaddressbalances_single_address_no_changes(mocker: MockerFixtu
 
     mocker.patch.object(BlockStore, 'get', return_value=data)
     blockstore = BlockStore(network=network, baseuri=fakeuri)
-    request_model = GetVerboseAddressesBalancesRequest(addresses=Address(address=address, network=network))
 
-    response = blockstore.get_verbose_addresses_balances(request_model=request_model)
+    response = blockstore.get_verbose_addresses_balances(addresses=address)
 
     assert response == GetVerboseAddressesBalancesModel(**data)
     # noinspection PyUnresolvedReferences
@@ -309,9 +298,8 @@ def test_getutxoset(mocker: MockerFixture, network, fakeuri, generate_uint256, g
     ]
     mocker.patch.object(BlockStore, 'get', return_value=data)
     blockstore = BlockStore(network=network, baseuri=fakeuri)
-    request_model = GetUTXOSetRequest(at_block_height=2)
 
-    response = blockstore.get_utxo_set(request_model=request_model)
+    response = blockstore.get_utxo_set(at_block_height=2)
 
     assert response == [UTXOModel(**x) for x in data]
     # noinspection PyUnresolvedReferences
@@ -323,9 +311,8 @@ def test_getutxoset_empty(mocker: MockerFixture, network, fakeuri, generate_uint
     data = []
     mocker.patch.object(BlockStore, 'get', return_value=data)
     blockstore = BlockStore(network=network, baseuri=fakeuri)
-    request_model = GetUTXOSetRequest(at_block_height=2)
 
-    response = blockstore.get_utxo_set(request_model=request_model)
+    response = blockstore.get_utxo_set(at_block_height=2)
 
     assert response == [UTXOModel(**x) for x in data]
     # noinspection PyUnresolvedReferences
@@ -341,9 +328,8 @@ def test_getlastbalanceupdatetransaction(mocker: MockerFixture, network, fakeuri
     }
     mocker.patch.object(BlockStore, 'get', return_value=data)
     blockstore = BlockStore(network=network, baseuri=fakeuri)
-    request_model = GetLastBalanceUpdateTransactionRequest(address=address)
 
-    response = blockstore.get_last_balance_update_transaction(request_model=request_model)
+    response = blockstore.get_last_balance_update_transaction(address=address)
 
     assert response == GetLastBalanceUpdateTransactionModel(**data)
     # noinspection PyUnresolvedReferences

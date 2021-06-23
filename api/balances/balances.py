@@ -1,7 +1,8 @@
-from typing import List
+from typing import Union, List
+from decimal import Decimal
 from api import APIRequest, EndpointRegister, endpoint
 from api.balances.requestmodels import *
-from pybitcoin.types import Address
+from pybitcoin.types import Address, Money
 
 
 class Balances(APIRequest, metaclass=EndpointRegister):
@@ -12,11 +13,15 @@ class Balances(APIRequest, metaclass=EndpointRegister):
         super().__init__(**kwargs)
 
     @endpoint(f'{route}/over-amount-at-height')
-    def over_amount_at_height(self, request_model: OverAmountAtHeightRequest, **kwargs) -> List[Address]:
-        """Returns a list of addresses with balance over specified amount at the chain height.
+    def over_amount_at_height(self,
+                              block_height: int,
+                              amount: Union[Money, int, float, Decimal],
+                              **kwargs) -> List[Address]:
+        """Returns a list of addresses with balance over specified amount at the given chain height.
 
         Args:
-            request_model: OverAmountAtHeightRequest model
+            block_height (conint(ge=0)): The specified chain height.
+            amount (Money): The specified amount in coin units.
 
         Returns:
             List[Address]
@@ -24,6 +29,7 @@ class Balances(APIRequest, metaclass=EndpointRegister):
         Raises:
             APIError
         """
+        request_model = OverAmountAtHeightRequest(block_height=block_height, amount=amount)
         data = self.get(request_model, **kwargs)
 
         return [Address(address=item, network=self._network) for item in data]
