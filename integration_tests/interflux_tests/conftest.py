@@ -5,7 +5,7 @@ import api
 from api.federationwallet.requestmodels import EnableFederationRequest
 
 
-@pytest.fixture(scope='session', autouse=True)
+@pytest.fixture(scope='module', autouse=True)
 def initialize_nodes(
         start_interflux_strax_regtest_node,
         start_interflux_cirrus_regtest_node,

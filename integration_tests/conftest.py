@@ -24,7 +24,7 @@ INTERFLUX_CIRRUS_MAIN_NODE_PORT = 15370
 INTERFLUX_CIRRUS_SYNCING_NODE_PORT = 15380
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope='module')
 def get_spendable_transactions():
     def _get_spendable_transactions(
             node: BaseNode,
@@ -51,7 +51,7 @@ def get_spendable_transactions():
     return _get_spendable_transactions
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope='module')
 def start_regtest_node(request):
     def _start_regtest_node(
             node: Union[StraxNode, CirrusNode, CirrusMinerNode, InterfluxCirrusNode, InterfluxStraxNode],
@@ -102,7 +102,7 @@ def start_regtest_node(request):
     return _start_regtest_node
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope='module')
 def random_addresses(generate_p2pkh_address):
     def _random_addresses(network: BaseNetwork) -> List[Address]:
         return [
@@ -115,7 +115,7 @@ def random_addresses(generate_p2pkh_address):
     return _random_addresses
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope='module')
 def send_a_transaction(get_spendable_transactions):
     def _send_a_transaction(
             node: BaseNode,
@@ -150,7 +150,7 @@ def send_a_transaction(get_spendable_transactions):
     return _send_a_transaction
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope='module')
 def get_node_endpoint():
     def _get_node_endpoint(node: BaseNode) -> str:
         localhost_ip = node.ipaddr.replace('http://localhost', '[::ffff:127.0.0.1]')
@@ -158,7 +158,7 @@ def get_node_endpoint():
     return _get_node_endpoint
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope='module')
 def sync_two_nodes():
     def _sync_two_nodes(a: BaseNode, b: BaseNode) -> bool:
         while True:
@@ -168,7 +168,7 @@ def sync_two_nodes():
     return _sync_two_nodes
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope='module')
 def node_creates_a_wallet():
     def _node_creates_a_wallet(node: BaseNode, wallet_name: str = 'Test', mnemonic: str = None) -> bool:
         from api.wallet.requestmodels import CreateRequest
@@ -177,7 +177,7 @@ def node_creates_a_wallet():
     return _node_creates_a_wallet
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope='module')
 def get_node_address_with_balance():
     def _get_node_address_with_balance(node: BaseNode, wallet_name: str = 'Test') -> Optional[Address]:
         from api.wallet.requestmodels import BalanceRequest
@@ -193,7 +193,7 @@ def get_node_address_with_balance():
     return _get_node_address_with_balance
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope='module')
 def connect_two_nodes(get_node_endpoint):
     def _connect_two_nodes(a: BaseNode, b: BaseNode):
         from api.connectionmanager.requestmodels import AddNodeRequest
@@ -203,7 +203,7 @@ def connect_two_nodes(get_node_endpoint):
     return _connect_two_nodes
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope='module')
 def get_node_unused_address():
     def _get_node_unused_address(node: BaseNode, wallet_name: str = 'Test') -> Address:
         from api.wallet.requestmodels import GetUnusedAddressRequest
@@ -216,7 +216,7 @@ def get_node_unused_address():
     return _get_node_unused_address
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope='module')
 def git_checkout_current_node_version():
     def _git_checkout_current_node_version(version: str):
         """Checks out the most current version of the StratisFullNode with the specified branch.
@@ -256,7 +256,7 @@ def strax_regtest_node(port: int) -> StraxNode:
     )
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope='module')
 def start_strax_regtest_node(start_regtest_node):
     def _start_strax_regtest_node(node: StraxNode, extra_cmd_ops: List = None):
         root_dir = re.match(r'(.*)pystratis', os.getcwd())[0]
@@ -265,7 +265,7 @@ def start_strax_regtest_node(start_regtest_node):
     return _start_strax_regtest_node
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope='module')
 def node_mines_some_blocks_and_syncs(sync_two_nodes):
     def _node_mines_some_blocks_and_syncs(
             mining_node: StraxNode,
@@ -279,52 +279,52 @@ def node_mines_some_blocks_and_syncs(sync_two_nodes):
     return _node_mines_some_blocks_and_syncs
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope='module')
 def strax_hot_node():
     return strax_regtest_node(port=STRAX_HOT_NODE_PORT)
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope='module')
 def strax_syncing_node():
     return strax_regtest_node(port=STRAX_SYNCING_NODE_PORT)
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope='module')
 def strax_offline_node():
     return strax_regtest_node(port=STRAX_OFFLINE_NODE_PORT)
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope='module')
 def cirrusminer_node():
     return cirrusminer_regtest_node(port=CIRRUSMINER_NODE_PORT, devmode=True)
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope='module')
 def cirrusminer_syncing_node():
     return cirrusminer_regtest_node(port=CIRRUSMINER_SYNCING_NODE_PORT, devmode=True)
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope='module')
 def cirrus_node():
     return cirrus_regtest_node(port=CIRRUS_NODE_PORT)
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope='module')
 def interflux_strax_node():
     return interflux_strax_regtest_node(port=INTERFLUX_STRAX_MAIN_NODE_PORT)
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope='module')
 def interflux_strax_syncing_node():
     return interflux_strax_regtest_node(port=INTERFLUX_STRAX_SYNCING_NODE_PORT)
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope='module')
 def interflux_cirrusminer_node():
     return interflux_cirrus_regtest_node(port=INTERFLUX_CIRRUS_MAIN_NODE_PORT)
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope='module')
 def interflux_cirrusminer_syncing_node():
     return interflux_cirrus_regtest_node(port=INTERFLUX_CIRRUS_SYNCING_NODE_PORT)
 
@@ -353,7 +353,7 @@ def cirrus_regtest_node(port: int) -> CirrusNode:
     )
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope='module')
 def start_cirrusminer_regtest_node(start_regtest_node):
     def _start_cirrusminer_regtest_node(node: CirrusMinerNode, extra_cmd_ops: List[str], private_key: bytes = None):
         root_dir = re.match(r'(.*)pystratis', os.getcwd())[0]
@@ -362,7 +362,7 @@ def start_cirrusminer_regtest_node(start_regtest_node):
     return _start_cirrusminer_regtest_node
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope='module')
 def start_cirrus_regtest_node(start_regtest_node):
     def _start_cirrus_regtest_node(node: CirrusNode, extra_cmd_ops: List[str]):
         root_dir = re.match(r'(.*)pystratis', os.getcwd())[0]
@@ -371,7 +371,7 @@ def start_cirrus_regtest_node(start_regtest_node):
     return _start_cirrus_regtest_node
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope='module')
 def check_at_or_above_given_block_height():
     def _check_at_or_above_given_block_height(node: BaseNode, height: int) -> False:
         return True if node.blockstore.get_block_count() >= height else False
@@ -402,7 +402,7 @@ def interflux_cirrus_regtest_node(port: int) -> InterfluxCirrusNode:
     )
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope='module')
 def start_interflux_strax_regtest_node(start_regtest_node):
     def _start_interflux_strax_regtest_node(node: InterfluxStraxNode, extra_cmd_ops: List = None):
         root_dir = re.match(r'(.*)pystratis', os.getcwd())[0]
@@ -411,7 +411,7 @@ def start_interflux_strax_regtest_node(start_regtest_node):
     return _start_interflux_strax_regtest_node
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope='module')
 def start_interflux_cirrus_regtest_node(start_regtest_node):
     def _start_interflux_cirrus_regtest_node(node: InterfluxCirrusNode, extra_cmd_ops: List = None, private_key: bytes = None):
         root_dir = re.match(r'(.*)pystratis', os.getcwd())[0]
@@ -420,7 +420,7 @@ def start_interflux_cirrus_regtest_node(start_regtest_node):
     return _start_interflux_cirrus_regtest_node
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope='module')
 def wait_n_blocks_and_sync(cirrusminer_node: CirrusMinerNode,
                            cirrusminer_syncing_node: CirrusMinerNode,
                            check_at_or_above_given_block_height):
@@ -434,7 +434,7 @@ def wait_n_blocks_and_sync(cirrusminer_node: CirrusMinerNode,
     return _wait_n_blocks_and_sync
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope='module')
 def interflux_wait_n_blocks_and_sync(interflux_cirrusminer_node: InterfluxCirrusNode,
                                      cirrus_node: CirrusNode,
                                      check_at_or_above_given_block_height):
@@ -448,7 +448,7 @@ def interflux_wait_n_blocks_and_sync(interflux_cirrusminer_node: InterfluxCirrus
     return _interflux_wait_n_blocks_and_sync
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope='module')
 def transfer_funds_to_test(send_a_transaction, get_node_address_with_balance, get_node_unused_address):
     def _transfer_funds_to_test_wallet(node: BaseNode):
         node_cirrusdev_balance = node.wallet.balance(BalanceRequest(wallet_name='cirrusdev'))
@@ -469,7 +469,7 @@ def transfer_funds_to_test(send_a_transaction, get_node_address_with_balance, ge
     return _transfer_funds_to_test_wallet
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope='module')
 def balance_funds_across_nodes(send_a_transaction, get_node_address_with_balance, get_node_unused_address):
     def _balance_funds_across_nodes(a: BaseNode, b: BaseNode):
         a_balance = a.wallet.balance(BalanceRequest(wallet_name='Test'))
