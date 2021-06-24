@@ -5,7 +5,14 @@ from pybitcoin.types import Address
 
 
 class HistoryRequest(Model):
-    """A HistoryRequest."""
+    """A request model for the smartcontractwallet/history endpoint.
+
+    Args:
+        wallet_name (str): The wallet name.
+        address (Address): The address to query the history.
+        skip (conint(ge=0), optional): Skip this many items. Default=0.
+        take (conint(ge=0), optional): Take this many items.
+    """
     wallet_name: str = Field(alias='WalletName')
     address: Address
     skip: Optional[conint(ge=0)] = Field(default=0, alias='Skip')

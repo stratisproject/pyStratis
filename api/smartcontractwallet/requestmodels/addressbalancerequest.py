@@ -3,5 +3,9 @@ from pybitcoin.types import Address
 
 
 class AddressBalanceRequest(Model):
-    """An AddressBalanceRequest."""
+    """A request model for the smartcontractwallet/address-balance request.
+
+    Args:
+        address (Address): The smart contract address being queried.
+    """
     address: Address

@@ -3,5 +3,9 @@ from pybitcoin import Model
 
 
 class AccountAddressesRequest(Model):
-    """An AccountAddressesRequest model."""
+    """A request model for the smartcontractwallet/account-addresses endpoint.
+
+    Args:
+        wallet_name (str): The wallet name.
+    """
     wallet_name: str = Field(alias='walletName')
