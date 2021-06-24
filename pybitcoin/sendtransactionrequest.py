@@ -3,7 +3,11 @@ from pybitcoin.types import hexstr
 
 
 class SendTransactionRequest(BaseModel):
-    """A SendTransactionRequest."""
+    """A request model for multiple api endpoints.
+
+    Args:
+        hex (hexstr): The hexified transaction.
+    """
     hex: hexstr
 
     class Config:

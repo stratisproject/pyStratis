@@ -1,8 +1,10 @@
 from typing import Union, List
+from decimal import Decimal
 from api import APIRequest, EndpointRegister, endpoint
 from api.smartcontractwallet.requestmodels import *
 from api.smartcontractwallet.responsemodels import *
-from pybitcoin.types import Address, Money, uint256
+from pybitcoin.types import Address, Money, uint256, hexstr
+from pybitcoin import Outpoint, SmartContractParameter
 
 
 class SmartContractWallet(APIRequest, metaclass=EndpointRegister):
