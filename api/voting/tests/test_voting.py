@@ -77,13 +77,10 @@ def test_executed_polls(mocker: MockerFixture, network, fakeuri, generate_uint25
     ]
     mocker.patch.object(Voting, 'get', return_value=data)
     voting = Voting(network=network, baseuri=fakeuri)
-    request_model = PollsRequest(
+    response = voting.executed_polls(
         vote_type=VoteKey.KickFederationMember,
         pubkey_of_member_being_voted_on=generate_compressed_pubkey
     )
-
-    response = voting.executed_polls(request_model)
-
     assert response == [PollViewModel(**x) for x in data]
     # noinspection PyUnresolvedReferences
     voting.get.assert_called_once()
@@ -116,13 +113,10 @@ def test_pending_polls(mocker: MockerFixture, network, fakeuri,
     ]
     mocker.patch.object(Voting, 'get', return_value=data)
     voting = Voting(network=network, baseuri=fakeuri)
-    request_model = PollsRequest(
+    response = voting.pending_polls(
         vote_type=VoteKey.KickFederationMember,
         pubkey_of_member_being_voted_on=kicked_pubkey
     )
-
-    response = voting.pending_polls(request_model)
-
     assert response == [PollViewModel(**x) for x in data]
     # noinspection PyUnresolvedReferences
     voting.get.assert_called_once()
@@ -156,13 +150,10 @@ def test_finished_polls(mocker: MockerFixture, network, fakeuri, generate_uint25
     ]
     mocker.patch.object(Voting, 'get', return_value=data)
     voting = Voting(network=network, baseuri=fakeuri)
-    request_model = PollsRequest(
+    response = voting.finished_polls(
         vote_type=VoteKey.KickFederationMember,
         pubkey_of_member_being_voted_on=generate_compressed_pubkey
     )
-
-    response = voting.finished_polls(request_model)
-
     assert response == [PollViewModel(**x) for x in data]
     # noinspection PyUnresolvedReferences
     voting.get.assert_called_once()
@@ -172,12 +163,7 @@ def test_finished_polls(mocker: MockerFixture, network, fakeuri, generate_uint25
 def test_scheduledvote_whitelisthash(mocker: MockerFixture, network, fakeuri, generate_uint256):
     mocker.patch.object(Voting, 'post', return_value=None)
     voting = Voting(network=network, baseuri=fakeuri)
-    request_model = ScheduleVoteWhitelistHashRequest(
-        hash=generate_uint256
-    )
-
-    voting.schedulevote_whitelisthash(request_model)
-
+    voting.schedulevote_whitelisthash(hash_id=generate_uint256)
     # noinspection PyUnresolvedReferences
     voting.post.assert_called_once()
 
@@ -186,12 +172,7 @@ def test_scheduledvote_whitelisthash(mocker: MockerFixture, network, fakeuri, ge
 def test_scheduledvote_removehash(mocker: MockerFixture, network, fakeuri, generate_uint256):
     mocker.patch.object(Voting, 'post', return_value=None)
     voting = Voting(network=network, baseuri=fakeuri)
-    request_model = ScheduleVoteRemoveHashRequest(
-        hash=generate_uint256
-    )
-
-    voting.schedulevote_removehash(request_model)
-
+    voting.schedulevote_removehash(hash_id=generate_uint256)
     # noinspection PyUnresolvedReferences
     voting.post.assert_called_once()
 
@@ -211,9 +192,7 @@ def test_whitelistedhashes(mocker: MockerFixture, network, fakeuri, generate_uin
     ]
     mocker.patch.object(Voting, 'get', return_value=data)
     voting = Voting(network=network, baseuri=fakeuri)
-
     response = voting.whitelisted_hashes()
-
     assert response == [WhitelistedHashesModel(**x) for x in data]
     # noinspection PyUnresolvedReferences
     voting.get.assert_called_once()
@@ -237,9 +216,7 @@ def test_scheduledvotes(mocker: MockerFixture, network, fakeuri, generate_uint25
     ]
     mocker.patch.object(Voting, 'get', return_value=data)
     voting = Voting(network=network, baseuri=fakeuri)
-
     response = voting.scheduled_votes()
-
     assert response == [VotingDataModel(**x) for x in data]
     # noinspection PyUnresolvedReferences
     voting.get.assert_called_once()

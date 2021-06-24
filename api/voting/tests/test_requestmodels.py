@@ -20,7 +20,7 @@ def test_schedulevoteremovehashrequest(generate_uint256):
         'hash': generate_uint256
     }
     request_model = ScheduleVoteRemoveHashRequest(
-        hash=data['hash']
+        hash_id=data['hash']
     )
     assert json.dumps(data) == request_model.json()
 
@@ -30,6 +30,6 @@ def test_schedulevotewhitelisthashrequest(generate_uint256):
         'hash': generate_uint256
     }
     request_model = ScheduleVoteWhitelistHashRequest(
-        hash=data['hash']
+        hash_id=data['hash']
     )
     assert json.dumps(data) == request_model.json()
