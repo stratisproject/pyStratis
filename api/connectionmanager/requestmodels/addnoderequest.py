@@ -3,7 +3,12 @@ from pybitcoin import Model
 
 
 class AddNodeRequest(Model):
-    """An AddNodeRequest."""
+    """A request model for the connectionmanager/addnode endpoint.
+
+    Args:
+        endpoint (str): The endpoint.
+        command (str): Allowed commands [add, remove, onetry]
+    """
     endpoint: str
     command: str
 

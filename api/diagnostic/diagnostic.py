@@ -41,15 +41,14 @@ class Diagnostic(APIRequest, metaclass=EndpointRegister):
             APIError
         """
         data = self.get(**kwargs)
-
         return GetStatusModel(**data)
 
     @endpoint(f'{route}/getpeerstatistics')
-    def get_peer_statistics(self, request_model: GetPeerStatisticsRequest, **kwargs) -> List[PeerStatisticsModel]:
+    def get_peer_statistics(self, connected_only: bool, **kwargs) -> List[PeerStatisticsModel]:
         """Gets statistics for connected peers.
 
         Args:
-            request_model: A GetPeerStatisticsRequest model.
+            connected_only (bool): To show data for only connected nodes.
             **kwargs:
 
         Returns:
@@ -58,8 +57,8 @@ class Diagnostic(APIRequest, metaclass=EndpointRegister):
         Raises:
             APIError
         """
+        request_model = GetPeerStatisticsRequest(connected_only=connected_only)
         data = self.get(request_model, **kwargs)
-
         return [PeerStatisticsModel(**x) for x in data]
 
     @endpoint(f'{route}/startcollectingpeerstatistics')
@@ -76,7 +75,6 @@ class Diagnostic(APIRequest, metaclass=EndpointRegister):
             APIError
         """
         data = self.get(**kwargs)
-
         return data
 
     @endpoint(f'{route}/stopcollectingpeerstatistics')
@@ -93,5 +91,4 @@ class Diagnostic(APIRequest, metaclass=EndpointRegister):
             APIError
         """
         data = self.get(**kwargs)
-
         return data

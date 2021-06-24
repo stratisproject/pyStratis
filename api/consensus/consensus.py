@@ -25,7 +25,6 @@ class Consensus(APIRequest, metaclass=EndpointRegister):
             APIError
         """
         data = self.get(**kwargs)
-
         return [DeploymentFlagsModel(**x) for x in data]
 
     @endpoint(f'{route}/getbestblockhash')
@@ -36,29 +35,28 @@ class Consensus(APIRequest, metaclass=EndpointRegister):
             **kwargs:
 
         Returns:
-            str
+            uint256
 
         Raises:
             APIError
         """
         data = self.get(**kwargs)
-
         return uint256(data)
 
     @endpoint(f'{route}/getblockhash')
-    def get_blockhash(self, request_model: GetBlockHashRequest, **kwargs) -> uint256:
+    def get_blockhash(self, height: int, **kwargs) -> uint256:
         """Gets the block hash at the specified block
 
         Args:
-            request_model: A GetBlockHashRequest model.
+            height (int): The requested height for block hash retrieval.
             **kwargs:
 
         Returns:
-            str
+            uint256
 
         Raises:
             APIError
         """
+        request_model = GetBlockHashRequest(height=height)
         data = self.get(request_model, **kwargs)
-
         return uint256(data)

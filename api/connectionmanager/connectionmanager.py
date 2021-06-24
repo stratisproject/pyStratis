@@ -11,11 +11,12 @@ class ConnectionManager(APIRequest, metaclass=EndpointRegister):
         super().__init__(**kwargs)
 
     @endpoint(f'{route}/addnode')
-    def addnode(self, request_model: AddNodeRequest, **kwargs) -> bool:
+    def addnode(self, endpoint: str, command: str, **kwargs) -> bool:
         """
 
         Args:
-            request_model:
+            endpoint (str): The endpoint.
+            command (str): Allowed commands [add, remove, onetry]
             **kwargs:
 
         Returns:
@@ -24,6 +25,7 @@ class ConnectionManager(APIRequest, metaclass=EndpointRegister):
         Raises:
             APIError
         """
+        request_model = AddNodeRequest(endpoint=endpoint, command=command)
         data = self.get(request_model, **kwargs)
 
         return data

@@ -11,11 +11,11 @@ class RPC(APIRequest, metaclass=EndpointRegister):
         super().__init__(**kwargs)
 
     @endpoint(f'{route}/callbyname')
-    def call_by_name(self, request_model: CallByNameRequest, **kwargs) -> RPCCommandResponseModel:
+    def call_by_name(self, command: str, **kwargs) -> RPCCommandResponseModel:
         """Calls the specified RPC command.
 
         Args:
-            request_model: CallByNameRequest model
+            command (str): The complete RPC command.
             **kwargs:
 
         Returns:
@@ -24,8 +24,8 @@ class RPC(APIRequest, metaclass=EndpointRegister):
         Raises:
             APIError
         """
+        request_model = CallByNameRequest(command=command)
         data = self.post(request_model, **kwargs)
-
         return RPCCommandResponseModel(**data)
 
     @endpoint(f'{route}/listmethods')
@@ -42,5 +42,4 @@ class RPC(APIRequest, metaclass=EndpointRegister):
             APIError
         """
         data = self.get(**kwargs)
-
         return [RPCCommandListModel(**x) for x in data]

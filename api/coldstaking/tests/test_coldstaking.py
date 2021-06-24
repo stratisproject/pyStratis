@@ -155,8 +155,8 @@ def test_coldstaking_setup_coldstaking(mocker: MockerFixture, network, fakeuri,
         wallet_name='Test',
         wallet_account='account 0',
         wallet_password='password',
-        cold_wallet_address=Address(address=generate_p2pkh_address(network=network), network=network),
-        hot_wallet_address=Address(address=generate_p2pkh_address(network=network), network=network),
+        cold_wallet_address=generate_p2pkh_address(network=network),
+        hot_wallet_address=generate_p2pkh_address(network=network),
         amount=Money(10),
         fees=Money(0.0001)
     )
@@ -192,8 +192,8 @@ def test_coldstaking_setup_offline_coldstaking(mocker: MockerFixture, network, f
     response = coldstaking.setup_offline(
         wallet_name='Test',
         wallet_account='account 0',
-        cold_wallet_address=Address(address=generate_p2pkh_address(network=network), network=network),
-        hot_wallet_address=Address(address=generate_p2pkh_address(network=network), network=network),
+        cold_wallet_address=generate_p2pkh_address(network=network),
+        hot_wallet_address=generate_p2pkh_address(network=network),
         amount=Money(10),
         fees=Money(0.0001)
     )
@@ -213,8 +213,8 @@ def test_coldstaking_estimate_setup_tx_fee(mocker: MockerFixture, network, fakeu
         wallet_name='Test',
         wallet_account='account 0',
         wallet_password='password',
-        cold_wallet_address=Address(address=generate_p2pkh_address(network=network), network=network),
-        hot_wallet_address=Address(address=generate_p2pkh_address(network=network), network=network),
+        cold_wallet_address=generate_p2pkh_address(network=network),
+        hot_wallet_address=generate_p2pkh_address(network=network),
         amount=Money(10),
         fees=Money(0.0001)
     )
@@ -233,8 +233,8 @@ def test_coldstaking_estimate_offline_setup_tx_fee(mocker: MockerFixture, networ
     response = coldstaking.estimate_offline_setup_tx_fee(
         wallet_name='Test',
         wallet_account='account 0',
-        cold_wallet_address=Address(address=generate_p2pkh_address(network=network), network=network),
-        hot_wallet_address=Address(address=generate_p2pkh_address(network=network), network=network),
+        cold_wallet_address=generate_p2pkh_address(network=network),
+        hot_wallet_address=generate_p2pkh_address(network=network),
         amount=Money(10),
         fees=Money(0.0001)
     )
@@ -253,7 +253,7 @@ def test_coldstaking_withdrawal(mocker: MockerFixture, network, fakeuri,
     response = coldstaking.withdrawal(
         wallet_name='Test',
         wallet_password='password',
-        receiving_address=Address(address=generate_p2pkh_address(network=network), network=network),
+        receiving_address=generate_p2pkh_address(network=network),
         amount=Money(10),
         fees=Money(0.0001)
     )
@@ -289,7 +289,7 @@ def test_coldstaking_offline_withdrawal(mocker: MockerFixture, network, fakeuri,
     response = coldstaking.offline_withdrawal(
         wallet_name='Test',
         account_name='account 0',
-        receiving_address=Address(address=generate_p2pkh_address(network=network), network=network),
+        receiving_address=generate_p2pkh_address(network=network),
         amount=Money(10),
         fees=Money(0.0001),
         subtractFeeFromAmount=True
@@ -309,7 +309,7 @@ def test_coldstaking_estimate_offline_withdrawal_fee(mocker: MockerFixture, netw
     response = coldstaking.estimate_offline_withdrawal_tx_fee(
         wallet_name='Test',
         account_name='account 0',
-        receiving_address=Address(address=generate_p2pkh_address(network=network), network=network),
+        receiving_address=generate_p2pkh_address(network=network),
         amount=Money(10)
     )
 
@@ -328,7 +328,7 @@ def test_coldstaking_estimate_withdrawal_fee(mocker: MockerFixture, network, fak
         wallet_name='Test',
         account_name='account 0',
         wallet_password='password',
-        receiving_address=Address(address=generate_p2pkh_address(network=network), network=network),
+        receiving_address=generate_p2pkh_address(network=network),
         amount=Money(10),
         fees=Money(0.0001)
     )

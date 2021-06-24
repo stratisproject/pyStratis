@@ -45,5 +45,4 @@ class Interop(APIRequest, metaclass=EndpointRegister):
                 values = [PubKey(x) for x in data['receivedVotes'][key]]
                 received_votes[uint256(key)] = values
         data['receivedVotes'] = received_votes
-
         return StatusModel(**data)

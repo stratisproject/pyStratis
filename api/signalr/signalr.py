@@ -22,5 +22,4 @@ class SignalR(APIRequest, metaclass=EndpointRegister):
             APIError
         """
         data = self.get(**kwargs)
-
         return GetConnectionInfoModel(**data)

@@ -4,7 +4,14 @@ from pybitcoin import Model
 
 
 class EnableFederationRequest(Model):
-    """A EnableFederationRequest."""
+    """A request model for the federationwallet/enable-federation endpoint.
+
+    Args:
+        mnemonic (str): The mnemonic.
+        password (SecretStr): The password.
+        passphrase (SecretStr, optional): The passphrase.
+        timeout_seconds (conint(ge=0)): Seconds to timeout.
+    """
     mnemonic: str
     password: SecretStr
     passphrase: Optional[SecretStr]

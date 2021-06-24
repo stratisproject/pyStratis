@@ -39,12 +39,8 @@ def test_addnode(mocker: MockerFixture, network, fakeuri):
     data = True
     mocker.patch.object(ConnectionManager, 'get', return_value=data)
     connection_manager = ConnectionManager(network=network, baseuri=fakeuri)
-    request_model = AddNodeRequest(
-        endpoint='http://localhost',
-        command='add'
-    )
 
-    response = connection_manager.addnode(request_model)
+    response = connection_manager.addnode(endpoint='http://localhost', command='add')
 
     assert response
     # noinspection PyUnresolvedReferences

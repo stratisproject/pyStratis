@@ -21,7 +21,6 @@ class Dashboard(APIRequest, metaclass=EndpointRegister):
             APIError
         """
         data = self.get(**kwargs)
-
         return data
 
     @endpoint(f'{route}/asyncloopsstats')
@@ -38,5 +37,4 @@ class Dashboard(APIRequest, metaclass=EndpointRegister):
             APIError
         """
         data = self.get(**kwargs)
-
         return data

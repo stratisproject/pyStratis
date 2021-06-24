@@ -23,7 +23,6 @@ class Federation(APIRequest, metaclass=EndpointRegister):
             APIError
         """
         data = self.put(**kwargs)
-
         return data
 
     @endpoint(f'{route}/members/current')
@@ -40,7 +39,6 @@ class Federation(APIRequest, metaclass=EndpointRegister):
             APIError
         """
         data = self.get(**kwargs)
-
         return FederationMemberDetailedModel(**data)
 
     @endpoint(f'{route}/members')
@@ -57,5 +55,4 @@ class Federation(APIRequest, metaclass=EndpointRegister):
             APIError
         """
         data = self.get(**kwargs)
-
         return [FederationMemberModel(**x) for x in data]

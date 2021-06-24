@@ -11,11 +11,11 @@ class Network(APIRequest, metaclass=EndpointRegister):
         super().__init__(**kwargs)
 
     @endpoint(f'{route}/disconnect')
-    def disconnect(self, request_model: DisconnectPeerRequest, **kwargs) -> None:
+    def disconnect(self, peer_address: str, **kwargs) -> None:
         """Disconnect from a node.
 
         Args:
-            request_model: The DisconnectPeerRequest model.
+            peer_address (str): The peer endpoint.
             **kwargs:
 
         Returns:
@@ -24,14 +24,21 @@ class Network(APIRequest, metaclass=EndpointRegister):
         Raises:
             APIError
         """
+        request_model = DisconnectPeerRequest(peer_address=peer_address)
         self.post(request_model, **kwargs)
 
     @endpoint(f'{route}/setban')
-    def set_ban(self, request_model: SetBanRequest, **kwargs) -> None:
+    def set_ban(self,
+                ban_command: str,
+                ban_duration_seconds: int,
+                peer_address: str,
+                **kwargs) -> None:
         """Set a banned node.
 
         Args:
-            request_model: The SetBanRequest model.
+            ban_command (str): Allowed commands [add, remove].
+            ban_duration_seconds (int): The ban duration in seconds.
+            peer_address (str): The peer address to ban/unban.
             **kwargs:
 
         Returns:
@@ -40,6 +47,7 @@ class Network(APIRequest, metaclass=EndpointRegister):
         Raises:
             APIError
         """
+        request_model = SetBanRequest(ban_command=ban_command, ban_duration_seconds=ban_duration_seconds, peer_address=peer_address)
         self.post(request_model, **kwargs)
 
     @endpoint(f'{route}/getbans')
@@ -56,15 +64,13 @@ class Network(APIRequest, metaclass=EndpointRegister):
             APIError
         """
         data = self.get(**kwargs)
-
         return [BannedPeerModel(**x) for x in data]
 
     @endpoint(f'{route}/clearbanned')
-    def clear_banned(self, request_model: ClearBannedRequest = ClearBannedRequest(), **kwargs) -> None:
+    def clear_banned(self, **kwargs) -> None:
         """Clear banned node list.
 
         Args:
-            request_model: The ClearBannedRequest model.
             **kwargs:
 
         Returns:
@@ -73,4 +79,5 @@ class Network(APIRequest, metaclass=EndpointRegister):
         Raises:
             APIError
         """
+        request_model = ClearBannedRequest()
         self.post(request_model, **kwargs)

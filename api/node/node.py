@@ -2,8 +2,8 @@ from typing import Union, List
 from api import APIRequest, EndpointRegister, endpoint
 from api.node.requestmodels import *
 from api.node.responsemodels import *
-from pybitcoin import ScriptPubKey
-from pybitcoin.types import Address, hexstr, Money
+from pybitcoin import ScriptPubKey, LogRule
+from pybitcoin.types import Address, hexstr, Money, uint256
 
 
 class Node(APIRequest, metaclass=EndpointRegister):
@@ -26,15 +26,18 @@ class Node(APIRequest, metaclass=EndpointRegister):
             APIError
         """
         data = self.get(**kwargs)
-
         return StatusModel(**data)
 
     @endpoint(f'{route}/getblockheader')
-    def get_blockheader(self, request_model: GetBlockHeaderRequest, **kwargs) -> BlockHeaderModel:
+    def get_blockheader(self,
+                        block_hash: Union[str, uint256],
+                        is_json_format: bool = True,
+                        **kwargs) -> BlockHeaderModel:
         """Gets the specified block header.
 
         Args:
-            request_model: GetBlockHeaderRequest model
+            block_hash (str | uint256): The specified block hash.
+            is_json_format (bool, optional): If block header should be returned as json. Default=True.
             **kwargs:
 
         Returns:
@@ -43,16 +46,23 @@ class Node(APIRequest, metaclass=EndpointRegister):
         Raises:
             APIError
         """
+        if isinstance(block_hash, str):
+            block_hash = uint256(block_hash)
+        request_model = GetBlockHeaderRequest(block_hash=block_hash, is_json_format=is_json_format)
         data = self.get(request_model, **kwargs)
 
         return BlockHeaderModel(**data)
 
     @endpoint(f'{route}/getrawtransaction')
-    def get_raw_transaction(self, request_model: GetRawTransactionRequest, **kwargs) -> Union[hexstr, TransactionModel]:
+    def get_raw_transaction(self,
+                            trxid: Union[uint256, str],
+                            verbose: bool = False,
+                            **kwargs) -> Union[hexstr, TransactionModel]:
         """Gets a raw transaction from a transaction id.
 
         Args:
-            request_model: GetRawTransactionRequest model
+            trxid (uint256 | str): The transaction hash.
+            verbose (bool, optional): If output should include verbose transaction data. Default=False.
             **kwargs:
 
         Returns:
@@ -61,6 +71,9 @@ class Node(APIRequest, metaclass=EndpointRegister):
         Raises:
             APIError
         """
+        if isinstance(trxid, str):
+            trxid = uint256(trxid)
+        request_model = GetRawTransactionRequest(trxid=trxid, verbose=verbose)
         data = self.get(request_model, **kwargs)
         if data is None:
             raise RuntimeWarning('Transaction not found. Is -txindex=1 enabled?')
@@ -69,11 +82,11 @@ class Node(APIRequest, metaclass=EndpointRegister):
         return TransactionModel(**data)
 
     @endpoint(f'{route}/decoderawtransaction')
-    def decode_raw_transaction(self, request_model: DecodeRawTransactionRequest, **kwargs) -> TransactionModel:
+    def decode_raw_transaction(self, raw_hex: Union[str, hexstr], **kwargs) -> TransactionModel:
         """Decodes raw transaction hex into a transaction model.
 
         Args:
-            request_model: DecodeRawTransactionRequest model
+            raw_hex (hexstr | str): The transaction hexstring.
             **kwargs:
 
         Returns:
@@ -82,16 +95,18 @@ class Node(APIRequest, metaclass=EndpointRegister):
         Raises:
             APIError
         """
+        if isinstance(raw_hex, str):
+            raw_hex = hexstr(raw_hex)
+        request_model = DecodeRawTransactionRequest(raw_hex=raw_hex)
         data = self.post(request_model, **kwargs)
-
         return TransactionModel(**data)
 
     @endpoint(f'{route}/validateaddress')
-    def validate_address(self, request_model: ValidateAddressRequest, **kwargs) -> ValidateAddressModel:
+    def validate_address(self, address: str, **kwargs) -> ValidateAddressModel:
         """Validate an address
 
         Args:
-            request_model: ValidateAddressRequest model
+            address (str): The address to validate.
             **kwargs:
 
         Returns:
@@ -100,17 +115,23 @@ class Node(APIRequest, metaclass=EndpointRegister):
         Raises:
             APIError
         """
+        request_model = ValidateAddressRequest(address=address)
         data = self.get(request_model, **kwargs)
         data['address'] = Address(address=data['address'], network=self._network)
-
         return ValidateAddressModel(**data)
 
     @endpoint(f'{route}/gettxout')
-    def get_txout(self, request_model: GetTxOutRequest, **kwargs) -> GetTxOutModel:
+    def get_txout(self,
+                  trxid: Union[uint256, str],
+                  vout: int,
+                  include_mempool: bool = True,
+                  **kwargs) -> GetTxOutModel:
         """Gets a specified txout from a given transaction.
 
         Args:
-            request_model: GetTxOutRequest model
+            trxid (uint256 | str): The trxid to check.
+            vout (int): The vout.
+            include_mempool (bool, optional): Include mempool in check. Default=True.
             **kwargs:
 
         Returns:
@@ -119,6 +140,9 @@ class Node(APIRequest, metaclass=EndpointRegister):
         Raises:
             APIError
         """
+        if isinstance(trxid, str):
+            trxid = uint256(trxid)
+        request_model = GetTxOutRequest(trxid=trxid, vout=vout, include_mempool=include_mempool)
         data = self.get(request_model, **kwargs)
         if data is not None:
             if 'value' in data:
@@ -128,13 +152,17 @@ class Node(APIRequest, metaclass=EndpointRegister):
             return GetTxOutModel(**data)
 
     @endpoint(f'{route}/gettxoutproof')
-    def get_txout_proof(self, request_model: GetTxOutProofRequest, **kwargs) -> hexstr:
+    def get_txout_proof(self,
+                        txids: List[Union[str, uint256]],
+                        block_hash: Union[uint256, str],
+                        **kwargs) -> hexstr:
         """The merkle proof that the specified transaction exist in a given block.
 
         Should have txindex enabled if not specifying blockhash.
 
         Args:
-            request_model: GetTxOutProofRequest model
+            txids (List[uint256]): A list of transaction hashes.
+            block_hash (uint256, optional): The block hash to check.
             **kwargs:
 
         Returns:
@@ -143,16 +171,20 @@ class Node(APIRequest, metaclass=EndpointRegister):
         Raises:
             APIError
         """
+        for i in range(len(txids)):
+            if isinstance(txids[i], str):
+                txids[i] = uint256(txids[i])
+        if isinstance(block_hash, str):
+            block_hash = uint256(block_hash)
+        request_model = GetTxOutProofRequest(txids=txids, block_hash=block_hash)
         data = self.get(request_model, **kwargs)
-
         return hexstr(data)
 
     @endpoint(f'{route}/shutdown')
-    def shutdown(self, request_model: ShutdownRequest = ShutdownRequest(), **kwargs) -> None:
+    def shutdown(self, **kwargs) -> None:
         """Triggers node shutdown.
 
         Args:
-            request_model: ShutdownRequest model
             **kwargs:
 
         Returns:
@@ -161,14 +193,14 @@ class Node(APIRequest, metaclass=EndpointRegister):
         Raises:
             APIError
         """
+        request_model = ShutdownRequest()
         self.post(request_model, **kwargs)
 
     @endpoint(f'{route}/stop')
-    def stop(self, request_model: ShutdownRequest = ShutdownRequest(), **kwargs) -> None:
+    def stop(self, **kwargs) -> None:
         """Triggers node shutdown.
 
         Args:
-            request_model: The ShutdownRequest model.
             **kwargs:
 
         Returns:
@@ -177,14 +209,15 @@ class Node(APIRequest, metaclass=EndpointRegister):
         Raises:
             APIError
         """
+        request_model = ShutdownRequest()
         self.post(request_model, **kwargs)
 
     @endpoint(f'{route}/loglevels')
-    def log_levels(self, request_model: LogRulesRequest, **kwargs) -> None:
+    def log_levels(self, log_rules: List[LogRule], **kwargs) -> None:
         """Changes log level for the specified loggers.
 
         Args:
-            request_model: The LogRulesRequest model.
+            log_rules (List[LogRule]): A list of log rules to change.
             **kwargs:
 
         Returns:
@@ -193,6 +226,7 @@ class Node(APIRequest, metaclass=EndpointRegister):
         Raises:
             APIError
         """
+        request_model = LogRulesRequest(log_rules=log_rules)
         self.put(request_model, **kwargs)
 
     @endpoint(f'{route}/logrules')
@@ -210,7 +244,6 @@ class Node(APIRequest, metaclass=EndpointRegister):
 
         """
         data = self.get(**kwargs)
-
         return [LogRulesModel(**x) for x in data]
 
     @endpoint(f'{route}/asyncloops')
@@ -227,5 +260,4 @@ class Node(APIRequest, metaclass=EndpointRegister):
             APIError
         """
         data = self.get(**kwargs)
-
         return [AsyncLoopsModel(**x) for x in data]

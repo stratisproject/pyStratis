@@ -21,7 +21,7 @@ def test_getblockheaderrequest(generate_uint256):
         'isJsonFormat': True
     }
     request_model = GetBlockHeaderRequest(
-        hash=data['hash'],
+        block_hash=data['hash'],
         is_json_format=True
     )
     assert json.dumps(data) == request_model.json()
@@ -49,7 +49,7 @@ def test_gettxoutproofrequest(generate_uint256):
     }
     request_model = GetTxOutProofRequest(
         txids=data['txids'],
-        blockhash=data['blockhash']
+        block_hash=data['blockhash']
     )
     assert json.dumps(data) == request_model.json()
 

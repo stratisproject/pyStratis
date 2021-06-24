@@ -10,12 +10,12 @@ from pybitcoin.types import Address, Money
 def test_schedulevotekickfedmemberrequest(network, generate_compressed_pubkey, generate_p2pkh_address):
     data = {
         'pubKeyHex': generate_compressed_pubkey,
-        'collateralAmountSatoshis': '100000.00000000',
+        'collateralAmountSatoshis': 100000_0000_0000,
         'collateralMainchainAddress': generate_p2pkh_address(network=network)
     }
     request_model = ScheduleVoteKickFedMemberRequest(
         pubkey_hex=PubKey(data['pubKeyHex']),
-        collateral_amount_satoshis=Money(100000),
+        collateral_amount_satoshis=100000_0000_0000,
         collateral_mainchain_address=Address(address=data['collateralMainchainAddress'], network=network),
 
     )

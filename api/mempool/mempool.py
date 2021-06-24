@@ -23,5 +23,4 @@ class Mempool(APIRequest, metaclass=EndpointRegister):
             APIError
         """
         data = self.get(**kwargs)
-
         return [uint256(x) for x in data]

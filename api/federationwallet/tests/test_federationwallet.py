@@ -118,11 +118,7 @@ def test_history(mocker: MockerFixture, network, fakeuri, generate_uint256, gene
     ]
     mocker.patch.object(FederationWallet, 'get', return_value=data)
     federation_wallet = FederationWallet(network=network, baseuri=fakeuri)
-    request_model = HistoryRequest(
-        max_entries_to_return=2
-    )
-    response = federation_wallet.history(request_model)
-
+    response = federation_wallet.history(max_entries_to_return=2)
     assert response == [WithdrawalModel(**x) for x in data]
     # noinspection PyUnresolvedReferences
     federation_wallet.get.assert_called_once()
@@ -133,12 +129,7 @@ def test_sync(mocker: MockerFixture, network, fakeuri, generate_uint256):
     data = None
     mocker.patch.object(FederationWallet, 'post', return_value=data)
     federation_wallet = FederationWallet(network=network, baseuri=fakeuri)
-    request_model = SyncRequest(
-        hash=generate_uint256
-    )
-
-    federation_wallet.sync(request_model)
-
+    federation_wallet.sync(block_hash=generate_uint256)
     # noinspection PyUnresolvedReferences
     federation_wallet.post.assert_called_once()
 
@@ -148,15 +139,12 @@ def test_enable_federation(mocker: MockerFixture, network, fakeuri):
     data = None
     mocker.patch.object(FederationWallet, 'post', return_value=data)
     federation_wallet = FederationWallet(network=network, baseuri=fakeuri)
-    request_model = EnableFederationRequest(
+    response = federation_wallet.enable_federation(
         mnemonic='secret mnemonic',
         password='password',
         passphrase='passphrase',
         timeout_seconds=60
     )
-
-    response = federation_wallet.enable_federation(request_model)
-
     assert response is None
     # noinspection PyUnresolvedReferences
     federation_wallet.post.assert_called_once()
@@ -170,12 +158,7 @@ def test_remove_transactions(mocker: MockerFixture, network, fakeuri, generate_u
     }]
     mocker.patch.object(FederationWallet, 'delete', return_value=data)
     federation_wallet = FederationWallet(network=network, baseuri=fakeuri)
-    request_model = RemoveTransactionsRequest(
-        resync=True
-    )
-
-    response = federation_wallet.remove_transactions(request_model)
-
+    response = federation_wallet.remove_transactions(resync=True)
     assert response == [RemovedTransactionModel(**x) for x in data]
     # noinspection PyUnresolvedReferences
     federation_wallet.delete.assert_called_once()

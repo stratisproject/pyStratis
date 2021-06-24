@@ -1,5 +1,5 @@
 import ast
-from typing import List, Any
+from typing import List, Any, Union
 from binascii import unhexlify
 from api import APIRequest, EndpointRegister, endpoint
 from api.smartcontracts.requestmodels import *
@@ -14,11 +14,11 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
         super().__init__(**kwargs)
 
     @endpoint(f'{route}/code')
-    def code(self, request_model: CodeRequest, **kwargs) -> GetCodeModel:
+    def code(self, address: Union[Address, str], **kwargs) -> GetCodeModel:
         """Gets the bytecode for a smart contract as a hexadecimal string.
 
         Args:
-            request_model: CodeRequest model
+            address (Address | str): The smart contract address containing the contract bytecode.address (Address): The smart contract address containing the contract bytecode.
             **kwargs:
 
         Returns:
@@ -27,16 +27,18 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
         Raises:
             APIError
         """
+        if isinstance(address, str):
+            address = Address(address=address, network=self._network)
+        request_model = CodeRequest(address=address)
         data = self.get(request_model, **kwargs)
-
         return GetCodeModel(**data)
 
     @endpoint(f'{route}/balance')
-    def balance(self, request_model: BalanceRequest, **kwargs) -> Money:
+    def balance(self, address: Union[Address, str], **kwargs) -> Money:
         """Gets the balance of a smart contract in strax or sidechain coin.
 
         Args:
-            request_model: BalanceRequest model
+            address (Address | str): The smart contract address.
             **kwargs:
 
         Returns:
@@ -45,8 +47,10 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
         Raises:
             APIError
         """
+        if isinstance(address, str):
+            address = Address(address=address, network=self._network)
+        request_model = BalanceRequest(address=address)
         data = self.get(request_model, **kwargs)
-
         return Money(data)
 
     @endpoint(f'{route}/storage')
@@ -283,15 +287,14 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
             data['gasConsumed'] = data['gasConsumed']['value']
         if data['return'] is not None:
             data['return'] = data['return']
-
         return LocalExecutionResultModel(**data)
 
     @endpoint(f'{route}/address-balances')
-    def address_balances(self, request_model: BalancesRequest, **kwargs) -> List[AddressBalanceModel]:
+    def address_balances(self, wallet_name: str, **kwargs) -> List[AddressBalanceModel]:
         """Gets all addresses owned by a wallet which have a balance associated with them.
 
         Args:
-            request_model: BalancesRequest model
+            wallet_name (str): The wallet name.
             **kwargs:
 
         Returns:
@@ -300,9 +303,9 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
         Raises:
             APIError
         """
+        request_model = BalancesRequest(wallet_name=wallet_name)
         data = self.get(request_model, **kwargs)
         for i in range(len(data)):
             data[i]['address'] = Address(address=data[i]['address'], network=self._network)
             data[i]['sum'] = Money.from_satoshi_units(data[i]['sum'])
-
         return [AddressBalanceModel(**x) for x in data]

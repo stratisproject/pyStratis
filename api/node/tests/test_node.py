@@ -216,7 +216,7 @@ def test_get_txout_proof(mocker: MockerFixture, network, fakeuri, generate_uint2
             generate_uint256,
             generate_uint256
         ],
-        blockhash=generate_uint256
+        block_hash=generate_uint256
     )
 
     assert response == data

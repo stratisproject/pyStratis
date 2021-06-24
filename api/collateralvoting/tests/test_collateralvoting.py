@@ -41,7 +41,7 @@ def test_join_federation(mocker: MockerFixture, network, fakeuri, generate_p2pkh
     collateralvoting = CollateralVoting(network=network, baseuri=fakeuri)
     collateralvoting.schedulevote_kickfedmember(
         pubkey_hex=generate_compressed_pubkey,
-        collateral_amount_satoshis=Money(10),
+        collateral_amount_satoshis=100000,
         collateral_mainchain_address=Address(address=generate_p2pkh_address(network=network), network=network)
     )
 

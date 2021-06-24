@@ -1,6 +1,8 @@
+from typing import List
 from api import APIRequest, EndpointRegister, endpoint
 from api.multisig.requestmodels import *
 from api.multisig.responsemodels import *
+from pybitcoin import Recipient, MultisigSecret
 from pybitcoin.types import Money
 
 
@@ -11,11 +13,15 @@ class Multisig(APIRequest, metaclass=EndpointRegister):
         super().__init__(**kwargs)
 
     @endpoint(f'{route}/build-transaction')
-    def build_transaction(self, request_model: BuildTransactionRequest, **kwargs) -> BuildTransactionModel:
+    def build_transaction(self,
+                          recipients: List[Recipient],
+                          secrets: List[MultisigSecret],
+                          **kwargs) -> BuildTransactionModel:
         """Builds a transaction.
 
         Args:
-            request_model: BuildTransactionRequest model.
+            recipients (List[Recipient]): A list of recipient objects.
+            secrets (List[MultisigSecret]): A list of corresponding multisig secrets.
             **kwargs:
 
         Returns:
@@ -24,6 +30,7 @@ class Multisig(APIRequest, metaclass=EndpointRegister):
         Raises:
             APIError
         """
+        request_model = BuildTransactionRequest(recipients=recipients, secrets=secrets)
         data = self.post(request_model, **kwargs)
         data['fee'] = Money.from_satoshi_units(data['fee'])
 

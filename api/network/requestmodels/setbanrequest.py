@@ -3,7 +3,13 @@ from pybitcoin import Model
 
 
 class SetBanRequest(Model):
-    """A SetBanRequest."""
+    """A request model for the network/setban endpoint.
+
+    Args:
+        ban_command (str): Allowed commands [add, remove].
+        ban_duration_seconds (conint(ge=0)): The ban duration in seconds.
+        peer_address (str): The peer address to ban/unban.
+    """
     ban_command: str = Field(alias='banCommand')
     ban_duration_seconds: conint(ge=0) = Field(alias='banDurationSeconds')
     peer_address: str = Field(alias='peerAddress')

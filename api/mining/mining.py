@@ -10,11 +10,11 @@ class Mining(APIRequest, metaclass=EndpointRegister):
         super().__init__(**kwargs)
 
     @endpoint(f'{route}/generate')
-    def generate(self, request_model: GenerateRequest, **kwargs) -> GenerateBlocksModel:
+    def generate(self, block_count: int, **kwargs) -> GenerateBlocksModel:
         """Generate blocks by mining.
 
         Args:
-            request_model: A GenerateRequest model.
+            block_count (int): The number of blocks to mine.
             **kwargs:
 
         Returns:
@@ -23,16 +23,15 @@ class Mining(APIRequest, metaclass=EndpointRegister):
         Raises:
             APIError
         """
+        request_model = GenerateRequest(block_count=block_count)
         data = self.post(request_model, **kwargs)
-
         return GenerateBlocksModel(**data)
 
     @endpoint(f'{route}/stopmining')
-    def stop_mining(self, request_model: StopMiningRequest = StopMiningRequest(), **kwargs) -> None:
+    def stop_mining(self, **kwargs) -> None:
         """Stop mining.
 
         Args:
-            request_model: A StopMiningRequest model.
             **kwargs:
 
         Returns:
@@ -41,4 +40,5 @@ class Mining(APIRequest, metaclass=EndpointRegister):
         Raises:
             APIError
         """
+        request_model = StopMiningRequest()
         self.post(request_model, **kwargs)

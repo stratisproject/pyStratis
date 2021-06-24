@@ -42,7 +42,7 @@ def test_join_federation(mocker: MockerFixture, strax_network, fakeuri, generate
     mocker.patch.object(Collateral, 'post', return_value=data)
     collateral = Collateral(network=strax_network, baseuri=fakeuri)
     response = collateral.join_federation(
-        collateral_address=Address(address=generate_p2pkh_address(network=strax_network), network=strax_network),
+        collateral_address=generate_p2pkh_address(network=strax_network),
         collateral_wallet_name='Test_InterfluxStrax_Wallet',
         collateral_wallet_password='cirrus_password',
         wallet_name='Test_InterfluxCirrus_Wallet',

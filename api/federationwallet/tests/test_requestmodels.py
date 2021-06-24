@@ -43,6 +43,6 @@ def test_syncrequest(generate_uint256):
         'hash': generate_uint256
     }
     request_model = SyncRequest(
-        hash=data['hash']
+        block_hash=data['hash']
     )
     assert json.dumps(data) == request_model.json()
