@@ -3,6 +3,11 @@ from pybitcoin import Model
 
 
 class GetUnusedAccountRequest(Model):
-    """A GetUnusedAccountRequest."""
+    """A request model for the wallet/account endpoint.
+
+    Args:
+        password: SecretStr
+        wallet_name: str = Field(alias='walletName')
+    """
     password: SecretStr
     wallet_name: str = Field(alias='walletName')

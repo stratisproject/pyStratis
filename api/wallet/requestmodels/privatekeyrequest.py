@@ -4,7 +4,13 @@ from pybitcoin.types import Address
 
 
 class PrivateKeyRequest(Model):
-    """A PrivateKeyRequest."""
+    """A request model for the wallet/privatekey endpoint.
+
+    Args:
+        password: SecretStr
+        wallet_name: str = Field(alias='walletName')
+        address: Address
+    """
     password: SecretStr
     wallet_name: str = Field(alias='walletName')
     address: Address

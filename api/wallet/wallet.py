@@ -340,12 +340,17 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
         return WalletHistoryModel(**data)
 
     @endpoint(f'{route}/balance')
-    def balance(self, request_model: BalanceRequest, **kwargs) -> WalletBalanceModel:
-        """Gets the balance of a wallet in STRAX (or sidechain coin).
-        Both the confirmed and unconfirmed balance are returned.
+    def balance(self,
+                wallet_name: str,
+                account_name: str = 'account 0',
+                include_balance_by_address: bool = False,
+                **kwargs) -> WalletBalanceModel:
+        """Gets the balance of a wallet in STRAX (or sidechain coin). Both the confirmed and unconfirmed balance are returned.
 
         Args:
-            request_model: BalanceRequest model
+            wallet_name (str): The wallet name.
+            account_name (str, optional): The account name. Default='account 0'.
+            include_balance_by_address (bool, optional): If true, includes detailed information about balances by address. Default=False.
             **kwargs:
 
         Returns:
@@ -353,6 +358,7 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
         Raises:
             APIError
         """
+        request_model = BalanceRequest(wallet_name=wallet_name, account_name=account_name, include_balance_by_address=include_balance_by_address)
         data = self.get(request_model, **kwargs)
         for i in range(len(data['balances'])):
             data['balances'][i]['amountConfirmed'] = Money.from_satoshi_units(data['balances'][i]['amountConfirmed'])
@@ -368,11 +374,13 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
         return WalletBalanceModel(**data)
 
     @endpoint(f'{route}/received-by-address')
-    def received_by_address(self, request_model: ReceivedByAddressRequest, **kwargs) -> AddressBalanceModel:
+    def received_by_address(self,
+                            address: Union[Address, str],
+                            **kwargs) -> AddressBalanceModel:
         """Retrieves transactions received by the specified address.
 
         Args:
-            request_model: ReceivedByAddressRequest model
+            address (Address): The address to query.
             **kwargs:
 
         Returns:
@@ -380,6 +388,9 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
         Raises:
             APIError
         """
+        if isinstance(address, str):
+            address = Address(address=address, network=self._network)
+        request_model = ReceivedByAddressRequest(address=address)
         data = self.get(request_model, **kwargs)
         data['address'] = Address(address=data['address'], network=self._network)
         data['amountConfirmed'] = Money.from_satoshi_units(data['amountConfirmed'])
@@ -388,7 +399,9 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
         return AddressBalanceModel(**data)
 
     @endpoint(f'{route}/maxbalance')
-    def max_balance(self, request_model: MaxBalanceRequest, **kwargs) -> MaxSpendableAmountModel:
+    def max_balance(self,
+                    request_model: MaxBalanceRequest,
+                    **kwargs) -> MaxSpendableAmountModel:
         """Gets the maximum spendable balance for an account along with the fee required to spend it.
 
         Args:
@@ -431,7 +444,9 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
         return SpendableTransactionsModel(**data)
 
     @endpoint(f'{route}/estimate-txfee')
-    def estimate_txfee(self, request_model: EstimateTxFeeRequest, **kwargs) -> Money:
+    def estimate_txfee(self,
+                       request_model: EstimateTxFeeRequest,
+                       **kwargs) -> Money:
         """Gets a fee estimate for a specific transaction.
 
         Args:
@@ -448,7 +463,9 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
         return Money.from_satoshi_units(data)
 
     @endpoint(f'{route}/build-transaction')
-    def build_transaction(self, request_model: BuildTransactionRequest, **kwargs) -> BuildTransactionModel:
+    def build_transaction(self,
+                          request_model: BuildTransactionRequest,
+                          **kwargs) -> BuildTransactionModel:
         """Builds a transaction and returns the hex to use when executing the transaction.
 
         Args:
@@ -486,7 +503,9 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
         return BuildTransactionModel(**data)
 
     @endpoint(f'{route}/send-transaction')
-    def send_transaction(self, request_model: SendTransactionRequest, **kwargs) -> WalletSendTransactionModel:
+    def send_transaction(self,
+                         request_model: SendTransactionRequest,
+                         **kwargs) -> WalletSendTransactionModel:
         """Sends a transaction that has already been built.
 
         Args:
@@ -504,9 +523,6 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
             if 'address' in data['outputs'][i]:
                 data['outputs'][i]['address'] = Address(address=data['outputs'][i]['address'], network=self._network)
                 data['outputs'][i]['amount'] = Money.from_satoshi_units(data['outputs'][i]['amount'])
-            else:
-                # No address in coldstaking transactions.
-                pass
             data['outputs'][i] = TransactionOutputModel(**data['outputs'][i])
         return WalletSendTransactionModel(**data)
 
@@ -528,7 +544,9 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
         return data
 
     @endpoint(f'{route}/account')
-    def account(self, request_model: GetUnusedAccountRequest, **kwargs) -> str:
+    def account(self,
+                request_model: GetUnusedAccountRequest,
+                **kwargs) -> str:
         """Creates a new account for a wallet.
 
         Args:
@@ -545,7 +563,9 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
         return data
 
     @endpoint(f'{route}/accounts')
-    def accounts(self, request_model: GetAccountsRequest, **kwargs) -> List[str]:
+    def accounts(self,
+                 request_model: GetAccountsRequest,
+                 **kwargs) -> List[str]:
         """Gets a list of accounts for the specified wallet.
 
         Args:
@@ -562,7 +582,9 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
         return data
 
     @endpoint(f'{route}/unusedaddress')
-    def unused_address(self, request_model: GetUnusedAddressRequest, **kwargs) -> Address:
+    def unused_address(self,
+                       request_model: GetUnusedAddressRequest,
+                       **kwargs) -> Address:
         """Gets an unused address (in the Base58 format) for a wallet account.
 
         Args:
@@ -579,7 +601,9 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
         return Address(address=data, network=self._network)
 
     @endpoint(f'{route}/unusedaddresses')
-    def unused_addresses(self, request_model: GetUnusedAddressesRequest, **kwargs) -> List[Address]:
+    def unused_addresses(self,
+                         request_model: GetUnusedAddressesRequest,
+                         **kwargs) -> List[Address]:
         """Gets a specified number of unused addresses (in the Base58 format) for a wallet account.
 
         Args:
@@ -596,7 +620,9 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
         return [Address(address=x, network=self._network) for x in data]
 
     @endpoint(f'{route}/newaddresses')
-    def new_addresses(self, request_model: GetNewAddressesRequest, **kwargs) -> List[Address]:
+    def new_addresses(self,
+                      request_model: GetNewAddressesRequest,
+                      **kwargs) -> List[Address]:
         """Gets a specified number of new addresses (in the Base58 format) for a wallet account.
 
         Args:
@@ -613,7 +639,9 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
         return [Address(address=x, network=self._network) for x in data]
 
     @endpoint(f'{route}/addresses')
-    def addresses(self, request_model: GetAddressesRequest, **kwargs) -> AddressesModel:
+    def addresses(self,
+                  request_model: GetAddressesRequest,
+                  **kwargs) -> AddressesModel:
         """Gets all addresses for a wallet account.
 
         Args:
@@ -634,7 +662,9 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
         return AddressesModel(**data)
 
     @endpoint(f'{route}/remove-transactions')
-    def remove_transactions(self, request_model: RemoveTransactionsRequest, **kwargs) -> List[RemovedTransactionModel]:
+    def remove_transactions(self,
+                            request_model: RemoveTransactionsRequest,
+                            **kwargs) -> List[RemovedTransactionModel]:
         """Removes transactions from the wallet.
 
         Args:
@@ -651,7 +681,9 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
         return [RemovedTransactionModel(**x) for x in data]
 
     @endpoint(f'{route}/remove-wallet')
-    def remove_wallet(self, request_model: RemoveWalletRequest, **kwargs) -> None:
+    def remove_wallet(self,
+                      request_model: RemoveWalletRequest,
+                      **kwargs) -> None:
         """Remove a wallet
 
         Args:
@@ -666,7 +698,9 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
         self.delete(request_model, **kwargs)
 
     @endpoint(f'{route}/extpubkey')
-    def extpubkey(self, request_model: ExtPubKeyRequest, **kwargs) -> ExtPubKey:
+    def extpubkey(self,
+                  request_model: ExtPubKeyRequest,
+                  **kwargs) -> ExtPubKey:
         """Gets the extended public key of a specified wallet account.
 
         Args:
@@ -683,7 +717,9 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
         return ExtPubKey(data)
 
     @endpoint(f'{route}/privatekey')
-    def private_key(self, request_model: PrivateKeyRequest, **kwargs) -> Key:
+    def private_key(self,
+                    request_model: PrivateKeyRequest,
+                    **kwargs) -> Key:
         """Gets the private key of a specified wallet address.
 
         Args:
@@ -700,7 +736,9 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
         return Key(data)
 
     @endpoint(f'{route}/sync')
-    def sync(self, request_model: SyncRequest, **kwargs) -> None:
+    def sync(self,
+             request_model: SyncRequest,
+             **kwargs) -> None:
         """Requests the node resyncs from a block specified by its block hash.
 
         Args:
@@ -716,7 +754,9 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
         self.post(request_model, **kwargs)
 
     @endpoint(f'{route}/sync-from-date')
-    def sync_from_date(self, request_model: SyncFromDateRequest, **kwargs) -> None:
+    def sync_from_date(self,
+                       request_model: SyncFromDateRequest,
+                       **kwargs) -> None:
         """Request the node resyncs starting from a given date and time.
 
         Args:
@@ -732,7 +772,9 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
         self.post(request_model, **kwargs)
 
     @endpoint(f'{route}/wallet-stats')
-    def wallet_stats(self, request_model: StatsRequest, **kwargs) -> WalletStatsModel:
+    def wallet_stats(self,
+                     request_model: StatsRequest,
+                     **kwargs) -> WalletStatsModel:
         """Retrieves information about the wallet.
 
         Args:
@@ -750,7 +792,9 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
         return WalletStatsModel(**data)
 
     @endpoint(f'{route}/splitcoins')
-    def split_coins(self, request_model: SplitCoinsRequest, **kwargs) -> WalletSendTransactionModel:
+    def split_coins(self,
+                    request_model: SplitCoinsRequest,
+                    **kwargs) -> WalletSendTransactionModel:
         """Creates requested amount of UTXOs each of equal value.
 
         Args:
@@ -770,7 +814,9 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
         return WalletSendTransactionModel(**data)
 
     @endpoint(f'{route}/distribute-utxos')
-    def distribute_utxos(self, request_model: DistributeUTXOsRequest, **kwargs) -> DistributeUtxoModel:
+    def distribute_utxos(self,
+                         request_model: DistributeUTXOsRequest,
+                         **kwargs) -> DistributeUtxoModel:
         """Splits and distributes UTXOs across wallet addresses
 
         Args:
@@ -783,7 +829,6 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
             APIError
         """
         data = self.post(request_model, **kwargs)
-
         for i in range(len(data['walletSendTransaction'])):
             for j in range(len(data['walletSendTransaction'][i]['outputs'])):
                 data['walletSendTransaction'][i]['outputs'][j]['amount'] = Money.from_satoshi_units(data['walletSendTransaction'][i]['outputs'][j]['amount'])
@@ -794,7 +839,9 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
         return DistributeUtxoModel(**data)
 
     @endpoint(f'{route}/sweep')
-    def sweep(self, request_model: SweepRequest, **kwargs) -> List[uint256]:
+    def sweep(self,
+              request_model: SweepRequest,
+              **kwargs) -> List[uint256]:
         """Sweeps a wallet to specified address.
 
         Args:
@@ -810,7 +857,9 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
         return [uint256(x) for x in data]
 
     @endpoint(f'{route}/build-offline-sign-request')
-    def build_offline_sign_request(self, request_model: BuildOfflineSignRequest, **kwargs) -> BuildOfflineSignModel:
+    def build_offline_sign_request(self,
+                                   request_model: BuildOfflineSignRequest,
+                                   **kwargs) -> BuildOfflineSignModel:
         """Builds an offline sign request for a transaction.
 
         Args:
@@ -837,7 +886,9 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
         return BuildOfflineSignModel(**data)
 
     @endpoint(f'{route}/offline-sign-request')
-    def offline_sign_request(self, request_model: OfflineSignRequest, **kwargs) -> BuildTransactionModel:
+    def offline_sign_request(self,
+                             request_model: OfflineSignRequest,
+                             **kwargs) -> BuildTransactionModel:
         """Build an offline sign request for a transaction. The resulting transaction hex can be broadcast.
 
         Args:
@@ -854,7 +905,9 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
         return BuildTransactionModel(**data)
 
     @endpoint(f'{route}/consolidate')
-    def consolidate(self, request_model: ConsolidateRequest, **kwargs) -> hexstr:
+    def consolidate(self,
+                    request_model: ConsolidateRequest,
+                    **kwargs) -> hexstr:
         """Consolidate a wallet.
 
         utxo_value_threshold looks to consolidate any utxo amount below the threshold.

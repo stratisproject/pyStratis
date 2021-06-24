@@ -5,7 +5,13 @@ from pybitcoin.types import Address
 
 
 class SweepRequest(Model):
-    """A SweepRequest."""
+    """A request model for the wallet/sweep endpoint.
+
+    Args:
+        private_keys: List[Key] = Field(alias='privateKeys')
+        destination_address: Address = Field(alias='destinationAddress')
+        broadcast: Optional[bool] = False
+    """
     private_keys: List[Key] = Field(alias='privateKeys')
     destination_address: Address = Field(alias='destinationAddress')
     broadcast: Optional[bool] = False
