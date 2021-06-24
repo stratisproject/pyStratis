@@ -5,7 +5,27 @@ from pybitcoin.types import Address, Money
 
 
 class BuildTransactionRequest(Model):
-    """A BuildTransactionRequest."""
+    """A request model for the smartcontracts/build-transaction endpoint.
+
+    Args:
+        sender (Address): The sender address.
+        fee_amount (Money, optional): The fee amount.
+        password (SecretStr): The password.
+        segwit_change_address (bool, optional): If the change address is a segwit address. Default=False.
+        wallet_name (str): The wallet name.
+        account_name (str, optional): The account name. Default='account 0'.
+        outpoints (List[Outpoint]): A list of the outpoints used to construct the transactation.
+        recipients (List[Recipient]): A list of the recipients, including amounts, for the transaction.
+        op_return_data (str, optional): OP_RETURN data to include with the transaction.
+        op_return_amount (Money, optional): Amount to burn in the OP_RETURN transaction.
+        fee_type (str, optional): low, medium, or high.
+        allow_unconfirmed (bool, optional): If True, allow unconfirmed transactions in the estimation. Default=False
+        shuffle_outputs (bool, optional): If True, shuffles outputs. Default=False.
+        change_address (Address, optional): Sends output sum less amount sent to recipients to this designated change address, if provided.
+
+    Notes:
+         Both fee_type and fee_amount cannot be set.
+    """
     sender: Address
     fee_amount: Optional[Money] = Field(alias='feeAmount')
     password: SecretStr

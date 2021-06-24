@@ -5,7 +5,21 @@ from pybitcoin.types import Address, Money
 
 
 class EstimateFeeRequest(Model):
-    """A EstimateFeeRequest."""
+    """A request model for the smartcontracts/estimate-fee endpoint.
+
+    Args:
+        sender (Address): The sender address.
+        wallet_name (str): The wallet name.
+        account_name (str, optional): The account name. Default='account 0'.
+        outpoints (List[Outpoint]): A list of the outpoints used to construct the transactation.
+        recipients (List[Recipient]): A list of the recipients, including amounts, for the transaction.
+        op_return_data (str, optional): OP_RETURN data to include with the transaction.
+        op_return_amount (Money, optional): Amount to burn in the OP_RETURN transaction.
+        fee_type (str, optional): low, medium, or high.
+        allow_unconfirmed (bool, optional): If True, allow unconfirmed transactions in the estimation. Default=False
+        shuffle_outputs (bool, optional): If True, shuffles outputs. Default=False.
+        change_address (Address, optional): Sends output sum less amount sent to recipients to this designated change address, if provided.
+    """
     sender: Address
     wallet_name: str = Field(alias='walletName')
     account_name: Optional[str] = Field(default='account 0', alias='accountName')

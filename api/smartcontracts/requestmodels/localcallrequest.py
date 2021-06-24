@@ -5,7 +5,17 @@ from pybitcoin.types import Address, Money
 
 
 class LocalCallContractTransactionRequest(Model):
-    """A LocalCallContractTransactionRequest."""
+    """A request model for the smartcontracts/local-call endpoint.
+
+    Args:
+        contract_address (Address): The smart contract address being called.
+        method_name (str): The smart contract method being called.
+        amount (Money): The amount being sent.
+        gas_price (int): The amount of gas being used in satoshis.
+        gas_limit (int): The maximum amount of gas that can be used in satoshis.
+        sender (Address): The address of the sending address.
+        parameters (List[SmartContractParameters], optional): A list of parameters for the smart contract.
+    """
     contract_address: Address = Field(alias='contractAddress')
     method_name: str = Field(alias='methodName')
     amount: Money

@@ -5,11 +5,25 @@ from pybitcoin.types import Address, Money, hexstr
 
 
 class BuildCreateContractTransactionRequest(Model):
-    """A BuildCreateContractTransactionRequest."""
+    """A request model for the smartcontracts/build-create endpoint.
+
+    Args:
+        wallet_name (str): The wallet name.
+        account_name (str, optional): The wallet name. Default='account 0'
+        outpoints (List[Outpoint], optional): A list of the outpoints used to construct the transactation.
+        amount (Money, optional): The amount being sent.
+        fee_amount (Money): The fee amount.
+        password (SecretStr): The password.
+        contract_code (hexstr): The smart contract code hexstring.
+        gas_price (int): The amount of gas being used in satoshis.
+        gas_limit (int): The maximum amount of gas that can be used in satoshis.
+        sender (Address): The address of the sending address.
+        parameters (List[SmartContractParameters], optional): A list of parameters for the smart contract.
+    """
     wallet_name: str = Field(alias='walletName')
     account_name: Optional[str] = Field(default='account 0', alias='accountName')
     outpoints: Optional[List[Outpoint]]
-    amount: Money
+    amount: Optional[Money]
     fee_amount: Money = Field(alias='feeAmount')
     password: SecretStr
     contract_code: hexstr = Field(alias='contractCode')
