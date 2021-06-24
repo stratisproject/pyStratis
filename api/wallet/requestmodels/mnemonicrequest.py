@@ -3,6 +3,11 @@ from pybitcoin import Model
 
 
 class MnemonicRequest(Model):
-    """A MnemonicRequest."""
+    """A request model for the wallet/mnemonic endpoint.
+
+    Args:
+        language (str): A language used to generate mnemonic.
+        word_count (conint(ge=0)): Count of words needs to be generated.
+    """
     language: str = Field(default='English')
     word_count: conint(ge=0) = Field(default=12, alias='wordCount')
