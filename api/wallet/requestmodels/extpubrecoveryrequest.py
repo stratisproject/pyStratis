@@ -4,7 +4,14 @@ from pybitcoin import Model, ExtPubKey
 
 
 class ExtPubRecoveryRequest(Model):
-    """An ExtPubRecoveryRequest."""
+    """A request model for the wallet/recover-via-extpubkey endpoint.
+
+    Args:
+        extpubkey (ExtPubKey): The extpubkey for the recovered wallet.
+        account_index (conint(ge=0)): The account index.
+        name (str): The wallet name.
+        creation_date (str, optional): An estimate of the wallet creation date.
+    """
     extpubkey: ExtPubKey = Field(alias='extPubKey')
     account_index: conint(ge=0) = Field(alias='accountIndex')
     name: str

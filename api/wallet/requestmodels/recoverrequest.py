@@ -4,7 +4,15 @@ from pybitcoin import Model
 
 
 class RecoverRequest(Model):
-    """A RecoverRequest."""
+    """A request model for the wallet/recover endpoint.
+
+    Args:
+        mnemonic (str): A mnemonic for initializing a wallet.
+        password (str): The password for the wallet.
+        passphrase (str): The passphrase for the wallet.
+        name (str): The name for the wallet.
+        creation_date (str, optional): An estimate of the wallet creation date.
+    """
     mnemonic: str
     password: SecretStr
     passphrase: SecretStr

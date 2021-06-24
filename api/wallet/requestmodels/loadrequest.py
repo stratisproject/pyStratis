@@ -3,6 +3,11 @@ from pybitcoin import Model
 
 
 class LoadRequest(Model):
-    """A LoadRequest."""
+    """A request model for the wallet/load endpoint.
+
+    Args:
+        name (str): The wallet name to load.
+        password (str): The wallet password.
+    """
     name: str
     password: SecretStr
