@@ -1,10 +1,10 @@
-from typing import List
+from typing import List, Optional, Union
 from api import APIRequest, EndpointRegister, endpoint
 from api.wallet.requestmodels import *
 from api.wallet.responsemodels import *
 from pybitcoin import PubKey, ExtPubKey, AddressDescriptor, UtxoDescriptor, Key
 from pybitcoin.types import Address, Money, hexstr, uint256
-
+from pydantic import SecretStr
 
 class Wallet(APIRequest, metaclass=EndpointRegister):
     route = '/api/wallet'
@@ -13,87 +13,149 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
         super().__init__(**kwargs)
 
     @endpoint(f'{route}/mnemonic')
-    def mnemonic(self, request_model: MnemonicRequest, **kwargs) -> List[str]:
+    def mnemonic(self, language: str = 'English', word_count: int = 12, **kwargs) -> List[str]:
         """Generates a mnemonic to use for an HD wallet.
+        For more information about mnemonics, see BIP39_.
 
         Args:
-            request_model: MnemonicRequest model
+            language (str): The language used to generate mnemonic.
+            word_count (int): Count of words needs to be generated.
             **kwargs:
 
         Returns:
-            List[str]
+            List[str]: The generated mnemonic.
 
         Raises:
             APIError
+
+        .. _BIP39
+            https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki
         """
+        request_model = MnemonicRequest(
+            language=language,
+            word_count=word_count
+        )
         data = self.get(request_model, **kwargs)
 
         return data.split(' ')
 
     @endpoint(f'{route}/create')
-    def create(self, request_model: CreateRequest, **kwargs) -> List[str]:
+    def create(self, 
+               mnemonic: Optional[str], 
+               password: str, 
+               passphrase: str, 
+               name: str,
+                **kwargs) -> List[str]:
         """Creates a new wallet on this full node.
 
         Args:
-            request_model: CreateRequest model
+            mnemonic (str, optional): The mnemonic used to create a HD wallet. If not specified, it will be randomly generated underhood.
+            password (str): The password for a wallet to be created.
+            passphrase (str): The passphrase used in master key generation.
+            name: (str): The name for a wallet to be created.
             **kwargs:
 
         Returns:
-            List[str]
+            List[str]: The mnemonic used to generate this HD wallet.
         Raises:
             APIError
         """
+        request_model = CreateRequest(
+            mnemonic=mnemonic,
+            password=SecretStr(password),
+            passphrase=SecretStr(passphrase),
+            name=name
+        )
         data = self.post(request_model, **kwargs)
 
         return data.split(' ')
 
     @endpoint(f'{route}/signmessage')
-    def sign_message(self, request_model: SignMessageRequest, **kwargs) -> str:
+    def sign_message(self, 
+                     wallet_name: str,
+                     password: str,
+                     external_address: Union[Address, str],
+                     message: str,
+                     **kwargs) -> str:
         """Signs a message and returns the signature.
 
         Args:
-            request_model: SignMessageRequest model
+            wallet_name (str): The name of the wallet to sign message with.
+            password (str): The password of the wallet to sign message with.
+            external_address (Address | str): The external address of a private key used to sign message.
+            message (str): The message to be signed.
             **kwargs:
 
         Returns:
-            str
+            str: The signature of the message.
         Raises:
             APIError
         """
+        if isinstance(external_address, str):
+            external_address = Address(address=external_address, network=self._network)
+        request_model = SignMessageRequest(
+            wallet_name=wallet_name,
+            password=SecretStr(password),
+            external_address=external_address,
+            message=message
+        )
         data = self.post(request_model, **kwargs)
 
         return data
 
     @endpoint(f'{route}/pubkey')
-    def pubkey(self, request_model: PubKeyRequest, **kwargs) -> PubKey:
+    def pubkey(self, 
+               wallet_name: str,
+               external_address: Union[Address, str],
+               **kwargs) -> PubKey:
         """Gets the public key for an address.
 
         Args:
-            request_model: PubKeyRequest model
+            wallet_name (str): The name of the wallet to search for pubkey in.
+            external_address (Address | str): The external address of a wanted pubkey.
             **kwargs:
 
         Returns:
-            PubKey
+            PubKey: The requested public key.
         Raises:
             APIError
         """
+        if isinstance(external_address, str):
+            external_address = Address(address=external_address, network=self._network)
+        request_model = PubKeyRequest(
+            wallet_name=wallet_name,
+            external_address=external_address
+        )
         data = self.post(request_model, **kwargs)
 
         return PubKey(data)
 
     @endpoint(f'{route}/verifymessage')
-    def verify_message(self, request_model: VerifyMessageRequest, **kwargs) -> bool:
+    def verify_message(self,
+                       signature: str,
+                       external_address: Union[Address, str],
+                       message: str,
+                       **kwargs) -> bool:
         """Verifies the signature of a message.
 
         Args:
-            request_model: VerifyMessageRequest model
+            signature (str): The signature is to be verified.
+            external_address (Address | str): The address of the signer.
+            message (str): The message that was signed.
             **kwargs:
 
         Returns:
-            bool
+            bool: True if signature is verified, False otherwise.
         Raises:
             APIError
         """
+        if isinstance(external_address, str):
+            external_address = Address(address=external_address, network=self._network)
+        request_model = VerifyMessageRequest(
+            signature=signature,
+            external_address=external_address,
+            message=message
+        )
         data = self.post(request_model, **kwargs)
 
         return data
