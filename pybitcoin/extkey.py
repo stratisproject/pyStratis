@@ -26,7 +26,7 @@ class ExtKey(Key):
         super().__init__(value)
         buffer_size = len(self._keybytes)
         if buffer_size != 64:
-            raise ValueError('Extende key must be 64 bytes long (got {} bytes)'.format(buffer_size))
+            raise ValueError(f'Extended key must be 64 bytes long (got {buffer_size} bytes)')
 
     def generate_private_key_bytes(self) -> bytes:
         """Get private key from this extended private key.
