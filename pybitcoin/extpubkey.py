@@ -7,15 +7,15 @@ import base58
 class ExtPubKey:
     """Type representing extended public key, as specified in BIP32_.
 
-    Corresponding type from StratisFullNode's implementation can be found here_.
+    Corresponding type from StratisFullNode's implementation can be found here__.
 
     Args:
         extpubkey (str): encoded extended public key.
 
-    .. _BIP32
+    .. _BIP32: 
         https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki
 
-    .. _here
+    .. __: 
         https://github.com/stratisproject/StratisFullNode/blob/master/src/NBitcoin/BIP32/ExtPubKey.cs#L11
     """
     # noinspection PyTypeChecker
@@ -37,9 +37,6 @@ class ExtPubKey:
 
         Raises:
             AssertionError: extpubkey has incorrect format.
-
-        .. _BIP32
-            https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki#serialization-format
         """
         data = base58.b58decode(extpubkey)
         self.version = data[:4]
@@ -60,9 +57,6 @@ class ExtPubKey:
 
         Returns:
             bytes: serialized extended public key.
-
-        .. _BIP32
-            https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki#serialization-format
         """
         return self.version + self.depth + self.parent_fingerprint + self.index + self.chain_code + self.key
 
