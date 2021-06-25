@@ -7,19 +7,19 @@ from .key import Key
 class ExtKey(Key):
     """Type representing extended private key, as specified in BIP32_.
 
-    Corresponding type from StratisFullNode's implementation can be found here_.
+    Corresponding type from StratisFullNode's implementation can be found here__.
 
     Args:
-        value (Union[bytes, str, Key]): data for private key.
+        value (bytes | str | Key): data for a private key.
     Raises:
         ValueError: 
             Attempt to create ExtKey with unsupported `value` type.
             Attempt to create with incorrect length.
 
-    .. _BIP32
+    .. _BIP32: 
         https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki
 
-    .. _here
+    .. __: 
         https://github.com/stratisproject/StratisFullNode/blob/master/src/NBitcoin/BIP32/ExtKey.cs#L12
     """
     def __init__(self, value: Union[bytes, str, Key]):

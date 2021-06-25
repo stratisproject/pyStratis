@@ -4,9 +4,9 @@ from enum import Enum
 class CrossChainTransferStatus(str, Enum):
     """Enum representing status of cross chain status.
     
-    Corresponding type from StratisFullNode's implementation can be found here_.
+    Corresponding type from StratisFullNode's implementation can be found here__.
 
-    .. _here:
+    .. __:
         https://github.com/stratisproject/StratisFullNode/blob/master/src/Stratis.Features.FederatedPeg/Interfaces/ICrossChainTransfer.cs#L8
     """
     Suspended = 'Suspended'

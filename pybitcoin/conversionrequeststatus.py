@@ -4,9 +4,9 @@ from enum import IntEnum
 class ConversionRequestStatus(IntEnum):
     """Enum representing status of interop conversion request.
     
-    Corresponding type from StratisFullNode's implementation can be found here_.
+    Corresponding type from StratisFullNode's implementation can be found here__.
 
-    .. _here:
+    .. __:
         https://github.com/stratisproject/StratisFullNode/blob/master/src/Stratis.Features.FederatedPeg/Conversion/ConversionRequest.cs#L11
     """
     Unprocessed = 0

@@ -7,17 +7,18 @@ import base58
 class Key:
     """Type representing `private key`_.
 
-    Corresponding type from StratisFullNode's implementation can be found here_.
+    Corresponding type from StratisFullNode's implementation can be found here__.
 
     Args:
-        value (Union[bytes, str, Key]): data for private key.
+        value (bytes | str | Key): data for private key.
+        
     Raises:
         ValueError: Attempt to create Key with unsupported `value` type.
 
-    .. _private key
+    .. _private key: 
         https://en.bitcoin.it/wiki/Private_key
 
-    .. _here
+    .. __: 
         https://github.com/stratisproject/StratisFullNode/blob/master/src/NBitcoin/Key.cs#L10
     """
     def __init__(self, value: Union[bytes, str, Key]):
@@ -73,7 +74,7 @@ class Key:
         Returns:
             str: WIF compilant key.
 
-        .. _Wallet import format
+        .. _Wallet import format:
             https://en.bitcoin.it/wiki/Wallet_import_format
         """
         extended = b'\x80' + self._keybytes
