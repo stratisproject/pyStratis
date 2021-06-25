@@ -1,4 +1,5 @@
 from pybitcoin import Model
+from pydantic import Field
 
 
 class MemberIPReplaceRequest(Model):
@@ -8,5 +9,5 @@ class MemberIPReplaceRequest(Model):
         endpointtouse (str): The new endpoint.
         endpoint (str): The endpoint being replaced.
     """
-    endpointtouse: str
-    endpoint: str
+    ipaddrtouse: str = Field(alias='endpointtouse')
+    ipaddr: str = Field(alias='endpoint')

@@ -213,7 +213,7 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
     @endpoint(f'{route}/recover-via-extpubkey')
     def recover_via_extpubkey(self,
                               extpubkey: Union[ExtPubKey, str, hexstr],
-                              account_index: str,
+                              account_index: int,
                               name: str,
                               creation_date: str,
                               **kwargs) -> None:
@@ -520,6 +520,7 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
     @endpoint(f'{route}/build-transaction')
     def build_transaction(self,
                           wallet_name: str,
+                          password: str,
                           outpoints: List[Outpoint],
                           recipients: List[Recipient],
                           fee_amount: Union[Money, int, float, Decimal] = None,
@@ -536,6 +537,7 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
 
         Args:
             fee_amount (Money | int | float | Decimal, optional): The fee amount. Cannot be set with fee_type.
+            password (str): The password.
             segwit_change_address (bool, optional): If True, the change address is a segwit address. Default=False.
             wallet_name (str): The wallet name.
             account_name (str, optional): The account name. Default='account 0'.
@@ -557,8 +559,9 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
         """
         if isinstance(change_address, str):
             change_address = Address(address=change_address, network=self._network)
-        request_model = BuildTransactionModel(
+        request_model = BuildTransactionRequest(
             fee_amount=Money(fee_amount) if fee_amount is not None else None,
+            password=password,
             segwit_change_address=segwit_change_address,
             wallet_name=wallet_name,
             account_name=account_name,
@@ -868,7 +871,7 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
     @endpoint(f'{route}/remove-transactions')
     def remove_transactions(self,
                             wallet_name: str,
-                            ids: List[uint256] = None,
+                            ids: List[Union[uint256, str]] = None,
                             from_date: str = None,
                             remove_all: bool = False,
                             resync: bool = True,
@@ -877,7 +880,7 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
 
         Args:
             wallet_name (str): The wallet name.
-            ids (List[uint256], optional): A list of transaction ids to remove.
+            ids (List[uint256 | str], optional): A list of transaction ids to remove.
             from_date (str, optional): An option to remove transactions after given date.
             remove_all (bool, optional): An option to remove all transactions. Default=False.
             resync (bool, optional): If True, resyncs wallet after items removed. Default=True.
@@ -889,6 +892,10 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
         Raises:
             APIError
         """
+        if ids is not None:
+            for i in range(len(ids)):
+                if isinstance(ids[i], str):
+                    ids[i] = uint256(ids[i])
         request_model = RemoveTransactionsRequest(
             wallet_name=wallet_name,
             ids=ids,

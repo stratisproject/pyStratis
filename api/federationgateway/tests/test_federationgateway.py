@@ -178,7 +178,7 @@ def test_ip_add(mocker: MockerFixture, network, fakeuri):
     data = 'http://localhost has been added.'
     mocker.patch.object(FederationGateway, 'put', return_value=data)
     federation_gateway = FederationGateway(network=network, baseuri=fakeuri)
-    response = federation_gateway.ip_add(endpoint='http://localhost')
+    response = federation_gateway.ip_add(ipaddr='http://localhost')
     assert response == data
     # noinspection PyUnresolvedReferences
     federation_gateway.put.assert_called_once()
@@ -189,7 +189,7 @@ def test_ip_remove(mocker: MockerFixture, network, fakeuri):
     data = 'http://localhost has been removed.'
     mocker.patch.object(FederationGateway, 'put', return_value=data)
     federation_gateway = FederationGateway(network=network, baseuri=fakeuri)
-    response = federation_gateway.ip_remove(endpoint='http://localhost')
+    response = federation_gateway.ip_remove(ipaddr='http://localhost')
     assert response == data
     # noinspection PyUnresolvedReferences
     federation_gateway.put.assert_called_once()
@@ -200,7 +200,7 @@ def test_ip_replace(mocker: MockerFixture, network, fakeuri):
     data = 'http://localhost has been replaced with http://newhost.'
     mocker.patch.object(FederationGateway, 'put', return_value=data)
     federation_gateway = FederationGateway(network=network, baseuri=fakeuri)
-    response = federation_gateway.ip_replace(endpointtouse='http://newhost', endpoint='http://localhost')
+    response = federation_gateway.ip_replace(ipaddrtouse='http://newhost', ipaddr='http://localhost')
     assert response == data
     # noinspection PyUnresolvedReferences
     federation_gateway.put.assert_called_once()

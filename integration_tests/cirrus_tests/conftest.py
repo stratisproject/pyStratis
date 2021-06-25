@@ -1,12 +1,9 @@
 import pytest
 from typing import Union
 import api
-from api.wallet.requestmodels import SplitCoinsRequest
-from api.smartcontractwallet.requestmodels import AccountAddressesRequest
-from api.smartcontracts.requestmodels import ReceiptRequest, BuildAndSendCreateContractTransactionRequest
 from api.smartcontracts.responsemodels import ReceiptModel
 from pybitcoin.types import Address, Money, hexstr, uint32, uint64, uint128, uint256, int32, int64
-from pybitcoin import SmartContractParameter, SmartContractParameterType, BuildContractTransactionModel, WalletSendTransactionModel, SendTransactionRequest
+from pybitcoin import SmartContractParameter, SmartContractParameterType, BuildContractTransactionModel, WalletSendTransactionModel
 from nodes import CirrusMinerNode, CirrusNode, BaseNode
 
 
@@ -88,7 +85,7 @@ def apitestcontract_bytecode() -> hexstr:
 @pytest.fixture(scope='module')
 def get_node_smart_contract_address():
     def _get_node_smart_contract_address(node: Union[CirrusMinerNode, CirrusNode]) -> Address:
-        return node.smart_contract_wallet.account_addresses(AccountAddressesRequest(wallet_name='Test'))[0]
+        return node.smart_contract_wallet.account_addresses(wallet_name='Test')[0]
     return _get_node_smart_contract_address
 
 
@@ -106,21 +103,20 @@ def fund_smartcontract_address(get_node_smart_contract_address, send_a_transacti
 @pytest.fixture(scope='module')
 def make_some_transactions_by_splitting():
     def _make_some_transactions_by_splitting(node: BaseNode):
-        request_model = SplitCoinsRequest(
+        node.wallet.split_coins(
             wallet_name='Test',
             account_name='account 0',
             wallet_password='password',
             total_amount_to_split=Money(5000),
             utxos_count=100
         )
-        node.wallet.split_coins(request_model)
     return _make_some_transactions_by_splitting
 
 
 @pytest.fixture(scope='module')
 def create_smart_contract_transaction(cirrusminer_node, apitestcontract_bytecode, get_node_address_with_balance) -> BuildContractTransactionModel:
     sending_address = get_node_address_with_balance(cirrusminer_node)
-    request_model = BuildAndSendCreateContractTransactionRequest(
+    response = cirrusminer_node.smart_contracts.build_and_send_create(
         wallet_name='Test',
         account_name='account 0',
         outpoints=None,
@@ -146,16 +142,13 @@ def create_smart_contract_transaction(cirrusminer_node, apitestcontract_bytecode
             SmartContractParameter(value_type=SmartContractParameterType.UInt256, value=uint256(987))
         ]
     )
-
-    response = cirrusminer_node.smart_contracts.build_and_send_create(request_model)
     assert isinstance(response, BuildContractTransactionModel)
     return response
 
 
 @pytest.fixture(scope='module')
 def get_contract_create_trxid(cirrusminer_node, create_smart_contract_transaction, wait_n_blocks_and_sync) -> uint256:
-    request_model = SendTransactionRequest(hex=create_smart_contract_transaction.hex)
-    response = cirrusminer_node.smart_contract_wallet.send_transaction(request_model)
+    response = cirrusminer_node.smart_contract_wallet.send_transaction(transaction_hex=create_smart_contract_transaction.hex)
     assert isinstance(response, WalletSendTransactionModel)
     wait_n_blocks_and_sync(2)
     return response.transaction_id
@@ -163,8 +156,7 @@ def get_contract_create_trxid(cirrusminer_node, create_smart_contract_transactio
 
 @pytest.fixture(scope='module')
 def get_contract_setup_receipt(cirrusminer_node, get_contract_create_trxid) -> ReceiptModel:
-    request_model = ReceiptRequest(tx_hash=get_contract_create_trxid)
-    response = cirrusminer_node.smart_contracts.receipt(request_model)
+    response = cirrusminer_node.smart_contracts.receipt(tx_hash=get_contract_create_trxid)
     assert isinstance(response, ReceiptModel)
     return response
 

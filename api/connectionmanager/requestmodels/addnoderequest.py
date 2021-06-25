@@ -1,4 +1,4 @@
-from pydantic import validator
+from pydantic import validator, Field
 from pybitcoin import Model
 
 
@@ -6,10 +6,10 @@ class AddNodeRequest(Model):
     """A request model for the connectionmanager/addnode endpoint.
 
     Args:
-        endpoint (str): The endpoint.
+        ipaddr (str): The endpoint.
         command (str): Allowed commands [add, remove, onetry]
     """
-    endpoint: str
+    ipaddr: str = Field(alias='endpoint')
     command: str
 
     # noinspection PyMethodParameters,PyUnusedLocal

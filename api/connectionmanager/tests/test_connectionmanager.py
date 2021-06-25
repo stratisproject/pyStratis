@@ -40,7 +40,7 @@ def test_addnode(mocker: MockerFixture, network, fakeuri):
     mocker.patch.object(ConnectionManager, 'get', return_value=data)
     connection_manager = ConnectionManager(network=network, baseuri=fakeuri)
 
-    response = connection_manager.addnode(endpoint='http://localhost', command='add')
+    response = connection_manager.addnode(ipaddr='http://localhost', command='add')
 
     assert response
     # noinspection PyUnresolvedReferences

@@ -1,10 +1,11 @@
 from pybitcoin import Model
+from pydantic import Field
 
 
 class MemberIPRemoveRequest(Model):
     """A request model for the federationgateway/member/ip/remove endpoint.
 
     Args:
-        endpoint (str): The endpoint.
+        ipaddr (str): The endpoint.
     """
-    endpoint: str
+    ipaddr: str = Field(alias='endpoint')

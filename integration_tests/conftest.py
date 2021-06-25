@@ -7,7 +7,6 @@ import time
 from typing import List, Optional, Union
 from requests.exceptions import ConnectionError
 from nodes import StraxNode, CirrusMinerNode, CirrusNode, InterfluxCirrusNode, InterfluxStraxNode, BaseNode
-from api.wallet.requestmodels import BalanceRequest, RemoveWalletRequest, BuildTransactionRequest, SendTransactionRequest, SpendableTransactionsRequest
 from api.wallet.responsemodels import SpendableTransactionModel
 from pybitcoin.networks import BaseNetwork, StraxRegTest, CirrusRegTest
 from pybitcoin.types import Address, Money
@@ -32,8 +31,9 @@ def get_spendable_transactions():
             op_return_amount: Money = Money(0.00000001),
             min_confirmations: int = 2,
             wallet_name: str = 'Test') -> List[SpendableTransactionModel]:
-        request_model = SpendableTransactionsRequest(wallet_name=wallet_name, account_name='account 0', min_confirmations=min_confirmations)
-        spendable_transactions = node.wallet.spendable_transactions(request_model)
+        spendable_transactions = node.wallet.spendable_transactions(
+            wallet_name=wallet_name, account_name='account 0', min_confirmations=min_confirmations
+        )
         spendable_transactions = [x for x in spendable_transactions.transactions]
         sorted_spendable_transactions = sorted(spendable_transactions, key=lambda x: int(x.amount))
         amount_to_send = amount
@@ -128,8 +128,7 @@ def send_a_transaction(get_spendable_transactions):
         spendable_transactions = get_spendable_transactions(
             node=node, amount=amount_to_send, op_return_amount=op_return_amount, wallet_name=wallet_name, min_confirmations=min_confirmations
         )
-
-        request_model = BuildTransactionRequest(
+        transaction = node.wallet.build_transaction(
             password='password',
             segwit_change_address=False,
             wallet_name=wallet_name,
@@ -141,11 +140,7 @@ def send_a_transaction(get_spendable_transactions):
             shuffle_outputs=True,
             change_address=sending_address
         )
-        transaction = node.wallet.build_transaction(request_model)
-        request_model = SendTransactionRequest(
-            hex=transaction.hex
-        )
-        node.wallet.send_transaction(request_model)
+        node.wallet.send_transaction(transaction_hex=transaction.hex)
         return True
     return _send_a_transaction
 
@@ -171,8 +166,7 @@ def sync_two_nodes():
 @pytest.fixture(scope='module')
 def node_creates_a_wallet():
     def _node_creates_a_wallet(node: BaseNode, wallet_name: str = 'Test', mnemonic: str = None) -> bool:
-        from api.wallet.requestmodels import CreateRequest
-        mnemonic = node.wallet.create(CreateRequest(name=wallet_name, mnemonic=mnemonic, password='password', passphrase='passphrase'))
+        mnemonic = node.wallet.create(name=wallet_name, mnemonic=mnemonic, password='password', passphrase='passphrase')
         return len(mnemonic) == 12
     return _node_creates_a_wallet
 
@@ -180,13 +174,11 @@ def node_creates_a_wallet():
 @pytest.fixture(scope='module')
 def get_node_address_with_balance():
     def _get_node_address_with_balance(node: BaseNode, wallet_name: str = 'Test') -> Optional[Address]:
-        from api.wallet.requestmodels import BalanceRequest
-        request_model = BalanceRequest(
+        balances = node.wallet.balance(
             wallet_name=wallet_name,
             account_name='account 0',
             include_balance_by_address=True
         )
-        balances = node.wallet.balance(request_model)
         used_addresses = [x.address for x in balances.balances[0].addresses if x.is_used]
         if len(used_addresses) >= 1:
             return used_addresses[0]
@@ -196,9 +188,7 @@ def get_node_address_with_balance():
 @pytest.fixture(scope='module')
 def connect_two_nodes(get_node_endpoint):
     def _connect_two_nodes(a: BaseNode, b: BaseNode):
-        from api.connectionmanager.requestmodels import AddNodeRequest
-        request_model = AddNodeRequest(endpoint=get_node_endpoint(b), command='add')
-        a.connection_manager.addnode(request_model)
+        a.connection_manager.addnode(ipaddr=get_node_endpoint(b), command='add')
         return True
     return _connect_two_nodes
 
@@ -206,13 +196,11 @@ def connect_two_nodes(get_node_endpoint):
 @pytest.fixture(scope='module')
 def get_node_unused_address():
     def _get_node_unused_address(node: BaseNode, wallet_name: str = 'Test') -> Address:
-        from api.wallet.requestmodels import GetUnusedAddressRequest
-        request_model = GetUnusedAddressRequest(
+        return node.wallet.unused_address(
             wallet_name=wallet_name,
             account_name='account 0',
             segwit=False
         )
-        return node.wallet.unused_address(request_model)
     return _get_node_unused_address
 
 
@@ -271,8 +259,7 @@ def node_mines_some_blocks_and_syncs(sync_two_nodes):
             mining_node: StraxNode,
             syncing_node: StraxNode = None,
             num_blocks_to_mine: int = 1) -> bool:
-        from api.mining.requestmodels import GenerateRequest
-        mining_node.mining.generate(GenerateRequest(block_count=num_blocks_to_mine))
+        mining_node.mining.generate(block_count=num_blocks_to_mine)
         if syncing_node is None:
             return True
         return sync_two_nodes(mining_node, syncing_node)
@@ -451,8 +438,8 @@ def interflux_wait_n_blocks_and_sync(interflux_cirrusminer_node: InterfluxCirrus
 @pytest.fixture(scope='module')
 def transfer_funds_to_test(send_a_transaction, get_node_address_with_balance, get_node_unused_address):
     def _transfer_funds_to_test_wallet(node: BaseNode):
-        node_cirrusdev_balance = node.wallet.balance(BalanceRequest(wallet_name='cirrusdev'))
-        node_test_balance = node.wallet.balance(BalanceRequest(wallet_name='Test'))
+        node_cirrusdev_balance = node.wallet.balance(wallet_name='cirrusdev')
+        node_test_balance = node.wallet.balance(wallet_name='Test')
 
         if node_cirrusdev_balance.balances[0].spendable_amount < 1 and node_test_balance.balances[0].spendable_amount == 0:
             return
@@ -465,15 +452,15 @@ def transfer_funds_to_test(send_a_transaction, get_node_address_with_balance, ge
                 node=node, sending_address=cirrusdev_address, wallet_name='cirrusdev',
                 receiving_address=test_address, amount_to_send=Money(1000000), min_confirmations=2
             )
-        node.wallet.remove_wallet(RemoveWalletRequest(wallet_name='cirrusdev'))
+        node.wallet.remove_wallet(wallet_name='cirrusdev')
     return _transfer_funds_to_test_wallet
 
 
 @pytest.fixture(scope='module')
 def balance_funds_across_nodes(send_a_transaction, get_node_address_with_balance, get_node_unused_address):
     def _balance_funds_across_nodes(a: BaseNode, b: BaseNode):
-        a_balance = a.wallet.balance(BalanceRequest(wallet_name='Test'))
-        b_balance = b.wallet.balance(BalanceRequest(wallet_name='Test'))
+        a_balance = a.wallet.balance(wallet_name='Test')
+        b_balance = b.wallet.balance(wallet_name='Test')
 
         if a_balance.balances[0].amount_confirmed > b_balance.balances[0].amount_confirmed:
             sending_address = get_node_address_with_balance(a)

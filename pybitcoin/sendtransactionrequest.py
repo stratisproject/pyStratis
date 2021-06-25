@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from pybitcoin.types import hexstr
 
 
@@ -8,7 +8,7 @@ class SendTransactionRequest(BaseModel):
     Args:
         transaction_hex (hexstr): The hexified transaction.
     """
-    transaction_hex: hexstr
+    transaction_hex: hexstr = Field(alias='hex')
 
     class Config:
         json_encoders = {

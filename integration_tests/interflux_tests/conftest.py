@@ -1,5 +1,4 @@
 import time
-
 import pytest
 import api
 from api.federationwallet.requestmodels import EnableFederationRequest
@@ -76,7 +75,7 @@ def initialize_nodes(
     # Enable the federation, connect the nodes.
     assert connect_two_nodes(strax_hot_node, interflux_strax_node)
     assert connect_two_nodes(interflux_cirrusminer_node, cirrus_node)
-    interflux_strax_node.federation_wallet.enable_federation(EnableFederationRequest(mnemonic=get_federation_mnemonic(0), password='password', timeout_seconds=60))
-    interflux_cirrusminer_node.federation_wallet.enable_federation(EnableFederationRequest(mnemonic=get_federation_mnemonic(0), password='password', timeout_seconds=60))
-    interflux_strax_syncing_node.federation_wallet.enable_federation(EnableFederationRequest(mnemonic=get_federation_mnemonic(1), password='password', timeout_seconds=60))
-    interflux_cirrusminer_syncing_node.federation_wallet.enable_federation(EnableFederationRequest(mnemonic=get_federation_mnemonic(1), password='password', timeout_seconds=60))
+    interflux_strax_node.federation_wallet.enable_federation(mnemonic=get_federation_mnemonic(0), password='password', timeout_seconds=60)
+    interflux_cirrusminer_node.federation_wallet.enable_federation(mnemonic=get_federation_mnemonic(0), password='password', timeout_seconds=60)
+    interflux_strax_syncing_node.federation_wallet.enable_federation(mnemonic=get_federation_mnemonic(1), password='password', timeout_seconds=60)
+    interflux_cirrusminer_syncing_node.federation_wallet.enable_federation(mnemonic=get_federation_mnemonic(1), password='password', timeout_seconds=60)

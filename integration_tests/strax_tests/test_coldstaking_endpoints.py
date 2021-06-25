@@ -37,19 +37,15 @@ def setup_coldstaking_accounts_and_addresses(
     assert node_creates_a_wallet(strax_offline_node, wallet_name=offline_node_default_wallet_name)
 
     # Get the extpubkey from the cold node so it can be restored on the hot node.
-    offline_wallet_default_extpubkey = strax_offline_node.wallet.extpubkey(
-        ExtPubKeyRequest(wallet_name=offline_node_default_wallet_name, account_name='account 0')
-    )
+    offline_wallet_default_extpubkey = strax_offline_node.wallet.extpubkey(wallet_name=offline_node_default_wallet_name, account_name='account 0')
     credentials['offline_wallet_default_extpubkey'] = offline_wallet_default_extpubkey
 
     # Use the cold extpubkey to load the cold wallet on the online node.
     strax_hot_node.wallet.recover_via_extpubkey(
-        ExtPubRecoveryRequest(
             extpubkey=offline_wallet_default_extpubkey,
             name=restored_offline_on_hot_wallet_name,
             account_index=0,
             creation_date=get_datetime(days_back=1)
-        )
     )
     # Setup the hot account from the hot node.
     credentials['hot_account'] = strax_hot_node.coldstaking.account(
@@ -124,7 +120,7 @@ def setup_coldstaking_transaction_and_send(
     )
 
     # Send the coldstaking creation transaction and mine some blocks to confirm.
-    strax_hot_node.wallet.send_transaction(hex=built_transaction.hex)
+    strax_hot_node.wallet.send_transaction(transaction_hex=built_transaction.hex)
     assert node_mines_some_blocks_and_syncs(mining_node=strax_hot_node, syncing_node=None, num_blocks_to_mine=15)
     return True
 

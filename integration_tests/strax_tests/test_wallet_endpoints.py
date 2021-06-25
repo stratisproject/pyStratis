@@ -303,7 +303,7 @@ def test_send_transaction(strax_hot_node: BaseNode, strax_syncing_node: BaseNode
         change_address=change_address
     )
 
-    response = strax_hot_node.wallet.send_transaction(hex=built_transaction.hex)
+    response = strax_hot_node.wallet.send_transaction(transaction_hex=built_transaction.hex)
     assert isinstance(response, WalletSendTransactionModel)
     assert isinstance(response.transaction_id, uint256)
     for item in response.outputs:

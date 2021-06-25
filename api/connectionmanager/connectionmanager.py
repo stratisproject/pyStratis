@@ -11,11 +11,11 @@ class ConnectionManager(APIRequest, metaclass=EndpointRegister):
         super().__init__(**kwargs)
 
     @endpoint(f'{route}/addnode')
-    def addnode(self, endpoint: str, command: str, **kwargs) -> bool:
+    def addnode(self, ipaddr: str, command: str, **kwargs) -> bool:
         """
 
         Args:
-            endpoint (str): The endpoint.
+            ipaddr (str): The endpoint.
             command (str): Allowed commands [add, remove, onetry]
             **kwargs:
 
@@ -25,9 +25,8 @@ class ConnectionManager(APIRequest, metaclass=EndpointRegister):
         Raises:
             APIError
         """
-        request_model = AddNodeRequest(endpoint=endpoint, command=command)
+        request_model = AddNodeRequest(ipaddr=ipaddr, command=command)
         data = self.get(request_model, **kwargs)
-
         return data
 
     @endpoint(f'{route}/getpeerinfo')
@@ -44,5 +43,4 @@ class ConnectionManager(APIRequest, metaclass=EndpointRegister):
             APIError
         """
         data = self.get(**kwargs)
-
         return [PeerInfoModel(**x) for x in data]

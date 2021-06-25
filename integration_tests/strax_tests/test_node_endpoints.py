@@ -82,7 +82,7 @@ def test_get_txout_proof(strax_hot_node: BaseNode):
     for spendable_transaction in spendable_transactions:
         raw_transaction = strax_hot_node.node.get_raw_transaction(trxid=spendable_transaction.transaction_id, verbose=True)
         response = strax_hot_node.node.get_txout_proof(
-            txids=[spendable_transaction.transaction_id], blockhash=raw_transaction.blockhash
+            txids=[spendable_transaction.transaction_id], block_hash=raw_transaction.blockhash
         )
         assert isinstance(response, hexstr)
 

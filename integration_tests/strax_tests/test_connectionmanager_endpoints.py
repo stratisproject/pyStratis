@@ -6,7 +6,7 @@ from api.connectionmanager.responsemodels import *
 @pytest.mark.integration_test
 @pytest.mark.strax_integration_test
 def test_add_node(strax_hot_node: BaseNode, strax_syncing_node: BaseNode, get_node_endpoint):
-    assert strax_hot_node.connection_manager.addnode(endpoint=get_node_endpoint(strax_syncing_node), command='add')
+    assert strax_hot_node.connection_manager.addnode(ipaddr=get_node_endpoint(strax_syncing_node), command='add')
 
 
 @pytest.mark.integration_test

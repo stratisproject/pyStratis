@@ -148,11 +148,11 @@ class FederationGateway(APIRequest, metaclass=EndpointRegister):
         return FederationGatewayInfoModel(**data)
 
     @endpoint(f'{route}/member/ip/add')
-    def ip_add(self, endpoint: str, **kwargs) -> str:
+    def ip_add(self, ipaddr: str, **kwargs) -> str:
         """Add a federation member's IP address to the federation IP list
 
         Args:
-            endpoint (str): The endpoint.
+            ipaddr (str): The endpoint.
             **kwargs:
 
         Returns:
@@ -161,16 +161,16 @@ class FederationGateway(APIRequest, metaclass=EndpointRegister):
         Raises:
             APIError
         """
-        request_model = MemberIPAddRequest(endpoint=endpoint)
+        request_model = MemberIPAddRequest(ipaddr=ipaddr)
         data = self.put(request_model, **kwargs)
         return data
 
     @endpoint(f'{route}/member/ip/remove')
-    def ip_remove(self, endpoint: str, **kwargs) -> str:
+    def ip_remove(self, ipaddr: str, **kwargs) -> str:
         """Remove a federation member's IP address to the federation IP list
 
         Args:
-            endpoint (str): The endpoint.
+            ipaddr (str): The endpoint.
             **kwargs:
 
         Returns:
@@ -179,17 +179,17 @@ class FederationGateway(APIRequest, metaclass=EndpointRegister):
         Raises:
             APIError
         """
-        request_model = MemberIPRemoveRequest(endpoint=endpoint)
+        request_model = MemberIPRemoveRequest(ipaddr=ipaddr)
         data = self.put(request_model, **kwargs)
         return data
 
     @endpoint(f'{route}/member/ip/replace')
-    def ip_replace(self, endpointtouse: str, endpoint: str, **kwargs) -> str:
+    def ip_replace(self, ipaddrtouse: str, ipaddr: str, **kwargs) -> str:
         """Replace a federation member's IP from the federation IP list with another.
 
         Args:
-            endpointtouse (str): The new endpoint.
-            endpoint (str): The endpoint being replaced.
+            ipaddrtouse (str): The new endpoint.
+            ipaddr (str): The endpoint being replaced.
             **kwargs:
 
         Returns:
@@ -198,7 +198,7 @@ class FederationGateway(APIRequest, metaclass=EndpointRegister):
         Raises:
             APIError
         """
-        request_model = MemberIPReplaceRequest(endpointtouse=endpointtouse, endpoint=endpoint)
+        request_model = MemberIPReplaceRequest(ipaddrtouse=ipaddrtouse, ipaddr=ipaddr)
         data = self.put(request_model, **kwargs)
         return data
 
