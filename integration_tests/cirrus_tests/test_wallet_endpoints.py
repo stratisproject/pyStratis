@@ -325,7 +325,7 @@ def test_send_transaction(cirrusminer_node: CirrusMinerNode,
         shuffle_outputs=True,
         change_address=change_address
     )
-    response = cirrusminer_node.wallet.send_transaction(hex=built_transaction.hex)
+    response = cirrusminer_node.wallet.send_transaction(transaction_hex=built_transaction.hex)
     wait_n_blocks_and_sync(1)
     assert isinstance(response, WalletSendTransactionModel)
     assert isinstance(response.transaction_id, uint256)

@@ -1,5 +1,6 @@
 import pytest
 from api.voting.responsemodels import *
+from api.voting.requestmodels import VoteKey
 from nodes import CirrusMinerNode
 from pybitcoin import PollViewModel
 
@@ -43,13 +44,13 @@ def test_finished_polls(cirrusminer_node: CirrusMinerNode, generate_compressed_p
 @pytest.mark.integration_test
 @pytest.mark.cirrus_integration_test
 def test_scheduledvote_whitelisthash(cirrusminer_node: CirrusMinerNode, generate_uint256):
-    cirrusminer_node.voting.schedulevote_whitelisthash(hash=generate_uint256)
+    cirrusminer_node.voting.schedulevote_whitelisthash(hash_id=generate_uint256)
 
 
 @pytest.mark.integration_test
 @pytest.mark.cirrus_integration_test
 def test_scheduledvote_removehash(cirrusminer_node: CirrusMinerNode, generate_uint256):
-    cirrusminer_node.voting.schedulevote_removehash(hash=generate_uint256)
+    cirrusminer_node.voting.schedulevote_removehash(hash_id=generate_uint256)
 
 
 @pytest.mark.integration_test

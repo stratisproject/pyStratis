@@ -79,7 +79,7 @@ def test_get_txout_proof(cirrusminer_node: CirrusMinerNode, wait_n_blocks_and_sy
     spendable_transactions = [x for x in spendable_transactions.transactions]
     for spendable_transaction in spendable_transactions:
         raw_transaction = cirrusminer_node.node.get_raw_transaction(trxid=spendable_transaction.transaction_id, verbose=True)
-        response = cirrusminer_node.node.get_txout_proof(txids=[spendable_transaction.transaction_id], blockhash=raw_transaction.blockhash)
+        response = cirrusminer_node.node.get_txout_proof(txids=[spendable_transaction.transaction_id], block_hash=raw_transaction.blockhash)
         assert isinstance(response, hexstr)
 
 

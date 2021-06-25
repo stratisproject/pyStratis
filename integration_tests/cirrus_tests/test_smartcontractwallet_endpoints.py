@@ -99,7 +99,7 @@ def test_call(cirrusminer_node: CirrusMinerNode, get_node_address_with_balance, 
     )
     assert isinstance(response, BuildContractTransactionModel)
     # send the transaction to remove the utxo reservation
-    cirrusminer_node.smart_contract_wallet.send_transaction(hex=response.hex)
+    cirrusminer_node.smart_contract_wallet.send_transaction(transaction_hex=response.hex)
 
 
 @pytest.mark.integration_test
@@ -133,5 +133,5 @@ def test_send_transaction(cirrusminer_node: CirrusMinerNode, get_node_address_wi
             SmartContractParameter(value_type=SmartContractParameterType.UInt256, value=uint256(987))
         ]
     )
-    response = cirrusminer_node.smart_contract_wallet.send_transaction(hex=response.hex)
+    response = cirrusminer_node.smart_contract_wallet.send_transaction(transaction_hex=response.hex)
     assert isinstance(response, WalletSendTransactionModel)

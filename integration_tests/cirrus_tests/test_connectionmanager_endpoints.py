@@ -7,7 +7,7 @@ from api.connectionmanager.responsemodels import *
 @pytest.mark.cirrus_integration_test
 def test_add_node(cirrusminer_node: CirrusMinerNode, cirrusminer_syncing_node: CirrusMinerNode, get_node_endpoint):
     assert cirrusminer_node.connection_manager.addnode(
-        endpoint=get_node_endpoint(cirrusminer_syncing_node), command='onetry'
+        ipaddr=get_node_endpoint(cirrusminer_syncing_node), command='onetry'
     )
 
 

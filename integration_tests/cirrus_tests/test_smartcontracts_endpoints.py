@@ -182,7 +182,7 @@ def test_build_create(cirrusminer_node: CirrusMinerNode, get_node_address_with_b
     )
     assert isinstance(response, BuildContractTransactionModel)
     # send the transaction to remove the utxo reservation
-    cirrusminer_node.smart_contract_wallet.send_transaction(hex=response.hex)
+    cirrusminer_node.smart_contract_wallet.send_transaction(transaction_hex=response.hex)
 
 
 @pytest.mark.order(6)
@@ -209,7 +209,7 @@ def test_build_call(cirrusminer_node: CirrusMinerNode, get_node_address_with_bal
     )
     assert isinstance(response, BuildContractTransactionModel)
     # send the transaction to remove the utxo reservation
-    cirrusminer_node.smart_contract_wallet.send_transaction(hex=response.hex)
+    cirrusminer_node.smart_contract_wallet.send_transaction(transaction_hex=response.hex)
 
 
 @pytest.mark.order(3)
@@ -240,7 +240,7 @@ def test_build_transaction(cirrusminer_node: CirrusMinerNode, get_node_address_w
     )
     assert isinstance(response, BuildContractTransactionModel)
     # Send the transaction to remove the utxo reservation
-    cirrusminer_node.smart_contract_wallet.send_transaction(hex=response.hex)
+    cirrusminer_node.smart_contract_wallet.send_transaction(transaction_hex=response.hex)
 
 
 @pytest.mark.order(2)
@@ -304,7 +304,7 @@ def test_build_and_send_create(cirrusminer_node: CirrusMinerNode, get_node_addre
     )
     assert isinstance(response, BuildContractTransactionModel)
     # Send the transaction to remove the utxo reservation
-    cirrusminer_node.smart_contract_wallet.send_transaction(hex=response.hex)
+    cirrusminer_node.smart_contract_wallet.send_transaction(transaction_hex=response.hex)
 
 
 @pytest.mark.order(9)
@@ -331,7 +331,7 @@ def test_build_and_send_call(cirrusminer_node: CirrusMinerNode, get_node_address
     )
     assert isinstance(response, BuildContractTransactionModel)
     # send the transaction to remove the utxo reservation
-    cirrusminer_node.smart_contract_wallet.send_transaction(hex=response.hex)
+    cirrusminer_node.smart_contract_wallet.send_transaction(transaction_hex=response.hex)
 
 
 @pytest.mark.order(8)
