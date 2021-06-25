@@ -20,8 +20,8 @@ class Balances(APIRequest, metaclass=EndpointRegister):
         """Returns a list of addresses with balance over specified amount at the given chain height.
 
         Args:
-            block_height (conint(ge=0)): The specified chain height.
-            amount (Money): The specified amount in coin units.
+            block_height (int): The specified chain height.
+            amount (Money | int | float | Decimal): The specified amount in coin units.
 
         Returns:
             List[Address]
@@ -29,6 +29,6 @@ class Balances(APIRequest, metaclass=EndpointRegister):
         Raises:
             APIError
         """
-        request_model = OverAmountAtHeightRequest(block_height=block_height, amount=amount)
+        request_model = OverAmountAtHeightRequest(block_height=block_height, amount=Money(amount))
         data = self.get(request_model, **kwargs)
         return [Address(address=item, network=self._network) for item in data]

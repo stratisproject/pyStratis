@@ -786,7 +786,7 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
         Args:
             wallet_name (str): The wallet name.
             account_name (str, optional): The account name. Default='account 0'.
-            count (conint(ge=1)): The number of addresses to get.
+            count (int): The number of addresses to get.
             segwit (bool, optional): If True, get a segwit address. Default=False.
             **kwargs:
 
