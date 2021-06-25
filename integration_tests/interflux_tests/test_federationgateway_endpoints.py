@@ -49,14 +49,14 @@ def test_info(interflux_strax_node):
 @pytest.mark.integration_test
 @pytest.mark.interflux_integration_test
 def test_ip_add(interflux_strax_node):
-    response = interflux_strax_node.federation_gateway.ip_add(endpoint='127.0.0.1')
+    response = interflux_strax_node.federation_gateway.ip_add(ipaddr='127.0.0.1')
     assert isinstance(response, str)
 
 
 @pytest.mark.integration_test
 @pytest.mark.interflux_integration_test
 def test_ip_remove(interflux_strax_node):
-    response = interflux_strax_node.federation_gateway.ip_remove(endpoint='127.0.0.1')
+    response = interflux_strax_node.federation_gateway.ip_remove(ipaddr='127.0.0.1')
     assert isinstance(response, str)
 
 
@@ -64,8 +64,8 @@ def test_ip_remove(interflux_strax_node):
 @pytest.mark.interflux_integration_test
 def test_ip_replace(interflux_strax_node):
     response = interflux_strax_node.federation_gateway.ip_replace(
-        endpointtouse='127.0.0.2',
-        endpoint='127.0.0.1'
+        ipaddrtouse='127.0.0.2',
+        ipaddr='127.0.0.1'
     )
     assert isinstance(response, str)
 
