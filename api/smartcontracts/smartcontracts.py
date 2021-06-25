@@ -189,7 +189,7 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
                      amount: Union[Money, int, float, Decimal] = None,
                      outpoints: List[Outpoint] = None,
                      account_name: str = 'account 0',
-                     parameters: List[str] = None,
+                     parameters: List[Union[str, SmartContractParameter]] = None,
                      **kwargs) -> BuildContractTransactionModel:
         """Builds a transaction to create a smart contract.
 
@@ -253,7 +253,7 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
                    amount: Union[Money, int, float, Decimal] = None,
                    outpoints: List[Outpoint] = None,
                    account_name: str = 'account 0',
-                   parameters: List[str] = None,
+                   parameters: List[Union[str, SmartContractParameter]] = None,
                    **kwargs) -> BuildContractTransactionModel:
         """Builds a transaction to call a smart contract method.
 
@@ -313,9 +313,9 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
                           sender: Union[Address, str],
                           password: str,
                           wallet_name: str,
-                          outpoints: List[Outpoint],
                           recipients: List[Recipient],
                           op_return_data: str = None,
+                          outpoints: List[Outpoint] = None,
                           op_return_amount: Union[Money, int, float, Decimal] = None,
                           fee_type: str = None,
                           allow_unconfirmed: bool = False,
@@ -378,9 +378,9 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
     def estimate_fee(self,
                      sender: Union[Address, str],
                      wallet_name: str,
-                     outpoints: List[Outpoint],
                      recipients: List[Recipient],
                      fee_type: str,
+                     outpoints: List[Outpoint] = None,
                      allow_unconfirmed: bool = False,
                      shuffle_outputs: bool = False,
                      op_return_data: str = None,
@@ -394,7 +394,7 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
             sender (Address | str): The sender address.
             wallet_name (str): The wallet name.
             account_name (str, optional): The account name. Default='account 0'.
-            outpoints (List[Outpoint]): A list of the outpoints used to construct the transactation.
+            outpoints (List[Outpoint], optional): A list of the outpoints used to construct the transactation.
             recipients (List[Recipient]): A list of the recipients, including amounts, for the transaction.
             op_return_data (str, optional): OP_RETURN data to include with the transaction.
             op_return_amount (Money | int | float | Decimal, optional): Amount to burn in the OP_RETURN transaction.
@@ -442,7 +442,7 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
                               amount: Union[Money, int, float, Decimal] = None,
                               outpoints: List[Outpoint] = None,
                               account_name: str = 'account 0',
-                              parameters: List[str] = None,
+                              parameters: List[Union[str, SmartContractParameter]] = None,
                               **kwargs) -> BuildContractTransactionModel:
         """Builds a transaction to create a smart contract and then broadcasts.
 
@@ -506,7 +506,7 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
                             amount: Union[Money, int, float, Decimal] = None,
                             outpoints: List[Outpoint] = None,
                             account_name: str = 'account 0',
-                            parameters: List[str] = None,
+                            parameters: List[Union[str, SmartContractParameter]] = None,
                             **kwargs) -> BuildContractTransactionModel:
         """Biuilds a transaction to call a smart contract method and then broadcasts.
 
@@ -569,7 +569,7 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
                    gas_price: int,
                    gas_limit: int,
                    sender: Union[Address, str],
-                   parameters: List[str] = None,
+                   parameters: List[Union[str, SmartContractParameter]] = None,
                    **kwargs) -> LocalExecutionResultModel:
         """Makes a local call to a method on a smart contract that has been successfully deployed. The purpose is to query and test methods.
 
