@@ -6,9 +6,9 @@ class SendTransactionRequest(BaseModel):
     """A request model for multiple api endpoints.
 
     Args:
-        hex (hexstr): The hexified transaction.
+        transaction_hex (hexstr): The hexified transaction.
     """
-    hex: hexstr
+    transaction_hex: hexstr
 
     class Config:
         json_encoders = {

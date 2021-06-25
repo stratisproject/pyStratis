@@ -730,7 +730,7 @@ def test_syncfromdaterequest():
     }
     request_model = SyncFromDateRequest(
         date='2020-01-01T00:00:01',
-        all=True,
+        all_transactions=True,
         wallet_name='Test'
     )
     assert json.dumps(data) == request_model.json()
@@ -741,7 +741,7 @@ def test_syncrequest(generate_uint256):
         'hash': generate_uint256
     }
     request_model = SyncRequest(
-        hash=data['hash']
+        block_hash=data['hash']
     )
     assert json.dumps(data) == request_model.json()
 

@@ -6,8 +6,8 @@ class GetUnusedAccountRequest(Model):
     """A request model for the wallet/account endpoint.
 
     Args:
-        password: SecretStr
-        wallet_name: str = Field(alias='walletName')
+        password (str): The wallet password.
+        wallet_name (str): The wallet name.
     """
     password: SecretStr
     wallet_name: str = Field(alias='walletName')

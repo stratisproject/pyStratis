@@ -1,3 +1,4 @@
+from pydantic import Field
 from pybitcoin import Model
 from pybitcoin.types import uint256
 
@@ -6,6 +7,6 @@ class SyncRequest(Model):
     """A request model for the wallet/sync endpoint.
 
     Args:
-        hash_id: uint256
+        block_hash (uint256): The hash to start syncing from.
     """
-    hash_id: uint256
+    block_hash: uint256 = Field(alias='hash')

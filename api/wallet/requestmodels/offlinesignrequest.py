@@ -1,25 +1,25 @@
 from typing import Optional, List
 from pydantic import Field, SecretStr
 from pybitcoin import AddressDescriptor, Model, UtxoDescriptor
-from pybitcoin.types import Money
+from pybitcoin.types import Money, hexstr
 
 
 class OfflineSignRequest(Model):
     """A request model for the wallet/offline-sign-request endpoint.
 
     Args:
-        wallet_password: SecretStr = Field(alias='walletPassword')
-        wallet_name: str = Field(alias='walletName')
-        wallet_account: Optional[str] = Field(default='account 0', alias='walletAccount')
-        unsigned_transaction: Optional[str] = Field(alias='unsignedTransaction')
-        fee: Money
-        utxos: List[UtxoDescriptor]
-        addresses: List[AddressDescriptor]
+        wallet_password (str): The wallet password.
+        wallet_name (str): The wallet name.
+        wallet_account (str, optional): The account name. Default='account 0'.
+        unsigned_transaction (hexstr): The unsigned transaction hexstr.
+        fee (Money): The fee.
+        utxos (List[UtxoDescriptor]): A list of utxodescriptors.
+        addresses (List[AddressDescriptor]): A list of addresses to send transactions.
     """
     wallet_password: SecretStr = Field(alias='walletPassword')
     wallet_name: str = Field(alias='walletName')
     wallet_account: Optional[str] = Field(default='account 0', alias='walletAccount')
-    unsigned_transaction: Optional[str] = Field(alias='unsignedTransaction')
+    unsigned_transaction: hexstr = Field(alias='unsignedTransaction')
     fee: Money
     utxos: List[UtxoDescriptor]
     addresses: List[AddressDescriptor]

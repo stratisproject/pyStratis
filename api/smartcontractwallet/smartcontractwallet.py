@@ -237,7 +237,7 @@ class SmartContractWallet(APIRequest, metaclass=EndpointRegister):
         """
         if isinstance(transaction_hex, str):
             transaction_hex = hexstr(transaction_hex)
-        request_model = SendTransactionRequest(hex=transaction_hex)
+        request_model = SendTransactionRequest(transaction_hex=transaction_hex)
         data = self.post(request_model, **kwargs)
         for i in range(len(data['outputs'])):
             if 'address' in data['outputs'][i]:

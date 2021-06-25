@@ -492,7 +492,7 @@ def test_send_transaction(mocker: MockerFixture, network, fakeuri, generate_uint
     mocker.patch.object(Wallet, 'post', return_value=data)
     wallet = Wallet(network=network, baseuri=fakeuri)
 
-    response = wallet.send_transaction(hex=generate_hexstring(128))
+    response = wallet.send_transaction(transaction_hex=generate_hexstring(128))
 
     assert response == WalletSendTransactionModel(**data)
     # noinspection PyUnresolvedReferences

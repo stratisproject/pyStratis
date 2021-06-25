@@ -442,7 +442,6 @@ class ColdStaking(APIRequest, metaclass=EndpointRegister):
                                    wallet_password: str,
                                    amount: Union[Money, int, float, Decimal],
                                    fees: Union[Money, int, float, Decimal],
-                                   account_name: str = 'account 0',
                                    subtract_fee_from_amount: bool = True,
                                    **kwargs) -> Money:
         """Estimate the fee for a cold staking withdrawal transaction.
@@ -451,7 +450,6 @@ class ColdStaking(APIRequest, metaclass=EndpointRegister):
             receiving_address (Address | str): The receiving address.
             wallet_password (str): The wallet password.
             wallet_name (str): The wallet name.
-            account_name (str, optional): The account name. Default='account 0'.
             amount (Money | int | float | Decimal): The amount to withdraw to the receiving address.
             fees (Money | int | float | Decimal, optional): The amount paid in fees.
             subtract_fee_from_amount (bool, optional): If fee should be subtracted from amount. Default=True.
@@ -467,7 +465,6 @@ class ColdStaking(APIRequest, metaclass=EndpointRegister):
             receiving_address = Address(address=receiving_address, network=self._network)
         request_model = WithdrawalRequest(
             wallet_name=wallet_name,
-            account_name=account_name,
             wallet_password=wallet_password,
             receiving_address=receiving_address,
             fees=Money(fees),

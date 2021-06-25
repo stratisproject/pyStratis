@@ -8,7 +8,7 @@ class SignMessageRequest(Model):
 
     Args:
         wallet_name (str): The name of the wallet to sign message with.
-        password (SecretStr): The password of the wallet to sign message with.
+        password (str): The password of the wallet to sign message with.
         external_address (Address): The external address of a private key used to sign message.
         message (str): The message to be signed.
     """
