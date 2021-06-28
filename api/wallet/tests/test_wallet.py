@@ -236,8 +236,8 @@ def test_history(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address
                         ],
                         'fee': 10000,
                         'confirmedInBlock': 2,
-                        'timestamp': 'timestamp',
-                        'txOutputTime': 1,
+                        'timestamp': '1624800000',
+                        'txOutputTime': 1624800000,
                         'txOutputIndex': 0,
                         'blockIndex': 1
                     }

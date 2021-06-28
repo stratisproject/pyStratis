@@ -193,7 +193,7 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
             password (str): The password for the wallet.
             passphrase (str): The passphrase for the wallet.
             name (str): The name for the wallet.
-            creation_date (str, optional): An estimate of the wallet creation date.
+            creation_date (str | datetime, optional): An estimate of the wallet creation date.
             **kwargs:
 
         Returns:
@@ -223,7 +223,7 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
             extpubkey (ExtPubKey | str | hexstr): The extpubkey for the recovered wallet.
             account_index (int): The account index.
             name (str): The wallet name.
-            creation_date (str, optional): An estimate of the wallet creation date.
+            creation_date (str | datetime, optional): An estimate of the wallet creation date.
             **kwargs:
 
         Returns:

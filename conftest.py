@@ -268,7 +268,7 @@ def generate_ethereum_address() -> str:
 @pytest.fixture(scope='module')
 def generate_block_no_tx_data(generate_hexstring, generate_uint256) -> dict:
     data = {
-        "hash": generate_hexstring(128),
+        "hash": generate_uint256,
         "confirmations": randint(0, 200),
         "size": randint(0, 200),
         "weight": randint(0, 200),

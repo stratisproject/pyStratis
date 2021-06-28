@@ -1,11 +1,13 @@
 from pydantic import BaseModel, Field, conint
+from datetime import datetime
+from pybitcoin.types import uint256
 
 
 class MaturedBlockInfoModel(BaseModel):
     """A MaturedBlockInfoModel."""
-    block_hash: str = Field(alias='blockHash')
+    block_hash: uint256 = Field(alias='blockHash')
     block_height: conint(ge=0) = Field(alias='blockHeight')
-    block_time: conint(ge=0) = Field(alias='blockTime')
+    block_time: datetime = Field(alias='blockTime')
 
     class Config:
         allow_population_by_field_name = True

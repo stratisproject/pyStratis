@@ -2,6 +2,7 @@ from typing import Union, List
 from api import APIRequest, EndpointRegister, endpoint
 from api.blockstore.responsemodels import *
 from api.blockstore.requestmodels import *
+from pybitcoin import TransactionModel
 from pybitcoin.types import Address, hexstr, Money, uint256
 
 
@@ -34,7 +35,7 @@ class BlockStore(APIRequest, metaclass=EndpointRegister):
               block_hash: Union[uint256, str],
               show_transaction_details: bool = True,
               output_json: bool = True,
-              **kwargs) -> Union[BlockModel, hexstr, str]:
+              **kwargs) -> Union[BlockModel, BlockTransactionDetailsModel, hexstr, str]:
         """Retrieves the block which matches the supplied block hash.
 
         Args:
@@ -45,7 +46,7 @@ class BlockStore(APIRequest, metaclass=EndpointRegister):
             **kwargs:
 
         Returns:
-            Union[BlockModel, hexstr, str]
+            Union[BlockModel, BlockTransactionDetailsModel, hexstr, str]
 
         Raises:
             APIError
@@ -60,6 +61,7 @@ class BlockStore(APIRequest, metaclass=EndpointRegister):
             except ValueError:
                 return data
         if request_model.show_transaction_details:
+            data['transactions'] = [TransactionModel(**x) for x in data['transactions']]
             return BlockTransactionDetailsModel(**data)
         else:
             return BlockModel(**data)

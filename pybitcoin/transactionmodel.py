@@ -1,8 +1,9 @@
 from typing import Optional, List
+from datetime import datetime
 from pydantic import BaseModel, conint
+from pybitcoin.types import uint256, hexstr
 from .vin import VIn
 from .vout import VOut
-from pybitcoin.types import uint256, hexstr
 
 
 class TransactionModel(BaseModel):
@@ -19,8 +20,8 @@ class TransactionModel(BaseModel):
     vout: Optional[List[VOut]]
     blockhash: Optional[uint256]
     confirmations: Optional[int]
-    time: Optional[conint(ge=0)]
-    blocktime: Optional[conint(ge=0)]
+    time: Optional[datetime]
+    blocktime: Optional[datetime]
 
     class Config:
         allow_population_by_field_name = True

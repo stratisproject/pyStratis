@@ -1,10 +1,12 @@
+from datetime import datetime
 from typing import List, Optional
 from pydantic import Field, BaseModel
+from pybitcoin.types import uint256
 
 
 class BlockModel(BaseModel):
     """A BlockModel."""
-    hash: str
+    hash: uint256
     confirmations: int
     size: int
     weight: int
@@ -12,16 +14,16 @@ class BlockModel(BaseModel):
     version: int
     version_hex: str = Field(alias='versionHex')
     merkleroot: str
-    tx: Optional[List[str]]
-    time: int
-    median_time: int = Field(alias='mediantime')
+    tx: Optional[List[uint256]]
+    time: datetime
+    median_time: datetime = Field(alias='mediantime')
     nonce: int
     bits: str
     difficulty: float
     chainwork: str
     n_tx: int = Field(alias='nTx')
-    previous_blockhash: str = Field(alias='previousblockhash')
-    next_blockhash: Optional[str] = Field(alias='nextblockhash')
+    previous_blockhash: uint256 = Field(alias='previousblockhash')
+    next_blockhash: Optional[uint256] = Field(alias='nextblockhash')
     signature: Optional[str]
     modifier_v2: Optional[str] = Field(alias='modifierv2')
     flags: Optional[str]

@@ -1,12 +1,13 @@
 from typing import Optional
 from pydantic import BaseModel, Field, conint
+from datetime import datetime
 
 
 class WalletGeneralInfoModel(BaseModel):
     """A WalletGeneralInfoModel."""
     wallet_name: Optional[str] = Field(alias='walletName')
     network: str
-    creation_time: str = Field(alias='creationTime')
+    creation_time: datetime = Field(alias='creationTime')
     is_decrypted: bool = Field(alias='isDecrypted')
     last_block_synced_height: Optional[conint(ge=0)] = Field(alias='lastBlockSyncedHeight')
     chain_tip: Optional[conint(ge=0)] = Field(alias='chainTip')

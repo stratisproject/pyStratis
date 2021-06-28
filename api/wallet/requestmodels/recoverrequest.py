@@ -1,6 +1,7 @@
-from typing import Optional
+from typing import Optional, Union
 from pydantic import SecretStr, Field
 from pybitcoin import Model
+from datetime import datetime
 
 
 class RecoverRequest(Model):
@@ -11,10 +12,10 @@ class RecoverRequest(Model):
         password (str): The password for the wallet.
         passphrase (str): The passphrase for the wallet.
         name (str): The name for the wallet.
-        creation_date (str, optional): An estimate of the wallet creation date.
+        creation_date (str | datetime, optional): An estimate of the wallet creation date.
     """
     mnemonic: str
     password: SecretStr
     passphrase: SecretStr
     name: str
-    creation_date: Optional[str] = Field(default=None, alias='creationDate')
+    creation_date: Optional[Union[str, datetime]] = Field(default=None, alias='creationDate')
