@@ -68,12 +68,13 @@ another_extended_public_key = ExtPubKey(str(extended_public_key))
 assert extended_public_key == another_extended_public_key
 ```
 
-TESTING GUIDE
-- Unit tests: pytest -m "not integration_test"
-- Strax integration tests: pytest -m "strax_integration_test"
-- Cirrus integration tests: pytest -m "cirrus_integration_test"
-- Interflux integration tests: pytest -m "interflux_integration_test"
-- Integration tests: pytest -m "integration_test"  
-- Everything: pytest
-- Coverage: coverage run -m pytest
-- Coverage report: coverage report -m
+## Testing guide
+
+- Unit tests: `pytest -m "not integration_test"`
+- Strax integration tests: `pytest -m "strax_integration_test"`
+- Cirrus integration tests: `pytest -m "cirrus_integration_test"`
+- Interflux integration tests: `pytest -m "interflux_integration_test"`
+- Integration tests: `pytest -m "integration_test"`
+- Everything: `pytest`
+- Coverage: `coverage run -m pytest`
+- Coverage report: `coverage report -m`
