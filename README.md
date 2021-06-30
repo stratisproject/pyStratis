@@ -1,22 +1,5 @@
 # pystratis
-Unofficial python package for interacting with Stratis (STRAX) full node and Cirrus/Interflux sidechain.
-
-**Current version: 1.0.9.0** (shadows StratisFullNode)
-
-## Work in progress - TODO
-Status: 973 passed, 0 failed, 7 skipped.
-
-DONE
-- Pybitcoin networks, types and primatives. Status: All passed.
-- API request models and response models. Status: All passed.
-- Per endpoint unit tests. Status: All passed.
-- Strax integration testing. Status: All passed.
-- Cirrus integration testing. Status: All passed. 
-- Interflux integration testing. Status: All passed, 7 skipped due to regtest environment. 
-
-TODO
-- Improve documentation on request models and API methods.
-- Generate Sphinx documentation
+Python package for interacting with Stratis (STRAX) full node and Cirrus/Interflux sidechain.
 
 ## Basic models example
 
@@ -78,3 +61,7 @@ assert extended_public_key == another_extended_public_key
 - Everything: `pytest`
 - Coverage: `coverage run -m pytest`
 - Coverage report: `coverage report -m`
+
+# Credit
+
+Thanks goes to [@TjadenFroyda](https://github.com/tjadenfroyda) for his contributions in kickstarting this repositoriy.
