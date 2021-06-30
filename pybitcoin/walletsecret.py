@@ -2,7 +2,12 @@ from pydantic import BaseModel, Field, SecretStr
 
 
 class WalletSecret(BaseModel):
-    """A WalletSecret."""
+    """A model representing credentials of the wallet.
+    
+    Args:
+        wallet_name (str): The name of the wallet.
+        wallet_password (SecretStr): The password of the wallet.
+    """
     wallet_name: str = Field(alias='walletName')
     wallet_password: SecretStr = Field(alias='walletPassword')
 

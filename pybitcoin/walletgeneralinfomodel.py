@@ -4,7 +4,18 @@ from datetime import datetime
 
 
 class WalletGeneralInfoModel(BaseModel):
-    """A WalletGeneralInfoModel."""
+    """A model representing general wallet info.
+
+    Args:
+        wallet_name (str, optional): The name of the wallet.
+        network (str): The name of network this wallet operating on.
+        creation_time (str): The time this wallet was created.
+        is_decrypted (bool): Is wallet decrypted or not.
+        last_block_synced_height (int, optional): The height of the last block that was synced
+        chain_tip (int, optional): The total number of blocks.
+        is_chain_synced (bool): Whether the chain is synced with the network.
+        connected_nodes (int): The total number of nodes that we're connected to.
+    """
     wallet_name: Optional[str] = Field(alias='walletName')
     network: str
     creation_time: datetime = Field(alias='creationTime')

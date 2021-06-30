@@ -6,6 +6,7 @@ import base58
 
 class Key:
     """Type representing `private key`_.
+    A private key is a secret number, known only to the person that generated it.
 
     Corresponding type from StratisFullNode's implementation can be found here__.
 
