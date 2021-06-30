@@ -6,7 +6,7 @@ Python package for interacting with Stratis (STRAX) full node and Cirrus/Interfl
 ### Private key
 
 ```python
-from pybitcoin import Key
+from pyStratis import Key
 
 private_key = Key('5HwoXVkHoRM8sL2KmNRS217n1g8mPPBomrY7yehCuXC1115WWsh')
 same_private_key = Key(private_key.get_bytes())
@@ -19,7 +19,7 @@ assert str(private_key_from_str) == str(private_key_from_bytes)
 ### Public key
 
 ```python
-from pybitcoin import PubKey
+from pyStratis import PubKey
 
 pubkey_compressed = PubKey('034f355bdcb7cc0af728ef3cceb9615d90684bb5b2ca5f859ab0f0b704075871aa')
 pubkey_uncompressed = PubKey(pubkey_compressed.uncompressed())
@@ -31,7 +31,7 @@ assert pubkey_compressed.y == pubkey_uncompressed.y
 ### Extended private key
 
 ```python
-from pybitcoin import ExtKey
+from pyStratis import ExtKey
 
 extended_private_key = ExtKey('4Qzpnt5o8msy6thbuFEHTr4yFqp8yvywYBhrtHLJNKEHDhidjbCVvdjuXA2V9k6Bg39FJjfbqpasUmnNYBfZZY27')
 another_extended_private_key = ExtKey(extended_private_key.get_bytes())
@@ -43,7 +43,7 @@ assert extended_private_key.generate_chain_code_bytes() == another_extended_priv
 ### Extended public key
 
 ```python
-from pybitcoin import ExtPubKey
+from pyStratis import ExtPubKey
 
 extended_public_key = ExtPubKey('6FHa3pjLCk84BayeJxFW2SP4XRrFd1JYnxeLeU8EqN3vDfZmbqBqaGJAyiLjTAwm6ZLRQUMv1ZACTj37sR62cfN7fe5JnJ7dh8zL4fiyLHV')
 another_extended_public_key = ExtPubKey(str(extended_public_key))
