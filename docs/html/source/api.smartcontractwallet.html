@@ -1,0 +1,424 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>api.smartcontractwallet &mdash; PyStratis 1.0.9.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="RequestModels" href="api.smartcontractwallet.requestmodels.html" />
+    <link rel="prev" title="ResponseModels" href="api.smartcontracts.responsemodels.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> PyStratis
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Modules</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="api.html">api</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="api.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="api.addressbook.html">api.addressbook</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.balances.html">api.balances</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.blockstore.html">api.blockstore</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.coldstaking.html">api.coldstaking</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.collateral.html">api.collateral</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.collateralvoting.html">api.collateralvoting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.connectionmanager.html">api.connectionmanager</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.consensus.html">api.consensus</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.dashboard.html">api.dashboard</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.diagnostic.html">api.diagnostic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.federation.html">api.federation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.federationgateway.html">api.federationgateway</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.federationwallet.html">api.federationwallet</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.interop.html">api.interop</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.mempool.html">api.mempool</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.mining.html">api.mining</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.multisig.html">api.multisig</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.network.html">api.network</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.node.html">api.node</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.notifications.html">api.notifications</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.rpc.html">api.rpc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.signalr.html">api.signalr</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.smartcontracts.html">api.smartcontracts</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">api.smartcontractwallet</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.staking.html">api.staking</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.voting.html">api.voting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.wallet.html">api.wallet</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="nodes.html">nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pybitcoin.html">pybitcoin</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PyStratis</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="modules.html">pystratis</a> &raquo;</li>
+        
+          <li><a href="api.html">api</a> &raquo;</li>
+        
+      <li>api.smartcontractwallet</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/source/api.smartcontractwallet.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="api-smartcontractwallet">
+<h1>api.smartcontractwallet<a class="headerlink" href="#api-smartcontractwallet" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="smartcontractwallet">
+<h2>SmartContractWallet<a class="headerlink" href="#smartcontractwallet" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="api.smartcontractwallet.SmartContractWallet">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">api.smartcontractwallet.</span></span><span class="sig-name descname"><span class="pre">SmartContractWallet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.smartcontractwallet.SmartContractWallet" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py method">
+<dt class="sig sig-object py" id="api.smartcontractwallet.SmartContractWallet.account_addresses">
+<span class="sig-name descname"><span class="pre">account_addresses</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wallet_name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.address.Address" title="pybitcoin.types.address.Address"><span class="pre">pybitcoin.types.address.Address</span></a><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#api.smartcontractwallet.SmartContractWallet.account_addresses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets a smart contract account address.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>wallet_name</strong> (<em>str</em>) – The wallet name.</p></li>
+<li><p><strong>**kwargs</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List[Address]</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>APIError</strong> – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="api.smartcontractwallet.SmartContractWallet.address_balance">
+<span class="sig-name descname"><span class="pre">address_balance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">address</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.address.Address" title="pybitcoin.types.address.Address"><span class="pre">pybitcoin.types.address.Address</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.money.Money" title="pybitcoin.types.money.Money"><span class="pre">pybitcoin.types.money.Money</span></a><a class="headerlink" href="#api.smartcontractwallet.SmartContractWallet.address_balance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the balance at a specific wallet address in STRAX (or the sidechain coin).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>address</strong> (<em>Address | str</em>) – The smart contract address being queried.</p></li>
+<li><p><strong>**kwargs</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Money</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>APIError</strong> – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="api.smartcontractwallet.SmartContractWallet.history">
+<span class="sig-name descname"><span class="pre">history</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wallet_name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">address</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.address.Address" title="pybitcoin.types.address.Address"><span class="pre">pybitcoin.types.address.Address</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">take</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="api.smartcontractwallet.responsemodels.html#api.smartcontractwallet.responsemodels.contracttransactionitemmodel.ContractTransactionItemModel" title="api.smartcontractwallet.responsemodels.contracttransactionitemmodel.ContractTransactionItemModel"><span class="pre">api.smartcontractwallet.responsemodels.contracttransactionitemmodel.ContractTransactionItemModel</span></a><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#api.smartcontractwallet.SmartContractWallet.history" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the history of a specific wallet address.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>wallet_name</strong> (<em>str</em>) – The wallet name.</p></li>
+<li><p><strong>address</strong> (<em>Address | str</em>) – The address to query the history.</p></li>
+<li><p><strong>skip</strong> (<em>int</em><em>, </em><em>optional</em>) – Skip this many items. Default=0.</p></li>
+<li><p><strong>take</strong> (<em>int</em><em>, </em><em>optional</em>) – Take this many items.</p></li>
+<li><p><strong>**kwargs</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List[ContractTransactionItemModel]</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>APIError</strong> – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="api.smartcontractwallet.SmartContractWallet.create">
+<span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wallet_name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fee_amount</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.money.Money" title="pybitcoin.types.money.Money"><span class="pre">pybitcoin.types.money.Money</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">int</span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">decimal.Decimal</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contract_code</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.hexstr.hexstr" title="pybitcoin.types.hexstr.hexstr"><span class="pre">pybitcoin.types.hexstr.hexstr</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gas_price</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gas_limit</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sender</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.address.Address" title="pybitcoin.types.address.Address"><span class="pre">pybitcoin.types.address.Address</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amount</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.money.Money" title="pybitcoin.types.money.Money"><span class="pre">pybitcoin.types.money.Money</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">int</span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">decimal.Decimal</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outpoints</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="pybitcoin.html#pybitcoin.outpoint.Outpoint" title="pybitcoin.outpoint.Outpoint"><span class="pre">pybitcoin.outpoint.Outpoint</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">account_name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'account</span> <span class="pre">0'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.uint256.uint256" title="pybitcoin.types.uint256.uint256"><span class="pre">pybitcoin.types.uint256.uint256</span></a><a class="headerlink" href="#api.smartcontractwallet.SmartContractWallet.create" title="Permalink to this definition">¶</a></dt>
+<dd><p>Builds a transaction to create a smart contract and then broadcasts the transaction to the network.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>wallet_name</strong> (<em>str</em>) – The wallet name.</p></li>
+<li><p><strong>account_name</strong> (<em>str</em><em>, </em><em>optional</em>) – The wallet name. Default=’account 0’</p></li>
+<li><p><strong>outpoints</strong> (<em>List</em><em>[</em><a class="reference internal" href="pybitcoin.html#pybitcoin.outpoint.Outpoint" title="pybitcoin.outpoint.Outpoint"><em>Outpoint</em></a><em>]</em><em>, </em><em>optional</em>) – A list of the outpoints used to construct the transactation.</p></li>
+<li><p><strong>amount</strong> (<em>Money | int | float | Decimal</em><em>, </em><em>optional</em>) – The amount being sent.</p></li>
+<li><p><strong>fee_amount</strong> (<em>Money | int | float | Decimal</em>) – The fee amount.</p></li>
+<li><p><strong>password</strong> (<em>SecretStr</em>) – The password.</p></li>
+<li><p><strong>contract_code</strong> (<em>hexstr | str</em>) – The smart contract code hexstring.</p></li>
+<li><p><strong>gas_price</strong> (<em>int</em>) – The amount of gas being used in satoshis.</p></li>
+<li><p><strong>gas_limit</strong> (<em>int</em>) – The maximum amount of gas that can be used in satoshis.</p></li>
+<li><p><strong>sender</strong> (<em>Address | str</em>) – The address of the sending address.</p></li>
+<li><p><strong>parameters</strong> (<em>List</em><em>[</em><em>Union</em><em>[</em><a class="reference internal" href="pybitcoin.html#pybitcoin.smartcontractparameter.SmartContractParameter" title="pybitcoin.smartcontractparameter.SmartContractParameter"><em>SmartContractParameter</em></a><em>, </em><em>str</em><em>]</em><em>, </em><em>optional</em>) – A list of parameters for the smart contract.</p></li>
+<li><p><strong>**kwargs</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>uint256</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>APIError</strong> – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="api.smartcontractwallet.SmartContractWallet.call">
+<span class="sig-name descname"><span class="pre">call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wallet_name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fee_amount</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.money.Money" title="pybitcoin.types.money.Money"><span class="pre">pybitcoin.types.money.Money</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">int</span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">decimal.Decimal</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contract_address</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.address.Address" title="pybitcoin.types.address.Address"><span class="pre">pybitcoin.types.address.Address</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method_name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gas_price</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gas_limit</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sender</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.address.Address" title="pybitcoin.types.address.Address"><span class="pre">pybitcoin.types.address.Address</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amount</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.money.Money" title="pybitcoin.types.money.Money"><span class="pre">pybitcoin.types.money.Money</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">int</span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">decimal.Decimal</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outpoints</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="pybitcoin.html#pybitcoin.outpoint.Outpoint" title="pybitcoin.outpoint.Outpoint"><span class="pre">pybitcoin.outpoint.Outpoint</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">account_name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'account</span> <span class="pre">0'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="pybitcoin.html#pybitcoin.buildcontracttransactionmodel.BuildContractTransactionModel" title="pybitcoin.buildcontracttransactionmodel.BuildContractTransactionModel"><span class="pre">pybitcoin.buildcontracttransactionmodel.BuildContractTransactionModel</span></a><a class="headerlink" href="#api.smartcontractwallet.SmartContractWallet.call" title="Permalink to this definition">¶</a></dt>
+<dd><p>Builds a transaction to call a smart contract method and then broadcasts the transaction to the network.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>wallet_name</strong> (<em>str</em>) – The wallet name.</p></li>
+<li><p><strong>account_name</strong> (<em>str</em><em>, </em><em>optional</em>) – The wallet name. Default=’account 0’</p></li>
+<li><p><strong>outpoints</strong> (<em>List</em><em>[</em><a class="reference internal" href="pybitcoin.html#pybitcoin.outpoint.Outpoint" title="pybitcoin.outpoint.Outpoint"><em>Outpoint</em></a><em>]</em><em>, </em><em>optional</em>) – A list of the outpoints used to construct the transactation.</p></li>
+<li><p><strong>contract_address</strong> (<em>Address | str</em>) – The smart contract address being called.</p></li>
+<li><p><strong>method_name</strong> (<em>str</em>) – The method name being called.</p></li>
+<li><p><strong>amount</strong> (<em>Money | int | float | Decimal</em><em>, </em><em>optional</em>) – The amount being sent.</p></li>
+<li><p><strong>fee_amount</strong> (<em>Money | int | float | Decimal</em>) – The fee amount.</p></li>
+<li><p><strong>password</strong> (<em>SecretStr</em>) – The password.</p></li>
+<li><p><strong>gas_price</strong> (<em>int</em>) – The amount of gas being used in satoshis.</p></li>
+<li><p><strong>gas_limit</strong> (<em>int</em>) – The maximum amount of gas that can be used in satoshis.</p></li>
+<li><p><strong>sender</strong> (<em>Address | str</em>) – The address of the sending address.</p></li>
+<li><p><strong>parameters</strong> (<em>List</em><em>[</em><em>Union</em><em>[</em><a class="reference internal" href="pybitcoin.html#pybitcoin.smartcontractparameter.SmartContractParameter" title="pybitcoin.smartcontractparameter.SmartContractParameter"><em>SmartContractParameter</em></a><em>, </em><em>str</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – A list of parameters for the smart contract.</p></li>
+<li><p><strong>**kwargs</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>BuildContractTransactionModel</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>APIError</strong> – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="api.smartcontractwallet.SmartContractWallet.send_transaction">
+<span class="sig-name descname"><span class="pre">send_transaction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">transaction_hex</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.hexstr.hexstr" title="pybitcoin.types.hexstr.hexstr"><span class="pre">pybitcoin.types.hexstr.hexstr</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="pybitcoin.html#pybitcoin.walletsendtransactionmodel.WalletSendTransactionModel" title="pybitcoin.walletsendtransactionmodel.WalletSendTransactionModel"><span class="pre">pybitcoin.walletsendtransactionmodel.WalletSendTransactionModel</span></a><a class="headerlink" href="#api.smartcontractwallet.SmartContractWallet.send_transaction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Broadcasts a transaction, which either creates a smart contract or calls a method on a smart contract.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>transaction_hex</strong> (<a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.hexstr.hexstr" title="pybitcoin.types.hexstr.hexstr"><em>hexstr</em></a><em>, </em><em>str</em>) – The transaction hex string.</p></li>
+<li><p><strong>**kwargs</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>WalletSendTransactionModel</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>APIError</strong> – </p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api.smartcontractwallet.requestmodels.html">RequestModels</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.smartcontractwallet.requestmodels.html#module-api.smartcontractwallet.requestmodels.accountaddressesrequest">AccountAddressesRequest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.smartcontractwallet.requestmodels.html#module-api.smartcontractwallet.requestmodels.addressbalancerequest">AddressBalanceRequest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.smartcontractwallet.requestmodels.html#module-api.smartcontractwallet.requestmodels.callcontracttransactionrequest">CallContractTransactionRequest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.smartcontractwallet.requestmodels.html#module-api.smartcontractwallet.requestmodels.createtransactionrequest">CreateTransactionRequest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.smartcontractwallet.requestmodels.html#module-api.smartcontractwallet.requestmodels.historyrequest">HistoryRequest</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.smartcontractwallet.responsemodels.html">ResponseModels</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.smartcontractwallet.responsemodels.html#module-api.smartcontractwallet.responsemodels.contracttransactionitemmodel">ContractTransactionItemModel</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="api.smartcontractwallet.requestmodels.html" class="btn btn-neutral float-right" title="RequestModels" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="api.smartcontracts.responsemodels.html" class="btn btn-neutral float-left" title="ResponseModels" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Tjaden Froyda.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,749 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>api &mdash; PyStratis 1.0.9.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="api.addressbook" href="api.addressbook.html" />
+    <link rel="prev" title="pystratis" href="modules.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> PyStratis
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Modules</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">api</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.addressbook.html">api.addressbook</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.balances.html">api.balances</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.blockstore.html">api.blockstore</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.coldstaking.html">api.coldstaking</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.collateral.html">api.collateral</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.collateralvoting.html">api.collateralvoting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.connectionmanager.html">api.connectionmanager</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.consensus.html">api.consensus</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.dashboard.html">api.dashboard</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.diagnostic.html">api.diagnostic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.federation.html">api.federation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.federationgateway.html">api.federationgateway</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.federationwallet.html">api.federationwallet</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.interop.html">api.interop</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.mempool.html">api.mempool</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.mining.html">api.mining</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.multisig.html">api.multisig</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.network.html">api.network</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.node.html">api.node</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.notifications.html">api.notifications</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.rpc.html">api.rpc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.signalr.html">api.signalr</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.smartcontracts.html">api.smartcontracts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.smartcontractwallet.html">api.smartcontractwallet</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.staking.html">api.staking</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.voting.html">api.voting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.wallet.html">api.wallet</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="nodes.html">nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pybitcoin.html">pybitcoin</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PyStratis</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="modules.html">pystratis</a> &raquo;</li>
+        
+      <li>api</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/source/api.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="api">
+<h1>api<a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api.addressbook.html">api.addressbook</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.addressbook.html#addressbook">AddressBook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.addressbook.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api.addressbook.requestmodels.html">RequestModels</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.addressbook.requestmodels.html#module-api.addressbook.requestmodels.addrequest">AddRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.addressbook.requestmodels.html#module-api.addressbook.requestmodels.getrequest">GetRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.addressbook.requestmodels.html#module-api.addressbook.requestmodels.removerequest">RemoveRequest</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api.addressbook.responsemodels.html">ResponseModels</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.addressbook.responsemodels.html#module-api.addressbook.responsemodels.addressbookentrymodel">AddressBookEntryModel</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.balances.html">api.balances</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.balances.html#balances">Balances</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.balances.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api.balances.requestmodels.html">RequestModels</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.balances.requestmodels.html#module-api.balances.requestmodels.overamountatheightrequest">OverAmountAtHeightRequest</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.blockstore.html">api.blockstore</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.blockstore.html#blockstore">BlockStore</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.blockstore.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api.blockstore.requestmodels.html">RequestModels</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.blockstore.requestmodels.html#module-api.blockstore.requestmodels.blockrequest">BlockRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.blockstore.requestmodels.html#module-api.blockstore.requestmodels.getaddressesbalancesrequest">GetAddressesBalancesRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.blockstore.requestmodels.html#module-api.blockstore.requestmodels.getlastbalanceupdatetransactionrequest">GetLastBalanceUpdateTransactionRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.blockstore.requestmodels.html#module-api.blockstore.requestmodels.getutxosetrequest">GetUTXOSetRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.blockstore.requestmodels.html#module-api.blockstore.requestmodels.getverboseaddressesbalancesrequest">GetVerboseAddressesBalancesRequest</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api.blockstore.responsemodels.html">ResponseModels</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.blockstore.responsemodels.html#module-api.blockstore.responsemodels.addressbalancemodel">AddressBalanceModel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.blockstore.responsemodels.html#module-api.blockstore.responsemodels.addressindexertipmodel">AddressIndexerTipModel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.blockstore.responsemodels.html#module-api.blockstore.responsemodels.balancechangesmodel">BalanceChangesModel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.blockstore.responsemodels.html#module-api.blockstore.responsemodels.getaddressesbalancesmodel">GetAddressesBalancesModel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.blockstore.responsemodels.html#module-api.blockstore.responsemodels.getlastbalanceupdatetransactionmodel">GetLastBalanceUpdateTransactionModel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.blockstore.responsemodels.html#module-api.blockstore.responsemodels.getverboseaddressesbalancesmodel">GetVerboseAddressesBalancesModel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.blockstore.responsemodels.html#module-api.blockstore.responsemodels.utxomodel">UtxoModel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.blockstore.responsemodels.html#module-api.blockstore.responsemodels.verboseaddressbalancemodel">VerboseAddressBalanceModel</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.coldstaking.html">api.coldstaking</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.coldstaking.html#coldstaking">ColdStaking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.coldstaking.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api.coldstaking.requestmodels.html">RequestModels</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.coldstaking.requestmodels.html#module-api.coldstaking.requestmodels.accountrequest">AccountRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.coldstaking.requestmodels.html#module-api.coldstaking.requestmodels.addressrequest">AddressRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.coldstaking.requestmodels.html#module-api.coldstaking.requestmodels.inforequest">InfoRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.coldstaking.requestmodels.html#module-api.coldstaking.requestmodels.offlinewithdrawalfeeestimationrequest">OfflineWithdrawalFeeEstimationRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.coldstaking.requestmodels.html#module-api.coldstaking.requestmodels.offlinewithdrawalrequest">OfflineWithdrawalRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.coldstaking.requestmodels.html#module-api.coldstaking.requestmodels.setupofflinerequest">SetupOfflineRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.coldstaking.requestmodels.html#module-api.coldstaking.requestmodels.setuprequest">SetupRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.coldstaking.requestmodels.html#module-api.coldstaking.requestmodels.withdrawalrequest">WithdrawalRequest</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api.coldstaking.responsemodels.html">ResponseModels</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.coldstaking.responsemodels.html#module-api.coldstaking.responsemodels.accountmodel">AccountModel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.coldstaking.responsemodels.html#module-api.coldstaking.responsemodels.addressmodel">AddressModel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.coldstaking.responsemodels.html#module-api.coldstaking.responsemodels.infomodel">InfoModel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.coldstaking.responsemodels.html#module-api.coldstaking.responsemodels.setupmodel">SetupModel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.coldstaking.responsemodels.html#module-api.coldstaking.responsemodels.withdrawalmodel">WithdrawalModel</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.collateral.html">api.collateral</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.collateral.html#collateral">Collateral</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.collateral.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api.collateral.requestmodels.html">RequestModels</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.collateral.requestmodels.html#module-api.collateral.requestmodels.joinfederationrequest">JoinFederationRequest</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api.collateral.responsemodels.html">ResponseModels</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.collateral.responsemodels.html#module-api.collateral.responsemodels.joinfederationresponsemodel">JoinFederationResponseModel</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.collateralvoting.html">api.collateralvoting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.collateralvoting.html#collateralvoting">CollateralVoting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.collateralvoting.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api.collateralvoting.requestmodels.html">RequestModels</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.collateralvoting.requestmodels.html#module-api.collateralvoting.requestmodels.schedulevotekickfedmemberrequest">ScheduleVoteKickFedMemberRequest</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.connectionmanager.html">api.connectionmanager</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.connectionmanager.html#connectionmanager">ConnectionManager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.connectionmanager.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api.connectionmanager.requestmodels.html">RequestModels</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.connectionmanager.requestmodels.html#module-api.connectionmanager.requestmodels.addnoderequest">AddNodeRequest</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api.connectionmanager.responsemodels.html">ResponseModels</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.connectionmanager.responsemodels.html#module-api.connectionmanager.responsemodels.peerinfomodel">PeerInfoModel</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.consensus.html">api.consensus</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.consensus.html#consensus">Consensus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.consensus.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api.consensus.requestmodels.html">RequestModels</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.consensus.requestmodels.html#module-api.consensus.requestmodels.getblockhashrequest">GetBlockHashRequest</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api.consensus.responsemodels.html">ResponseModels</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.consensus.responsemodels.html#module-api.consensus.responsemodels.deploymentflagsmodel">DeploymentFlagsModel</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.dashboard.html">api.dashboard</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.dashboard.html#dashboard">Dashboard</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.diagnostic.html">api.diagnostic</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.diagnostic.html#diagnostic">Diagnostic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.diagnostic.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api.diagnostic.requestmodels.html">RequestModels</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.diagnostic.requestmodels.html#module-api.diagnostic.requestmodels.getpeerstatisticsrequest">GetPeerStatisticsRequest</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api.diagnostic.responsemodels.html">ResponseModels</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.diagnostic.responsemodels.html#module-api.diagnostic.responsemodels.connectedpeerinfomodel">ConnectedPeerInfoModel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.diagnostic.responsemodels.html#module-api.diagnostic.responsemodels.getconnectedpeersinfomodel">GetConnectedPeersInfoModel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.diagnostic.responsemodels.html#module-api.diagnostic.responsemodels.getstatusmodel">GetStatusModel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.diagnostic.responsemodels.html#module-api.diagnostic.responsemodels.peerstatisticsmodel">PeerStatisticsModel</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.federation.html">api.federation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.federation.html#federation">Federation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.federation.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api.federation.responsemodels.html">RequestModels</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.federation.responsemodels.html#module-api.federation.responsemodels.federationmemberdetailedmodel">FederationMemberDetailedModel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.federation.responsemodels.html#module-api.federation.responsemodels.federationmembermodel">FederationMemberModel</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.federationgateway.html">api.federationgateway</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.federationgateway.html#federationgateway">FederationGateway</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.federationgateway.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api.federationgateway.requestmodels.html">RequestModels</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.federationgateway.requestmodels.html#module-api.federationgateway.requestmodels.depositsrequest">DepositsRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.federationgateway.requestmodels.html#module-api.federationgateway.requestmodels.fullysignedtransferrequest">FullySignedTransferRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.federationgateway.requestmodels.html#module-api.federationgateway.requestmodels.memberipaddrequest">MemberIPAddRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.federationgateway.requestmodels.html#module-api.federationgateway.requestmodels.memberipremoverequest">MemberIPRemoveRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.federationgateway.requestmodels.html#module-api.federationgateway.requestmodels.memberipreplacerequest">MemberIPReplaceRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.federationgateway.requestmodels.html#module-api.federationgateway.requestmodels.pendingtransferrequest">PendingtransferRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.federationgateway.requestmodels.html#module-api.federationgateway.requestmodels.verifytransferrequest">VerifyTransferRequest</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api.federationgateway.responsemodels.html">ResponseModels</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.federationgateway.responsemodels.html#module-api.federationgateway.responsemodels.crosschaintransfermodel">CrosschainTransferModel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.federationgateway.responsemodels.html#module-api.federationgateway.responsemodels.federationgatewayinfomodel">FederationGatewayInfoModel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.federationgateway.responsemodels.html#module-api.federationgateway.responsemodels.federationmemberconnectioninfomodel">FederationMemberConnectionInfoModel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.federationgateway.responsemodels.html#module-api.federationgateway.responsemodels.federationmemberinfomodel">FederationMemberInfoModel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.federationgateway.responsemodels.html#module-api.federationgateway.responsemodels.maturedblockdepositsmodel">MaturedBlockDepositsModel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.federationgateway.responsemodels.html#module-api.federationgateway.responsemodels.serializableresult">SerializableResult</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.federationgateway.responsemodels.html#module-api.federationgateway.responsemodels.validatetransactionresultmodel">ValidateTransactionResultModel</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.federationwallet.html">api.federationwallet</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.federationwallet.html#federationwallet">FederationWallet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.federationwallet.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api.federationwallet.requestmodels.html">RequestModels</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.federationwallet.requestmodels.html#module-api.federationwallet.requestmodels.enablefederationrequest">EnableFederationRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.federationwallet.requestmodels.html#module-api.federationwallet.requestmodels.historyrequest">HistoryRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.federationwallet.requestmodels.html#module-api.federationwallet.requestmodels.removetransactionsrequest">RemoveTransactionsRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.federationwallet.requestmodels.html#module-api.federationwallet.requestmodels.syncrequest">SyncRequest</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api.federationwallet.responsemodels.html">ResponseModels</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.federationwallet.responsemodels.html#module-api.federationwallet.responsemodels.withdrawalmodel">WithdrawalModel</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.interop.html">api.interop</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.interop.html#interop">Interop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.interop.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api.interop.responsemodels.html">ResponseModels</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.interop.responsemodels.html#module-api.interop.responsemodels.conversionrequestmodel">ConversionRequestModel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.interop.responsemodels.html#module-api.interop.responsemodels.statusmodel">StatusModel</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.mempool.html">api.mempool</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.mempool.html#mempool">Mempool</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.mining.html">api.mining</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.mining.html#mining">Mining</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.mining.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api.mining.requestmodels.html">RequestModels</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.mining.requestmodels.html#module-api.mining.requestmodels.generaterequest">GenerateRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.mining.requestmodels.html#module-api.mining.requestmodels.stopminingrequest">StopMiningRequest</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api.mining.responsemodels.html">ResponseModels</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.mining.responsemodels.html#module-api.mining.responsemodels.generateblocksmodel">GenerateBlocksModel</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.multisig.html">api.multisig</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.multisig.html#multisig">Multisig</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.multisig.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api.multisig.requestmodels.html">RequestModels</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.multisig.requestmodels.html#module-api.multisig.requestmodels.buildtransactionrequest">BuildTransactionRequest</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.network.html">api.network</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.network.html#network">Network</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.network.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api.network.requestmodels.html">RequestModels</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.network.requestmodels.html#module-api.network.requestmodels.clearbannedrequest">ClearBannedRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.network.requestmodels.html#module-api.network.requestmodels.disconnectpeerrequest">DisconnectPeerRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.network.requestmodels.html#module-api.network.requestmodels.setbanrequest">SetBanRequest</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api.network.responsemodels.html">ResponseModels</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.network.responsemodels.html#module-api.network.responsemodels.bannedpeermodel">BannedPeerModel</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.node.html">api.node</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.node.html#node">Node</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.node.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api.node.requestmodels.html">RequestModels</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.node.requestmodels.html#module-api.node.requestmodels.decoderawtransactionrequest">DecodeRawTransactionRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.node.requestmodels.html#module-api.node.requestmodels.getblockheaderrequest">GetBlockHeaderRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.node.requestmodels.html#module-api.node.requestmodels.getrawtransactionrequest">GetRawTransactionRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.node.requestmodels.html#module-api.node.requestmodels.gettxoutproofrequest">GetTxOutProofRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.node.requestmodels.html#module-api.node.requestmodels.gettxoutrequest">GetTxOutRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.node.requestmodels.html#module-api.node.requestmodels.logrulesrequest">LogRulesRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.node.requestmodels.html#module-api.node.requestmodels.shutdownrequest">ShutdownRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.node.requestmodels.html#module-api.node.requestmodels.validateaddressrequest">ValidateAddressRequest</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api.node.responsemodels.html">ResponseModels</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.node.responsemodels.html#module-api.node.responsemodels.asyncloopsmodel">AsyncLoopsModel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.node.responsemodels.html#module-api.node.responsemodels.blockheadermodel">BlockHeaderModel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.node.responsemodels.html#module-api.node.responsemodels.connectedpeermodel">ConnectedPeerModel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.node.responsemodels.html#module-api.node.responsemodels.featuresdatamodel">FeaturesDataModel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.node.responsemodels.html#module-api.node.responsemodels.gettxoutmodel">GetTxOutModel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.node.responsemodels.html#module-api.node.responsemodels.logrulesmodel">LogRulesModel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.node.responsemodels.html#module-api.node.responsemodels.statusmodel">StatusModel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.node.responsemodels.html#module-api.node.responsemodels.validateaddressmodel">ValidateAddressModel</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.notifications.html">api.notifications</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.notifications.html#notifications">Notifications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.notifications.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api.notifications.requestmodels.html">RequestModels</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.notifications.requestmodels.html#module-api.notifications.requestmodels.syncrequest">SyncRequest</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.rpc.html">api.rpc</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.rpc.html#rpc">RPC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.rpc.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api.rpc.requestmodels.html">RequestModels</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.rpc.requestmodels.html#module-api.rpc.requestmodels.callbynamerequest">CallByNameRequest</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api.rpc.responsemodels.html">ResponseModels</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.rpc.responsemodels.html#module-api.rpc.responsemodels.rpccommandlistmodel">RPCCommandListModel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.rpc.responsemodels.html#module-api.rpc.responsemodels.rpccommandresponsemodel">RPCCommandResponseModel</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.signalr.html">api.signalr</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.signalr.html#signalr">SignalR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.signalr.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api.signalr.responsemodels.html">ResponseModels</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.signalr.responsemodels.html#module-api.signalr.responsemodels.getconnectioninfomodel">GetConnectionInfoModel</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.smartcontracts.html">api.smartcontracts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.smartcontracts.html#smartcontracts">SmartContracts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.smartcontracts.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api.smartcontracts.requestmodels.html">RequestModels</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.smartcontracts.requestmodels.html#module-api.smartcontracts.requestmodels.balancerequest">BalanceRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.smartcontracts.requestmodels.html#module-api.smartcontracts.requestmodels.balancesrequest">BalancesRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.smartcontracts.requestmodels.html#module-api.smartcontracts.requestmodels.buildandsendcallrequest">BuildAndSendCallRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.smartcontracts.requestmodels.html#module-api.smartcontracts.requestmodels.buildandsendcreaterequest">BuildAndSendCreateRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.smartcontracts.requestmodels.html#module-api.smartcontracts.requestmodels.buildcallcontracttransactionrequest">BuildCallContractTransactionRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.smartcontracts.requestmodels.html#module-api.smartcontracts.requestmodels.buildcreatecontracttransactionrequest">BuildCreateContractTransactionRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.smartcontracts.requestmodels.html#module-api.smartcontracts.requestmodels.buildtransactionrequest">BuildTransactionRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.smartcontracts.requestmodels.html#module-api.smartcontracts.requestmodels.coderequest">CodeRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.smartcontracts.requestmodels.html#module-api.smartcontracts.requestmodels.estimatefeerequest">EstimateFeeRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.smartcontracts.requestmodels.html#module-api.smartcontracts.requestmodels.localcallrequest">LocalCallRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.smartcontracts.requestmodels.html#module-api.smartcontracts.requestmodels.receiptrequest">ReceiptRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.smartcontracts.requestmodels.html#module-api.smartcontracts.requestmodels.receiptsearchrequest">ReceiptSearchRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.smartcontracts.requestmodels.html#module-api.smartcontracts.requestmodels.storagerequest">StorageRequest</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api.smartcontracts.responsemodels.html">ResponseModels</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.smartcontracts.responsemodels.html#module-api.smartcontracts.responsemodels.addressbalancemodel">AddressBalanceModel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.smartcontracts.responsemodels.html#module-api.smartcontracts.responsemodels.getcodemodel">GetCodeModel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.smartcontracts.responsemodels.html#module-api.smartcontracts.responsemodels.localexecutionresultmodel">LocalExecutionResultModel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.smartcontracts.responsemodels.html#module-api.smartcontracts.responsemodels.logmodel">LogModel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.smartcontracts.responsemodels.html#module-api.smartcontracts.responsemodels.receiptmodel">ReceiptModel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.smartcontracts.responsemodels.html#module-api.smartcontracts.responsemodels.transferinfomodel">TransferInfoModel</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.smartcontractwallet.html">api.smartcontractwallet</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.smartcontractwallet.html#smartcontractwallet">SmartContractWallet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.smartcontractwallet.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api.smartcontractwallet.requestmodels.html">RequestModels</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.smartcontractwallet.requestmodels.html#module-api.smartcontractwallet.requestmodels.accountaddressesrequest">AccountAddressesRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.smartcontractwallet.requestmodels.html#module-api.smartcontractwallet.requestmodels.addressbalancerequest">AddressBalanceRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.smartcontractwallet.requestmodels.html#module-api.smartcontractwallet.requestmodels.callcontracttransactionrequest">CallContractTransactionRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.smartcontractwallet.requestmodels.html#module-api.smartcontractwallet.requestmodels.createtransactionrequest">CreateTransactionRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.smartcontractwallet.requestmodels.html#module-api.smartcontractwallet.requestmodels.historyrequest">HistoryRequest</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api.smartcontractwallet.responsemodels.html">ResponseModels</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.smartcontractwallet.responsemodels.html#module-api.smartcontractwallet.responsemodels.contracttransactionitemmodel">ContractTransactionItemModel</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.staking.html">api.staking</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.staking.html#staking">Staking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.staking.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api.staking.requestmodels.html">RequestModels</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.staking.requestmodels.html#module-api.staking.requestmodels.startmultistakingrequest">StartMultiStakingRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.staking.requestmodels.html#module-api.staking.requestmodels.startstakingrequest">StartStakingRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.staking.requestmodels.html#module-api.staking.requestmodels.stopstakingrequest">StopStakingRequest</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api.staking.responsemodels.html">ResponseModels</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.staking.responsemodels.html#module-api.staking.responsemodels.getstakinginfomodel">GetStakingInfoModel</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.voting.html">api.voting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.voting.html#voting">Voting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.voting.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api.voting.requestmodels.html">RequestModels</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.voting.requestmodels.html#module-api.voting.requestmodels.pollsrequest">PollsRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.voting.requestmodels.html#module-api.voting.requestmodels.schedulevoteremovehashrequest">ScheduleVoteRemoveHashRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.voting.requestmodels.html#module-api.voting.requestmodels.schedulevotewhitelisthashrequest">ScheduleVoteWhitelistHashRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.voting.requestmodels.html#module-api.voting.requestmodels.votekey">VoteKey</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api.voting.responsemodels.html">ResponseModels</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.voting.responsemodels.html#module-api.voting.responsemodels.votingdatamodel">VotingDataModel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.voting.responsemodels.html#module-api.voting.responsemodels.whitelistedhashesmodel">WhitelistedHashesModel</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.wallet.html">api.wallet</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.wallet.html#wallet">Wallet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.wallet.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api.wallet.requestmodels.html">RequestModels</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.wallet.requestmodels.html#module-api.wallet.requestmodels.accountrequest">AccountRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.wallet.requestmodels.html#module-api.wallet.requestmodels.balancerequest">BalanceRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.wallet.requestmodels.html#module-api.wallet.requestmodels.buildinterfluxtransactionrequest">BuildInterfluxTransactionRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.wallet.requestmodels.html#module-api.wallet.requestmodels.buildofflinesignrequest">BuildOfflineSignRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.wallet.requestmodels.html#module-api.wallet.requestmodels.buildtransactionrequest">BuildTransactionRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.wallet.requestmodels.html#module-api.wallet.requestmodels.consolidaterequest">ConsolidateRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.wallet.requestmodels.html#module-api.wallet.requestmodels.createrequest">CreateRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.wallet.requestmodels.html#module-api.wallet.requestmodels.distributeutxosrequest">DistributeUTXOsRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.wallet.requestmodels.html#module-api.wallet.requestmodels.estimatetxfeerequest">EstimateTxFeeRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.wallet.requestmodels.html#module-api.wallet.requestmodels.extpubkeyrequest">ExtPubKeyRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.wallet.requestmodels.html#module-api.wallet.requestmodels.extpubrecoveryrequest">ExtPubRecoveryRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.wallet.requestmodels.html#module-api.wallet.requestmodels.generalinforequest">GeneralInfoRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.wallet.requestmodels.html#module-api.wallet.requestmodels.getaccountsrequest">GetAccountsRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.wallet.requestmodels.html#module-api.wallet.requestmodels.getaddressesrequest">GetAddressesRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.wallet.requestmodels.html#module-api.wallet.requestmodels.getnewaddressesrequest">GetNewAddressesRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.wallet.requestmodels.html#module-api.wallet.requestmodels.getunusedaccountrequest">GetUnusedAccountRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.wallet.requestmodels.html#module-api.wallet.requestmodels.getunusedaddressesrequest">GetUnusedAddressesRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.wallet.requestmodels.html#module-api.wallet.requestmodels.getunusedaddressrequest">GetUnusedAddressRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.wallet.requestmodels.html#module-api.wallet.requestmodels.historyrequest">HistoryRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.wallet.requestmodels.html#module-api.wallet.requestmodels.loadrequest">LoadRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.wallet.requestmodels.html#module-api.wallet.requestmodels.maxbalancerequest">MaxBalanceRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.wallet.requestmodels.html#module-api.wallet.requestmodels.mnemonicrequest">MnemonicRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.wallet.requestmodels.html#module-api.wallet.requestmodels.offlinesignrequest">OfflineSignRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.wallet.requestmodels.html#module-api.wallet.requestmodels.privatekeyrequest">PrivateKeyRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.wallet.requestmodels.html#module-api.wallet.requestmodels.pubkeyrequest">PubKeyRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.wallet.requestmodels.html#module-api.wallet.requestmodels.receivedbyaddressrequest">ReceivedByAddressRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.wallet.requestmodels.html#module-api.wallet.requestmodels.recoverrequest">RecoverRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.wallet.requestmodels.html#module-api.wallet.requestmodels.removetransactionsrequest">RemoveTransactionsRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.wallet.requestmodels.html#module-api.wallet.requestmodels.removewalletrequest">RemoveWalletRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.wallet.requestmodels.html#module-api.wallet.requestmodels.signmessagerequest">SignMessageRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.wallet.requestmodels.html#module-api.wallet.requestmodels.spendabletransactionrequest">SpendableTransactionRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.wallet.requestmodels.html#module-api.wallet.requestmodels.splitcoinsrequest">SplitCoinsRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.wallet.requestmodels.html#module-api.wallet.requestmodels.statsrequest">StatsRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.wallet.requestmodels.html#module-api.wallet.requestmodels.sweeprequest">SweepRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.wallet.requestmodels.html#module-api.wallet.requestmodels.syncfromdaterequest">SyncFromDateRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.wallet.requestmodels.html#module-api.wallet.requestmodels.syncrequest">SyncRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.wallet.requestmodels.html#module-api.wallet.requestmodels.verifymessagerequest">VerifyMessageRequest</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api.wallet.responsemodels.html">ResponseModels</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api.wallet.responsemodels.html#module-api.wallet.responsemodels.accounthistorymodel">AccountHistoryModel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.wallet.responsemodels.html#module-api.wallet.responsemodels.distributeutxomodel">DistributeUtxoModel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.wallet.responsemodels.html#module-api.wallet.responsemodels.maxspendableamountmodel">MaxSpendableAmountModel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.wallet.responsemodels.html#module-api.wallet.responsemodels.paymentdetailmodel">PaymentDetailModel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.wallet.responsemodels.html#module-api.wallet.responsemodels.spendabletransactionmodel">SpendableTransactionModel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.wallet.responsemodels.html#module-api.wallet.responsemodels.spendabletransactionsmodel">SpendableTransactionsModel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.wallet.responsemodels.html#module-api.wallet.responsemodels.transactionitemmodel">TransactionItemModel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.wallet.responsemodels.html#module-api.wallet.responsemodels.utxoamountmodel">UtxoAmountModel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.wallet.responsemodels.html#module-api.wallet.responsemodels.utxoperblockmodel">UtxoPerBlockModel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.wallet.responsemodels.html#module-api.wallet.responsemodels.utxopertransactionmodel">UtxoPerTransactionModel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.wallet.responsemodels.html#module-api.wallet.responsemodels.wallethistorymodel">WalletHistoryModel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.wallet.responsemodels.html#module-api.wallet.responsemodels.walletstatsmodel">WalletStatsModel</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="api.addressbook.html" class="btn btn-neutral float-right" title="api.addressbook" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="modules.html" class="btn btn-neutral float-left" title="pystratis" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Tjaden Froyda.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

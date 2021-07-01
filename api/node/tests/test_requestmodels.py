@@ -73,13 +73,14 @@ def test_logrulesrequest():
         'logRules': [
             {
                 'ruleName': 'TestRule',
-                'logLevel': 'Debug'
+                'logLevel': 'Debug',
+                'filename': 'filename'
             }
         ]
     }
     request_model = LogRulesRequest(
         log_rules=[
-            LogRule(rule_name='TestRule', log_level='Debug')
+            LogRule(rule_name='TestRule', log_level='Debug', filename='filename')
         ]
     )
     assert json.dumps(data) == request_model.json()

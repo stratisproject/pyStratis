@@ -1,0 +1,965 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>RequestModels &mdash; PyStratis 1.0.9.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="ResponseModels" href="api.wallet.responsemodels.html" />
+    <link rel="prev" title="api.wallet" href="api.wallet.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> PyStratis
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Modules</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="api.html">api</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="api.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="api.addressbook.html">api.addressbook</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.balances.html">api.balances</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.blockstore.html">api.blockstore</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.coldstaking.html">api.coldstaking</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.collateral.html">api.collateral</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.collateralvoting.html">api.collateralvoting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.connectionmanager.html">api.connectionmanager</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.consensus.html">api.consensus</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.dashboard.html">api.dashboard</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.diagnostic.html">api.diagnostic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.federation.html">api.federation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.federationgateway.html">api.federationgateway</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.federationwallet.html">api.federationwallet</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.interop.html">api.interop</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.mempool.html">api.mempool</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.mining.html">api.mining</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.multisig.html">api.multisig</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.network.html">api.network</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.node.html">api.node</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.notifications.html">api.notifications</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.rpc.html">api.rpc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.signalr.html">api.signalr</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.smartcontracts.html">api.smartcontracts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.smartcontractwallet.html">api.smartcontractwallet</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.staking.html">api.staking</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.voting.html">api.voting</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="api.wallet.html">api.wallet</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="nodes.html">nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pybitcoin.html">pybitcoin</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PyStratis</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="modules.html">pystratis</a> &raquo;</li>
+        
+          <li><a href="api.html">api</a> &raquo;</li>
+        
+          <li><a href="api.wallet.html">api.wallet</a> &raquo;</li>
+        
+      <li>RequestModels</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/source/api.wallet.requestmodels.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="requestmodels">
+<h1>RequestModels<a class="headerlink" href="#requestmodels" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-api.wallet.requestmodels.accountrequest">
+<span id="accountrequest"></span><h2>AccountRequest<a class="headerlink" href="#module-api.wallet.requestmodels.accountrequest" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="api.wallet.requestmodels.accountrequest.AccountRequest">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">api.wallet.requestmodels.accountrequest.</span></span><span class="sig-name descname"><span class="pre">AccountRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">WalletName</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">AccountName</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'account</span> <span class="pre">0'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.wallet.requestmodels.accountrequest.AccountRequest" title="Permalink to this definition">¶</a></dt>
+<dd><p>A request model for several wallet endpoints.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>wallet_name</strong> (<em>str</em>) – The wallet name.</p></li>
+<li><p><strong>account_name</strong> (<em>str</em><em>, </em><em>optional</em>) – The account name. Default=’account 0’.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-api.wallet.requestmodels.balancerequest">
+<span id="balancerequest"></span><h2>BalanceRequest<a class="headerlink" href="#module-api.wallet.requestmodels.balancerequest" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="api.wallet.requestmodels.balancerequest.BalanceRequest">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">api.wallet.requestmodels.balancerequest.</span></span><span class="sig-name descname"><span class="pre">BalanceRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">WalletName</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">AccountName</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'account</span> <span class="pre">0'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">IncludeBalanceByAddress</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.wallet.requestmodels.balancerequest.BalanceRequest" title="Permalink to this definition">¶</a></dt>
+<dd><p>A request model for the wallet/balance endpoint.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>wallet_name</strong> (<em>str</em>) – The wallet name.</p></li>
+<li><p><strong>account_name</strong> (<em>str</em><em>, </em><em>optional</em>) – The account name. Default=’account 0’.</p></li>
+<li><p><strong>include_balance_by_address</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, includes detailed information about balances by address. Default=False.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-api.wallet.requestmodels.buildinterfluxtransactionrequest">
+<span id="buildinterfluxtransactionrequest"></span><h2>BuildInterfluxTransactionRequest<a class="headerlink" href="#module-api.wallet.requestmodels.buildinterfluxtransactionrequest" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="api.wallet.requestmodels.buildinterfluxtransactionrequest.BuildInterfluxTransactionRequest">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">api.wallet.requestmodels.buildinterfluxtransactionrequest.</span></span><span class="sig-name descname"><span class="pre">BuildInterfluxTransactionRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">destinationChain</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.html#pybitcoin.destinationchain.DestinationChain" title="pybitcoin.destinationchain.DestinationChain"><span class="pre">pybitcoin.destinationchain.DestinationChain</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">destinationAddress</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.address.Address" title="pybitcoin.types.address.Address"><span class="pre">pybitcoin.types.address.Address</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">feeAmount</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.money.Money" title="pybitcoin.types.money.Money"><span class="pre">pybitcoin.types.money.Money</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pydantic.types.SecretStr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">segwitChangeAddress</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">walletName</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">accountName</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'account</span> <span class="pre">0'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outpoints</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="pybitcoin.html#pybitcoin.outpoint.Outpoint" title="pybitcoin.outpoint.Outpoint"><span class="pre">pybitcoin.outpoint.Outpoint</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recipients</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="pybitcoin.html#pybitcoin.recipient.Recipient" title="pybitcoin.recipient.Recipient"><span class="pre">pybitcoin.recipient.Recipient</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opReturnData</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opReturnAmount</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.money.Money" title="pybitcoin.types.money.Money"><span class="pre">pybitcoin.types.money.Money</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feeType</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allowUnconfirmed</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shuffleOutputs</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">changeAddress</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.address.Address" title="pybitcoin.types.address.Address"><span class="pre">pybitcoin.types.address.Address</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.wallet.requestmodels.buildinterfluxtransactionrequest.BuildInterfluxTransactionRequest" title="Permalink to this definition">¶</a></dt>
+<dd><p>A request model for the wallet/build-interflux-transaction endpoint.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>destination_chain</strong> (<em>int</em>) – Enumeration representing the destination chain.</p></li>
+<li><p><strong>destination_address</strong> (<a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.address.Address" title="pybitcoin.types.address.Address"><em>Address</em></a>) – The destination address.</p></li>
+<li><p><strong>fee_amount</strong> (<a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.money.Money" title="pybitcoin.types.money.Money"><em>Money</em></a><em>, </em><em>optional</em>) – The fee amount. Cannot be set with fee_type.</p></li>
+<li><p><strong>password</strong> (<em>str</em>) – The password.</p></li>
+<li><p><strong>segwit_change_address</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, the change address is a segwit address.</p></li>
+<li><p><strong>wallet_name</strong> (<em>str</em>) – The wallet name.</p></li>
+<li><p><strong>account_name</strong> (<em>str</em><em>, </em><em>optional</em>) – The account name. Default=’account 0’.</p></li>
+<li><p><strong>outpoints</strong> (<em>List</em><em>[</em><a class="reference internal" href="pybitcoin.html#pybitcoin.outpoint.Outpoint" title="pybitcoin.outpoint.Outpoint"><em>Outpoint</em></a><em>]</em>) – A list of outpoints to include in the transaction.</p></li>
+<li><p><strong>recipients</strong> (<em>List</em><em>[</em><a class="reference internal" href="pybitcoin.html#pybitcoin.recipient.Recipient" title="pybitcoin.recipient.Recipient"><em>Recipient</em></a><em>]</em>) – A list of recipients with amounts.</p></li>
+<li><p><strong>op_return_data</strong> (<em>str</em><em>, </em><em>optional</em>) – The OP_RETURN data.</p></li>
+<li><p><strong>op_return_amount</strong> (<a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.money.Money" title="pybitcoin.types.money.Money"><em>Money</em></a><em>, </em><em>optional</em>) – The amount to burn in OP_RETURN.</p></li>
+<li><p><strong>fee_type</strong> (<em>str</em><em>, </em><em>optional</em>) – The fee type. Allowed [low, medium, high]</p></li>
+<li><p><strong>allow_unconfirmed</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, includes unconfirmed outputs. Default=False.</p></li>
+<li><p><strong>shuffle_outputs</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, shuffle outputs. Default=False.</p></li>
+<li><p><strong>change_address</strong> (<a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.address.Address" title="pybitcoin.types.address.Address"><em>Address</em></a><em>, </em><em>optional</em>) – Specify a change address. If not set, a new change address is used.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-api.wallet.requestmodels.buildofflinesignrequest">
+<span id="buildofflinesignrequest"></span><h2>BuildOfflineSignRequest<a class="headerlink" href="#module-api.wallet.requestmodels.buildofflinesignrequest" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="api.wallet.requestmodels.buildofflinesignrequest.BuildOfflineSignRequest">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">api.wallet.requestmodels.buildofflinesignrequest.</span></span><span class="sig-name descname"><span class="pre">BuildOfflineSignRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feeAmount</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.money.Money" title="pybitcoin.types.money.Money"><span class="pre">pybitcoin.types.money.Money</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">walletName</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">accountName</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'account</span> <span class="pre">0'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outpoints</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="pybitcoin.html#pybitcoin.outpoint.Outpoint" title="pybitcoin.outpoint.Outpoint"><span class="pre">pybitcoin.outpoint.Outpoint</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recipients</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="pybitcoin.html#pybitcoin.recipient.Recipient" title="pybitcoin.recipient.Recipient"><span class="pre">pybitcoin.recipient.Recipient</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opReturnData</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opReturnAmount</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.money.Money" title="pybitcoin.types.money.Money"><span class="pre">pybitcoin.types.money.Money</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feeType</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allowUnconfirmed</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shuffleOutputs</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">changeAddress</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.address.Address" title="pybitcoin.types.address.Address"><span class="pre">pybitcoin.types.address.Address</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.wallet.requestmodels.buildofflinesignrequest.BuildOfflineSignRequest" title="Permalink to this definition">¶</a></dt>
+<dd><p>A request model for the wallet/build-offline-sign-request endpoint.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fee_amount</strong> (<a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.money.Money" title="pybitcoin.types.money.Money"><em>Money</em></a>) – The fee amount. Cannot be set with fee_type.</p></li>
+<li><p><strong>wallet_name</strong> (<em>str</em>) – The wallet name.</p></li>
+<li><p><strong>account_name</strong> (<em>str</em><em>, </em><em>optional</em>) – The account name. Default=’account 0’.</p></li>
+<li><p><strong>outpoints</strong> (<em>List</em><em>[</em><a class="reference internal" href="pybitcoin.html#pybitcoin.outpoint.Outpoint" title="pybitcoin.outpoint.Outpoint"><em>Outpoint</em></a><em>]</em>) – A list of outputs to use for the transaction.</p></li>
+<li><p><strong>recipients</strong> (<em>List</em><em>[</em><a class="reference internal" href="pybitcoin.html#pybitcoin.recipient.Recipient" title="pybitcoin.recipient.Recipient"><em>Recipient</em></a><em>]</em>) – A list of recipients, including amounts.</p></li>
+<li><p><strong>op_return_data</strong> (<em>str</em><em>, </em><em>optional</em>) – The OP_RETURN data.</p></li>
+<li><p><strong>op_return_amount</strong> (<a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.money.Money" title="pybitcoin.types.money.Money"><em>Money</em></a><em>, </em><em>optional</em>) – The amount to burn in OP_RETURN.</p></li>
+<li><p><strong>fee_type</strong> (<em>str</em><em>, </em><em>optional</em>) – The fee type. Allowed [low, medium, high]</p></li>
+<li><p><strong>allow_unconfirmed</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, includes unconfirmed outputs. Default=False.</p></li>
+<li><p><strong>shuffle_outputs</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, shuffle outputs. Default=False.</p></li>
+<li><p><strong>change_address</strong> (<a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.address.Address" title="pybitcoin.types.address.Address"><em>Address</em></a><em>, </em><em>optional</em>) – Specify a change address. If not set, a new change address is used.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-api.wallet.requestmodels.buildtransactionrequest">
+<span id="buildtransactionrequest"></span><h2>BuildTransactionRequest<a class="headerlink" href="#module-api.wallet.requestmodels.buildtransactionrequest" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="api.wallet.requestmodels.buildtransactionrequest.BuildTransactionRequest">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">api.wallet.requestmodels.buildtransactionrequest.</span></span><span class="sig-name descname"><span class="pre">BuildTransactionRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feeAmount</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.money.Money" title="pybitcoin.types.money.Money"><span class="pre">pybitcoin.types.money.Money</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pydantic.types.SecretStr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">segwitChangeAddress</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">walletName</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">accountName</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'account</span> <span class="pre">0'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outpoints</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="pybitcoin.html#pybitcoin.outpoint.Outpoint" title="pybitcoin.outpoint.Outpoint"><span class="pre">pybitcoin.outpoint.Outpoint</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recipients</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="pybitcoin.html#pybitcoin.recipient.Recipient" title="pybitcoin.recipient.Recipient"><span class="pre">pybitcoin.recipient.Recipient</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opReturnData</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opReturnAmount</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.money.Money" title="pybitcoin.types.money.Money"><span class="pre">pybitcoin.types.money.Money</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feeType</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allowUnconfirmed</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shuffleOutputs</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">changeAddress</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.address.Address" title="pybitcoin.types.address.Address"><span class="pre">pybitcoin.types.address.Address</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.wallet.requestmodels.buildtransactionrequest.BuildTransactionRequest" title="Permalink to this definition">¶</a></dt>
+<dd><p>A request model for the wallet/build-transaction endpoint.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fee_amount</strong> (<a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.money.Money" title="pybitcoin.types.money.Money"><em>Money</em></a><em>, </em><em>optional</em>) – The fee amount. Cannot be set with fee_type.</p></li>
+<li><p><strong>segwit_change_address</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, the change address is a segwit address. Default=False.</p></li>
+<li><p><strong>wallet_name</strong> (<em>str</em>) – The wallet name.</p></li>
+<li><p><strong>account_name</strong> (<em>str</em><em>, </em><em>optional</em>) – The account name. Default=’account 0’.</p></li>
+<li><p><strong>outpoints</strong> (<em>List</em><em>[</em><a class="reference internal" href="pybitcoin.html#pybitcoin.outpoint.Outpoint" title="pybitcoin.outpoint.Outpoint"><em>Outpoint</em></a><em>]</em>) – A list of outpoints to include in the transaction.</p></li>
+<li><p><strong>recipients</strong> (<em>List</em><em>[</em><a class="reference internal" href="pybitcoin.html#pybitcoin.recipient.Recipient" title="pybitcoin.recipient.Recipient"><em>Recipient</em></a><em>]</em>) – A list of recipients with amounts.</p></li>
+<li><p><strong>op_return_data</strong> (<em>str</em><em>, </em><em>optional</em>) – The OP_RETURN data.</p></li>
+<li><p><strong>op_return_amount</strong> (<a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.money.Money" title="pybitcoin.types.money.Money"><em>Money</em></a><em>, </em><em>optional</em>) – The amount to burn in OP_RETURN.</p></li>
+<li><p><strong>fee_type</strong> (<em>str</em><em>, </em><em>optional</em>) – The fee type. Allowed [low, medium, high]</p></li>
+<li><p><strong>allow_unconfirmed</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, includes unconfirmed outputs. Default=False.</p></li>
+<li><p><strong>shuffle_outputs</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, shuffle outputs. Default=False.</p></li>
+<li><p><strong>change_address</strong> (<a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.address.Address" title="pybitcoin.types.address.Address"><em>Address</em></a><em>, </em><em>optional</em>) – Specify a change address. If not set, a new change address is used.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-api.wallet.requestmodels.consolidaterequest">
+<span id="consolidaterequest"></span><h2>ConsolidateRequest<a class="headerlink" href="#module-api.wallet.requestmodels.consolidaterequest" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="api.wallet.requestmodels.consolidaterequest.ConsolidateRequest">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">api.wallet.requestmodels.consolidaterequest.</span></span><span class="sig-name descname"><span class="pre">ConsolidateRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">walletPassword</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pydantic.types.SecretStr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">walletName</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">walletAccount</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'account</span> <span class="pre">0'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">destinationAddress</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.address.Address" title="pybitcoin.types.address.Address"><span class="pre">pybitcoin.types.address.Address</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">utxoValueThreshold</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">api.wallet.requestmodels.consolidaterequest.ConstrainedIntValue</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">100000000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">broadcast</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.wallet.requestmodels.consolidaterequest.ConsolidateRequest" title="Permalink to this definition">¶</a></dt>
+<dd><p>A request model for the wallet/consolidate endpoint.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>wallet_password</strong> (<em>str</em>) – The wallet password.</p></li>
+<li><p><strong>wallet_name</strong> (<em>str</em>) – The wallet name.</p></li>
+<li><p><strong>wallet_account</strong> (<em>str</em><em>, </em><em>optional</em>) – The account name. Default=’account 0’.</p></li>
+<li><p><strong>destination_address</strong> (<a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.address.Address" title="pybitcoin.types.address.Address"><em>Address</em></a>) – The destination address.</p></li>
+<li><p><strong>utxo_value_threshold_in_satoshis</strong> (<em>conint</em><em>(</em><em>ge=1_0000_0000</em><em>)</em>) – The threshold where amounts below this amount will be consolidated.</p></li>
+<li><p><strong>broadcast</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, broadcast consolidation transaction. Default=False.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-api.wallet.requestmodels.createrequest">
+<span id="createrequest"></span><h2>CreateRequest<a class="headerlink" href="#module-api.wallet.requestmodels.createrequest" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="api.wallet.requestmodels.createrequest.CreateRequest">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">api.wallet.requestmodels.createrequest.</span></span><span class="sig-name descname"><span class="pre">CreateRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mnemonic</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pydantic.types.SecretStr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">passphrase</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pydantic.types.SecretStr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.wallet.requestmodels.createrequest.CreateRequest" title="Permalink to this definition">¶</a></dt>
+<dd><p>A request model used for the /wallet/create endpoint.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mnemonic</strong> (<em>str</em><em>, </em><em>optional</em>) – The mnemonic used to create a HD wallet. If not specified, it will be randomly generated underhood.</p></li>
+<li><p><strong>password</strong> (<em>str</em>) – The password for wallet to be created.</p></li>
+<li><p><strong>passphrase</strong> (<em>str</em>) – The passphrase used in master key generation.</p></li>
+<li><p><strong>name</strong> – (str): The name for a wallet to be created.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-api.wallet.requestmodels.distributeutxosrequest">
+<span id="distributeutxosrequest"></span><h2>DistributeUTXOsRequest<a class="headerlink" href="#module-api.wallet.requestmodels.distributeutxosrequest" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="api.wallet.requestmodels.distributeutxosrequest.DistributeUTXOsRequest">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">api.wallet.requestmodels.distributeutxosrequest.</span></span><span class="sig-name descname"><span class="pre">DistributeUTXOsRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">walletName</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">accountName</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'account</span> <span class="pre">0'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">walletPassword</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pydantic.types.SecretStr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">useUniqueAddressPerUtxo</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reuseAddresses</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">useChangeAddresses</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">utxosCount</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">api.wallet.requestmodels.distributeutxosrequest.ConstrainedIntValue</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">utxoPerTransaction</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">api.wallet.requestmodels.distributeutxosrequest.ConstrainedIntValue</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestampDifferenceBetweenTransactions</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">api.wallet.requestmodels.distributeutxosrequest.ConstrainedIntValue</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minConfirmations</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">api.wallet.requestmodels.distributeutxosrequest.ConstrainedIntValue</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outpoints</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="pybitcoin.html#pybitcoin.outpoint.Outpoint" title="pybitcoin.outpoint.Outpoint"><span class="pre">pybitcoin.outpoint.Outpoint</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dryRun</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.wallet.requestmodels.distributeutxosrequest.DistributeUTXOsRequest" title="Permalink to this definition">¶</a></dt>
+<dd><p>A request model for the wallet/distribute-utxos endpoint.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>wallet_name</strong> (<em>str</em>) – The wallet name.</p></li>
+<li><p><strong>account_name</strong> (<em>str</em><em>, </em><em>optional</em>) – The account name. Default=’account 0’.</p></li>
+<li><p><strong>wallet_password</strong> (<em>str</em>) – The wallet password.</p></li>
+<li><p><strong>use_unique_address_per_utxo</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, uses a unique address for each utxo. Default=True.</p></li>
+<li><p><strong>reuse_addresses</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, reuses addresses. Default=True.</p></li>
+<li><p><strong>use_change_addresses</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, use change addresses. Default=False.</p></li>
+<li><p><strong>utxos_count</strong> (<em>conint</em><em>(</em><em>ge=0</em><em>)</em>) – The number of utxos to create.</p></li>
+<li><p><strong>utxo_per_transaction</strong> (<em>conint</em><em>(</em><em>ge=0</em><em>)</em>) – The number of utxos per transaction.</p></li>
+<li><p><strong>timestamp_difference_between_transactions</strong> (<em>conint</em><em>(</em><em>ge=0</em><em>)</em><em>, </em><em>optional</em>) – The number of seconds between transactions. Default=0.</p></li>
+<li><p><strong>min_confirmations</strong> (<em>conint</em><em>(</em><em>ge=0</em><em>)</em><em>, </em><em>optional</em>) – The minimum number of confirmations to include in transaction. Default=0.</p></li>
+<li><p><strong>outpoints</strong> (<em>List</em><em>[</em><a class="reference internal" href="pybitcoin.html#pybitcoin.outpoint.Outpoint" title="pybitcoin.outpoint.Outpoint"><em>Outpoint</em></a><em>]</em>) – A list of outpoints to include in the transaction.</p></li>
+<li><p><strong>dry_run</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, simulate transaction. Default=True.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-api.wallet.requestmodels.estimatetxfeerequest">
+<span id="estimatetxfeerequest"></span><h2>EstimateTxFeeRequest<a class="headerlink" href="#module-api.wallet.requestmodels.estimatetxfeerequest" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="api.wallet.requestmodels.estimatetxfeerequest.EstimateTxFeeRequest">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">api.wallet.requestmodels.estimatetxfeerequest.</span></span><span class="sig-name descname"><span class="pre">EstimateTxFeeRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">walletName</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">accountName</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'account</span> <span class="pre">0'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outpoints</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="pybitcoin.html#pybitcoin.outpoint.Outpoint" title="pybitcoin.outpoint.Outpoint"><span class="pre">pybitcoin.outpoint.Outpoint</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recipients</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="pybitcoin.html#pybitcoin.recipient.Recipient" title="pybitcoin.recipient.Recipient"><span class="pre">pybitcoin.recipient.Recipient</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opReturnData</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opReturnAmount</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.money.Money" title="pybitcoin.types.money.Money"><span class="pre">pybitcoin.types.money.Money</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feeType</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allowUnconfirmed</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shuffleOutputs</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">changeAddress</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.address.Address" title="pybitcoin.types.address.Address"><span class="pre">pybitcoin.types.address.Address</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.wallet.requestmodels.estimatetxfeerequest.EstimateTxFeeRequest" title="Permalink to this definition">¶</a></dt>
+<dd><p>A request model for the wallet/estimate-txfee endpoint.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>wallet_name</strong> (<em>str</em>) – The wallet name.</p></li>
+<li><p><strong>account_name</strong> (<em>str</em><em>, </em><em>optional</em>) – The account name. Default=’account 0’.</p></li>
+<li><p><strong>outpoints</strong> (<em>List</em><em>[</em><a class="reference internal" href="pybitcoin.html#pybitcoin.outpoint.Outpoint" title="pybitcoin.outpoint.Outpoint"><em>Outpoint</em></a><em>]</em>) – A list of outpoints to include in the transaction.</p></li>
+<li><p><strong>recipients</strong> (<em>List</em><em>[</em><a class="reference internal" href="pybitcoin.html#pybitcoin.recipient.Recipient" title="pybitcoin.recipient.Recipient"><em>Recipient</em></a><em>]</em>) – A list of recipients with amounts.</p></li>
+<li><p><strong>op_return_data</strong> (<em>str</em><em>, </em><em>optional</em>) – The OP_RETURN data.</p></li>
+<li><p><strong>op_return_amount</strong> (<a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.money.Money" title="pybitcoin.types.money.Money"><em>Money</em></a><em>, </em><em>optional</em>) – The amount to burn in OP_RETURN.</p></li>
+<li><p><strong>fee_type</strong> (<em>str</em><em>, </em><em>optional</em>) – The fee type. Allowed [low, medium, high]</p></li>
+<li><p><strong>allow_unconfirmed</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, includes unconfirmed outputs. Default=False.</p></li>
+<li><p><strong>shuffle_outputs</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, shuffle outputs. Default=False.</p></li>
+<li><p><strong>change_address</strong> (<a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.address.Address" title="pybitcoin.types.address.Address"><em>Address</em></a><em>, </em><em>optional</em>) – Specify a change address. If not set, a new change address is used.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-api.wallet.requestmodels.extpubkeyrequest">
+<span id="extpubkeyrequest"></span><h2>ExtPubKeyRequest<a class="headerlink" href="#module-api.wallet.requestmodels.extpubkeyrequest" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="api.wallet.requestmodels.extpubkeyrequest.ExtPubKeyRequest">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">api.wallet.requestmodels.extpubkeyrequest.</span></span><span class="sig-name descname"><span class="pre">ExtPubKeyRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">WalletName</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">AccountName</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'account</span> <span class="pre">0'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.wallet.requestmodels.extpubkeyrequest.ExtPubKeyRequest" title="Permalink to this definition">¶</a></dt>
+<dd><p>A request model for the wallet/extpubkey endpoint.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>wallet_name</strong> (<em>str</em>) – The wallet name.</p></li>
+<li><p><strong>account_name</strong> (<em>str</em><em>, </em><em>optional</em>) – The account name. Default=’account 0’.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-api.wallet.requestmodels.extpubrecoveryrequest">
+<span id="extpubrecoveryrequest"></span><h2>ExtPubRecoveryRequest<a class="headerlink" href="#module-api.wallet.requestmodels.extpubrecoveryrequest" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="api.wallet.requestmodels.extpubrecoveryrequest.ExtPubRecoveryRequest">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">api.wallet.requestmodels.extpubrecoveryrequest.</span></span><span class="sig-name descname"><span class="pre">ExtPubRecoveryRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extPubKey</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.html#pybitcoin.extpubkey.ExtPubKey" title="pybitcoin.extpubkey.ExtPubKey"><span class="pre">pybitcoin.extpubkey.ExtPubKey</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">accountIndex</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">api.wallet.requestmodels.extpubrecoveryrequest.ConstrainedIntValue</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">creationDate</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">datetime.datetime</span><span class="p"><span class="pre">,</span> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.wallet.requestmodels.extpubrecoveryrequest.ExtPubRecoveryRequest" title="Permalink to this definition">¶</a></dt>
+<dd><p>A request model for the wallet/recover-via-extpubkey endpoint.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>extpubkey</strong> (<a class="reference internal" href="pybitcoin.html#pybitcoin.extpubkey.ExtPubKey" title="pybitcoin.extpubkey.ExtPubKey"><em>ExtPubKey</em></a>) – The extpubkey for the recovered wallet.</p></li>
+<li><p><strong>account_index</strong> (<em>conint</em><em>(</em><em>ge=0</em><em>)</em>) – The account index.</p></li>
+<li><p><strong>name</strong> (<em>str</em>) – The wallet name.</p></li>
+<li><p><strong>creation_date</strong> (<em>str | datetime</em><em>, </em><em>optional</em>) – An estimate of the wallet creation date.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-api.wallet.requestmodels.generalinforequest">
+<span id="generalinforequest"></span><h2>GeneralInfoRequest<a class="headerlink" href="#module-api.wallet.requestmodels.generalinforequest" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="api.wallet.requestmodels.generalinforequest.GeneralInfoRequest">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">api.wallet.requestmodels.generalinforequest.</span></span><span class="sig-name descname"><span class="pre">GeneralInfoRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.wallet.requestmodels.generalinforequest.GeneralInfoRequest" title="Permalink to this definition">¶</a></dt>
+<dd><p>A request model for the wallet/general-info endpoint.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> (<em>str</em>) – The wallet name.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-api.wallet.requestmodels.getaccountsrequest">
+<span id="getaccountsrequest"></span><h2>GetAccountsRequest<a class="headerlink" href="#module-api.wallet.requestmodels.getaccountsrequest" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="api.wallet.requestmodels.getaccountsrequest.GetAccountsRequest">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">api.wallet.requestmodels.getaccountsrequest.</span></span><span class="sig-name descname"><span class="pre">GetAccountsRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">WalletName</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.wallet.requestmodels.getaccountsrequest.GetAccountsRequest" title="Permalink to this definition">¶</a></dt>
+<dd><p>A request model for the wallet/accounts endpoint.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>wallet_name</strong> (<em>str</em>) – The wallet name.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-api.wallet.requestmodels.getaddressesrequest">
+<span id="getaddressesrequest"></span><h2>GetAddressesRequest<a class="headerlink" href="#module-api.wallet.requestmodels.getaddressesrequest" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="api.wallet.requestmodels.getaddressesrequest.GetAddressesRequest">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">api.wallet.requestmodels.getaddressesrequest.</span></span><span class="sig-name descname"><span class="pre">GetAddressesRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">WalletName</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">AccountName</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'account</span> <span class="pre">0'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Segwit</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.wallet.requestmodels.getaddressesrequest.GetAddressesRequest" title="Permalink to this definition">¶</a></dt>
+<dd><p>A request model for the wallet/addresses endpoint.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>wallet_name</strong> (<em>str</em>) – The wallet name.</p></li>
+<li><p><strong>account_name</strong> (<em>str</em><em>, </em><em>optional</em>) – The account name. Default=’account 0’.</p></li>
+<li><p><strong>segwit</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, gets a segwit address. Default=False.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-api.wallet.requestmodels.getnewaddressesrequest">
+<span id="getnewaddressesrequest"></span><h2>GetNewAddressesRequest<a class="headerlink" href="#module-api.wallet.requestmodels.getnewaddressesrequest" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="api.wallet.requestmodels.getnewaddressesrequest.GetNewAddressesRequest">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">api.wallet.requestmodels.getnewaddressesrequest.</span></span><span class="sig-name descname"><span class="pre">GetNewAddressesRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">WalletName</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">AccountName</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'account</span> <span class="pre">0'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Count</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">api.wallet.requestmodels.getnewaddressesrequest.ConstrainedIntValue</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Segwit</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.wallet.requestmodels.getnewaddressesrequest.GetNewAddressesRequest" title="Permalink to this definition">¶</a></dt>
+<dd><p>A request model for the wallet/newaddresses endpoint.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>wallet_name</strong> (<em>str</em>) – The wallet name.</p></li>
+<li><p><strong>account_name</strong> (<em>str</em><em>, </em><em>optional</em>) – The account name. Default=’account 0’.</p></li>
+<li><p><strong>count</strong> (<em>conint</em><em>(</em><em>ge=1</em><em>)</em>) – The number of addresses to get.</p></li>
+<li><p><strong>segwit</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, get a segwit address. Default=False.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-api.wallet.requestmodels.getunusedaccountrequest">
+<span id="getunusedaccountrequest"></span><h2>GetUnusedAccountRequest<a class="headerlink" href="#module-api.wallet.requestmodels.getunusedaccountrequest" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="api.wallet.requestmodels.getunusedaccountrequest.GetUnusedAccountRequest">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">api.wallet.requestmodels.getunusedaccountrequest.</span></span><span class="sig-name descname"><span class="pre">GetUnusedAccountRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pydantic.types.SecretStr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">walletName</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.wallet.requestmodels.getunusedaccountrequest.GetUnusedAccountRequest" title="Permalink to this definition">¶</a></dt>
+<dd><p>A request model for the wallet/account endpoint.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>password</strong> (<em>str</em>) – The wallet password.</p></li>
+<li><p><strong>wallet_name</strong> (<em>str</em>) – The wallet name.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-api.wallet.requestmodels.getunusedaddressesrequest">
+<span id="getunusedaddressesrequest"></span><h2>GetUnusedAddressesRequest<a class="headerlink" href="#module-api.wallet.requestmodels.getunusedaddressesrequest" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="api.wallet.requestmodels.getunusedaddressesrequest.GetUnusedAddressesRequest">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">api.wallet.requestmodels.getunusedaddressesrequest.</span></span><span class="sig-name descname"><span class="pre">GetUnusedAddressesRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">WalletName</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">AccountName</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'account</span> <span class="pre">0'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Count</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">api.wallet.requestmodels.getunusedaddressesrequest.ConstrainedIntValue</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Segwit</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.wallet.requestmodels.getunusedaddressesrequest.GetUnusedAddressesRequest" title="Permalink to this definition">¶</a></dt>
+<dd><p>A request model for the wallet/unusedaddresses endpoint.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>wallet_name</strong> (<em>str</em>) – The wallet name.</p></li>
+<li><p><strong>account_name</strong> (<em>str</em><em>, </em><em>optional</em>) – The account name. Default=’account 0’.</p></li>
+<li><p><strong>count</strong> (<em>conint</em><em>(</em><em>ge=1</em><em>)</em>) – The number of addresses to get.</p></li>
+<li><p><strong>segwit</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, get a segwit address. Default=False.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-api.wallet.requestmodels.getunusedaddressrequest">
+<span id="getunusedaddressrequest"></span><h2>GetUnusedAddressRequest<a class="headerlink" href="#module-api.wallet.requestmodels.getunusedaddressrequest" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="api.wallet.requestmodels.getunusedaddressrequest.GetUnusedAddressRequest">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">api.wallet.requestmodels.getunusedaddressrequest.</span></span><span class="sig-name descname"><span class="pre">GetUnusedAddressRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">WalletName</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">AccountName</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'account</span> <span class="pre">0'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Segwit</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.wallet.requestmodels.getunusedaddressrequest.GetUnusedAddressRequest" title="Permalink to this definition">¶</a></dt>
+<dd><p>A request model for the wallet/unusedaddress endpoint.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>wallet_name</strong> (<em>str</em>) – The wallet name.</p></li>
+<li><p><strong>account_name</strong> (<em>str</em><em>, </em><em>optional</em>) – The account name. Default=’account 0’.</p></li>
+<li><p><strong>segwit</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, get a segwit address. Default=False.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-api.wallet.requestmodels.historyrequest">
+<span id="historyrequest"></span><h2>HistoryRequest<a class="headerlink" href="#module-api.wallet.requestmodels.historyrequest" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="api.wallet.requestmodels.historyrequest.HistoryRequest">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">api.wallet.requestmodels.historyrequest.</span></span><span class="sig-name descname"><span class="pre">HistoryRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">WalletName</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">AccountName</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'account</span> <span class="pre">0'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Address</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.address.Address" title="pybitcoin.types.address.Address"><span class="pre">pybitcoin.types.address.Address</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Skip</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">api.wallet.requestmodels.historyrequest.ConstrainedIntValue</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Take</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">api.wallet.requestmodels.historyrequest.ConstrainedIntValue</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">PrevOutputTxTime</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">api.wallet.requestmodels.historyrequest.ConstrainedIntValue</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">PrevOutputIndex</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">api.wallet.requestmodels.historyrequest.ConstrainedIntValue</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">SearchQuery</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.wallet.requestmodels.historyrequest.HistoryRequest" title="Permalink to this definition">¶</a></dt>
+<dd><p>A request model for the wallet/history endpoint.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>wallet_name</strong> (<em>str</em>) – The wallet name.</p></li>
+<li><p><strong>account_name</strong> (<em>str</em><em>, </em><em>optional</em>) – The account name. Default=’account 0’.</p></li>
+<li><p><strong>address</strong> (<a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.address.Address" title="pybitcoin.types.address.Address"><em>Address</em></a><em>, </em><em>optional</em>) – The address to query the history.</p></li>
+<li><p><strong>skip</strong> (<em>conint</em><em>(</em><em>ge=0</em><em>)</em>) – The number of history items to skip.</p></li>
+<li><p><strong>take</strong> (<em>conint</em><em>(</em><em>ge=0</em><em>)</em>) – The number of history items to take.</p></li>
+<li><p><strong>prev_output_tx_time</strong> (<em>conint</em><em>(</em><em>ge=0</em><em>)</em><em>, </em><em>optional</em>) – The previous output transaction time.</p></li>
+<li><p><strong>prev_output_index</strong> (<em>conint</em><em>(</em><em>ge=0</em><em>)</em><em>, </em><em>optional</em>) – The previous output transaction index.</p></li>
+<li><p><strong>search_query</strong> (<em>str</em><em>, </em><em>optional</em>) – A search query.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-api.wallet.requestmodels.loadrequest">
+<span id="loadrequest"></span><h2>LoadRequest<a class="headerlink" href="#module-api.wallet.requestmodels.loadrequest" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="api.wallet.requestmodels.loadrequest.LoadRequest">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">api.wallet.requestmodels.loadrequest.</span></span><span class="sig-name descname"><span class="pre">LoadRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pydantic.types.SecretStr</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.wallet.requestmodels.loadrequest.LoadRequest" title="Permalink to this definition">¶</a></dt>
+<dd><p>A request model for the wallet/load endpoint.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – The wallet name to load.</p></li>
+<li><p><strong>password</strong> (<em>str</em>) – The wallet password.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-api.wallet.requestmodels.maxbalancerequest">
+<span id="maxbalancerequest"></span><h2>MaxBalanceRequest<a class="headerlink" href="#module-api.wallet.requestmodels.maxbalancerequest" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="api.wallet.requestmodels.maxbalancerequest.MaxBalanceRequest">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">api.wallet.requestmodels.maxbalancerequest.</span></span><span class="sig-name descname"><span class="pre">MaxBalanceRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">WalletName</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">AccountName</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'account</span> <span class="pre">0'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">FeeType</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">AllowUnconfirmed</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.wallet.requestmodels.maxbalancerequest.MaxBalanceRequest" title="Permalink to this definition">¶</a></dt>
+<dd><p>A request model for the wallet/maxbalance endpoint.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>wallet_name</strong> (<em>str</em>) – The wallet name.</p></li>
+<li><p><strong>account_name</strong> (<em>str</em><em>, </em><em>optional</em>) – The account name. Default=’account 0’.</p></li>
+<li><p><strong>fee_type</strong> (<em>str</em>) – The fee type. Allowed [low, medium, high]</p></li>
+<li><p><strong>allow_unconfirmed</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, allow unconfirmed utxo in request. Default=False.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-api.wallet.requestmodels.mnemonicrequest">
+<span id="mnemonicrequest"></span><h2>MnemonicRequest<a class="headerlink" href="#module-api.wallet.requestmodels.mnemonicrequest" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="api.wallet.requestmodels.mnemonicrequest.MnemonicRequest">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">api.wallet.requestmodels.mnemonicrequest.</span></span><span class="sig-name descname"><span class="pre">MnemonicRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'English'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wordCount</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">api.wallet.requestmodels.mnemonicrequest.ConstrainedIntValue</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">12</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.wallet.requestmodels.mnemonicrequest.MnemonicRequest" title="Permalink to this definition">¶</a></dt>
+<dd><p>A request model for the wallet/mnemonic endpoint.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>language</strong> (<em>str</em>) – A language used to generate mnemonic.</p></li>
+<li><p><strong>word_count</strong> (<em>conint</em><em>(</em><em>ge=0</em><em>)</em>) – Count of words needs to be generated.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-api.wallet.requestmodels.offlinesignrequest">
+<span id="offlinesignrequest"></span><h2>OfflineSignRequest<a class="headerlink" href="#module-api.wallet.requestmodels.offlinesignrequest" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="api.wallet.requestmodels.offlinesignrequest.OfflineSignRequest">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">api.wallet.requestmodels.offlinesignrequest.</span></span><span class="sig-name descname"><span class="pre">OfflineSignRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">walletPassword</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pydantic.types.SecretStr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">walletName</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">walletAccount</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'account</span> <span class="pre">0'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unsignedTransaction</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.hexstr.hexstr" title="pybitcoin.types.hexstr.hexstr"><span class="pre">pybitcoin.types.hexstr.hexstr</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">fee</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.money.Money" title="pybitcoin.types.money.Money"><span class="pre">pybitcoin.types.money.Money</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">utxos</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="pybitcoin.html#pybitcoin.utxodescriptor.UtxoDescriptor" title="pybitcoin.utxodescriptor.UtxoDescriptor"><span class="pre">pybitcoin.utxodescriptor.UtxoDescriptor</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">addresses</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="pybitcoin.html#pybitcoin.addressdescriptor.AddressDescriptor" title="pybitcoin.addressdescriptor.AddressDescriptor"><span class="pre">pybitcoin.addressdescriptor.AddressDescriptor</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.wallet.requestmodels.offlinesignrequest.OfflineSignRequest" title="Permalink to this definition">¶</a></dt>
+<dd><p>A request model for the wallet/offline-sign-request endpoint.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>wallet_password</strong> (<em>str</em>) – The wallet password.</p></li>
+<li><p><strong>wallet_name</strong> (<em>str</em>) – The wallet name.</p></li>
+<li><p><strong>wallet_account</strong> (<em>str</em><em>, </em><em>optional</em>) – The account name. Default=’account 0’.</p></li>
+<li><p><strong>unsigned_transaction</strong> (<a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.hexstr.hexstr" title="pybitcoin.types.hexstr.hexstr"><em>hexstr</em></a>) – The unsigned transaction hexstr.</p></li>
+<li><p><strong>fee</strong> (<a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.money.Money" title="pybitcoin.types.money.Money"><em>Money</em></a>) – The fee.</p></li>
+<li><p><strong>utxos</strong> (<em>List</em><em>[</em><a class="reference internal" href="pybitcoin.html#pybitcoin.utxodescriptor.UtxoDescriptor" title="pybitcoin.utxodescriptor.UtxoDescriptor"><em>UtxoDescriptor</em></a><em>]</em>) – A list of utxodescriptors.</p></li>
+<li><p><strong>addresses</strong> (<em>List</em><em>[</em><a class="reference internal" href="pybitcoin.html#pybitcoin.addressdescriptor.AddressDescriptor" title="pybitcoin.addressdescriptor.AddressDescriptor"><em>AddressDescriptor</em></a><em>]</em>) – A list of addresses to send transactions.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-api.wallet.requestmodels.privatekeyrequest">
+<span id="privatekeyrequest"></span><h2>PrivateKeyRequest<a class="headerlink" href="#module-api.wallet.requestmodels.privatekeyrequest" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="api.wallet.requestmodels.privatekeyrequest.PrivateKeyRequest">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">api.wallet.requestmodels.privatekeyrequest.</span></span><span class="sig-name descname"><span class="pre">PrivateKeyRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pydantic.types.SecretStr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">walletName</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">address</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.address.Address" title="pybitcoin.types.address.Address"><span class="pre">pybitcoin.types.address.Address</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.wallet.requestmodels.privatekeyrequest.PrivateKeyRequest" title="Permalink to this definition">¶</a></dt>
+<dd><p>A request model for the wallet/privatekey endpoint.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>password</strong> (<em>str</em>) – The wallet password.</p></li>
+<li><p><strong>wallet_name</strong> (<em>str</em>) – The wallet name.</p></li>
+<li><p><strong>address</strong> (<a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.address.Address" title="pybitcoin.types.address.Address"><em>Address</em></a>) – The address to request a private key for.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-api.wallet.requestmodels.pubkeyrequest">
+<span id="pubkeyrequest"></span><h2>PubKeyRequest<a class="headerlink" href="#module-api.wallet.requestmodels.pubkeyrequest" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="api.wallet.requestmodels.pubkeyrequest.PubKeyRequest">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">api.wallet.requestmodels.pubkeyrequest.</span></span><span class="sig-name descname"><span class="pre">PubKeyRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">walletName</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">externalAddress</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.address.Address" title="pybitcoin.types.address.Address"><span class="pre">pybitcoin.types.address.Address</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.wallet.requestmodels.pubkeyrequest.PubKeyRequest" title="Permalink to this definition">¶</a></dt>
+<dd><p>A request model used for /wallet/pubkey endpoint.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>wallet_name</strong> (<em>str</em>) – The name of the wallet to search for pubkey in.</p></li>
+<li><p><strong>external_address</strong> (<a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.address.Address" title="pybitcoin.types.address.Address"><em>Address</em></a>) – The external address of a wanted pubkey.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-api.wallet.requestmodels.receivedbyaddressrequest">
+<span id="receivedbyaddressrequest"></span><h2>ReceivedByAddressRequest<a class="headerlink" href="#module-api.wallet.requestmodels.receivedbyaddressrequest" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="api.wallet.requestmodels.receivedbyaddressrequest.ReceivedByAddressRequest">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">api.wallet.requestmodels.receivedbyaddressrequest.</span></span><span class="sig-name descname"><span class="pre">ReceivedByAddressRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Address</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.address.Address" title="pybitcoin.types.address.Address"><span class="pre">pybitcoin.types.address.Address</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.wallet.requestmodels.receivedbyaddressrequest.ReceivedByAddressRequest" title="Permalink to this definition">¶</a></dt>
+<dd><p>A request model for the wallet/received-by-address endpoint.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>address</strong> (<a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.address.Address" title="pybitcoin.types.address.Address"><em>Address</em></a>) – The address to query.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-api.wallet.requestmodels.recoverrequest">
+<span id="recoverrequest"></span><h2>RecoverRequest<a class="headerlink" href="#module-api.wallet.requestmodels.recoverrequest" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="api.wallet.requestmodels.recoverrequest.RecoverRequest">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">api.wallet.requestmodels.recoverrequest.</span></span><span class="sig-name descname"><span class="pre">RecoverRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mnemonic</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pydantic.types.SecretStr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">passphrase</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pydantic.types.SecretStr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">creationDate</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">datetime.datetime</span><span class="p"><span class="pre">,</span> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.wallet.requestmodels.recoverrequest.RecoverRequest" title="Permalink to this definition">¶</a></dt>
+<dd><p>A request model for the wallet/recover endpoint.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mnemonic</strong> (<em>str</em>) – A mnemonic for initializing a wallet.</p></li>
+<li><p><strong>password</strong> (<em>str</em>) – The password for the wallet.</p></li>
+<li><p><strong>passphrase</strong> (<em>str</em>) – The passphrase for the wallet.</p></li>
+<li><p><strong>name</strong> (<em>str</em>) – The name for the wallet.</p></li>
+<li><p><strong>creation_date</strong> (<em>str | datetime</em><em>, </em><em>optional</em>) – An estimate of the wallet creation date.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-api.wallet.requestmodels.removetransactionsrequest">
+<span id="removetransactionsrequest"></span><h2>RemoveTransactionsRequest<a class="headerlink" href="#module-api.wallet.requestmodels.removetransactionsrequest" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="api.wallet.requestmodels.removetransactionsrequest.RemoveTransactionsRequest">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">api.wallet.requestmodels.removetransactionsrequest.</span></span><span class="sig-name descname"><span class="pre">RemoveTransactionsRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">WalletName</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ids</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.uint256.uint256" title="pybitcoin.types.uint256.uint256"><span class="pre">pybitcoin.types.uint256.uint256</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fromDate</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ReSync</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.wallet.requestmodels.removetransactionsrequest.RemoveTransactionsRequest" title="Permalink to this definition">¶</a></dt>
+<dd><p>A request model for the wallet/remove-transactions endpoint.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>wallet_name</strong> (<em>str</em>) – The wallet name.</p></li>
+<li><p><strong>ids</strong> (<em>List</em><em>[</em><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.uint256.uint256" title="pybitcoin.types.uint256.uint256"><em>uint256</em></a><em>]</em><em>, </em><em>optional</em>) – A list of transaction ids to remove.</p></li>
+<li><p><strong>from_date</strong> (<em>str</em><em>, </em><em>optional</em>) – An option to remove transactions after given date.</p></li>
+<li><p><strong>remove_all</strong> (<em>bool</em><em>, </em><em>optional</em>) – An option to remove all transactions. Default=False.</p></li>
+<li><p><strong>resync</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, resyncs wallet after items removed. Default=True.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-api.wallet.requestmodels.removewalletrequest">
+<span id="removewalletrequest"></span><h2>RemoveWalletRequest<a class="headerlink" href="#module-api.wallet.requestmodels.removewalletrequest" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="api.wallet.requestmodels.removewalletrequest.RemoveWalletRequest">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">api.wallet.requestmodels.removewalletrequest.</span></span><span class="sig-name descname"><span class="pre">RemoveWalletRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">WalletName</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.wallet.requestmodels.removewalletrequest.RemoveWalletRequest" title="Permalink to this definition">¶</a></dt>
+<dd><p>A request model for the wallet/remove-wallet endpoint.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>wallet_name</strong> (<em>str</em>) – The wallet name.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-api.wallet.requestmodels.signmessagerequest">
+<span id="signmessagerequest"></span><h2>SignMessageRequest<a class="headerlink" href="#module-api.wallet.requestmodels.signmessagerequest" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="api.wallet.requestmodels.signmessagerequest.SignMessageRequest">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">api.wallet.requestmodels.signmessagerequest.</span></span><span class="sig-name descname"><span class="pre">SignMessageRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">walletName</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pydantic.types.SecretStr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">externalAddress</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.address.Address" title="pybitcoin.types.address.Address"><span class="pre">pybitcoin.types.address.Address</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.wallet.requestmodels.signmessagerequest.SignMessageRequest" title="Permalink to this definition">¶</a></dt>
+<dd><p>A request model used for /wallet/signmessage endpoint.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>wallet_name</strong> (<em>str</em>) – The name of the wallet to sign message with.</p></li>
+<li><p><strong>password</strong> (<em>str</em>) – The password of the wallet to sign message with.</p></li>
+<li><p><strong>external_address</strong> (<a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.address.Address" title="pybitcoin.types.address.Address"><em>Address</em></a>) – The external address of a private key used to sign message.</p></li>
+<li><p><strong>message</strong> (<em>str</em>) – The message to be signed.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-api.wallet.requestmodels.spendabletransactionrequest">
+<span id="spendabletransactionrequest"></span><h2>SpendableTransactionRequest<a class="headerlink" href="#module-api.wallet.requestmodels.spendabletransactionrequest" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="api.wallet.requestmodels.spendabletransactionrequest.SpendableTransactionsRequest">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">api.wallet.requestmodels.spendabletransactionrequest.</span></span><span class="sig-name descname"><span class="pre">SpendableTransactionsRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">WalletName</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">AccountName</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'account</span> <span class="pre">0'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">MinConfirmations</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">api.wallet.requestmodels.spendabletransactionrequest.ConstrainedIntValue</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.wallet.requestmodels.spendabletransactionrequest.SpendableTransactionsRequest" title="Permalink to this definition">¶</a></dt>
+<dd><p>A request model for the wallet/spendable-transactions endpoint.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>wallet_name</strong> (<em>str</em>) – The wallet name.</p></li>
+<li><p><strong>account_name</strong> (<em>str</em><em>, </em><em>optional</em>) – The account name. Default=’account 0’.</p></li>
+<li><p><strong>min_confirmations</strong> (<em>conint</em><em>(</em><em>ge=0</em><em>)</em><em>, </em><em>optional</em>) – Get spendable transactions less this value from chain tip. Default=0.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-api.wallet.requestmodels.splitcoinsrequest">
+<span id="splitcoinsrequest"></span><h2>SplitCoinsRequest<a class="headerlink" href="#module-api.wallet.requestmodels.splitcoinsrequest" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="api.wallet.requestmodels.splitcoinsrequest.SplitCoinsRequest">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">api.wallet.requestmodels.splitcoinsrequest.</span></span><span class="sig-name descname"><span class="pre">SplitCoinsRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">walletName</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">accountName</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'account</span> <span class="pre">0'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">walletPassword</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pydantic.types.SecretStr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">totalAmountToSplit</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.money.Money" title="pybitcoin.types.money.Money"><span class="pre">pybitcoin.types.money.Money</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">utxosCount</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">api.wallet.requestmodels.splitcoinsrequest.ConstrainedIntValue</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.wallet.requestmodels.splitcoinsrequest.SplitCoinsRequest" title="Permalink to this definition">¶</a></dt>
+<dd><p>A request model for the wallet/splitcoins endpoint.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>wallet_name</strong> (<em>str</em>) – The wallet name.</p></li>
+<li><p><strong>account_name</strong> (<em>str</em><em>, </em><em>optional</em>) – The account name. Default=’account 0’.</p></li>
+<li><p><strong>wallet_password</strong> (<em>str</em>) – The wallet password.</p></li>
+<li><p><strong>total_amount_to_split</strong> (<a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.money.Money" title="pybitcoin.types.money.Money"><em>Money</em></a>) – The total amount to split.</p></li>
+<li><p><strong>utxos_count</strong> (<em>conint</em><em>(</em><em>ge=2</em><em>)</em>) – The number of utxos to create. (Must be greater than 2).</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-api.wallet.requestmodels.statsrequest">
+<span id="statsrequest"></span><h2>StatsRequest<a class="headerlink" href="#module-api.wallet.requestmodels.statsrequest" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="api.wallet.requestmodels.statsrequest.StatsRequest">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">api.wallet.requestmodels.statsrequest.</span></span><span class="sig-name descname"><span class="pre">StatsRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">WalletName</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">AccountName</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'account</span> <span class="pre">0'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">MinConfirmations</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">api.wallet.requestmodels.statsrequest.ConstrainedIntValue</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Verbose</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.wallet.requestmodels.statsrequest.StatsRequest" title="Permalink to this definition">¶</a></dt>
+<dd><p>A request model for the wallet/wallet-stats endpoint.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>wallet_name</strong> (<em>str</em>) – The wallet name.</p></li>
+<li><p><strong>account_name</strong> (<em>str</em><em>, </em><em>optional</em>) – The account name. Default=’account 0’.</p></li>
+<li><p><strong>min_confirmations</strong> (<em>conint</em><em>(</em><em>ge=0</em><em>)</em><em>, </em><em>optional</em>) – Include transaction less this amount from the chain tip. Default=0.</p></li>
+<li><p><strong>verbose</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, give verbose response. Default=True.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-api.wallet.requestmodels.sweeprequest">
+<span id="sweeprequest"></span><h2>SweepRequest<a class="headerlink" href="#module-api.wallet.requestmodels.sweeprequest" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="api.wallet.requestmodels.sweeprequest.SweepRequest">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">api.wallet.requestmodels.sweeprequest.</span></span><span class="sig-name descname"><span class="pre">SweepRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">privateKeys</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="pybitcoin.html#pybitcoin.key.Key" title="pybitcoin.key.Key"><span class="pre">pybitcoin.key.Key</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">destinationAddress</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.address.Address" title="pybitcoin.types.address.Address"><span class="pre">pybitcoin.types.address.Address</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">broadcast</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.wallet.requestmodels.sweeprequest.SweepRequest" title="Permalink to this definition">¶</a></dt>
+<dd><p>A request model for the wallet/sweep endpoint.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>private_keys</strong> (<em>List</em><em>[</em><a class="reference internal" href="pybitcoin.html#pybitcoin.key.Key" title="pybitcoin.key.Key"><em>Key</em></a><em>]</em>) – A list of private keys to sweep.</p></li>
+<li><p><strong>destination_address</strong> (<a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.address.Address" title="pybitcoin.types.address.Address"><em>Address</em></a>) – The address to sweep the coins to.</p></li>
+<li><p><strong>broadcast</strong> (<em>bool</em><em>, </em><em>optional</em>) – Broadcast transaction after creation. Default=False.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-api.wallet.requestmodels.syncfromdaterequest">
+<span id="syncfromdaterequest"></span><h2>SyncFromDateRequest<a class="headerlink" href="#module-api.wallet.requestmodels.syncfromdaterequest" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="api.wallet.requestmodels.syncfromdaterequest.SyncFromDateRequest">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">api.wallet.requestmodels.syncfromdaterequest.</span></span><span class="sig-name descname"><span class="pre">SyncFromDateRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">date</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">walletName</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.wallet.requestmodels.syncfromdaterequest.SyncFromDateRequest" title="Permalink to this definition">¶</a></dt>
+<dd><p>A request model for the wallet/sync-from-date endpoint.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>date</strong> (<em>str</em>) – The date to sync from in YYYY-MM-DDTHH:MM:SS format.</p></li>
+<li><p><strong>all_transactions</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, sync all transactions. Default=True.</p></li>
+<li><p><strong>wallet_name</strong> (<em>str</em>) – The wallet name.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-api.wallet.requestmodels.syncrequest">
+<span id="syncrequest"></span><h2>SyncRequest<a class="headerlink" href="#module-api.wallet.requestmodels.syncrequest" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="api.wallet.requestmodels.syncrequest.SyncRequest">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">api.wallet.requestmodels.syncrequest.</span></span><span class="sig-name descname"><span class="pre">SyncRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hash</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.uint256.uint256" title="pybitcoin.types.uint256.uint256"><span class="pre">pybitcoin.types.uint256.uint256</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.wallet.requestmodels.syncrequest.SyncRequest" title="Permalink to this definition">¶</a></dt>
+<dd><p>A request model for the wallet/sync endpoint.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>block_hash</strong> (<a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.uint256.uint256" title="pybitcoin.types.uint256.uint256"><em>uint256</em></a>) – The hash to start syncing from.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-api.wallet.requestmodels.verifymessagerequest">
+<span id="verifymessagerequest"></span><h2>VerifyMessageRequest<a class="headerlink" href="#module-api.wallet.requestmodels.verifymessagerequest" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="api.wallet.requestmodels.verifymessagerequest.VerifyMessageRequest">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">api.wallet.requestmodels.verifymessagerequest.</span></span><span class="sig-name descname"><span class="pre">VerifyMessageRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">signature</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">externalAddress</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.address.Address" title="pybitcoin.types.address.Address"><span class="pre">pybitcoin.types.address.Address</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.wallet.requestmodels.verifymessagerequest.VerifyMessageRequest" title="Permalink to this definition">¶</a></dt>
+<dd><p>A request model used for the /wallet/verifymessage endpoint.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>signature</strong> (<em>str</em>) – The signature is to be verified.</p></li>
+<li><p><strong>external_address</strong> (<a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.address.Address" title="pybitcoin.types.address.Address"><em>Address</em></a>) – The address of the signer.</p></li>
+<li><p><strong>message</strong> (<em>str</em>) – The message that was signed.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="api.wallet.responsemodels.html" class="btn btn-neutral float-right" title="ResponseModels" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="api.wallet.html" class="btn btn-neutral float-left" title="api.wallet" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Tjaden Froyda.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

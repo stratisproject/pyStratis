@@ -1,0 +1,327 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>ResponseModels &mdash; PyStratis 1.0.9.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="api.notifications" href="api.notifications.html" />
+    <link rel="prev" title="RequestModels" href="api.node.requestmodels.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> PyStratis
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Modules</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="api.html">api</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="api.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="api.addressbook.html">api.addressbook</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.balances.html">api.balances</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.blockstore.html">api.blockstore</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.coldstaking.html">api.coldstaking</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.collateral.html">api.collateral</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.collateralvoting.html">api.collateralvoting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.connectionmanager.html">api.connectionmanager</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.consensus.html">api.consensus</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.dashboard.html">api.dashboard</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.diagnostic.html">api.diagnostic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.federation.html">api.federation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.federationgateway.html">api.federationgateway</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.federationwallet.html">api.federationwallet</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.interop.html">api.interop</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.mempool.html">api.mempool</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.mining.html">api.mining</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.multisig.html">api.multisig</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.network.html">api.network</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="api.node.html">api.node</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.notifications.html">api.notifications</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.rpc.html">api.rpc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.signalr.html">api.signalr</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.smartcontracts.html">api.smartcontracts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.smartcontractwallet.html">api.smartcontractwallet</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.staking.html">api.staking</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.voting.html">api.voting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.wallet.html">api.wallet</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="nodes.html">nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pybitcoin.html">pybitcoin</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PyStratis</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="modules.html">pystratis</a> &raquo;</li>
+        
+          <li><a href="api.html">api</a> &raquo;</li>
+        
+          <li><a href="api.node.html">api.node</a> &raquo;</li>
+        
+      <li>ResponseModels</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/source/api.node.responsemodels.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="responsemodels">
+<h1>ResponseModels<a class="headerlink" href="#responsemodels" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-api.node.responsemodels.asyncloopsmodel">
+<span id="asyncloopsmodel"></span><h2>AsyncLoopsModel<a class="headerlink" href="#module-api.node.responsemodels.asyncloopsmodel" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="api.node.responsemodels.asyncloopsmodel.AsyncLoopsModel">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">api.node.responsemodels.asyncloopsmodel.</span></span><span class="sig-name descname"><span class="pre">AsyncLoopsModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loopName</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">status</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.node.responsemodels.asyncloopsmodel.AsyncLoopsModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>An AsyncLoopsModel.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-api.node.responsemodels.blockheadermodel">
+<span id="blockheadermodel"></span><h2>BlockHeaderModel<a class="headerlink" href="#module-api.node.responsemodels.blockheadermodel" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="api.node.responsemodels.blockheadermodel.BlockHeaderModel">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">api.node.responsemodels.blockheadermodel.</span></span><span class="sig-name descname"><span class="pre">BlockHeaderModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">api.node.responsemodels.blockheadermodel.ConstrainedIntValue</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">merkleroot</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.hexstr.hexstr" title="pybitcoin.types.hexstr.hexstr"><span class="pre">pybitcoin.types.hexstr.hexstr</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nonce</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">api.node.responsemodels.blockheadermodel.ConstrainedIntValue</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bits</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">previousblockhash</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.uint256.uint256" title="pybitcoin.types.uint256.uint256"><span class="pre">pybitcoin.types.uint256.uint256</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">api.node.responsemodels.blockheadermodel.ConstrainedIntValue</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.node.responsemodels.blockheadermodel.BlockHeaderModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>A BlockHeaderModel.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-api.node.responsemodels.connectedpeermodel">
+<span id="connectedpeermodel"></span><h2>ConnectedPeerModel<a class="headerlink" href="#module-api.node.responsemodels.connectedpeermodel" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="api.node.responsemodels.connectedpeermodel.ConnectedPeerModel">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">api.node.responsemodels.connectedpeermodel.</span></span><span class="sig-name descname"><span class="pre">ConnectedPeerModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remoteSocketEndpoint</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tipHeight</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">api.node.responsemodels.connectedpeermodel.ConstrainedIntValue</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.node.responsemodels.connectedpeermodel.ConnectedPeerModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>A ConnectedPeerModel.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-api.node.responsemodels.featuresdatamodel">
+<span id="featuresdatamodel"></span><h2>FeaturesDataModel<a class="headerlink" href="#module-api.node.responsemodels.featuresdatamodel" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="api.node.responsemodels.featuresdatamodel.FeaturesDataModel">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">api.node.responsemodels.featuresdatamodel.</span></span><span class="sig-name descname"><span class="pre">FeaturesDataModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">namespace</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.html#pybitcoin.featureinitializationstate.FeatureInitializationState" title="pybitcoin.featureinitializationstate.FeatureInitializationState"><span class="pre">pybitcoin.featureinitializationstate.FeatureInitializationState</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.node.responsemodels.featuresdatamodel.FeaturesDataModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>A FeaturesDataModel.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-api.node.responsemodels.gettxoutmodel">
+<span id="gettxoutmodel"></span><h2>GetTxOutModel<a class="headerlink" href="#module-api.node.responsemodels.gettxoutmodel" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="api.node.responsemodels.gettxoutmodel.GetTxOutModel">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">api.node.responsemodels.gettxoutmodel.</span></span><span class="sig-name descname"><span class="pre">GetTxOutModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bestblock</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.uint256.uint256" title="pybitcoin.types.uint256.uint256"><span class="pre">pybitcoin.types.uint256.uint256</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">confirmations</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">api.node.responsemodels.gettxoutmodel.ConstrainedIntValue</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.money.Money" title="pybitcoin.types.money.Money"><span class="pre">pybitcoin.types.money.Money</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scriptPubKey</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.html#pybitcoin.scriptpubkey.ScriptPubKey" title="pybitcoin.scriptpubkey.ScriptPubKey"><span class="pre">pybitcoin.scriptpubkey.ScriptPubKey</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coinbase</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.node.responsemodels.gettxoutmodel.GetTxOutModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>A GetTxOutModel.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-api.node.responsemodels.logrulesmodel">
+<span id="logrulesmodel"></span><h2>LogRulesModel<a class="headerlink" href="#module-api.node.responsemodels.logrulesmodel" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="api.node.responsemodels.logrulesmodel.LogRulesModel">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">api.node.responsemodels.logrulesmodel.</span></span><span class="sig-name descname"><span class="pre">LogRulesModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ruleName</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logLevel</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.node.responsemodels.logrulesmodel.LogRulesModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>A LogRulesModel.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-api.node.responsemodels.statusmodel">
+<span id="statusmodel"></span><h2>StatusModel<a class="headerlink" href="#module-api.node.responsemodels.statusmodel" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="api.node.responsemodels.statusmodel.StatusModel">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">api.node.responsemodels.statusmodel.</span></span><span class="sig-name descname"><span class="pre">StatusModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">agent</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">externalAddress</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">network</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coinTicker</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">processId</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">consensusHeight</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">api.node.responsemodels.statusmodel.ConstrainedIntValue</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">blockStoreHeight</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">api.node.responsemodels.statusmodel.ConstrainedIntValue</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bestPeerHeight</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">api.node.responsemodels.statusmodel.ConstrainedIntValue</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inboundPeers</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#api.node.responsemodels.connectedpeermodel.ConnectedPeerModel" title="api.node.responsemodels.connectedpeermodel.ConnectedPeerModel"><span class="pre">api.node.responsemodels.connectedpeermodel.ConnectedPeerModel</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outboundPeers</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#api.node.responsemodels.connectedpeermodel.ConnectedPeerModel" title="api.node.responsemodels.connectedpeermodel.ConnectedPeerModel"><span class="pre">api.node.responsemodels.connectedpeermodel.ConnectedPeerModel</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">featuresData</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#api.node.responsemodels.featuresdatamodel.FeaturesDataModel" title="api.node.responsemodels.featuresdatamodel.FeaturesDataModel"><span class="pre">api.node.responsemodels.featuresdatamodel.FeaturesDataModel</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataDirectoryPath</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">runningTime</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">difficulty</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">protocolVersion</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">api.node.responsemodels.statusmodel.ConstrainedIntValue</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">testnet</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">relayFee</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.money.Money" title="pybitcoin.types.money.Money"><span class="pre">pybitcoin.types.money.Money</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.html#pybitcoin.fullnodestate.FullNodeState" title="pybitcoin.fullnodestate.FullNodeState"><span class="pre">pybitcoin.fullnodestate.FullNodeState</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inIbd</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.node.responsemodels.statusmodel.StatusModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>A StatusModel.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-api.node.responsemodels.validateaddressmodel">
+<span id="validateaddressmodel"></span><h2>ValidateAddressModel<a class="headerlink" href="#module-api.node.responsemodels.validateaddressmodel" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="api.node.responsemodels.validateaddressmodel.ValidateAddressModel">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">api.node.responsemodels.validateaddressmodel.</span></span><span class="sig-name descname"><span class="pre">ValidateAddressModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isvalid</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">address</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.address.Address" title="pybitcoin.types.address.Address"><span class="pre">pybitcoin.types.address.Address</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scriptPubKey</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isscript</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iswitness</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.node.responsemodels.validateaddressmodel.ValidateAddressModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>A ValidateAddressModel.</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="api.notifications.html" class="btn btn-neutral float-right" title="api.notifications" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="api.node.requestmodels.html" class="btn btn-neutral float-left" title="RequestModels" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Tjaden Froyda.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,368 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>RequestModels &mdash; PyStratis 1.0.9.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="ResponseModels" href="api.node.responsemodels.html" />
+    <link rel="prev" title="api.node" href="api.node.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> PyStratis
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Modules</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="api.html">api</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="api.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="api.addressbook.html">api.addressbook</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.balances.html">api.balances</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.blockstore.html">api.blockstore</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.coldstaking.html">api.coldstaking</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.collateral.html">api.collateral</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.collateralvoting.html">api.collateralvoting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.connectionmanager.html">api.connectionmanager</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.consensus.html">api.consensus</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.dashboard.html">api.dashboard</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.diagnostic.html">api.diagnostic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.federation.html">api.federation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.federationgateway.html">api.federationgateway</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.federationwallet.html">api.federationwallet</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.interop.html">api.interop</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.mempool.html">api.mempool</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.mining.html">api.mining</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.multisig.html">api.multisig</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.network.html">api.network</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="api.node.html">api.node</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.notifications.html">api.notifications</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.rpc.html">api.rpc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.signalr.html">api.signalr</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.smartcontracts.html">api.smartcontracts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.smartcontractwallet.html">api.smartcontractwallet</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.staking.html">api.staking</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.voting.html">api.voting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api.wallet.html">api.wallet</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="nodes.html">nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pybitcoin.html">pybitcoin</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PyStratis</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="modules.html">pystratis</a> &raquo;</li>
+        
+          <li><a href="api.html">api</a> &raquo;</li>
+        
+          <li><a href="api.node.html">api.node</a> &raquo;</li>
+        
+      <li>RequestModels</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/source/api.node.requestmodels.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="requestmodels">
+<h1>RequestModels<a class="headerlink" href="#requestmodels" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-api.node.requestmodels.decoderawtransactionrequest">
+<span id="decoderawtransactionrequest"></span><h2>DecodeRawTransactionRequest<a class="headerlink" href="#module-api.node.requestmodels.decoderawtransactionrequest" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="api.node.requestmodels.decoderawtransactionrequest.DecodeRawTransactionRequest">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">api.node.requestmodels.decoderawtransactionrequest.</span></span><span class="sig-name descname"><span class="pre">DecodeRawTransactionRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rawHex</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.hexstr.hexstr" title="pybitcoin.types.hexstr.hexstr"><span class="pre">pybitcoin.types.hexstr.hexstr</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.node.requestmodels.decoderawtransactionrequest.DecodeRawTransactionRequest" title="Permalink to this definition">¶</a></dt>
+<dd><p>A request model for the node/decoderawtransaction endpoint.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>raw_hex</strong> (<a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.hexstr.hexstr" title="pybitcoin.types.hexstr.hexstr"><em>hexstr</em></a>) – The transaction hexstring.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-api.node.requestmodels.getblockheaderrequest">
+<span id="getblockheaderrequest"></span><h2>GetBlockHeaderRequest<a class="headerlink" href="#module-api.node.requestmodels.getblockheaderrequest" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="api.node.requestmodels.getblockheaderrequest.GetBlockHeaderRequest">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">api.node.requestmodels.getblockheaderrequest.</span></span><span class="sig-name descname"><span class="pre">GetBlockHeaderRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hash</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.uint256.uint256" title="pybitcoin.types.uint256.uint256"><span class="pre">pybitcoin.types.uint256.uint256</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">isJsonFormat</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.node.requestmodels.getblockheaderrequest.GetBlockHeaderRequest" title="Permalink to this definition">¶</a></dt>
+<dd><p>A request model for the node/getblockheader endpoint.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>block_hash</strong> (<a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.uint256.uint256" title="pybitcoin.types.uint256.uint256"><em>uint256</em></a>) – The specified block hash.</p></li>
+<li><p><strong>is_json_format</strong> (<em>bool</em><em>, </em><em>optional</em>) – If block header should be returned as json. Default=True.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-api.node.requestmodels.getrawtransactionrequest">
+<span id="getrawtransactionrequest"></span><h2>GetRawTransactionRequest<a class="headerlink" href="#module-api.node.requestmodels.getrawtransactionrequest" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="api.node.requestmodels.getrawtransactionrequest.GetRawTransactionRequest">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">api.node.requestmodels.getrawtransactionrequest.</span></span><span class="sig-name descname"><span class="pre">GetRawTransactionRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trxid</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.uint256.uint256" title="pybitcoin.types.uint256.uint256"><span class="pre">pybitcoin.types.uint256.uint256</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.node.requestmodels.getrawtransactionrequest.GetRawTransactionRequest" title="Permalink to this definition">¶</a></dt>
+<dd><p>A request model for the node/getrawtransaction endpoint.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>trxid</strong> (<a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.uint256.uint256" title="pybitcoin.types.uint256.uint256"><em>uint256</em></a>) – The transaction hash.</p></li>
+<li><p><strong>verbose</strong> (<em>bool</em><em>, </em><em>optional</em>) – If output should include verbose transaction data. Default=False.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-api.node.requestmodels.gettxoutproofrequest">
+<span id="gettxoutproofrequest"></span><h2>GetTxOutProofRequest<a class="headerlink" href="#module-api.node.requestmodels.gettxoutproofrequest" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="api.node.requestmodels.gettxoutproofrequest.GetTxOutProofRequest">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">api.node.requestmodels.gettxoutproofrequest.</span></span><span class="sig-name descname"><span class="pre">GetTxOutProofRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">txids</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.uint256.uint256" title="pybitcoin.types.uint256.uint256"><span class="pre">pybitcoin.types.uint256.uint256</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">blockhash</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.uint256.uint256" title="pybitcoin.types.uint256.uint256"><span class="pre">pybitcoin.types.uint256.uint256</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.node.requestmodels.gettxoutproofrequest.GetTxOutProofRequest" title="Permalink to this definition">¶</a></dt>
+<dd><p>A request model for the node/gettxoutproof endpoint.
+:param txids: A list of transaction hashes.
+:type txids: List[uint256]
+:param block_hash: The block hash to check.
+:type block_hash: uint256, optional</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-api.node.requestmodels.gettxoutrequest">
+<span id="gettxoutrequest"></span><h2>GetTxOutRequest<a class="headerlink" href="#module-api.node.requestmodels.gettxoutrequest" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="api.node.requestmodels.gettxoutrequest.GetTxOutRequest">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">api.node.requestmodels.gettxoutrequest.</span></span><span class="sig-name descname"><span class="pre">GetTxOutRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trxid</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.uint256.uint256" title="pybitcoin.types.uint256.uint256"><span class="pre">pybitcoin.types.uint256.uint256</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">vout</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">api.node.requestmodels.gettxoutrequest.ConstrainedIntValue</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">includeMemPool</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.node.requestmodels.gettxoutrequest.GetTxOutRequest" title="Permalink to this definition">¶</a></dt>
+<dd><p>A request model for the node/gettxout endpoint.
+:param trxid: The trxid to check.
+:type trxid: uint256
+:param vout: The vout.
+:type vout: conint(ge=0)
+:param include_mempool: Include mempool in check. Default=True.
+:type include_mempool: bool, optional</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-api.node.requestmodels.logrulesrequest">
+<span id="logrulesrequest"></span><h2>LogRulesRequest<a class="headerlink" href="#module-api.node.requestmodels.logrulesrequest" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="api.node.requestmodels.logrulesrequest.LogRulesRequest">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">api.node.requestmodels.logrulesrequest.</span></span><span class="sig-name descname"><span class="pre">LogRulesRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logRules</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="pybitcoin.html#pybitcoin.logrule.LogRule" title="pybitcoin.logrule.LogRule"><span class="pre">pybitcoin.logrule.LogRule</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.node.requestmodels.logrulesrequest.LogRulesRequest" title="Permalink to this definition">¶</a></dt>
+<dd><p>A request model for the node/logrules endpoint.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>log_rules</strong> (<em>List</em><em>[</em><a class="reference internal" href="pybitcoin.html#pybitcoin.logrule.LogRule" title="pybitcoin.logrule.LogRule"><em>LogRule</em></a><em>]</em>) – A list of log rules to change.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-api.node.requestmodels.shutdownrequest">
+<span id="shutdownrequest"></span><h2>ShutdownRequest<a class="headerlink" href="#module-api.node.requestmodels.shutdownrequest" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="api.node.requestmodels.shutdownrequest.ShutdownRequest">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">api.node.requestmodels.shutdownrequest.</span></span><span class="sig-name descname"><span class="pre">ShutdownRequest</span></span><a class="headerlink" href="#api.node.requestmodels.shutdownrequest.ShutdownRequest" title="Permalink to this definition">¶</a></dt>
+<dd><p>A request model for the node/shutdown and node/stop endpoints.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-api.node.requestmodels.validateaddressrequest">
+<span id="validateaddressrequest"></span><h2>ValidateAddressRequest<a class="headerlink" href="#module-api.node.requestmodels.validateaddressrequest" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="api.node.requestmodels.validateaddressrequest.ValidateAddressRequest">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">api.node.requestmodels.validateaddressrequest.</span></span><span class="sig-name descname"><span class="pre">ValidateAddressRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">address</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.node.requestmodels.validateaddressrequest.ValidateAddressRequest" title="Permalink to this definition">¶</a></dt>
+<dd><p>A request model for the node/validate-address endpoint.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>address</strong> (<em>str</em>) – The address to validate.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="api.node.responsemodels.html" class="btn btn-neutral float-right" title="ResponseModels" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="api.node.html" class="btn btn-neutral float-left" title="api.node" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Tjaden Froyda.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

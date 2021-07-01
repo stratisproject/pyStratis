@@ -65,10 +65,11 @@ assert extended_public_key == another_extended_public_key
 
 ## Build ReadTheDocs documentation
 ```commandline
-cd docs
-make html
+cd doc_build
+make html 
 ```
-Built documentation can be found in docs/build/html/index.html, open with your favorite browser. 
+- Other output options: `make help`
+-  Built documentation for `make html` can be found in [docs/html/index.html](docs/html/index.html), open with your favorite browser. 
 
 # Credit
 

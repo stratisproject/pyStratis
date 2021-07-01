@@ -18,7 +18,7 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
     @endpoint(f'{route}/mnemonic')
     def mnemonic(self, language: str = 'English', word_count: int = 12, **kwargs) -> List[str]:
         """Generates a mnemonic to use for an HD wallet.
-        For more information about mnemonics, see BIP39_.
+        For more information about mnemonics, see `BIP39`_.
 
         Args:
             language (str): The language used to generate mnemonic.
@@ -31,8 +31,7 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
         Raises:
             APIError
 
-        .. _BIP39
-            https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki
+        .. _`BIP39`: https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki
         """
         request_model = MnemonicRequest(
             language=language,

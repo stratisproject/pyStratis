@@ -1,0 +1,1072 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>pybitcoin &mdash; PyStratis 1.0.9.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Networks" href="pybitcoin.networks.html" />
+    <link rel="prev" title="nodes" href="nodes.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> PyStratis
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Modules</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="api.html">api</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nodes.html">nodes</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">pybitcoin</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pybitcoin.networks.html">Networks</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pybitcoin.types.html">Types</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pybitcoin.accountbalancemodel">AccountBalanceModel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pybitcoin.addressbalancemodel">AddressBalanceModel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pybitcoin.addressdescriptor">AddressDescriptor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pybitcoin.addressesmodel">AddressesModel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pybitcoin.addressmodel">AddressModel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pybitcoin.blockmodel">BlockModel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pybitcoin.blocktransactiondetailsmodel">BlockTransactionDetailsModel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pybitcoin.buildcontracttransactionmodel">BuildContractTransactionModel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pybitcoin.buildofflinesignmodel">BuildOfflineSignModel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pybitcoin.buildtransactionmodel">BuildTransactionModel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pybitcoin.cointype">CoinType</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pybitcoin.contracttransactionitemtype">ContractTransactionItemType</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pybitcoin.conversionrequeststatus">ConversionRequestStatus</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pybitcoin.conversionrequesttype">ConversionRequestType</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pybitcoin.crosschaintransferstatus">CrosschainTransferStatus</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pybitcoin.deposit">Deposit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pybitcoin.depositretrievaltype">DepositRetrievalType</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pybitcoin.destinationchain">DestinationChain</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pybitcoin.extkey">ExtKey</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pybitcoin.extpubkey">ExtPubKey</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pybitcoin.featureinitializationstate">FeatureInitializationState</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pybitcoin.fullnodestate">FullNodeState</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pybitcoin.key">Key</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pybitcoin.logrule">LogRule</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pybitcoin.maturedblockinfomodel">MaturedBlockInfoModel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pybitcoin.model">Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pybitcoin.multisigsecret">MultisigSecret</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pybitcoin.outpoint">Outpoint</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pybitcoin.pollviewmodel">PollViewModel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pybitcoin.pubkey">PubKey</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pybitcoin.recipient">Recipient</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pybitcoin.removedtransactionmodel">RemovedTransactionModel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pybitcoin.scriptpubkey">ScriptPubKey</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pybitcoin.scriptsig">ScriptSig</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pybitcoin.sendtransactionrequest">SendTransactionRequest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pybitcoin.smartcontractparameter">SmartContractParameter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pybitcoin.smartcontractparametertype">SmartContractParameterType</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pybitcoin.transactionitemtype">TransactionItemType</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pybitcoin.transactionmodel">TransactionModel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pybitcoin.transactionoutputmodel">TransactionOutputModel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pybitcoin.utxodescriptor">UtxoDescriptor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pybitcoin.vin">VIn</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pybitcoin.vout">VOut</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pybitcoin.walletbalancemodel">WalletBalanceModel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pybitcoin.walletgeneralinfomodel">WalletGeneralInfoModel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pybitcoin.walletsecret">WalletSecret</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pybitcoin.walletsendtransactionmodel">WalletSendTransactionModel</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PyStratis</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="modules.html">pystratis</a> &raquo;</li>
+        
+      <li>pybitcoin</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/source/pybitcoin.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="pybitcoin">
+<h1>pybitcoin<a class="headerlink" href="#pybitcoin" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="pybitcoin.networks.html">Networks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pybitcoin.networks.html#module-pybitcoin.networks.basenetwork">BaseNetwork</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pybitcoin.networks.html#module-pybitcoin.networks.cirrusnetwork">CirrusNetwork</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pybitcoin.networks.html#module-pybitcoin.networks.ethereum">Ethereum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pybitcoin.networks.html#module-pybitcoin.networks.straxnetwork">StraxNetwork</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pybitcoin.types.html">Types</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pybitcoin.types.html#module-pybitcoin.types.address">Address</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pybitcoin.types.html#module-pybitcoin.types.customint">customint</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pybitcoin.types.html#module-pybitcoin.types.hexstr">hexstr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pybitcoin.types.html#module-pybitcoin.types.int32">int32</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pybitcoin.types.html#module-pybitcoin.types.int64">int64</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pybitcoin.types.html#module-pybitcoin.types.money">money</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pybitcoin.types.html#module-pybitcoin.types.uint128">uint128</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pybitcoin.types.html#module-pybitcoin.types.uint160">uint160</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pybitcoin.types.html#module-pybitcoin.types.uint256">uint256</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pybitcoin.types.html#module-pybitcoin.types.uint32">uint32</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pybitcoin.types.html#module-pybitcoin.types.uint64">uint64</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="module-pybitcoin.accountbalancemodel">
+<span id="accountbalancemodel"></span><h2>AccountBalanceModel<a class="headerlink" href="#module-pybitcoin.accountbalancemodel" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pybitcoin.accountbalancemodel.AccountBalanceModel">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">pybitcoin.accountbalancemodel.</span></span><span class="sig-name descname"><span class="pre">AccountBalanceModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">accountName</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">accountHdPath</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coinType</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#pybitcoin.cointype.CoinType" title="pybitcoin.cointype.CoinType"><span class="pre">pybitcoin.cointype.CoinType</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">amountConfirmed</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.money.Money" title="pybitcoin.types.money.Money"><span class="pre">pybitcoin.types.money.Money</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">amountUnconfirmed</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.money.Money" title="pybitcoin.types.money.Money"><span class="pre">pybitcoin.types.money.Money</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">spendableAmount</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.money.Money" title="pybitcoin.types.money.Money"><span class="pre">pybitcoin.types.money.Money</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">addresses</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pybitcoin.addressmodel.AddressModel" title="pybitcoin.addressmodel.AddressModel"><span class="pre">pybitcoin.addressmodel.AddressModel</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pybitcoin.accountbalancemodel.AccountBalanceModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>An AccountBalanceModel</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pybitcoin.addressbalancemodel">
+<span id="addressbalancemodel"></span><h2>AddressBalanceModel<a class="headerlink" href="#module-pybitcoin.addressbalancemodel" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pybitcoin.addressbalancemodel.AddressBalanceModel">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">pybitcoin.addressbalancemodel.</span></span><span class="sig-name descname"><span class="pre">AddressBalanceModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">address</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.address.Address" title="pybitcoin.types.address.Address"><span class="pre">pybitcoin.types.address.Address</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">coinType</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#pybitcoin.cointype.CoinType" title="pybitcoin.cointype.CoinType"><span class="pre">pybitcoin.cointype.CoinType</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">amountConfirmed</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.money.Money" title="pybitcoin.types.money.Money"><span class="pre">pybitcoin.types.money.Money</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">amountUnconfirmed</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.money.Money" title="pybitcoin.types.money.Money"><span class="pre">pybitcoin.types.money.Money</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">spendableAmount</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.money.Money" title="pybitcoin.types.money.Money"><span class="pre">pybitcoin.types.money.Money</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pybitcoin.addressbalancemodel.AddressBalanceModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>An AddressBalanceModel.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pybitcoin.addressdescriptor">
+<span id="addressdescriptor"></span><h2>AddressDescriptor<a class="headerlink" href="#module-pybitcoin.addressdescriptor" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pybitcoin.addressdescriptor.AddressDescriptor">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">pybitcoin.addressdescriptor.</span></span><span class="sig-name descname"><span class="pre">AddressDescriptor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">address</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.address.Address" title="pybitcoin.types.address.Address"><span class="pre">pybitcoin.types.address.Address</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">keyPath</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">addressType</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pybitcoin.addressdescriptor.AddressDescriptor" title="Permalink to this definition">¶</a></dt>
+<dd><p>An AddressDescriptor</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pybitcoin.addressesmodel">
+<span id="addressesmodel"></span><h2>AddressesModel<a class="headerlink" href="#module-pybitcoin.addressesmodel" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pybitcoin.addressesmodel.AddressesModel">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">pybitcoin.addressesmodel.</span></span><span class="sig-name descname"><span class="pre">AddressesModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">addresses</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pybitcoin.addressmodel.AddressModel" title="pybitcoin.addressmodel.AddressModel"><span class="pre">pybitcoin.addressmodel.AddressModel</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pybitcoin.addressesmodel.AddressesModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>An AddressesModel.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pybitcoin.addressmodel">
+<span id="addressmodel"></span><h2>AddressModel<a class="headerlink" href="#module-pybitcoin.addressmodel" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pybitcoin.addressmodel.AddressModel">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">pybitcoin.addressmodel.</span></span><span class="sig-name descname"><span class="pre">AddressModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">address</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.address.Address" title="pybitcoin.types.address.Address"><span class="pre">pybitcoin.types.address.Address</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">isUsed</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isChange</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amountConfirmed</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.money.Money" title="pybitcoin.types.money.Money"><span class="pre">pybitcoin.types.money.Money</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">amountUnconfirmed</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.money.Money" title="pybitcoin.types.money.Money"><span class="pre">pybitcoin.types.money.Money</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pybitcoin.addressmodel.AddressModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>An AddressModel.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pybitcoin.blockmodel">
+<span id="blockmodel"></span><h2>BlockModel<a class="headerlink" href="#module-pybitcoin.blockmodel" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pybitcoin.blockmodel.BlockModel">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">pybitcoin.blockmodel.</span></span><span class="sig-name descname"><span class="pre">BlockModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hash</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.uint256.uint256" title="pybitcoin.types.uint256.uint256"><span class="pre">pybitcoin.types.uint256.uint256</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">confirmations</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">versionHex</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">merkleroot</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tx</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.uint256.uint256" title="pybitcoin.types.uint256.uint256"><span class="pre">pybitcoin.types.uint256.uint256</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">datetime.datetime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mediantime</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">datetime.datetime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nonce</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bits</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">difficulty</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chainwork</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nTx</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">previousblockhash</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.uint256.uint256" title="pybitcoin.types.uint256.uint256"><span class="pre">pybitcoin.types.uint256.uint256</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">nextblockhash</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.uint256.uint256" title="pybitcoin.types.uint256.uint256"><span class="pre">pybitcoin.types.uint256.uint256</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">signature</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">modifierv2</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flags</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hashproof</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">blocktrust</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chaintrust</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pybitcoin.blockmodel.BlockModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>A BlockModel.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pybitcoin.blocktransactiondetailsmodel">
+<span id="blocktransactiondetailsmodel"></span><h2>BlockTransactionDetailsModel<a class="headerlink" href="#module-pybitcoin.blocktransactiondetailsmodel" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pybitcoin.blocktransactiondetailsmodel.BlockTransactionDetailsModel">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">pybitcoin.blocktransactiondetailsmodel.</span></span><span class="sig-name descname"><span class="pre">BlockTransactionDetailsModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hash</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.uint256.uint256" title="pybitcoin.types.uint256.uint256"><span class="pre">pybitcoin.types.uint256.uint256</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">confirmations</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">versionHex</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">merkleroot</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tx</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.uint256.uint256" title="pybitcoin.types.uint256.uint256"><span class="pre">pybitcoin.types.uint256.uint256</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">datetime.datetime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mediantime</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">datetime.datetime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nonce</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bits</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">difficulty</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chainwork</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nTx</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">previousblockhash</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.uint256.uint256" title="pybitcoin.types.uint256.uint256"><span class="pre">pybitcoin.types.uint256.uint256</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">nextblockhash</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.uint256.uint256" title="pybitcoin.types.uint256.uint256"><span class="pre">pybitcoin.types.uint256.uint256</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">signature</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">modifierv2</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flags</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hashproof</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">blocktrust</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chaintrust</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Transactions</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pybitcoin.transactionmodel.TransactionModel" title="pybitcoin.transactionmodel.TransactionModel"><span class="pre">pybitcoin.transactionmodel.TransactionModel</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pybitcoin.blocktransactiondetailsmodel.BlockTransactionDetailsModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>A BlockTransactionDetailsModel.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pybitcoin.buildcontracttransactionmodel">
+<span id="buildcontracttransactionmodel"></span><h2>BuildContractTransactionModel<a class="headerlink" href="#module-pybitcoin.buildcontracttransactionmodel" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pybitcoin.buildcontracttransactionmodel.BuildContractTransactionModel">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">pybitcoin.buildcontracttransactionmodel.</span></span><span class="sig-name descname"><span class="pre">BuildContractTransactionModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fee</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.money.Money" title="pybitcoin.types.money.Money"><span class="pre">pybitcoin.types.money.Money</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hex</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.hexstr.hexstr" title="pybitcoin.types.hexstr.hexstr"><span class="pre">pybitcoin.types.hexstr.hexstr</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">success</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transactionId</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.uint256.uint256" title="pybitcoin.types.uint256.uint256"><span class="pre">pybitcoin.types.uint256.uint256</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pybitcoin.buildcontracttransactionmodel.BuildContractTransactionModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>A BuildContractTransactionModel.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pybitcoin.buildofflinesignmodel">
+<span id="buildofflinesignmodel"></span><h2>BuildOfflineSignModel<a class="headerlink" href="#module-pybitcoin.buildofflinesignmodel" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pybitcoin.buildofflinesignmodel.BuildOfflineSignModel">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">pybitcoin.buildofflinesignmodel.</span></span><span class="sig-name descname"><span class="pre">BuildOfflineSignModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">walletName</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">walletAccount</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unsignedTransaction</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.hexstr.hexstr" title="pybitcoin.types.hexstr.hexstr"><span class="pre">pybitcoin.types.hexstr.hexstr</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">fee</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.money.Money" title="pybitcoin.types.money.Money"><span class="pre">pybitcoin.types.money.Money</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">utxos</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pybitcoin.utxodescriptor.UtxoDescriptor" title="pybitcoin.utxodescriptor.UtxoDescriptor"><span class="pre">pybitcoin.utxodescriptor.UtxoDescriptor</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">addresses</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pybitcoin.addressdescriptor.AddressDescriptor" title="pybitcoin.addressdescriptor.AddressDescriptor"><span class="pre">pybitcoin.addressdescriptor.AddressDescriptor</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pybitcoin.buildofflinesignmodel.BuildOfflineSignModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>A BuildOfflineSignModel.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pybitcoin.buildtransactionmodel">
+<span id="buildtransactionmodel"></span><h2>BuildTransactionModel<a class="headerlink" href="#module-pybitcoin.buildtransactionmodel" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pybitcoin.buildtransactionmodel.BuildTransactionModel">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">pybitcoin.buildtransactionmodel.</span></span><span class="sig-name descname"><span class="pre">BuildTransactionModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fee</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.money.Money" title="pybitcoin.types.money.Money"><span class="pre">pybitcoin.types.money.Money</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hex</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.hexstr.hexstr" title="pybitcoin.types.hexstr.hexstr"><span class="pre">pybitcoin.types.hexstr.hexstr</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transactionId</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.uint256.uint256" title="pybitcoin.types.uint256.uint256"><span class="pre">pybitcoin.types.uint256.uint256</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pybitcoin.buildtransactionmodel.BuildTransactionModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>A BuildTransactionModel.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pybitcoin.cointype">
+<span id="cointype"></span><h2>CoinType<a class="headerlink" href="#module-pybitcoin.cointype" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pybitcoin.cointype.CoinType">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">pybitcoin.cointype.</span></span><span class="sig-name descname"><span class="pre">CoinType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pybitcoin.cointype.CoinType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enum representing type of coin, as specified in <a class="reference external" href="https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki">BIP44</a>.
+Registered cointypes specified in <a class="reference external" href="https://github.com/satoshilabs/slips/blob/master/slip-0044.md">SLIP44</a>.</p>
+<p>Corresponding type from StratisFullNode’s implementation can be found <a class="reference external" href="https://github.com/stratisproject/StratisFullNode/blob/master/src/Stratis.Bitcoin.Features.Wallet/CoinType.cs#L7">here</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Coin type for Cirrus mainnet is not a registered coin type (as well as testnets).
+According to <a class="reference external" href="https://github.com/satoshilabs/slips/blob/master/slip-0044.md">SLIP44</a>, ID 401 belongs to another coin, that has nothing to do with Statis Platform.</p>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pybitcoin.contracttransactionitemtype">
+<span id="contracttransactionitemtype"></span><h2>ContractTransactionItemType<a class="headerlink" href="#module-pybitcoin.contracttransactionitemtype" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pybitcoin.contracttransactionitemtype.ContractTransactionItemType">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">pybitcoin.contracttransactionitemtype.</span></span><span class="sig-name descname"><span class="pre">ContractTransactionItemType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pybitcoin.contracttransactionitemtype.ContractTransactionItemType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enum representing type of contract-related transaction item.</p>
+<p>Corresponding type from StratisFullNode’s implementation can be found <a class="reference external" href="https://github.com/stratisproject/StratisFullNode/blob/master/src/Stratis.Bitcoin.Features.SmartContracts/Wallet/ContractTransactionItemType.cs#L3">here</a>.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pybitcoin.conversionrequeststatus">
+<span id="conversionrequeststatus"></span><h2>ConversionRequestStatus<a class="headerlink" href="#module-pybitcoin.conversionrequeststatus" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pybitcoin.conversionrequeststatus.ConversionRequestStatus">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">pybitcoin.conversionrequeststatus.</span></span><span class="sig-name descname"><span class="pre">ConversionRequestStatus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pybitcoin.conversionrequeststatus.ConversionRequestStatus" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enum representing status of interop conversion request.</p>
+<p>Corresponding type from StratisFullNode’s implementation can be found <a class="reference external" href="https://github.com/stratisproject/StratisFullNode/blob/master/src/Stratis.Features.FederatedPeg/Conversion/ConversionRequest.cs#L11">here</a>.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pybitcoin.conversionrequesttype">
+<span id="conversionrequesttype"></span><h2>ConversionRequestType<a class="headerlink" href="#module-pybitcoin.conversionrequesttype" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pybitcoin.conversionrequesttype.ConversionRequestType">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">pybitcoin.conversionrequesttype.</span></span><span class="sig-name descname"><span class="pre">ConversionRequestType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pybitcoin.conversionrequesttype.ConversionRequestType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enum representing type of interop conversion request.</p>
+<p>Corresponding type from StratisFullNode’s implementation can be found <a class="reference external" href="https://github.com/stratisproject/StratisFullNode/blob/master/src/Stratis.Features.FederatedPeg/Conversion/ConversionRequest.cs#L5">here</a>.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pybitcoin.crosschaintransferstatus">
+<span id="crosschaintransferstatus"></span><h2>CrosschainTransferStatus<a class="headerlink" href="#module-pybitcoin.crosschaintransferstatus" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pybitcoin.crosschaintransferstatus.CrossChainTransferStatus">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">pybitcoin.crosschaintransferstatus.</span></span><span class="sig-name descname"><span class="pre">CrossChainTransferStatus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pybitcoin.crosschaintransferstatus.CrossChainTransferStatus" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enum representing status of cross chain status.</p>
+<p>Corresponding type from StratisFullNode’s implementation can be found <a class="reference external" href="https://github.com/stratisproject/StratisFullNode/blob/master/src/Stratis.Features.FederatedPeg/Interfaces/ICrossChainTransfer.cs#L8">here</a>.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pybitcoin.deposit">
+<span id="deposit"></span><h2>Deposit<a class="headerlink" href="#module-pybitcoin.deposit" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pybitcoin.deposit.Deposit">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">pybitcoin.deposit.</span></span><span class="sig-name descname"><span class="pre">Deposit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.uint256.uint256" title="pybitcoin.types.uint256.uint256"><span class="pre">pybitcoin.types.uint256.uint256</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">amount</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.money.Money" title="pybitcoin.types.money.Money"><span class="pre">pybitcoin.types.money.Money</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">targetAddress</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.address.Address" title="pybitcoin.types.address.Address"><span class="pre">pybitcoin.types.address.Address</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">targetChain</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#pybitcoin.destinationchain.DestinationChain" title="pybitcoin.destinationchain.DestinationChain"><span class="pre">pybitcoin.destinationchain.DestinationChain</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">blockNumber</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pybitcoin.deposit.ConstrainedIntValue</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">blockHash</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.uint256.uint256" title="pybitcoin.types.uint256.uint256"><span class="pre">pybitcoin.types.uint256.uint256</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">retrievalType</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#pybitcoin.depositretrievaltype.DepositRetrievalType" title="pybitcoin.depositretrievaltype.DepositRetrievalType"><span class="pre">pybitcoin.depositretrievaltype.DepositRetrievalType</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pybitcoin.deposit.Deposit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Represents a deposit made to a sidechain mutlisig,
+with the aim of triggering a cross chain transfer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>deposit_id</strong> (<a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.uint256.uint256" title="pybitcoin.types.uint256.uint256"><em>uint256</em></a>) – The Id (or hash) of the source transaction that originates the fund transfer.</p></li>
+<li><p><strong>amount</strong> (<a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.money.Money" title="pybitcoin.types.money.Money"><em>Money</em></a>) – The amount of the requested fund transfer.</p></li>
+<li><p><strong>target_address</strong> (<a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.address.Address" title="pybitcoin.types.address.Address"><em>Address</em></a>) – The target address, on the target chain, for the fund deposited on the multisig.</p></li>
+<li><p><strong>target_chain</strong> (<a class="reference internal" href="#pybitcoin.destinationchain.DestinationChain" title="pybitcoin.destinationchain.DestinationChain"><em>DestinationChain</em></a><em>, </em><em>optional</em>) – Chain on which STRAX minting or burning should occur.</p></li>
+<li><p><strong>block_number</strong> (<em>int</em>) – The block number where the source deposit has been persisted.</p></li>
+<li><p><strong>block_hash</strong> (<a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.uint256.uint256" title="pybitcoin.types.uint256.uint256"><em>uint256</em></a>) – The hash of the block where the source deposit has been persisted.</p></li>
+<li><p><strong>retrieval_type</strong> (<a class="reference internal" href="#pybitcoin.depositretrievaltype.DepositRetrievalType" title="pybitcoin.depositretrievaltype.DepositRetrievalType"><em>DepositRetrievalType</em></a>) – Whether the deposit is a “faster” or “normal” deposit.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Learn how to <a class="reference external" href="https://academy.stratisplatform.com/Operation%20Guides/Sidechain/AcquiringCRS/cross-chain-transfer.html">acquire CRS token using GUI</a>.</p>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pybitcoin.depositretrievaltype">
+<span id="depositretrievaltype"></span><h2>DepositRetrievalType<a class="headerlink" href="#module-pybitcoin.depositretrievaltype" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pybitcoin.depositretrievaltype.DepositRetrievalType">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">pybitcoin.depositretrievaltype.</span></span><span class="sig-name descname"><span class="pre">DepositRetrievalType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pybitcoin.depositretrievaltype.DepositRetrievalType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Represents type of deposit retrival.</p>
+<p>Small deposits are processed after <a class="reference external" href="https://github.com/stratisproject/StratisFullNode/blob/master/src/Stratis.Features.FederatedPeg/Interfaces/IFederatedPegSettings.cs#L69">IFederatedPegSettings.MinimumConfirmationsSmallDeposits</a> confirmations (blocks).</p>
+<p>Normal deposits are processed after ‘IFederatedPegSettings.MinimumConfirmationsNormalDeposits’_ confirmations (blocks).</p>
+<p>Large deposits are only processed after the height has increased past max
+re-org (‘IFederatedPegSettings.MinimumConfirmationsLargeDeposits’_) confirmations (blocks).</p>
+<p>Conversion deposits are processed after similar intervals to the above, according to their size.</p>
+<p>Reward distribution deposits are only processed after the height
+has increased past max re-org (<a class="reference external" href="https://github.com/stratisproject/StratisFullNode/blob/master/src/Stratis.Features.FederatedPeg/Interfaces/IFederatedPegSettings.cs#L87">IFederatedPegSettings.MinimumConfirmationsDistributionDeposits</a>)
+confirmations (blocks).</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pybitcoin.destinationchain">
+<span id="destinationchain"></span><h2>DestinationChain<a class="headerlink" href="#module-pybitcoin.destinationchain" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pybitcoin.destinationchain.DestinationChain">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">pybitcoin.destinationchain.</span></span><span class="sig-name descname"><span class="pre">DestinationChain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pybitcoin.destinationchain.DestinationChain" title="Permalink to this definition">¶</a></dt>
+<dd><p>Chains supported by InterFlux integration.
+Symbols are defined according to the <a class="reference external" href="https://github.com/satoshilabs/slips/blob/master/slip-0044.md">SLIP44 specification</a>.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pybitcoin.extkey">
+<span id="extkey"></span><h2>ExtKey<a class="headerlink" href="#module-pybitcoin.extkey" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pybitcoin.extkey.ExtKey">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">pybitcoin.extkey.</span></span><span class="sig-name descname"><span class="pre">ExtKey</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">bytes</span><span class="p"><span class="pre">,</span> </span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><a class="reference internal" href="#pybitcoin.key.Key" title="pybitcoin.key.Key"><span class="pre">pybitcoin.key.Key</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pybitcoin.extkey.ExtKey" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type representing extended private key, as specified in <a class="reference external" href="https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki">BIP32</a>.</p>
+<p>Corresponding type from StratisFullNode’s implementation can be found <a class="reference external" href="https://github.com/stratisproject/StratisFullNode/blob/master/src/NBitcoin/BIP32/ExtKey.cs#L12">here</a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>value</strong> (<em>bytes | str | Key</em>) – data for a private key.</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>ValueError</strong> – Attempt to create ExtKey with unsupported <cite>value</cite> type.
+    Attempt to create with incorrect length.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="pybitcoin.extkey.ExtKey.generate_private_key_bytes">
+<span class="sig-name descname"><span class="pre">generate_private_key_bytes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">bytes</span><a class="headerlink" href="#pybitcoin.extkey.ExtKey.generate_private_key_bytes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get private key from this extended private key.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>private key, represented by the first 32 bytes of extended private key.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>bytes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pybitcoin.extkey.ExtKey.generate_chain_code_bytes">
+<span class="sig-name descname"><span class="pre">generate_chain_code_bytes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">bytes</span><a class="headerlink" href="#pybitcoin.extkey.ExtKey.generate_chain_code_bytes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get chain code from this extended private key.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>chain code, represented by the last 32 bytes of extended private key.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>bytes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pybitcoin.extkey.ExtKey.generate_private_key_base58">
+<span class="sig-name descname"><span class="pre">generate_private_key_base58</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">str</span><a class="headerlink" href="#pybitcoin.extkey.ExtKey.generate_private_key_base58" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get Base58-encoded private key from this extended private key.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>base58-encoded private key</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pybitcoin.extkey.ExtKey.generate_private_key">
+<span class="sig-name descname"><span class="pre">generate_private_key</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#pybitcoin.key.Key" title="pybitcoin.key.Key"><span class="pre">pybitcoin.key.Key</span></a><a class="headerlink" href="#pybitcoin.extkey.ExtKey.generate_private_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get private key from this extended private key.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>private key.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#pybitcoin.key.Key" title="pybitcoin.key.Key">Key</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pybitcoin.extkey.ExtKey.validate">
+<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#pybitcoin.key.Key" title="pybitcoin.key.Key"><span class="pre">pybitcoin.key.Key</span></a><a class="headerlink" href="#pybitcoin.extkey.ExtKey.validate" title="Permalink to this definition">¶</a></dt>
+<dd><p>pydantic model validation</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pybitcoin.extpubkey">
+<span id="extpubkey"></span><h2>ExtPubKey<a class="headerlink" href="#module-pybitcoin.extpubkey" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pybitcoin.extpubkey.ExtPubKey">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">pybitcoin.extpubkey.</span></span><span class="sig-name descname"><span class="pre">ExtPubKey</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">extpubkey</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pybitcoin.extpubkey.ExtPubKey" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type representing extended public key, as specified in <a class="reference external" href="https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki">BIP32</a>.</p>
+<p>Corresponding type from StratisFullNode’s implementation can be found <a class="reference external" href="https://github.com/stratisproject/StratisFullNode/blob/master/src/NBitcoin/BIP32/ExtPubKey.cs#L11">here</a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>extpubkey</strong> (<em>str</em>) – encoded extended public key.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="pybitcoin.extpubkey.ExtPubKey.decode_extpubkey">
+<span class="sig-name descname"><span class="pre">decode_extpubkey</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">extpubkey</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pybitcoin.extpubkey.ExtPubKey.decode_extpubkey" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deserialize extended public key, as specified in <a class="reference external" href="https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki">BIP32</a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>extpubkey</strong> (<em>str</em>) – Base58 encoded serialized extended public key.</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>AssertionError</strong> – extpubkey has incorrect format.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pybitcoin.extpubkey.ExtPubKey.get_payload">
+<span class="sig-name descname"><span class="pre">get_payload</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">bytes</span><a class="headerlink" href="#pybitcoin.extpubkey.ExtPubKey.get_payload" title="Permalink to this definition">¶</a></dt>
+<dd><p>Serialize extended public key, as specified in <a class="reference external" href="https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki">BIP32</a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>serialized extended public key.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>bytes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pybitcoin.extpubkey.ExtPubKey.calculate_checksum">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">calculate_checksum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">payload</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bytes</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">bytes</span><a class="headerlink" href="#pybitcoin.extpubkey.ExtPubKey.calculate_checksum" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates 4-bytes long checksum of payload</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>payload</strong> (<em>bytes</em>) – data to calculate checksum from</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>4-bytes checksum</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bytes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pybitcoin.extpubkey.ExtPubKey.validate_class">
+<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">validate_class</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#pybitcoin.extpubkey.ExtPubKey" title="pybitcoin.extpubkey.ExtPubKey"><span class="pre">pybitcoin.extpubkey.ExtPubKey</span></a><a class="headerlink" href="#pybitcoin.extpubkey.ExtPubKey.validate_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>pydantic model validation</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pybitcoin.featureinitializationstate">
+<span id="featureinitializationstate"></span><h2>FeatureInitializationState<a class="headerlink" href="#module-pybitcoin.featureinitializationstate" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pybitcoin.featureinitializationstate.FeatureInitializationState">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">pybitcoin.featureinitializationstate.</span></span><span class="sig-name descname"><span class="pre">FeatureInitializationState</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pybitcoin.featureinitializationstate.FeatureInitializationState" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enum representing current state of feature initialization.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pybitcoin.fullnodestate">
+<span id="fullnodestate"></span><h2>FullNodeState<a class="headerlink" href="#module-pybitcoin.fullnodestate" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pybitcoin.fullnodestate.FullNodeState">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">pybitcoin.fullnodestate.</span></span><span class="sig-name descname"><span class="pre">FullNodeState</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pybitcoin.fullnodestate.FullNodeState" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enum representing current state of Full Node.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pybitcoin.key">
+<span id="key"></span><h2>Key<a class="headerlink" href="#module-pybitcoin.key" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pybitcoin.key.Key">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">pybitcoin.key.</span></span><span class="sig-name descname"><span class="pre">Key</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">bytes</span><span class="p"><span class="pre">,</span> </span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><a class="reference internal" href="#pybitcoin.key.Key" title="pybitcoin.key.Key"><span class="pre">pybitcoin.key.Key</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pybitcoin.key.Key" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type representing <a class="reference external" href="https://en.bitcoin.it/wiki/Private_key">private key</a>.
+A private key is a secret number, known only to the person that generated it.</p>
+<p>Corresponding type from StratisFullNode’s implementation can be found <a class="reference external" href="https://github.com/stratisproject/StratisFullNode/blob/master/src/NBitcoin/Key.cs#L10">here</a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>value</strong> (<em>bytes | str | Key</em>) – data for private key.</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>ValueError</strong> – Attempt to create Key with unsupported <cite>value</cite> type.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="pybitcoin.key.Key.validate">
+<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#pybitcoin.key.Key" title="pybitcoin.key.Key"><span class="pre">pybitcoin.key.Key</span></a><a class="headerlink" href="#pybitcoin.key.Key.validate" title="Permalink to this definition">¶</a></dt>
+<dd><p>pydantic model validation</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pybitcoin.key.Key.get_bytes">
+<span class="sig-name descname"><span class="pre">get_bytes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">bytes</span><a class="headerlink" href="#pybitcoin.key.Key.get_bytes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get private key bytes</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>raw private key data</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>bytes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pybitcoin.key.Key.generate_wif_key">
+<span class="sig-name descname"><span class="pre">generate_wif_key</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">str</span><a class="headerlink" href="#pybitcoin.key.Key.generate_wif_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert current key to <a class="reference external" href="https://en.bitcoin.it/wiki/Wallet_import_format">Wallet import format</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>WIF compilant key.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pybitcoin.logrule">
+<span id="logrule"></span><h2>LogRule<a class="headerlink" href="#module-pybitcoin.logrule" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pybitcoin.logrule.LogRule">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">pybitcoin.logrule.</span></span><span class="sig-name descname"><span class="pre">LogRule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ruleName</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logLevel</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pybitcoin.logrule.LogRule" title="Permalink to this definition">¶</a></dt>
+<dd><p>A log rule model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rule_name</strong> (<em>str</em>) – The name of rule.</p></li>
+<li><p><strong>log_level</strong> (<em>str</em>) – The mininal event level of event to be matched by this rule.</p></li>
+<li><p><strong>filename</strong> (<em>str</em>) – The name of the logfile for this rule.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>More information about logging in Stratis Full Node can be found <a class="reference external" href="https://github.com/stratisproject/StratisBitcoinFullNode/blob/master/Documentation/using-logging.md#using-logging">here</a>.</p>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pybitcoin.maturedblockinfomodel">
+<span id="maturedblockinfomodel"></span><h2>MaturedBlockInfoModel<a class="headerlink" href="#module-pybitcoin.maturedblockinfomodel" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pybitcoin.maturedblockinfomodel.MaturedBlockInfoModel">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">pybitcoin.maturedblockinfomodel.</span></span><span class="sig-name descname"><span class="pre">MaturedBlockInfoModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">blockHash</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.uint256.uint256" title="pybitcoin.types.uint256.uint256"><span class="pre">pybitcoin.types.uint256.uint256</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">blockHeight</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pybitcoin.maturedblockinfomodel.ConstrainedIntValue</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">blockTime</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">datetime.datetime</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pybitcoin.maturedblockinfomodel.MaturedBlockInfoModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>A MaturedBlockInfoModel.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pybitcoin.model">
+<span id="model"></span><h2>Model<a class="headerlink" href="#module-pybitcoin.model" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pybitcoin.model.Model">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">pybitcoin.model.</span></span><span class="sig-name descname"><span class="pre">Model</span></span><a class="headerlink" href="#pybitcoin.model.Model" title="Permalink to this definition">¶</a></dt>
+<dd><p>A Model template.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pybitcoin.multisigsecret">
+<span id="multisigsecret"></span><h2>MultisigSecret<a class="headerlink" href="#module-pybitcoin.multisigsecret" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pybitcoin.multisigsecret.MultisigSecret">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">pybitcoin.multisigsecret.</span></span><span class="sig-name descname"><span class="pre">MultisigSecret</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mnemonic</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pydantic.types.SecretStr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">passphrase</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pydantic.types.SecretStr</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pybitcoin.multisigsecret.MultisigSecret" title="Permalink to this definition">¶</a></dt>
+<dd><p>A MultisigSecret.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pybitcoin.outpoint">
+<span id="outpoint"></span><h2>Outpoint<a class="headerlink" href="#module-pybitcoin.outpoint" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pybitcoin.outpoint.Outpoint">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">pybitcoin.outpoint.</span></span><span class="sig-name descname"><span class="pre">Outpoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transactionId</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.uint256.uint256" title="pybitcoin.types.uint256.uint256"><span class="pre">pybitcoin.types.uint256.uint256</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pybitcoin.outpoint.ConstrainedIntValue</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pybitcoin.outpoint.Outpoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>An Outpoint.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pybitcoin.pollviewmodel">
+<span id="pollviewmodel"></span><h2>PollViewModel<a class="headerlink" href="#module-pybitcoin.pollviewmodel" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pybitcoin.pollviewmodel.PollViewModel">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">pybitcoin.pollviewmodel.</span></span><span class="sig-name descname"><span class="pre">PollViewModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">IsPending</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">IsExecuted</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Id</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">PollVotedInFavorBlockDataHash</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.uint256.uint256" title="pybitcoin.types.uint256.uint256"><span class="pre">pybitcoin.types.uint256.uint256</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">PollVotedInFavorBlockDataHeight</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pybitcoin.pollviewmodel.ConstrainedIntValue</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">PollStartFavorBlockDataHash</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.uint256.uint256" title="pybitcoin.types.uint256.uint256"><span class="pre">pybitcoin.types.uint256.uint256</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">PollStartFavorBlockDataHeight</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pybitcoin.pollviewmodel.ConstrainedIntValue</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">PollExecutedBlockDataHash</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.uint256.uint256" title="pybitcoin.types.uint256.uint256"><span class="pre">pybitcoin.types.uint256.uint256</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">PollExecutedBlockDataHeight</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pybitcoin.pollviewmodel.ConstrainedIntValue</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">PubKeysHexVotedInFavor</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pybitcoin.pubkey.PubKey" title="pybitcoin.pubkey.PubKey"><span class="pre">pybitcoin.pubkey.PubKey</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VotingDataString</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pybitcoin.pollviewmodel.PollViewModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>A PollViewModel.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pybitcoin.pubkey">
+<span id="pubkey"></span><h2>PubKey<a class="headerlink" href="#module-pybitcoin.pubkey" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pybitcoin.pubkey.PubKey">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">pybitcoin.pubkey.</span></span><span class="sig-name descname"><span class="pre">PubKey</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pybitcoin.pubkey.PubKey" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type representing public key.
+A public key is the number that corresponds to a private key,
+but does not need to be kept secret.
+A public key can be calculated from a private key, but not vice versa.</p>
+<p>A public key can be presented in compressed or uncompressed format.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Read more about <a class="reference external" href="https://github.com/bitcoinbook/bitcoinbook/blob/develop/ch04.asciidoc#public-key-formats">public key formats</a>.</p>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="pybitcoin.pubkey.PubKey.uncompressed">
+<span class="sig-name descname"><span class="pre">uncompressed</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">str</span><a class="headerlink" href="#pybitcoin.pubkey.PubKey.uncompressed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves a uncompressed pubkey.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pybitcoin.pubkey.PubKey.compressed">
+<span class="sig-name descname"><span class="pre">compressed</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">str</span><a class="headerlink" href="#pybitcoin.pubkey.PubKey.compressed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retreives a compressed pubkey.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pybitcoin.recipient">
+<span id="recipient"></span><h2>Recipient<a class="headerlink" href="#module-pybitcoin.recipient" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pybitcoin.recipient.Recipient">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">pybitcoin.recipient.</span></span><span class="sig-name descname"><span class="pre">Recipient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">destinationAddress</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.address.Address" title="pybitcoin.types.address.Address"><span class="pre">pybitcoin.types.address.Address</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">destinationScript</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.address.Address" title="pybitcoin.types.address.Address"><span class="pre">pybitcoin.types.address.Address</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subtractFeeFromAmount</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amount</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.money.Money" title="pybitcoin.types.money.Money"><span class="pre">pybitcoin.types.money.Money</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pybitcoin.recipient.Recipient" title="Permalink to this definition">¶</a></dt>
+<dd><p>A Recipient.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pybitcoin.removedtransactionmodel">
+<span id="removedtransactionmodel"></span><h2>RemovedTransactionModel<a class="headerlink" href="#module-pybitcoin.removedtransactionmodel" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pybitcoin.removedtransactionmodel.RemovedTransactionModel">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">pybitcoin.removedtransactionmodel.</span></span><span class="sig-name descname"><span class="pre">RemovedTransactionModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transactionId</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.uint256.uint256" title="pybitcoin.types.uint256.uint256"><span class="pre">pybitcoin.types.uint256.uint256</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">creationTime</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">datetime.datetime</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pybitcoin.removedtransactionmodel.RemovedTransactionModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>A RemovedTransactionModel.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pybitcoin.scriptpubkey">
+<span id="scriptpubkey"></span><h2>ScriptPubKey<a class="headerlink" href="#module-pybitcoin.scriptpubkey" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pybitcoin.scriptpubkey.ScriptPubKey">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">pybitcoin.scriptpubkey.</span></span><span class="sig-name descname"><span class="pre">ScriptPubKey</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">asm</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hex</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reqSigs</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">addresses</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pybitcoin.scriptpubkey.ScriptPubKey" title="Permalink to this definition">¶</a></dt>
+<dd><p>A ScriptPubKey.</p>
+<p>A ScriptPubKey is a part of transaction’s output, and is the second half of a script.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>asm</strong> (<em>str</em>) – The assembly representation of the script.</p></li>
+<li><p><strong>hex</strong> (<em>str</em>) – The hex representation of the script.</p></li>
+<li><p><strong>type</strong> (<em>str</em><em>, </em><em>optional</em>) – The type of script. The list of supported types can be found in <a class="reference external" href="https://github.com/stratisproject/StratisFullNode/blob/master/src/Stratis.Bitcoin/Controllers/Models/TransactionModel.cs#L327">sources</a>.</p></li>
+<li><p><strong>req_sigs</strong> (<em>int</em><em>, </em><em>optional</em>) – The number of required sigs.</p></li>
+<li><p><strong>addresses</strong> (<em>List</em><em>[</em><em>str</em><em>]</em><em>, </em><em>optional</em>) – A list of output addresses.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Learn more about <a class="reference external" href="https://en.bitcoin.it/wiki/Transaction">transaction structure</a>.</p>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pybitcoin.scriptsig">
+<span id="scriptsig"></span><h2>ScriptSig<a class="headerlink" href="#module-pybitcoin.scriptsig" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pybitcoin.scriptsig.ScriptSig">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">pybitcoin.scriptsig.</span></span><span class="sig-name descname"><span class="pre">ScriptSig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">asm</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hex</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pybitcoin.scriptsig.ScriptSig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Represents ScriptSig.</p>
+<p>A ScriptSig is a part of transaction’s input, and is the first half of a script.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>asm</strong> (<em>str</em>) – The assembly representation of the script.</p></li>
+<li><p><strong>hex</strong> (<em>str</em>) – The hex representation of the script.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Learn more about <a class="reference external" href="https://en.bitcoin.it/wiki/Transaction#Input">transaction structure</a>.</p>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pybitcoin.sendtransactionrequest">
+<span id="sendtransactionrequest"></span><h2>SendTransactionRequest<a class="headerlink" href="#module-pybitcoin.sendtransactionrequest" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pybitcoin.sendtransactionrequest.SendTransactionRequest">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">pybitcoin.sendtransactionrequest.</span></span><span class="sig-name descname"><span class="pre">SendTransactionRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hex</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.hexstr.hexstr" title="pybitcoin.types.hexstr.hexstr"><span class="pre">pybitcoin.types.hexstr.hexstr</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pybitcoin.sendtransactionrequest.SendTransactionRequest" title="Permalink to this definition">¶</a></dt>
+<dd><p>A request model for multiple api endpoints.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>transaction_hex</strong> (<a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.hexstr.hexstr" title="pybitcoin.types.hexstr.hexstr"><em>hexstr</em></a>) – The hexified transaction.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pybitcoin.smartcontractparameter">
+<span id="smartcontractparameter"></span><h2>SmartContractParameter<a class="headerlink" href="#module-pybitcoin.smartcontractparameter" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pybitcoin.smartcontractparameter.SmartContractParameter">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">pybitcoin.smartcontractparameter.</span></span><span class="sig-name descname"><span class="pre">SmartContractParameter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value_type</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#pybitcoin.smartcontractparametertype.SmartContractParameterType" title="pybitcoin.smartcontractparametertype.SmartContractParameterType"><span class="pre">pybitcoin.smartcontractparametertype.SmartContractParameterType</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pybitcoin.smartcontractparameter.SmartContractParameter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type representing smart contract’s parameter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>value_type</strong> (<a class="reference internal" href="#pybitcoin.smartcontractparametertype.SmartContractParameterType" title="pybitcoin.smartcontractparametertype.SmartContractParameterType"><em>SmartContractParameterType</em></a>) – The type of parameter.</p></li>
+<li><p><strong>value</strong> – The value of the paramater.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Learn more about smart contracts in <a class="reference external" href="https://academy.stratisplatform.com/Architecture%20Reference/SmartContracts/working-with-contracts.html">Stratis Academy</a>.</p>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="pybitcoin.smartcontractparameter.SmartContractParameter.validate_values">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">validate_values</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value_type</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#pybitcoin.smartcontractparametertype.SmartContractParameterType" title="pybitcoin.smartcontractparametertype.SmartContractParameterType"><span class="pre">pybitcoin.smartcontractparametertype.SmartContractParameterType</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">bool</span><a class="headerlink" href="#pybitcoin.smartcontractparameter.SmartContractParameter.validate_values" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validates that type of value matching with value_type.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pybitcoin.smartcontractparametertype">
+<span id="smartcontractparametertype"></span><h2>SmartContractParameterType<a class="headerlink" href="#module-pybitcoin.smartcontractparametertype" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pybitcoin.smartcontractparametertype.SmartContractParameterType">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">pybitcoin.smartcontractparametertype.</span></span><span class="sig-name descname"><span class="pre">SmartContractParameterType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pybitcoin.smartcontractparametertype.SmartContractParameterType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines (de-)serialization rule for smart contract parameters.</p>
+<p class="rubric">Notes</p>
+<p>Learn more about contract’s parameters serialization from <a class="reference external" href="https://academy.stratisplatform.com/Architecture%20Reference/SmartContracts/working-with-contracts.html#parameter-serialization">Stratis Academy</a>.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pybitcoin.transactionitemtype">
+<span id="transactionitemtype"></span><h2>TransactionItemType<a class="headerlink" href="#module-pybitcoin.transactionitemtype" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pybitcoin.transactionitemtype.TransactionItemType">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">pybitcoin.transactionitemtype.</span></span><span class="sig-name descname"><span class="pre">TransactionItemType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pybitcoin.transactionitemtype.TransactionItemType" title="Permalink to this definition">¶</a></dt>
+<dd><p>A TransactionItemType.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pybitcoin.transactionmodel">
+<span id="transactionmodel"></span><h2>TransactionModel<a class="headerlink" href="#module-pybitcoin.transactionmodel" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pybitcoin.transactionmodel.TransactionModel">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">pybitcoin.transactionmodel.</span></span><span class="sig-name descname"><span class="pre">TransactionModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hex</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.hexstr.hexstr" title="pybitcoin.types.hexstr.hexstr"><span class="pre">pybitcoin.types.hexstr.hexstr</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">txid</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.uint256.uint256" title="pybitcoin.types.uint256.uint256"><span class="pre">pybitcoin.types.uint256.uint256</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hash</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.uint256.uint256" title="pybitcoin.types.uint256.uint256"><span class="pre">pybitcoin.types.uint256.uint256</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pybitcoin.transactionmodel.ConstrainedIntValue</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pybitcoin.transactionmodel.ConstrainedIntValue</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vsize</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pybitcoin.transactionmodel.ConstrainedIntValue</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pybitcoin.transactionmodel.ConstrainedIntValue</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">locktime</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pybitcoin.transactionmodel.ConstrainedIntValue</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vin</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pybitcoin.vin.VIn" title="pybitcoin.vin.VIn"><span class="pre">pybitcoin.vin.VIn</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vout</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pybitcoin.vout.VOut" title="pybitcoin.vout.VOut"><span class="pre">pybitcoin.vout.VOut</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">blockhash</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.uint256.uint256" title="pybitcoin.types.uint256.uint256"><span class="pre">pybitcoin.types.uint256.uint256</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">confirmations</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">datetime.datetime</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">blocktime</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">datetime.datetime</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pybitcoin.transactionmodel.TransactionModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>A TransactionModel.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pybitcoin.transactionoutputmodel">
+<span id="transactionoutputmodel"></span><h2>TransactionOutputModel<a class="headerlink" href="#module-pybitcoin.transactionoutputmodel" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pybitcoin.transactionoutputmodel.TransactionOutputModel">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">pybitcoin.transactionoutputmodel.</span></span><span class="sig-name descname"><span class="pre">TransactionOutputModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">address</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span> </span><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.address.Address" title="pybitcoin.types.address.Address"><span class="pre">pybitcoin.types.address.Address</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amount</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.money.Money" title="pybitcoin.types.money.Money"><span class="pre">pybitcoin.types.money.Money</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">OpReturnData</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pybitcoin.transactionoutputmodel.TransactionOutputModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>A TransactionOutputModel.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pybitcoin.utxodescriptor">
+<span id="utxodescriptor"></span><h2>UtxoDescriptor<a class="headerlink" href="#module-pybitcoin.utxodescriptor" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pybitcoin.utxodescriptor.UtxoDescriptor">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">pybitcoin.utxodescriptor.</span></span><span class="sig-name descname"><span class="pre">UtxoDescriptor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transactionId</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.uint256.uint256" title="pybitcoin.types.uint256.uint256"><span class="pre">pybitcoin.types.uint256.uint256</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pybitcoin.utxodescriptor.ConstrainedIntValue</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scriptPubKey</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amount</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.money.Money" title="pybitcoin.types.money.Money"><span class="pre">pybitcoin.types.money.Money</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pybitcoin.utxodescriptor.UtxoDescriptor" title="Permalink to this definition">¶</a></dt>
+<dd><p>A UtxoDescriptor.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pybitcoin.vin">
+<span id="vin"></span><h2>VIn<a class="headerlink" href="#module-pybitcoin.vin" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pybitcoin.vin.VIn">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">pybitcoin.vin.</span></span><span class="sig-name descname"><span class="pre">VIn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coinbase</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">txid</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vout</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pybitcoin.vin.ConstrainedIntValue</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scriptSig</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#pybitcoin.scriptsig.ScriptSig" title="pybitcoin.scriptsig.ScriptSig"><span class="pre">pybitcoin.scriptsig.ScriptSig</span></a></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sequence</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pybitcoin.vin.ConstrainedIntValue</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pybitcoin.vin.VIn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Represents transaction’s input.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>coinbase</strong> (<em>str</em><em>, </em><em>optional</em>) – The scriptSig if this was a coinbase transaction.</p></li>
+<li><p><strong>txid</strong> (<em>str</em><em>, </em><em>optional</em>) – The transaction’s ID.</p></li>
+<li><p><strong>vout</strong> (<em>int</em><em>, </em><em>optional</em>) – The index of the output.</p></li>
+<li><p><strong>script_sig</strong> (<a class="reference internal" href="#pybitcoin.scriptsig.ScriptSig" title="pybitcoin.scriptsig.ScriptSig"><em>ScriptSig</em></a><em>, </em><em>optional</em>) – The ScriptSig.</p></li>
+<li><p><strong>sequence</strong> (<em>int</em>) – The transaction’s sequence number.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Learn more about <a class="reference external" href="https://en.bitcoin.it/wiki/Transaction#Input">transaction input structure</a>.</p>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pybitcoin.vout">
+<span id="vout"></span><h2>VOut<a class="headerlink" href="#module-pybitcoin.vout" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pybitcoin.vout.VOut">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">pybitcoin.vout.</span></span><span class="sig-name descname"><span class="pre">VOut</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.money.Money" title="pybitcoin.types.money.Money"><span class="pre">pybitcoin.types.money.Money</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pybitcoin.vout.ConstrainedIntValue</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scriptPubKey</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#pybitcoin.scriptpubkey.ScriptPubKey" title="pybitcoin.scriptpubkey.ScriptPubKey"><span class="pre">pybitcoin.scriptpubkey.ScriptPubKey</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pybitcoin.vout.VOut" title="Permalink to this definition">¶</a></dt>
+<dd><p>Represents transaction’s output.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>value</strong> (<a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.money.Money" title="pybitcoin.types.money.Money"><em>Money</em></a>) – The value of transaction’s output.</p></li>
+<li><p><strong>n</strong> (<em>int</em>) – The index of the output.</p></li>
+<li><p><strong>script_pubkey</strong> (<a class="reference internal" href="#pybitcoin.scriptpubkey.ScriptPubKey" title="pybitcoin.scriptpubkey.ScriptPubKey"><em>ScriptPubKey</em></a>) – The output’s scriptpubkey.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Learn more about <a class="reference external" href="https://en.bitcoin.it/wiki/Transaction#Output">transaction output structure and scriptPubKey</a>.</p>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pybitcoin.walletbalancemodel">
+<span id="walletbalancemodel"></span><h2>WalletBalanceModel<a class="headerlink" href="#module-pybitcoin.walletbalancemodel" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pybitcoin.walletbalancemodel.WalletBalanceModel">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">pybitcoin.walletbalancemodel.</span></span><span class="sig-name descname"><span class="pre">WalletBalanceModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">balances</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pybitcoin.accountbalancemodel.AccountBalanceModel" title="pybitcoin.accountbalancemodel.AccountBalanceModel"><span class="pre">pybitcoin.accountbalancemodel.AccountBalanceModel</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pybitcoin.walletbalancemodel.WalletBalanceModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>A WalletBalanceModel.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pybitcoin.walletgeneralinfomodel">
+<span id="walletgeneralinfomodel"></span><h2>WalletGeneralInfoModel<a class="headerlink" href="#module-pybitcoin.walletgeneralinfomodel" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pybitcoin.walletgeneralinfomodel.WalletGeneralInfoModel">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">pybitcoin.walletgeneralinfomodel.</span></span><span class="sig-name descname"><span class="pre">WalletGeneralInfoModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">walletName</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">network</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">creationTime</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">datetime.datetime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isDecrypted</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lastBlockSyncedHeight</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pybitcoin.walletgeneralinfomodel.ConstrainedIntValue</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chainTip</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pybitcoin.walletgeneralinfomodel.ConstrainedIntValue</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isChainSynced</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">connectedNodes</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pybitcoin.walletgeneralinfomodel.ConstrainedIntValue</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pybitcoin.walletgeneralinfomodel.WalletGeneralInfoModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>A model representing general wallet info.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>wallet_name</strong> (<em>str</em><em>, </em><em>optional</em>) – The name of the wallet.</p></li>
+<li><p><strong>network</strong> (<em>str</em>) – The name of network this wallet operating on.</p></li>
+<li><p><strong>creation_time</strong> (<em>str</em>) – The time this wallet was created.</p></li>
+<li><p><strong>is_decrypted</strong> (<em>bool</em>) – Is wallet decrypted or not.</p></li>
+<li><p><strong>last_block_synced_height</strong> (<em>int</em><em>, </em><em>optional</em>) – The height of the last block that was synced</p></li>
+<li><p><strong>chain_tip</strong> (<em>int</em><em>, </em><em>optional</em>) – The total number of blocks.</p></li>
+<li><p><strong>is_chain_synced</strong> (<em>bool</em>) – Whether the chain is synced with the network.</p></li>
+<li><p><strong>connected_nodes</strong> (<em>int</em>) – The total number of nodes that we’re connected to.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pybitcoin.walletsecret">
+<span id="walletsecret"></span><h2>WalletSecret<a class="headerlink" href="#module-pybitcoin.walletsecret" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pybitcoin.walletsecret.WalletSecret">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">pybitcoin.walletsecret.</span></span><span class="sig-name descname"><span class="pre">WalletSecret</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">walletName</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">walletPassword</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pydantic.types.SecretStr</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pybitcoin.walletsecret.WalletSecret" title="Permalink to this definition">¶</a></dt>
+<dd><p>A model representing credentials of the wallet.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>wallet_name</strong> (<em>str</em>) – The name of the wallet.</p></li>
+<li><p><strong>wallet_password</strong> (<em>SecretStr</em>) – The password of the wallet.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pybitcoin.walletsendtransactionmodel">
+<span id="walletsendtransactionmodel"></span><h2>WalletSendTransactionModel<a class="headerlink" href="#module-pybitcoin.walletsendtransactionmodel" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pybitcoin.walletsendtransactionmodel.WalletSendTransactionModel">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">pybitcoin.walletsendtransactionmodel.</span></span><span class="sig-name descname"><span class="pre">WalletSendTransactionModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transactionId</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="pybitcoin.types.html#pybitcoin.types.uint256.uint256" title="pybitcoin.types.uint256.uint256"><span class="pre">pybitcoin.types.uint256.uint256</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">outputs</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pybitcoin.transactionoutputmodel.TransactionOutputModel" title="pybitcoin.transactionoutputmodel.TransactionOutputModel"><span class="pre">pybitcoin.transactionoutputmodel.TransactionOutputModel</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pybitcoin.walletsendtransactionmodel.WalletSendTransactionModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>A WalletSendTransactionModel.</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="pybitcoin.networks.html" class="btn btn-neutral float-right" title="Networks" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="nodes.html" class="btn btn-neutral float-left" title="nodes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Tjaden Froyda.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

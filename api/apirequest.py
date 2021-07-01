@@ -10,6 +10,7 @@ from pybitcoin.networks import BaseNetwork
 class APIRequest:
     """A class for creating an api request and processing the initial response."""
     def __init__(self, network: BaseNetwork, baseuri: str, **kwargs):
+        """Initialize the API request handler baseclass."""
         self._network = network
         self._baseuri = baseuri
         self._headers = {'Accept': '*/*', 'Content-Type': 'application/json'}
