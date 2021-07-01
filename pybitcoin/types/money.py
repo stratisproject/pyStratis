@@ -133,6 +133,13 @@ class Money:
             return Money(self.value + other)
         raise NotImplementedError(f'Addition between Money and {type(other)} is not defined.')
 
+    def __sub__(self, other) -> Money:
+        if isinstance(other, Money):
+            return Money(self.value - other.value)
+        if isinstance(other, (int, float, Decimal)):
+            return Money(self.value - other)
+        raise NotImplementedError(f'Substraction between Money and {type(other)} is not defined.')
+
     def __truediv__(self, other) -> Union[Decimal, Money]:
         if isinstance(other, Money):
             return Decimal(self.value / other.value)
