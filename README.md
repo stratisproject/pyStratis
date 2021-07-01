@@ -69,7 +69,7 @@ cd doc_build
 make html 
 ```
 - Other output options: `make help`
--  Built documentation for `make html` can be found in [docs/html/index.html](docs/html/index.html), open with your favorite browser. 
+- After building, documentation for `make html` can be found in [docs/html/index.html](docs/html/index.html), open with your favorite browser. 
 
 # Credit
 
