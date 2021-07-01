@@ -17,16 +17,18 @@ def test_account_addresses(cirrusminer_node: CirrusMinerNode):
 @pytest.mark.integration_test
 @pytest.mark.cirrus_integration_test
 def test_address_balance(cirrusminer_node: CirrusMinerNode, get_node_smart_contract_address):
-    response = cirrusminer_node.smart_contract_wallet.address_balance(address=get_node_smart_contract_address(cirrusminer_node))
+    sc_address = get_node_smart_contract_address(cirrusminer_node)
+    response = cirrusminer_node.smart_contract_wallet.address_balance(address=sc_address)
     assert isinstance(response, Money)
 
 
 @pytest.mark.integration_test
 @pytest.mark.cirrus_integration_test
 def test_history(cirrusminer_node: CirrusMinerNode, get_smart_contract_address):
+    sc_address = get_smart_contract_address
     response = cirrusminer_node.smart_contract_wallet.history(
         wallet_name='Test',
-        address=get_smart_contract_address
+        address=sc_address
     )
     assert isinstance(response, list)
     for item in response:
@@ -70,11 +72,12 @@ def test_create(cirrusminer_node: CirrusMinerNode, apitestcontract_bytecode, get
 @pytest.mark.cirrus_integration_test
 def test_call(cirrusminer_node: CirrusMinerNode, get_node_address_with_balance, get_smart_contract_address):
     sending_address = get_node_address_with_balance(cirrusminer_node)
+    sc_address = get_smart_contract_address
     response = cirrusminer_node.smart_contract_wallet.call(
         wallet_name='Test',
         account_name='account 0',
         outpoints=None,
-        contract_address=get_smart_contract_address,
+        contract_address=sc_address,
         method_name='TestMethod',
         amount=Money(0),
         fee_amount=Money(0.0001),
@@ -106,11 +109,12 @@ def test_call(cirrusminer_node: CirrusMinerNode, get_node_address_with_balance, 
 @pytest.mark.cirrus_integration_test
 def test_send_transaction(cirrusminer_node: CirrusMinerNode, get_node_address_with_balance, get_smart_contract_address):
     sending_address = get_node_address_with_balance(cirrusminer_node)
+    sc_address = get_smart_contract_address
     response = cirrusminer_node.smart_contract_wallet.call(
         wallet_name='Test',
         account_name='account 0',
         outpoints=None,
-        contract_address=get_smart_contract_address,
+        contract_address=sc_address,
         method_name='TestMethod',
         amount=Money(0),
         fee_amount=Money(0.0001),

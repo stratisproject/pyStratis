@@ -34,10 +34,10 @@ def test_all_interfluxcirrus_endpoints_implemented(interfluxcirrus_swagger_json)
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_reconstruct(mocker: MockerFixture, network, fakeuri):
+def test_reconstruct(mocker: MockerFixture, network):
     data = "Reconstruction flag set, please restart the node."
     mocker.patch.object(Federation, 'put', return_value=data)
-    federation = Federation(network=network, baseuri=fakeuri)
+    federation = Federation(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     response = federation.reconstruct()
 
@@ -47,7 +47,7 @@ def test_reconstruct(mocker: MockerFixture, network, fakeuri):
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_members_current(mocker: MockerFixture, network, fakeuri, generate_compressed_pubkey, get_datetime):
+def test_members_current(mocker: MockerFixture, network, generate_compressed_pubkey, get_datetime):
     data = {
         "pollStartBlockHeight": None,
         "pollNumberOfVotesAcquired": None,
@@ -65,7 +65,7 @@ def test_members_current(mocker: MockerFixture, network, fakeuri, generate_compr
     }
 
     mocker.patch.object(Federation, 'get', return_value=data)
-    federation = Federation(network=network, baseuri=fakeuri)
+    federation = Federation(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     response = federation.members_current()
 
@@ -75,7 +75,7 @@ def test_members_current(mocker: MockerFixture, network, fakeuri, generate_compr
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_member(mocker: MockerFixture, network, fakeuri, generate_compressed_pubkey, get_datetime):
+def test_member(mocker: MockerFixture, network, generate_compressed_pubkey, get_datetime):
     data = [
         {
             "pubkey": generate_compressed_pubkey,
@@ -98,7 +98,7 @@ def test_member(mocker: MockerFixture, network, fakeuri, generate_compressed_pub
     ]
 
     mocker.patch.object(Federation, 'get', return_value=data)
-    federation = Federation(network=network, baseuri=fakeuri)
+    federation = Federation(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     response = federation.members()
 

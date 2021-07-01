@@ -34,14 +34,14 @@ def test_all_interfluxcirrus_endpoints_implemented(interfluxcirrus_swagger_json)
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_raw_mempool(mocker: MockerFixture, network, fakeuri, generate_uint256):
+def test_raw_mempool(mocker: MockerFixture, network, generate_uint256):
     data = [
         generate_uint256,
         generate_uint256,
         generate_uint256
     ]
     mocker.patch.object(Mempool, 'get', return_value=data)
-    mempool = Mempool(network=network, baseuri=fakeuri)
+    mempool = Mempool(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     response = mempool.get_raw_mempool()
 

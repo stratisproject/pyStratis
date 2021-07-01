@@ -9,10 +9,10 @@ from nodes import CirrusMinerNode
 def test_raw_mempool(cirrusminer_node: CirrusMinerNode,
                      cirrusminer_syncing_node: CirrusMinerNode,
                      send_a_transaction,
-                     wait_n_blocks_and_sync,
+                     wait_and_clear_mempool,
                      get_node_address_with_balance,
                      get_node_unused_address):
-    wait_n_blocks_and_sync(2)
+    assert wait_and_clear_mempool()
     mining_address = get_node_address_with_balance(cirrusminer_node)
     receiving_address = get_node_unused_address(cirrusminer_syncing_node)
     assert send_a_transaction(

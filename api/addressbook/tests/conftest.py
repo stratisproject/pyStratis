@@ -1,7 +1,7 @@
 import pytest
 
 
-@pytest.fixture(scope='function')
+@pytest.fixture(scope='package')
 def addressbookentry_p2pkh(generate_p2pkh_address):
     # noinspection PyUnresolvedReferences
     def _addressbookentry_p2pkh(network: 'BaseNetwork') -> dict:
@@ -9,7 +9,7 @@ def addressbookentry_p2pkh(generate_p2pkh_address):
     return _addressbookentry_p2pkh
 
 
-@pytest.fixture(scope='function')
+@pytest.fixture(scope='package')
 def addressbookentry_p2sh(generate_p2sh_address):
     # noinspection PyUnresolvedReferences
     def _addressbookentry_p2sh(network: 'BaseNetwork') -> dict:
@@ -17,7 +17,7 @@ def addressbookentry_p2sh(generate_p2sh_address):
     return _addressbookentry_p2sh
 
 
-@pytest.fixture(scope='function')
+@pytest.fixture(scope='package')
 def addressbookentry_p2wpkh(generate_p2wpkh_address):
     # noinspection PyUnresolvedReferences
     def _addressbookentry_p2wpkh(network: 'BaseNetwork') -> dict:
@@ -25,7 +25,7 @@ def addressbookentry_p2wpkh(generate_p2wpkh_address):
     return _addressbookentry_p2wpkh
 
 
-@pytest.fixture(scope='function')
+@pytest.fixture(scope='package')
 def addressbookentry_p2wsh(generate_p2wsh_address):
     # noinspection PyUnresolvedReferences
     def _addressbookentry_p2wsh(network: 'BaseNetwork') -> dict:
@@ -33,7 +33,7 @@ def addressbookentry_p2wsh(generate_p2wsh_address):
     return _addressbookentry_p2wsh
 
 
-@pytest.fixture(scope='function')
+@pytest.fixture(scope='package')
 def fulladdressbook_p2pkh(generate_p2pkh_address):
     # noinspection PyUnresolvedReferences
     def _fulladdressbook_p2pkh(network: 'BaseNetwork') -> dict:
@@ -49,7 +49,7 @@ def fulladdressbook_p2pkh(generate_p2pkh_address):
     return _fulladdressbook_p2pkh
 
 
-@pytest.fixture(scope='function')
+@pytest.fixture(scope='package')
 def fulladdressbook_p2sh(generate_p2sh_address):
     # noinspection PyUnresolvedReferences
     def _fulladdressbook_p2sh(network: 'BaseNetwork') -> dict:
@@ -65,7 +65,7 @@ def fulladdressbook_p2sh(generate_p2sh_address):
     return _fulladdressbook_p2sh
 
 
-@pytest.fixture(scope='function')
+@pytest.fixture(scope='package')
 def fulladdressbook_p2wpkh(generate_p2wpkh_address):
     # noinspection PyUnresolvedReferences
     def _fulladdressbook_p2wpkh(network: 'BaseNetwork') -> dict:
@@ -81,7 +81,7 @@ def fulladdressbook_p2wpkh(generate_p2wpkh_address):
     return _fulladdressbook_p2wpkh
 
 
-@pytest.fixture(scope='function')
+@pytest.fixture(scope='package')
 def fulladdressbook_p2wsh(generate_p2wsh_address):
     # noinspection PyUnresolvedReferences
     def _fulladdressbook_p2wsh(network: 'BaseNetwork') -> dict:
@@ -97,7 +97,7 @@ def fulladdressbook_p2wsh(generate_p2wsh_address):
     return _fulladdressbook_p2wsh
 
 
-@pytest.fixture(scope='function')
+@pytest.fixture(scope='package')
 def partialaddressbook_p2pkh(fulladdressbook_p2pkh):
     # noinspection PyUnresolvedReferences
     def _partialaddressbook_p2pkh(network: 'BaseNetwork') -> dict:
@@ -109,7 +109,7 @@ def partialaddressbook_p2pkh(fulladdressbook_p2pkh):
     return _partialaddressbook_p2pkh
 
 
-@pytest.fixture(scope='function')
+@pytest.fixture(scope='package')
 def partialaddressbook_p2sh(fulladdressbook_p2sh):
     # noinspection PyUnresolvedReferences
     def _partialaddressbook_p2sh(network: 'BaseNetwork') -> dict:
@@ -122,7 +122,7 @@ def partialaddressbook_p2sh(fulladdressbook_p2sh):
     return _partialaddressbook_p2sh
 
 
-@pytest.fixture(scope='function')
+@pytest.fixture(scope='package')
 def partialaddressbook_p2wpkh(fulladdressbook_p2wpkh):
     # noinspection PyUnresolvedReferences
     def _partialaddressbook_p2wpkh(network: 'BaseNetwork') -> dict:
@@ -135,7 +135,7 @@ def partialaddressbook_p2wpkh(fulladdressbook_p2wpkh):
     return _partialaddressbook_p2wpkh
 
 
-@pytest.fixture(scope='function')
+@pytest.fixture(scope='package')
 def partialaddressbook_p2wsh(fulladdressbook_p2wsh):
     # noinspection PyUnresolvedReferences
     def _partialaddressbook_p2wsh(network: 'BaseNetwork') -> dict:

@@ -35,10 +35,10 @@ def test_all_interfluxcirrus_endpoints_implemented(interfluxcirrus_swagger_json)
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_addnode(mocker: MockerFixture, network, fakeuri):
+def test_addnode(mocker: MockerFixture, network):
     data = True
     mocker.patch.object(ConnectionManager, 'get', return_value=data)
-    connection_manager = ConnectionManager(network=network, baseuri=fakeuri)
+    connection_manager = ConnectionManager(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     response = connection_manager.addnode(ipaddr='http://localhost', command='add')
 
@@ -48,7 +48,7 @@ def test_addnode(mocker: MockerFixture, network, fakeuri):
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_getpeerinfo(mocker: MockerFixture, network, fakeuri):
+def test_getpeerinfo(mocker: MockerFixture, network):
     data = [
         {
             "id": 0,
@@ -108,7 +108,7 @@ def test_getpeerinfo(mocker: MockerFixture, network, fakeuri):
         }
     ]
     mocker.patch.object(ConnectionManager, 'get', return_value=data)
-    connection_manager = ConnectionManager(network=network, baseuri=fakeuri)
+    connection_manager = ConnectionManager(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     response = connection_manager.getpeerinfo()
 

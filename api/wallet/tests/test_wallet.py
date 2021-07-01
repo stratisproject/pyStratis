@@ -40,10 +40,10 @@ def test_all_interfluxcirrus_endpoints_implemented(interfluxcirrus_swagger_json)
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_mnemonic(mocker: MockerFixture, network, fakeuri):
+def test_mnemonic(mocker: MockerFixture, network):
     data = 'a b c d e f g h i j k l'
     mocker.patch.object(Wallet, 'get', return_value=data)
-    wallet = Wallet(network=network, baseuri=fakeuri)
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     response = wallet.mnemonic(language='English', word_count=12)
 
@@ -54,10 +54,10 @@ def test_mnemonic(mocker: MockerFixture, network, fakeuri):
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_create(mocker: MockerFixture, network, fakeuri):
+def test_create(mocker: MockerFixture, network):
     data = 'a b c d e f g h i j k l'
     mocker.patch.object(Wallet, 'post', return_value=data)
-    wallet = Wallet(network=network, baseuri=fakeuri)
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     response = wallet.create(
         mnemonic=data,
@@ -72,15 +72,14 @@ def test_create(mocker: MockerFixture, network, fakeuri):
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_sign_message(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address,
-                      generate_privatekey):
+def test_sign_message(mocker: MockerFixture, network, generate_p2pkh_address, generate_privatekey):
     message = 'This is my message'
     private_key_bytes = generate_privatekey().get_bytes()
     key = ecdsa.SigningKey.from_string(private_key_bytes, curve=ecdsa.SECP256k1)
     sig = base64.b64encode(key.sign(bytes(message, 'ascii'))).decode('ascii')
     data = sig
     mocker.patch.object(Wallet, 'post', return_value=data)
-    wallet = Wallet(network=network, baseuri=fakeuri)
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     response = wallet.sign_message(
         wallet_name='Test',
@@ -95,11 +94,10 @@ def test_sign_message(mocker: MockerFixture, network, fakeuri, generate_p2pkh_ad
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_pubkey(mocker: MockerFixture, network, fakeuri, generate_uncompressed_pubkey,
-                generate_p2pkh_address):
+def test_pubkey(mocker: MockerFixture, network, generate_uncompressed_pubkey, generate_p2pkh_address):
     data = generate_uncompressed_pubkey
     mocker.patch.object(Wallet, 'post', return_value=data)
-    wallet = Wallet(network=network, baseuri=fakeuri)
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     response = wallet.pubkey(
         wallet_name='Test',
@@ -112,14 +110,14 @@ def test_pubkey(mocker: MockerFixture, network, fakeuri, generate_uncompressed_p
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_verify_message(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address, generate_privatekey):
+def test_verify_message(mocker: MockerFixture, network, generate_p2pkh_address, generate_privatekey):
     message = 'This is my message'
     private_key_bytes = generate_privatekey().get_bytes()
     key = ecdsa.SigningKey.from_string(private_key_bytes, curve=ecdsa.SECP256k1)
     sig = base64.b64encode(key.sign(bytes(message, 'ascii'))).decode('ascii')
     data = True
     mocker.patch.object(Wallet, 'post', return_value=data)
-    wallet = Wallet(network=network, baseuri=fakeuri)
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
     response = wallet.verify_message(
         signature=sig,
         external_address=Address(address=generate_p2pkh_address(network=network), network=network),
@@ -132,10 +130,10 @@ def test_verify_message(mocker: MockerFixture, network, fakeuri, generate_p2pkh_
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_load(mocker: MockerFixture, network, fakeuri):
+def test_load(mocker: MockerFixture, network):
     data = None
     mocker.patch.object(Wallet, 'post', return_value=data)
-    wallet = Wallet(network=network, baseuri=fakeuri)
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     wallet.load(name='Test', password='password')
 
@@ -144,10 +142,10 @@ def test_load(mocker: MockerFixture, network, fakeuri):
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_recover(mocker: MockerFixture, network, fakeuri):
+def test_recover(mocker: MockerFixture, network):
     data = None
     mocker.patch.object(Wallet, 'post', return_value=data)
-    wallet = Wallet(network=network, baseuri=fakeuri)
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
     wallet.recover(
         mnemonic='mnemonic',
         password='password',
@@ -161,10 +159,10 @@ def test_recover(mocker: MockerFixture, network, fakeuri):
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_recover_via_extpubkey(mocker: MockerFixture, network, fakeuri, generate_extpubkey):
+def test_recover_via_extpubkey(mocker: MockerFixture, network, generate_extpubkey):
     data = None
     mocker.patch.object(Wallet, 'post', return_value=data)
-    wallet = Wallet(network=network, baseuri=fakeuri)
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
     wallet.recover_via_extpubkey(
         extpubkey=generate_extpubkey,
         account_index=0,
@@ -177,7 +175,7 @@ def test_recover_via_extpubkey(mocker: MockerFixture, network, fakeuri, generate
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_general_info(mocker: MockerFixture, network, fakeuri):
+def test_general_info(mocker: MockerFixture, network):
     data = {
         'walletName': 'Test',
         'network': network.name,
@@ -189,7 +187,7 @@ def test_general_info(mocker: MockerFixture, network, fakeuri):
         'connectedNodes': 10
     }
     mocker.patch.object(Wallet, 'get', return_value=data)
-    wallet = Wallet(network=network, baseuri=fakeuri)
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
     response = wallet.general_info(name='Test')
 
     assert response == WalletGeneralInfoModel(**data)
@@ -198,10 +196,10 @@ def test_general_info(mocker: MockerFixture, network, fakeuri):
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_transaction_count(mocker: MockerFixture, network, fakeuri):
+def test_transaction_count(mocker: MockerFixture, network):
     data = {'transactionCount': 5}
     mocker.patch.object(Wallet, 'get', return_value=data)
-    wallet = Wallet(network=network, baseuri=fakeuri)
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     response = wallet.transaction_count(
         wallet_name='Test',
@@ -214,7 +212,7 @@ def test_transaction_count(mocker: MockerFixture, network, fakeuri):
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_history(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address, generate_uint256):
+def test_history(mocker: MockerFixture, network, generate_p2pkh_address, generate_uint256):
     data = {
         'history': [
             {
@@ -246,7 +244,7 @@ def test_history(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address
         ]
     }
     mocker.patch.object(Wallet, 'get', return_value=data)
-    wallet = Wallet(network=network, baseuri=fakeuri)
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     response = wallet.history(
         wallet_name='Test',
@@ -265,7 +263,7 @@ def test_history(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_balance(mocker: MockerFixture, network, fakeuri, get_base_keypath, generate_p2pkh_address):
+def test_balance(mocker: MockerFixture, network, get_base_keypath, generate_p2pkh_address):
     data = {
         'balances': [
             {
@@ -288,7 +286,7 @@ def test_balance(mocker: MockerFixture, network, fakeuri, get_base_keypath, gene
         ]
     }
     mocker.patch.object(Wallet, 'get', return_value=data)
-    wallet = Wallet(network=network, baseuri=fakeuri)
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
     response = wallet.balance(
         wallet_name='Test',
         account_name='account 0',
@@ -301,7 +299,7 @@ def test_balance(mocker: MockerFixture, network, fakeuri, get_base_keypath, gene
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_received_by_address(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address):
+def test_received_by_address(mocker: MockerFixture, network, generate_p2pkh_address):
     data = {
         'address': generate_p2pkh_address(network=network),
         'coinType': CoinType.Strax,
@@ -310,7 +308,7 @@ def test_received_by_address(mocker: MockerFixture, network, fakeuri, generate_p
         'spendableAmount': 5
     }
     mocker.patch.object(Wallet, 'get', return_value=data)
-    wallet = Wallet(network=network, baseuri=fakeuri)
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     response = wallet.received_by_address(address=Address(address=data['address'], network=network))
 
@@ -320,13 +318,13 @@ def test_received_by_address(mocker: MockerFixture, network, fakeuri, generate_p
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_max_balance(mocker: MockerFixture, network, fakeuri):
+def test_max_balance(mocker: MockerFixture, network):
     data = {
         'maxSpendableAmount': 5,
         'fee': 10000
     }
     mocker.patch.object(Wallet, 'get', return_value=data)
-    wallet = Wallet(network=network, baseuri=fakeuri)
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     response = wallet.max_balance(
         wallet_name='Test',
@@ -341,7 +339,7 @@ def test_max_balance(mocker: MockerFixture, network, fakeuri):
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_spendable_transactions(mocker: MockerFixture, network, fakeuri, generate_uint256, generate_p2pkh_address):
+def test_spendable_transactions(mocker: MockerFixture, network, generate_uint256, generate_p2pkh_address):
     data = {
         'transactions': [
             {
@@ -356,7 +354,7 @@ def test_spendable_transactions(mocker: MockerFixture, network, fakeuri, generat
         ]
     }
     mocker.patch.object(Wallet, 'get', return_value=data)
-    wallet = Wallet(network=network, baseuri=fakeuri)
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
     response = wallet.spendable_transactions(
         wallet_name='Test',
         account_name='account 0',
@@ -369,10 +367,10 @@ def test_spendable_transactions(mocker: MockerFixture, network, fakeuri, generat
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_estimate_txfee(mocker: MockerFixture, network, fakeuri, generate_uint256, generate_p2pkh_address):
+def test_estimate_txfee(mocker: MockerFixture, network, generate_uint256, generate_p2pkh_address):
     data = 10000
     mocker.patch.object(Wallet, 'post', return_value=data)
-    wallet = Wallet(network=network, baseuri=fakeuri)
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
     response = wallet.estimate_txfee(
         wallet_name='Test',
         account_name='account 0',
@@ -399,15 +397,14 @@ def test_estimate_txfee(mocker: MockerFixture, network, fakeuri, generate_uint25
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_build_transaction(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address,
-                           generate_uint256, generate_hexstring):
+def test_build_transaction(mocker: MockerFixture, network, generate_p2pkh_address, generate_uint256, generate_hexstring):
     data = {
         'fee': 10000,
         'hex': generate_hexstring(128),
         'transactionId': generate_uint256
     }
     mocker.patch.object(Wallet, 'post', return_value=data)
-    wallet = Wallet(network=network, baseuri=fakeuri)
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     response = wallet.build_transaction(
         fee_amount=Money(0.0001),
@@ -437,15 +434,14 @@ def test_build_transaction(mocker: MockerFixture, network, fakeuri, generate_p2p
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_build_interflux_transaction(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address,
-                                     generate_ethereum_checksum_address, generate_uint256, generate_hexstring):
+def test_build_interflux_transaction(mocker: MockerFixture, network, generate_p2pkh_address, generate_ethereum_checksum_address, generate_uint256, generate_hexstring):
     data = {
         'fee': 10000,
         'hex': generate_hexstring(128),
         'transactionId': generate_uint256
     }
     mocker.patch.object(Wallet, 'post', return_value=data)
-    wallet = Wallet(network=network, baseuri=fakeuri)
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     response = wallet.build_interflux_transaction(
         destination_chain=DestinationChain.ETH,
@@ -477,8 +473,7 @@ def test_build_interflux_transaction(mocker: MockerFixture, network, fakeuri, ge
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_send_transaction(mocker: MockerFixture, network, fakeuri, generate_uint256, generate_p2pkh_address,
-                          generate_hexstring):
+def test_send_transaction(mocker: MockerFixture, network, generate_uint256, generate_p2pkh_address, generate_hexstring):
     data = {
         'transactionId': generate_uint256,
         'outputs': [
@@ -490,7 +485,7 @@ def test_send_transaction(mocker: MockerFixture, network, fakeuri, generate_uint
         ]
     }
     mocker.patch.object(Wallet, 'post', return_value=data)
-    wallet = Wallet(network=network, baseuri=fakeuri)
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     response = wallet.send_transaction(transaction_hex=generate_hexstring(128))
 
@@ -500,10 +495,10 @@ def test_send_transaction(mocker: MockerFixture, network, fakeuri, generate_uint
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_list_wallets(mocker: MockerFixture, network, fakeuri):
+def test_list_wallets(mocker: MockerFixture, network):
     data = {'walletNames': ['Test'], 'watchOnlyWallets': []}
     mocker.patch.object(Wallet, 'get', return_value=data)
-    wallet = Wallet(network=network, baseuri=fakeuri)
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     response = wallet.list_wallets()
 
@@ -513,10 +508,10 @@ def test_list_wallets(mocker: MockerFixture, network, fakeuri):
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_account(mocker: MockerFixture, network, fakeuri):
+def test_account(mocker: MockerFixture, network):
     data = 'Test'
     mocker.patch.object(Wallet, 'post', return_value=data)
-    wallet = Wallet(network=network, baseuri=fakeuri)
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     response = wallet.account(password='password', wallet_name='Test')
 
@@ -526,10 +521,10 @@ def test_account(mocker: MockerFixture, network, fakeuri):
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_accounts(mocker: MockerFixture, network, fakeuri):
+def test_accounts(mocker: MockerFixture, network):
     data = ['account 0', 'account 1']
     mocker.patch.object(Wallet, 'get', return_value=data)
-    wallet = Wallet(network=network, baseuri=fakeuri)
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     response = wallet.accounts(wallet_name='Test')
 
@@ -539,10 +534,10 @@ def test_accounts(mocker: MockerFixture, network, fakeuri):
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_unused_address(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address):
+def test_unused_address(mocker: MockerFixture, network, generate_p2pkh_address):
     data = generate_p2pkh_address(network=network)
     mocker.patch.object(Wallet, 'get', return_value=data)
-    wallet = Wallet(network=network, baseuri=fakeuri)
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     response = wallet.unused_address(
         wallet_name='Test',
@@ -556,13 +551,13 @@ def test_unused_address(mocker: MockerFixture, network, fakeuri, generate_p2pkh_
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_unused_addresses(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address):
+def test_unused_addresses(mocker: MockerFixture, network, generate_p2pkh_address):
     data = [
         generate_p2pkh_address(network=network),
         generate_p2pkh_address(network=network)
     ]
     mocker.patch.object(Wallet, 'get', return_value=data)
-    wallet = Wallet(network=network, baseuri=fakeuri)
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     response = wallet.unused_addresses(
         wallet_name='Test',
@@ -577,13 +572,13 @@ def test_unused_addresses(mocker: MockerFixture, network, fakeuri, generate_p2pk
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_new_addresses(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address):
+def test_new_addresses(mocker: MockerFixture, network, generate_p2pkh_address):
     data = [
         generate_p2pkh_address(network=network),
         generate_p2pkh_address(network=network)
     ]
     mocker.patch.object(Wallet, 'get', return_value=data)
-    wallet = Wallet(network=network, baseuri=fakeuri)
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     response = wallet.new_addresses(
         wallet_name='Test',
@@ -598,7 +593,7 @@ def test_new_addresses(mocker: MockerFixture, network, fakeuri, generate_p2pkh_a
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_addresses(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address):
+def test_addresses(mocker: MockerFixture, network, generate_p2pkh_address):
     data = {
         'addresses': [
             {
@@ -611,7 +606,7 @@ def test_addresses(mocker: MockerFixture, network, fakeuri, generate_p2pkh_addre
         ]
     }
     mocker.patch.object(Wallet, 'get', return_value=data)
-    wallet = Wallet(network=network, baseuri=fakeuri)
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     response = wallet.addresses(
         wallet_name='Test',
@@ -625,7 +620,7 @@ def test_addresses(mocker: MockerFixture, network, fakeuri, generate_p2pkh_addre
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_remove_transactions(mocker: MockerFixture, network, fakeuri, generate_uint256):
+def test_remove_transactions(mocker: MockerFixture, network, generate_uint256):
     ids = [
         generate_uint256,
         generate_uint256
@@ -641,7 +636,7 @@ def test_remove_transactions(mocker: MockerFixture, network, fakeuri, generate_u
         }
     ]
     mocker.patch.object(Wallet, 'delete', return_value=data)
-    wallet = Wallet(network=network, baseuri=fakeuri)
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     response = wallet.remove_transactions(
         wallet_name='Test',
@@ -657,10 +652,10 @@ def test_remove_transactions(mocker: MockerFixture, network, fakeuri, generate_u
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_remove_wallet(mocker: MockerFixture, network, fakeuri):
+def test_remove_wallet(mocker: MockerFixture, network):
     data = None
     mocker.patch.object(Wallet, 'delete', return_value=data)
-    wallet = Wallet(network=network, baseuri=fakeuri)
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     wallet.remove_wallet(wallet_name='Test')
 
@@ -669,10 +664,10 @@ def test_remove_wallet(mocker: MockerFixture, network, fakeuri):
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_extpubkey(mocker: MockerFixture, network, fakeuri, generate_extpubkey):
+def test_extpubkey(mocker: MockerFixture, network, generate_extpubkey):
     data = generate_extpubkey
     mocker.patch.object(Wallet, 'get', return_value=data)
-    wallet = Wallet(network=network, baseuri=fakeuri)
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     response = wallet.extpubkey(wallet_name='Test', account_name='account 0')
 
@@ -682,10 +677,10 @@ def test_extpubkey(mocker: MockerFixture, network, fakeuri, generate_extpubkey):
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_private_key(mocker: MockerFixture, network, fakeuri, generate_privatekey, generate_p2pkh_address):
+def test_private_key(mocker: MockerFixture, network, generate_privatekey, generate_p2pkh_address):
     data = generate_privatekey()
     mocker.patch.object(Wallet, 'post', return_value=data)
-    wallet = Wallet(network=network, baseuri=fakeuri)
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     response = wallet.private_key(
         password='password',
@@ -699,10 +694,10 @@ def test_private_key(mocker: MockerFixture, network, fakeuri, generate_privateke
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_sync(mocker: MockerFixture, network, fakeuri, generate_uint256):
+def test_sync(mocker: MockerFixture, network, generate_uint256):
     data = None
     mocker.patch.object(Wallet, 'post', return_value=data)
-    wallet = Wallet(network=network, baseuri=fakeuri)
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     wallet.sync(block_hash=generate_uint256)
 
@@ -711,10 +706,10 @@ def test_sync(mocker: MockerFixture, network, fakeuri, generate_uint256):
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_sync_from_date(mocker: MockerFixture, network, fakeuri):
+def test_sync_from_date(mocker: MockerFixture, network):
     data = None
     mocker.patch.object(Wallet, 'post', return_value=data)
-    wallet = Wallet(network=network, baseuri=fakeuri)
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     wallet.sync_from_date(
         date='2020-01-01T00:00:01',
@@ -727,7 +722,7 @@ def test_sync_from_date(mocker: MockerFixture, network, fakeuri):
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_wallet_stats(mocker: MockerFixture, network, fakeuri):
+def test_wallet_stats(mocker: MockerFixture, network):
     data = {
         'walletName': 'Test',
         'totalUtxoCount': 1,
@@ -754,7 +749,7 @@ def test_wallet_stats(mocker: MockerFixture, network, fakeuri):
         ]
     }
     mocker.patch.object(Wallet, 'get', return_value=data)
-    wallet = Wallet(network=network, baseuri=fakeuri)
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     response = wallet.wallet_stats(
         wallet_name=data['walletName'],
@@ -769,7 +764,7 @@ def test_wallet_stats(mocker: MockerFixture, network, fakeuri):
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_split_coins(mocker: MockerFixture, network, fakeuri, generate_uint256, generate_p2pkh_address):
+def test_split_coins(mocker: MockerFixture, network, generate_uint256, generate_p2pkh_address):
     data = {
         'transactionId': generate_uint256,
         'outputs': [
@@ -801,7 +796,7 @@ def test_split_coins(mocker: MockerFixture, network, fakeuri, generate_uint256, 
         ]
     }
     mocker.patch.object(Wallet, 'post', return_value=data)
-    wallet = Wallet(network=network, baseuri=fakeuri)
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     response = wallet.split_coins(
         wallet_name='Test',
@@ -817,7 +812,7 @@ def test_split_coins(mocker: MockerFixture, network, fakeuri, generate_uint256, 
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_distribute_utxos(mocker: MockerFixture, network, fakeuri, generate_uint256, generate_p2pkh_address):
+def test_distribute_utxos(mocker: MockerFixture, network, generate_uint256, generate_p2pkh_address):
     data = {
         'walletName': 'Test',
         'useUniqueAddressPerUtxo': True,
@@ -861,7 +856,7 @@ def test_distribute_utxos(mocker: MockerFixture, network, fakeuri, generate_uint
     }
 
     mocker.patch.object(Wallet, 'post', return_value=data)
-    wallet = Wallet(network=network, baseuri=fakeuri)
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     response = wallet.distribute_utxos(
         wallet_name='Test',
@@ -884,8 +879,7 @@ def test_distribute_utxos(mocker: MockerFixture, network, fakeuri, generate_uint
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_sweep(mocker: MockerFixture, network, fakeuri, generate_privatekey, generate_uint256,
-               generate_p2pkh_address):
+def test_sweep(mocker: MockerFixture, network, generate_privatekey, generate_uint256, generate_p2pkh_address):
     private_keys = [
         generate_privatekey(),
         generate_privatekey(),
@@ -897,7 +891,7 @@ def test_sweep(mocker: MockerFixture, network, fakeuri, generate_privatekey, gen
         generate_uint256
     ]
     mocker.patch.object(Wallet, 'post', return_value=data)
-    wallet = Wallet(network=network, baseuri=fakeuri)
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     response = wallet.sweep(
         private_keys=private_keys,
@@ -911,8 +905,7 @@ def test_sweep(mocker: MockerFixture, network, fakeuri, generate_privatekey, gen
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_build_offline_sign_request(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address,
-                                    generate_uint256, generate_hexstring, get_base_keypath):
+def test_build_offline_sign_request(mocker: MockerFixture, network, generate_p2pkh_address, generate_uint256, generate_hexstring, get_base_keypath):
     data = {
         'walletName': 'Test',
         'walletAccount': 'account 0',
@@ -932,7 +925,7 @@ def test_build_offline_sign_request(mocker: MockerFixture, network, fakeuri, gen
     }
 
     mocker.patch.object(Wallet, 'post', return_value=data)
-    wallet = Wallet(network=network, baseuri=fakeuri)
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     response = wallet.build_offline_sign_request(
         fee_amount=Money(0.0001),
@@ -960,15 +953,14 @@ def test_build_offline_sign_request(mocker: MockerFixture, network, fakeuri, gen
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_offline_sign_request(mocker: MockerFixture, network, fakeuri, get_base_keypath,
-                              generate_uint256, generate_hexstring, generate_p2pkh_address):
+def test_offline_sign_request(mocker: MockerFixture, network, get_base_keypath, generate_uint256, generate_hexstring, generate_p2pkh_address):
     data = {
         'fee': 10000,
         'hex': generate_hexstring(128),
         'transactionId': generate_uint256
     }
     mocker.patch.object(Wallet, 'post', return_value=data)
-    wallet = Wallet(network=network, baseuri=fakeuri)
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     response = wallet.offline_sign_request(
         wallet_password='password',
@@ -999,10 +991,10 @@ def test_offline_sign_request(mocker: MockerFixture, network, fakeuri, get_base_
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_consolidate(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address, generate_hexstring):
+def test_consolidate(mocker: MockerFixture, network, generate_p2pkh_address, generate_hexstring):
     data = generate_hexstring(128)
     mocker.patch.object(Wallet, 'post', return_value=data)
-    wallet = Wallet(network=network, baseuri=fakeuri)
+    wallet = Wallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     response = wallet.consolidate(
         wallet_password='password',

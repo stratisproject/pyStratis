@@ -37,13 +37,13 @@ def test_all_interfluxcirrus_endpoints_implemented(interfluxcirrus_swagger_json)
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_addressindexertip(mocker: MockerFixture, network, fakeuri, generate_uint256):
+def test_addressindexertip(mocker: MockerFixture, network, generate_uint256):
     data = {
         'tipHash': generate_uint256,
         'tipHeight': randint(0, 300)
     }
     mocker.patch.object(BlockStore, 'get', return_value=data)
-    blockstore = BlockStore(network=network, baseuri=fakeuri)
+    blockstore = BlockStore(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
     response = blockstore.addressindexer_tip()
 
     assert response.tip_hash.to_hex() == data['tipHash']
@@ -53,12 +53,12 @@ def test_addressindexertip(mocker: MockerFixture, network, fakeuri, generate_uin
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_addressindexertip_no_tipheight(mocker: MockerFixture, network, fakeuri, generate_uint256):
+def test_addressindexertip_no_tipheight(mocker: MockerFixture, network, generate_uint256):
     data = {
         'tipHash': generate_uint256
     }
     mocker.patch.object(BlockStore, 'get', return_value=data)
-    blockstore = BlockStore(network=network, baseuri=fakeuri)
+    blockstore = BlockStore(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
     response = blockstore.addressindexer_tip()
 
     assert response.tip_hash.to_hex() == data['tipHash']
@@ -68,10 +68,10 @@ def test_addressindexertip_no_tipheight(mocker: MockerFixture, network, fakeuri,
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_block_output_hexstr_no_details(mocker: MockerFixture, network, fakeuri, generate_uint256, generate_block_no_tx_data):
+def test_block_output_hexstr_no_details(mocker: MockerFixture, network, generate_uint256, generate_block_no_tx_data):
     data = pickle.dumps(generate_block_no_tx_data).hex()
     mocker.patch.object(BlockStore, 'get', return_value=data)
-    blockstore = BlockStore(network=network, baseuri=fakeuri)
+    blockstore = BlockStore(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     response = blockstore.block(
         block_hash=generate_uint256,
@@ -85,10 +85,10 @@ def test_block_output_hexstr_no_details(mocker: MockerFixture, network, fakeuri,
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_block_output_hexstr_include_details(mocker: MockerFixture, network, fakeuri, generate_uint256, generate_block_with_tx_data):
+def test_block_output_hexstr_include_details(mocker: MockerFixture, network, generate_uint256, generate_block_with_tx_data):
     data = pickle.dumps(generate_block_with_tx_data(network=network)).hex()
     mocker.patch.object(BlockStore, 'get', return_value=data)
-    blockstore = BlockStore(network=network, baseuri=fakeuri)
+    blockstore = BlockStore(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     response = blockstore.block(
         block_hash=generate_uint256,
@@ -102,10 +102,10 @@ def test_block_output_hexstr_include_details(mocker: MockerFixture, network, fak
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_block_output_json_no_details(mocker: MockerFixture, network, fakeuri, generate_uint256, generate_block_no_tx_data):
+def test_block_output_json_no_details(mocker: MockerFixture, network, generate_uint256, generate_block_no_tx_data):
     data = generate_block_no_tx_data
     mocker.patch.object(BlockStore, 'get', return_value=data)
-    blockstore = BlockStore(network=network, baseuri=fakeuri)
+    blockstore = BlockStore(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     response = blockstore.block(
         block_hash=generate_uint256,
@@ -119,10 +119,10 @@ def test_block_output_json_no_details(mocker: MockerFixture, network, fakeuri, g
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_block_output_json_include_details(mocker: MockerFixture, network, fakeuri, generate_uint256, generate_block_with_tx_data):
+def test_block_output_json_include_details(mocker: MockerFixture, network, generate_uint256, generate_block_with_tx_data):
     data = generate_block_with_tx_data(network=network)
     mocker.patch.object(BlockStore, 'get', return_value=data)
-    blockstore = BlockStore(network=network, baseuri=fakeuri)
+    blockstore = BlockStore(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     response = blockstore.block(
         block_hash=generate_uint256,
@@ -136,10 +136,10 @@ def test_block_output_json_include_details(mocker: MockerFixture, network, fakeu
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_block_no_found(mocker: MockerFixture, network, fakeuri, generate_uint256):
+def test_block_no_found(mocker: MockerFixture, network, generate_uint256):
     data = 'Block not found'
     mocker.patch.object(BlockStore, 'get', return_value=data)
-    blockstore = BlockStore(network=network, baseuri=fakeuri)
+    blockstore = BlockStore(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     response = blockstore.block(
         block_hash=generate_uint256,
@@ -153,10 +153,10 @@ def test_block_no_found(mocker: MockerFixture, network, fakeuri, generate_uint25
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_getblockcount(mocker: MockerFixture, network, fakeuri, ):
+def test_getblockcount(mocker: MockerFixture, network):
     data = 10
     mocker.patch.object(BlockStore, 'get', return_value=data)
-    blockstore = BlockStore(network=network, baseuri=fakeuri)
+    blockstore = BlockStore(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
     response = blockstore.get_block_count()
 
     assert response == data
@@ -165,7 +165,7 @@ def test_getblockcount(mocker: MockerFixture, network, fakeuri, ):
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_getaddressbalances_single_address(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address):
+def test_getaddressbalances_single_address(mocker: MockerFixture, network, generate_p2pkh_address):
     address = generate_p2pkh_address(network=network)
     data = {
         'balances': [
@@ -174,7 +174,7 @@ def test_getaddressbalances_single_address(mocker: MockerFixture, network, fakeu
         'reason': None
     }
     mocker.patch.object(BlockStore, 'get', return_value=data)
-    blockstore = BlockStore(network=network, baseuri=fakeuri)
+    blockstore = BlockStore(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     response = blockstore.get_addresses_balances(addresses=address)
 
@@ -184,7 +184,7 @@ def test_getaddressbalances_single_address(mocker: MockerFixture, network, fakeu
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_getaddressbalances_multiple_addresses(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address, generate_p2sh_address, generate_p2wpkh_address, generate_p2wsh_address):
+def test_getaddressbalances_multiple_addresses(mocker: MockerFixture, network, generate_p2pkh_address, generate_p2sh_address, generate_p2wpkh_address, generate_p2wsh_address):
     addresses = [
         generate_p2pkh_address(network=network),
         generate_p2sh_address(network=network),
@@ -201,7 +201,7 @@ def test_getaddressbalances_multiple_addresses(mocker: MockerFixture, network, f
         'reason': None
     }
     mocker.patch.object(BlockStore, 'get', return_value=data)
-    blockstore = BlockStore(network=network, baseuri=fakeuri)
+    blockstore = BlockStore(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     response = blockstore.get_addresses_balances(addresses=addresses)
 
@@ -211,7 +211,7 @@ def test_getaddressbalances_multiple_addresses(mocker: MockerFixture, network, f
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_getverboseaddressbalances_single_address(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address):
+def test_getverboseaddressbalances_single_address(mocker: MockerFixture, network, generate_p2pkh_address):
     address = generate_p2pkh_address(network=network)
     data = {
         'balancesData': [
@@ -221,7 +221,7 @@ def test_getverboseaddressbalances_single_address(mocker: MockerFixture, network
         'reason': None
     }
     mocker.patch.object(BlockStore, 'get', return_value=data)
-    blockstore = BlockStore(network=network, baseuri=fakeuri)
+    blockstore = BlockStore(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     response = blockstore.get_verbose_addresses_balances(addresses=address)
 
@@ -231,7 +231,7 @@ def test_getverboseaddressbalances_single_address(mocker: MockerFixture, network
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_getverboseaddressbalances_multiple_addresses(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address, generate_p2sh_address, generate_p2wpkh_address, generate_p2wsh_address):
+def test_getverboseaddressbalances_multiple_addresses(mocker: MockerFixture, network, generate_p2pkh_address, generate_p2sh_address, generate_p2wpkh_address, generate_p2wsh_address):
     addresses = [
         generate_p2pkh_address(network=network),
         generate_p2sh_address(network=network),
@@ -250,7 +250,7 @@ def test_getverboseaddressbalances_multiple_addresses(mocker: MockerFixture, net
     }
 
     mocker.patch.object(BlockStore, 'get', return_value=data)
-    blockstore = BlockStore(network=network, baseuri=fakeuri)
+    blockstore = BlockStore(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     response = blockstore.get_verbose_addresses_balances(addresses=addresses)
 
@@ -260,7 +260,7 @@ def test_getverboseaddressbalances_multiple_addresses(mocker: MockerFixture, net
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_getverboseaddressbalances_single_address_no_changes(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address):
+def test_getverboseaddressbalances_single_address_no_changes(mocker: MockerFixture, network, generate_p2pkh_address):
     address = generate_p2pkh_address(network=network)
     data = {
         'balancesData': [
@@ -271,7 +271,7 @@ def test_getverboseaddressbalances_single_address_no_changes(mocker: MockerFixtu
     }
 
     mocker.patch.object(BlockStore, 'get', return_value=data)
-    blockstore = BlockStore(network=network, baseuri=fakeuri)
+    blockstore = BlockStore(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     response = blockstore.get_verbose_addresses_balances(addresses=address)
 
@@ -281,7 +281,7 @@ def test_getverboseaddressbalances_single_address_no_changes(mocker: MockerFixtu
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_getutxoset(mocker: MockerFixture, network, fakeuri, generate_uint256, generate_hexstring):
+def test_getutxoset(mocker: MockerFixture, network, generate_uint256, generate_hexstring):
     data = [
         {
             "txId": generate_uint256,
@@ -297,7 +297,7 @@ def test_getutxoset(mocker: MockerFixture, network, fakeuri, generate_uint256, g
         },
     ]
     mocker.patch.object(BlockStore, 'get', return_value=data)
-    blockstore = BlockStore(network=network, baseuri=fakeuri)
+    blockstore = BlockStore(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     response = blockstore.get_utxo_set(at_block_height=2)
 
@@ -307,10 +307,10 @@ def test_getutxoset(mocker: MockerFixture, network, fakeuri, generate_uint256, g
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_getutxoset_empty(mocker: MockerFixture, network, fakeuri, generate_uint256, generate_hexstring):
+def test_getutxoset_empty(mocker: MockerFixture, network, generate_uint256, generate_hexstring):
     data = []
     mocker.patch.object(BlockStore, 'get', return_value=data)
-    blockstore = BlockStore(network=network, baseuri=fakeuri)
+    blockstore = BlockStore(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     response = blockstore.get_utxo_set(at_block_height=2)
 
@@ -320,14 +320,14 @@ def test_getutxoset_empty(mocker: MockerFixture, network, fakeuri, generate_uint
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_getlastbalanceupdatetransaction(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address, generate_uint256, generate_transaction):
+def test_getlastbalanceupdatetransaction(mocker: MockerFixture, network, generate_p2pkh_address, generate_uint256, generate_transaction):
     address = Address(address=generate_p2pkh_address(network=network), network=network)
     data = {
         'transaction': generate_transaction(trxid=generate_uint256, network=network),
         'blockHeight': 1
     }
     mocker.patch.object(BlockStore, 'get', return_value=data)
-    blockstore = BlockStore(network=network, baseuri=fakeuri)
+    blockstore = BlockStore(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     response = blockstore.get_last_balance_update_transaction(address=address)
 

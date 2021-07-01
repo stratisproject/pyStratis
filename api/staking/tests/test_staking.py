@@ -36,7 +36,7 @@ def test_all_interfluxcirrus_endpoints_implemented(interfluxcirrus_swagger_json)
 
 
 @pytest.mark.parametrize('network', [StraxMain()], ids=['StraxMain'])
-def test_get_staking_info(mocker: MockerFixture, network, fakeuri):
+def test_get_staking_info(mocker: MockerFixture, network):
     data = {
         'enabled': True,
         'staking': True,
@@ -52,7 +52,7 @@ def test_get_staking_info(mocker: MockerFixture, network, fakeuri):
         'expectedTime': 1,
     }
     mocker.patch.object(Staking, 'get', return_value=data)
-    staking = Staking(network=network, baseuri=fakeuri)
+    staking = Staking(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     response = staking.get_staking_info()
 
@@ -62,10 +62,10 @@ def test_get_staking_info(mocker: MockerFixture, network, fakeuri):
 
 
 @pytest.mark.parametrize('network', [StraxMain()], ids=['StraxMain'])
-def test_start_staking(mocker: MockerFixture, network, fakeuri):
+def test_start_staking(mocker: MockerFixture, network):
     data = None
     mocker.patch.object(Staking, 'post', return_value=data)
-    staking = Staking(network=network, baseuri=fakeuri)
+    staking = Staking(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
     staking.start_staking(name='Name', password='password')
 
     # noinspection PyUnresolvedReferences
@@ -73,10 +73,10 @@ def test_start_staking(mocker: MockerFixture, network, fakeuri):
 
 
 @pytest.mark.parametrize('network', [StraxMain()], ids=['StraxMain'])
-def test_start_multistaking(mocker: MockerFixture, network, fakeuri):
+def test_start_multistaking(mocker: MockerFixture, network):
     data = None
     mocker.patch.object(Staking, 'post', return_value=data)
-    staking = Staking(network=network, baseuri=fakeuri)
+    staking = Staking(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
     staking.start_multistaking(
         wallet_credentials=[
             WalletSecret(wallet_name='Wallet0', wallet_password='password0'),
@@ -90,10 +90,10 @@ def test_start_multistaking(mocker: MockerFixture, network, fakeuri):
 
 
 @pytest.mark.parametrize('network', [StraxMain()], ids=['StraxMain'])
-def test_stop_staking(mocker: MockerFixture, network, fakeuri):
+def test_stop_staking(mocker: MockerFixture, network):
     data = None
     mocker.patch.object(Staking, 'post', return_value=data)
-    staking = Staking(network=network, baseuri=fakeuri)
+    staking = Staking(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
     staking.stop_staking()
 
     # noinspection PyUnresolvedReferences

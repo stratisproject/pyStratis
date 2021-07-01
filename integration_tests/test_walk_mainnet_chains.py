@@ -15,7 +15,6 @@ def test_walk_strax_main():
     node = StraxNode()
     current_block_height = node.blockstore.get_block_count()
     for i in range(1, current_block_height, 10):
-        print(f'Checking height {i}')
         block_hash_at_height: uint256 = node.consensus.get_blockhash(height=i)
         node.node.get_blockheader(block_hash=block_hash_at_height)
         block: BlockTransactionDetailsModel = node.blockstore.block(block_hash=block_hash_at_height)
@@ -34,7 +33,6 @@ def test_walk_cirrus_main():
     node = CirrusNode()
     current_block_height = node.blockstore.get_block_count()
     for i in range(1, current_block_height, 10):
-        print(f'Checking height {i}')
         block_hash_at_height: uint256 = node.consensus.get_blockhash(height=i)
         node.node.get_blockheader(block_hash=block_hash_at_height)
         block: BlockTransactionDetailsModel = node.blockstore.block(block_hash=block_hash_at_height)

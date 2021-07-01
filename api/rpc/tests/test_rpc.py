@@ -35,14 +35,14 @@ def test_all_interfluxcirrus_endpoints_implemented(interfluxcirrus_swagger_json)
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_call_by_name(mocker: MockerFixture, network, fakeuri):
+def test_call_by_name(mocker: MockerFixture, network):
     data = {
         'value': {
             'test': 0
         }
     }
     mocker.patch.object(RPC, 'post', return_value=data)
-    rpc = RPC(network=network, baseuri=fakeuri)
+    rpc = RPC(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     response = rpc.call_by_name(command='rpccommand')
 
@@ -52,7 +52,7 @@ def test_call_by_name(mocker: MockerFixture, network, fakeuri):
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_list_methods(mocker: MockerFixture, network, fakeuri):
+def test_list_methods(mocker: MockerFixture, network):
     data = [
         {
             'command': 'rpccommend',
@@ -60,7 +60,7 @@ def test_list_methods(mocker: MockerFixture, network, fakeuri):
         }
     ]
     mocker.patch.object(RPC, 'get', return_value=data)
-    rpc = RPC(network=network, baseuri=fakeuri)
+    rpc = RPC(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     response = rpc.list_methods()
 

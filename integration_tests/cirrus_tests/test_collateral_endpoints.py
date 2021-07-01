@@ -8,9 +8,9 @@ from pybitcoin.networks import StraxRegTest
 @pytest.mark.skip(reason='Unable to test in regtest environment.')
 @pytest.mark.integration_test
 @pytest.mark.cirrus_integration_test
-def test_join_federation(cirrus_node: CirrusNode, generate_p2pkh_address, wait_n_blocks_and_sync):
+def test_join_federation(cirrus_node: CirrusNode, generate_p2pkh_address, wait_and_clear_mempool):
     # This method is present in the cirrus node but needs to be tested in interflux federation because it requires querying counter chain.
-    wait_n_blocks_and_sync(2)
+    assert wait_and_clear_mempool()
     response = cirrus_node.collateral.join_federation(
         collateral_address=Address(address=generate_p2pkh_address(network=StraxRegTest()), network=StraxRegTest()),
         collateral_wallet_name='Test',

@@ -1,10 +1,10 @@
-import time
 import pytest
+import time
 import api
 from api.federationwallet.requestmodels import EnableFederationRequest
 
 
-@pytest.fixture(scope='module', autouse=True)
+@pytest.fixture(scope='package', autouse=True)
 def initialize_nodes(
         start_interflux_strax_regtest_node,
         start_interflux_cirrus_regtest_node,
@@ -26,7 +26,6 @@ def initialize_nodes(
         get_federation_private_key,
         get_federation_compressed_pubkey,
         get_federation_mnemonic,
-        interflux_wait_n_blocks_and_sync,
         transfer_funds_to_test,
         check_at_or_above_given_block_height,
         generate_privatekey,
@@ -79,3 +78,13 @@ def initialize_nodes(
     interflux_cirrusminer_node.federation_wallet.enable_federation(mnemonic=get_federation_mnemonic(0), password='password', timeout_seconds=60)
     interflux_strax_syncing_node.federation_wallet.enable_federation(mnemonic=get_federation_mnemonic(1), password='password', timeout_seconds=60)
     interflux_cirrusminer_syncing_node.federation_wallet.enable_federation(mnemonic=get_federation_mnemonic(1), password='password', timeout_seconds=60)
+
+    yield
+
+    # Teardown
+    assert strax_hot_node.stop_node()
+    assert cirrus_node.stop_node()
+    assert interflux_strax_node.stop_node()
+    assert interflux_strax_syncing_node.stop_node()
+    assert interflux_cirrusminer_node.stop_node()
+    assert interflux_cirrusminer_syncing_node.stop_node()

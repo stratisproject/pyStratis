@@ -35,7 +35,7 @@ def test_all_interfluxcirrus_endpoints_implemented(interfluxcirrus_swagger_json)
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_status(mocker: MockerFixture, network, fakeuri, generate_uint256, generate_compressed_pubkey,
+def test_status(mocker: MockerFixture, network, generate_uint256, generate_compressed_pubkey,
                 generate_ethereum_checksum_address, generate_p2pkh_address):
     data = {
         'mintRequests': [
@@ -68,7 +68,7 @@ def test_status(mocker: MockerFixture, network, fakeuri, generate_uint256, gener
         }
     }
     mocker.patch.object(Interop, 'get', return_value=data)
-    interop = Interop(network=network, baseuri=fakeuri)
+    interop = Interop(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     response = interop.status()
 

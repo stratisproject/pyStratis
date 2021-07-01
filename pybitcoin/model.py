@@ -42,6 +42,7 @@ class Model(BaseModel):
             Key: lambda v: str(v),
             ExtKey: lambda v: str(v),
             List[str]: lambda v: ','.join(v),
+            List[uint256]: lambda v: [str(x) for x in v],
             List[AddressDescriptor]: lambda v: [x.json() for x in v],
             List[MultisigSecret]: lambda v: [x.json() for x in v],
             List[Recipient]: lambda v: [x.json() for x in v],

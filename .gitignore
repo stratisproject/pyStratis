@@ -1,8 +1,7 @@
 # Sphinx files
-build/
-source/
-make.bat
-Makefile
+docs/build/
+docs/_static/
+docs/_templates/
 
 # Extra folders
 /.idea

@@ -173,8 +173,8 @@ def test_max_balance(cirrusminer_node: CirrusMinerNode):
 
 @pytest.mark.integration_test
 @pytest.mark.cirrus_integration_test
-def test_spendable_transactions(cirrusminer_node: CirrusMinerNode, wait_n_blocks_and_sync):
-    wait_n_blocks_and_sync(1)
+def test_spendable_transactions(cirrusminer_node: CirrusMinerNode, wait_and_clear_mempool):
+    assert wait_and_clear_mempool()
     response = cirrusminer_node.wallet.spendable_transactions(
         wallet_name='Test', account_name='account 0', min_confirmations=0
     )
@@ -190,9 +190,9 @@ def test_estimate_txfee(
         cirrusminer_syncing_node: CirrusMinerNode,
         get_spendable_transactions,
         get_node_unused_address,
-        wait_n_blocks_and_sync,
+        wait_and_clear_mempool,
         get_node_address_with_balance):
-    wait_n_blocks_and_sync(2)
+    assert wait_and_clear_mempool()
     destination_address = get_node_unused_address(cirrusminer_syncing_node)
     change_address = get_node_address_with_balance(cirrusminer_node)
     amount_to_send = Money(10)
@@ -221,9 +221,9 @@ def test_build_transaction(
         cirrusminer_syncing_node: CirrusMinerNode,
         get_spendable_transactions,
         get_node_unused_address,
-        wait_n_blocks_and_sync,
+        wait_and_clear_mempool,
         get_node_address_with_balance):
-    wait_n_blocks_and_sync(1)
+    assert wait_and_clear_mempool()
     destination_address = get_node_unused_address(cirrusminer_syncing_node)
     change_address = get_node_address_with_balance(cirrusminer_node)
     fee_amount = Money(0.0001)
@@ -258,12 +258,12 @@ def test_build_interflux_transaction(
         cirrusminer_node: CirrusMinerNode,
         cirrusminer_syncing_node: CirrusMinerNode,
         get_spendable_transactions,
-        wait_n_blocks_and_sync,
+        wait_and_clear_mempool,
         generate_p2sh_address,
         generate_ethereum_checksum_address,
         get_node_address_with_balance,
         get_node_unused_address):
-    wait_n_blocks_and_sync(1)
+    assert wait_and_clear_mempool()
     destination_address = get_node_unused_address(cirrusminer_syncing_node)
     change_address = get_node_address_with_balance(cirrusminer_node)
     fee_amount = Money(0.0001)
@@ -299,10 +299,10 @@ def test_build_interflux_transaction(
 def test_send_transaction(cirrusminer_node: CirrusMinerNode,
                           cirrusminer_syncing_node: CirrusMinerNode,
                           get_spendable_transactions,
-                          wait_n_blocks_and_sync,
+                          wait_and_clear_mempool,
                           get_node_address_with_balance,
                           get_node_unused_address):
-    wait_n_blocks_and_sync(1)
+    assert wait_and_clear_mempool()
     destination_address = get_node_unused_address(cirrusminer_syncing_node)
     change_address = get_node_address_with_balance(cirrusminer_node)
     fee_amount = Money(0.0001)
@@ -326,7 +326,7 @@ def test_send_transaction(cirrusminer_node: CirrusMinerNode,
         change_address=change_address
     )
     response = cirrusminer_node.wallet.send_transaction(transaction_hex=built_transaction.hex)
-    wait_n_blocks_and_sync(1)
+    assert wait_and_clear_mempool()
     assert isinstance(response, WalletSendTransactionModel)
     assert isinstance(response.transaction_id, uint256)
     for item in response.outputs:
@@ -404,9 +404,9 @@ def test_addresses(cirrusminer_node: CirrusMinerNode):
 
 @pytest.mark.integration_test
 @pytest.mark.cirrus_integration_test
-def test_remove_transactions(cirrusminer_node: CirrusMinerNode, wait_n_blocks_and_sync, get_datetime):
-    wait_n_blocks_and_sync(2)
-    spendable_transactions = cirrusminer_node.wallet.spendable_transactions(wallet_name='Test', account_name='account 0', min_confirmations=10)
+def test_remove_transactions(cirrusminer_node: CirrusMinerNode, wait_and_clear_mempool, get_datetime):
+    assert wait_and_clear_mempool()
+    spendable_transactions = cirrusminer_node.wallet.spendable_transactions(wallet_name='Test', account_name='account 0', min_confirmations=2)
     trxids = [x.transaction_id for x in spendable_transactions.transactions]
 
     try:
@@ -491,8 +491,8 @@ def test_wallet_stats(cirrusminer_node: CirrusMinerNode):
 
 @pytest.mark.integration_test
 @pytest.mark.cirrus_integration_test
-def test_split_coins(cirrusminer_syncing_node: CirrusMinerNode, wait_n_blocks_and_sync):
-    wait_n_blocks_and_sync(1)
+def test_split_coins(cirrusminer_syncing_node: CirrusMinerNode, wait_and_clear_mempool):
+    assert wait_and_clear_mempool()
     response = cirrusminer_syncing_node.wallet.split_coins(
         wallet_name='Test',
         account_name='account 0',
@@ -508,8 +508,8 @@ def test_split_coins(cirrusminer_syncing_node: CirrusMinerNode, wait_n_blocks_an
 
 @pytest.mark.integration_test
 @pytest.mark.cirrus_integration_test
-def test_distribute_utxos(cirrusminer_node: CirrusMinerNode, wait_n_blocks_and_sync):
-    wait_n_blocks_and_sync(2)
+def test_distribute_utxos(cirrusminer_node: CirrusMinerNode, wait_and_clear_mempool):
+    assert wait_and_clear_mempool()
     # Need to split the coins first
     cirrusminer_node.wallet.split_coins(
         wallet_name='Test',
@@ -518,7 +518,7 @@ def test_distribute_utxos(cirrusminer_node: CirrusMinerNode, wait_n_blocks_and_s
         total_amount_to_split=Money(10),
         utxos_count=10
     )
-    wait_n_blocks_and_sync(3)
+    assert wait_and_clear_mempool()
     spendable_transactions = cirrusminer_node.wallet.spendable_transactions(
         wallet_name='Test', account_name='account 0', min_confirmations=2
     )
@@ -544,8 +544,8 @@ def test_distribute_utxos(cirrusminer_node: CirrusMinerNode, wait_n_blocks_and_s
 
 @pytest.mark.integration_test
 @pytest.mark.cirrus_integration_test
-def test_sweep(cirrusminer_node: CirrusMinerNode, wait_n_blocks_and_sync, get_node_address_with_balance, get_node_unused_address):
-    wait_n_blocks_and_sync(3)
+def test_sweep(cirrusminer_node: CirrusMinerNode, wait_and_clear_mempool, get_node_address_with_balance, get_node_unused_address):
+    assert wait_and_clear_mempool()
     address = get_node_address_with_balance(cirrusminer_node)
     receiving_address = get_node_unused_address(cirrusminer_node)
     private_key = cirrusminer_node.wallet.private_key(
@@ -569,10 +569,10 @@ def test_build_offline_sign_request(
         cirrusminer_node: CirrusMinerNode,
         cirrusminer_syncing_node: CirrusMinerNode,
         get_spendable_transactions,
-        wait_n_blocks_and_sync,
+        wait_and_clear_mempool,
         get_node_address_with_balance,
         get_node_unused_address):
-    wait_n_blocks_and_sync(3)
+    assert wait_and_clear_mempool()
     destination_address = get_node_unused_address(cirrusminer_syncing_node)
     change_address = get_node_address_with_balance(cirrusminer_node)
     fee_amount = Money(0.0001)
@@ -606,8 +606,8 @@ def test_offline_sign_request(
         get_spendable_transactions,
         get_node_address_with_balance,
         get_node_unused_address,
-        wait_n_blocks_and_sync):
-    wait_n_blocks_and_sync(3)
+        wait_and_clear_mempool):
+    assert wait_and_clear_mempool()
     destination_address = get_node_unused_address(cirrusminer_node)
     change_address = get_node_address_with_balance(cirrusminer_syncing_node)
     fee_amount = Money(0.0001)
@@ -658,8 +658,8 @@ def test_offline_sign_request(
 def test_consolidate(cirrusminer_node: CirrusMinerNode,
                      cirrusminer_syncing_node: CirrusMinerNode,
                      get_node_address_with_balance,
-                     wait_n_blocks_and_sync):
-    wait_n_blocks_and_sync(2)
+                     wait_and_clear_mempool):
+    assert wait_and_clear_mempool()
     # Need to split the coins first
     cirrusminer_node.wallet.split_coins(
         wallet_name='Test',
@@ -675,9 +675,9 @@ def test_consolidate(cirrusminer_node: CirrusMinerNode,
         total_amount_to_split=Money(10),
         utxos_count=10
     )
-    wait_n_blocks_and_sync(2)
+    assert wait_and_clear_mempool()
     spendable_transactions = cirrusminer_node.wallet.spendable_transactions(
-        wallet_name='Test', account_name='account 0', min_confirmations=10
+        wallet_name='Test', account_name='account 0', min_confirmations=2
     )
     spendable_transactions = [x for x in spendable_transactions.transactions if x.amount < 100_0000_0000]
     assert len(spendable_transactions) > 1  # Count must be more than 1 to consolidate.

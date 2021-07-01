@@ -16,6 +16,6 @@ class RemoveTransactionsRequest(Model):
     """
     wallet_name: str = Field(alias='WalletName')
     ids: Optional[List[uint256]]
-    from_date: Optional[str] = Field(alias='fromDate')
+    from_date: Optional[str] = Field(default=None, alias='fromDate')
     remove_all: Optional[bool] = Field(default=False, alias='all')
     resync: Optional[bool] = Field(default=True, alias='ReSync')

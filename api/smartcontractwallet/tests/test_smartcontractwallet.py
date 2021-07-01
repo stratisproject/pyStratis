@@ -37,7 +37,7 @@ def test_all_interfluxcirrus_endpoints_implemented(interfluxcirrus_swagger_json)
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_account_addresses(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address):
+def test_account_addresses(mocker: MockerFixture, network, generate_p2pkh_address):
     data = [
         generate_p2pkh_address(network=network),
         generate_p2pkh_address(network=network),
@@ -45,7 +45,7 @@ def test_account_addresses(mocker: MockerFixture, network, fakeuri, generate_p2p
         generate_p2pkh_address(network=network)
     ]
     mocker.patch.object(SmartContractWallet, 'get', return_value=data)
-    smart_contract_wallet = SmartContractWallet(network=network, baseuri=fakeuri)
+    smart_contract_wallet = SmartContractWallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     response = smart_contract_wallet.account_addresses(wallet_name='Test')
 
@@ -55,10 +55,10 @@ def test_account_addresses(mocker: MockerFixture, network, fakeuri, generate_p2p
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_address_balance(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address):
+def test_address_balance(mocker: MockerFixture, network, generate_p2pkh_address):
     data = 100
     mocker.patch.object(SmartContractWallet, 'get', return_value=data)
-    smart_contract_wallet = SmartContractWallet(network=network, baseuri=fakeuri)
+    smart_contract_wallet = SmartContractWallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
     response = smart_contract_wallet.address_balance(
         address=Address(address=generate_p2pkh_address(network=network), network=network)
     )
@@ -69,7 +69,7 @@ def test_address_balance(mocker: MockerFixture, network, fakeuri, generate_p2pkh
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_history(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address, generate_uint256):
+def test_history(mocker: MockerFixture, network, generate_p2pkh_address, generate_uint256):
     data = [
         {
             'blockHeight': 1,
@@ -82,7 +82,7 @@ def test_history(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address
         }
     ]
     mocker.patch.object(SmartContractWallet, 'get', return_value=data)
-    smart_contract_wallet = SmartContractWallet(network=network, baseuri=fakeuri)
+    smart_contract_wallet = SmartContractWallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
     response = smart_contract_wallet.history(
         wallet_name='Test',
         address=Address(address=generate_p2pkh_address(network=network), network=network),
@@ -96,10 +96,10 @@ def test_history(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_create(mocker: MockerFixture, network, fakeuri, generate_uint256, generate_p2pkh_address, generate_hexstring):
+def test_create(mocker: MockerFixture, network, generate_uint256, generate_p2pkh_address, generate_hexstring):
     data = generate_uint256
     mocker.patch.object(SmartContractWallet, 'post', return_value=data)
-    smart_contract_wallet = SmartContractWallet(network=network, baseuri=fakeuri)
+    smart_contract_wallet = SmartContractWallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
     response = smart_contract_wallet.create(
         wallet_name='Test',
         account_name='account 0',
@@ -134,8 +134,7 @@ def test_create(mocker: MockerFixture, network, fakeuri, generate_uint256, gener
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_call(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address, generate_hexstring,
-              generate_uint256):
+def test_call(mocker: MockerFixture, network, generate_p2pkh_address, generate_hexstring, generate_uint256):
     data = {
         'fee': 1,
         'hex': generate_hexstring(128),
@@ -144,7 +143,7 @@ def test_call(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address, g
         'transactionId': generate_uint256
     }
     mocker.patch.object(SmartContractWallet, 'post', return_value=data)
-    smart_contract_wallet = SmartContractWallet(network=network, baseuri=fakeuri)
+    smart_contract_wallet = SmartContractWallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     response = smart_contract_wallet.call(
         wallet_name='Test',
@@ -181,7 +180,7 @@ def test_call(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address, g
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_send_transaction(mocker: MockerFixture, network, fakeuri, generate_hexstring,
+def test_send_transaction(mocker: MockerFixture, network, generate_hexstring,
                           generate_p2pkh_address, generate_uint256):
     data = {
         'transactionId': generate_uint256,
@@ -194,7 +193,7 @@ def test_send_transaction(mocker: MockerFixture, network, fakeuri, generate_hexs
         ]
     }
     mocker.patch.object(SmartContractWallet, 'post', return_value=data)
-    smart_contract_wallet = SmartContractWallet(network=network, baseuri=fakeuri)
+    smart_contract_wallet = SmartContractWallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
     response = smart_contract_wallet.send_transaction(transaction_hex=generate_hexstring(128))
 
     assert response == WalletSendTransactionModel(**data)

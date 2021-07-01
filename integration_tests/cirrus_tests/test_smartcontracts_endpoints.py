@@ -10,7 +10,8 @@ from pybitcoin.types import Address, Money, uint32, uint64, uint128, uint256, in
 @pytest.mark.integration_test
 @pytest.mark.cirrus_integration_test
 def test_code(cirrusminer_node: CirrusMinerNode, get_smart_contract_address):
-    response = cirrusminer_node.smart_contracts.code(address=get_smart_contract_address)
+    sc_address = get_smart_contract_address
+    response = cirrusminer_node.smart_contracts.code(address=sc_address)
     assert isinstance(response, GetCodeModel)
 
 
@@ -18,7 +19,8 @@ def test_code(cirrusminer_node: CirrusMinerNode, get_smart_contract_address):
 @pytest.mark.integration_test
 @pytest.mark.cirrus_integration_test
 def test_balance(cirrusminer_node: CirrusMinerNode, get_smart_contract_address):
-    response = cirrusminer_node.smart_contracts.balance(address=get_smart_contract_address)
+    sc_address = get_smart_contract_address
+    response = cirrusminer_node.smart_contracts.balance(address=sc_address)
     assert isinstance(response, Money)
 
 
@@ -27,8 +29,9 @@ def test_balance(cirrusminer_node: CirrusMinerNode, get_smart_contract_address):
 @pytest.mark.cirrus_integration_test
 def test_storage(cirrusminer_node: CirrusMinerNode, get_smart_contract_address, get_node_address_with_balance):
     sending_address = get_node_address_with_balance(cirrusminer_node)
+    sc_address = get_smart_contract_address
     response = cirrusminer_node.smart_contracts.storage(
-        contract_address=get_smart_contract_address,
+        contract_address=sc_address,
         storage_key='TestBool',
         data_type=1
     )
@@ -36,7 +39,7 @@ def test_storage(cirrusminer_node: CirrusMinerNode, get_smart_contract_address, 
     assert response
 
     response = cirrusminer_node.smart_contracts.storage(
-        contract_address=get_smart_contract_address,
+        contract_address=sc_address,
         storage_key='TestByte',
         data_type=2
     )
@@ -44,7 +47,7 @@ def test_storage(cirrusminer_node: CirrusMinerNode, get_smart_contract_address, 
     assert response == b'\xff'
 
     response = cirrusminer_node.smart_contracts.storage(
-        contract_address=get_smart_contract_address,
+        contract_address=sc_address,
         storage_key='TestChar',
         data_type=3
     )
@@ -52,7 +55,7 @@ def test_storage(cirrusminer_node: CirrusMinerNode, get_smart_contract_address, 
     assert response == 'c'
 
     response = cirrusminer_node.smart_contracts.storage(
-        contract_address=get_smart_contract_address,
+        contract_address=sc_address,
         storage_key='TestString',
         data_type=4
     )
@@ -60,7 +63,7 @@ def test_storage(cirrusminer_node: CirrusMinerNode, get_smart_contract_address, 
     assert response == 'Stratis'
 
     response = cirrusminer_node.smart_contracts.storage(
-        contract_address=get_smart_contract_address,
+        contract_address=sc_address,
         storage_key='TestUInt32',
         data_type=5
     )
@@ -68,7 +71,7 @@ def test_storage(cirrusminer_node: CirrusMinerNode, get_smart_contract_address, 
     assert response == uint32(123)
 
     response = cirrusminer_node.smart_contracts.storage(
-        contract_address=get_smart_contract_address,
+        contract_address=sc_address,
         storage_key='TestInt32',
         data_type=6
     )
@@ -76,7 +79,7 @@ def test_storage(cirrusminer_node: CirrusMinerNode, get_smart_contract_address, 
     assert response == int32(-123)
 
     response = cirrusminer_node.smart_contracts.storage(
-        contract_address=get_smart_contract_address,
+        contract_address=sc_address,
         storage_key='TestUInt64',
         data_type=7
     )
@@ -84,7 +87,7 @@ def test_storage(cirrusminer_node: CirrusMinerNode, get_smart_contract_address, 
     assert response == uint64(456)
 
     response = cirrusminer_node.smart_contracts.storage(
-        contract_address=get_smart_contract_address,
+        contract_address=sc_address,
         storage_key='TestInt64',
         data_type=8
     )
@@ -92,7 +95,7 @@ def test_storage(cirrusminer_node: CirrusMinerNode, get_smart_contract_address, 
     assert response == int64(-456)
 
     response = cirrusminer_node.smart_contracts.storage(
-        contract_address=get_smart_contract_address,
+        contract_address=sc_address,
         storage_key='TestAddress',
         data_type=9
     )
@@ -100,7 +103,7 @@ def test_storage(cirrusminer_node: CirrusMinerNode, get_smart_contract_address, 
     assert response == sending_address
 
     response = cirrusminer_node.smart_contracts.storage(
-        contract_address=get_smart_contract_address,
+        contract_address=sc_address,
         storage_key='TestByteArray',
         data_type=10
     )
@@ -108,7 +111,7 @@ def test_storage(cirrusminer_node: CirrusMinerNode, get_smart_contract_address, 
     assert response == bytearray(b'\x04\xa6\xb9')
 
     response = cirrusminer_node.smart_contracts.storage(
-        contract_address=get_smart_contract_address,
+        contract_address=sc_address,
         storage_key='TestUInt128',
         data_type=11
     )
@@ -116,7 +119,7 @@ def test_storage(cirrusminer_node: CirrusMinerNode, get_smart_contract_address, 
     assert response == uint128(789)
 
     response = cirrusminer_node.smart_contracts.storage(
-        contract_address=get_smart_contract_address,
+        contract_address=sc_address,
         storage_key='TestUInt256',
         data_type=12
     )
@@ -128,7 +131,9 @@ def test_storage(cirrusminer_node: CirrusMinerNode, get_smart_contract_address, 
 @pytest.mark.integration_test
 @pytest.mark.cirrus_integration_test
 def test_receipt(cirrusminer_node: CirrusMinerNode, get_contract_create_trxid):
-    response = cirrusminer_node.smart_contracts.receipt(tx_hash=get_contract_create_trxid)
+    trxid = get_contract_create_trxid
+    # noinspection PyTypeChecker
+    response = cirrusminer_node.smart_contracts.receipt(tx_hash=trxid)
     assert isinstance(response, ReceiptModel)
 
 
@@ -136,8 +141,9 @@ def test_receipt(cirrusminer_node: CirrusMinerNode, get_contract_create_trxid):
 @pytest.mark.integration_test
 @pytest.mark.cirrus_integration_test
 def test_receipt_search(cirrusminer_node: CirrusMinerNode, get_smart_contract_address):
+    sc_address = get_smart_contract_address
     response = cirrusminer_node.smart_contracts.receipt_search(
-        contract_address=get_smart_contract_address,
+        contract_address=sc_address,
         event_name='TestMessageLog',
         topics=[],
         from_block=10,
@@ -151,7 +157,7 @@ def test_receipt_search(cirrusminer_node: CirrusMinerNode, get_smart_contract_ad
 @pytest.mark.order(5)
 @pytest.mark.integration_test
 @pytest.mark.cirrus_integration_test
-def test_build_create(cirrusminer_node: CirrusMinerNode, get_node_address_with_balance, apitestcontract_bytecode):
+def test_build_create(cirrusminer_node: CirrusMinerNode, get_node_address_with_balance, apitestcontract_bytecode, wait_and_clear_mempool):
     sending_address = get_node_address_with_balance(cirrusminer_node)
 
     response = cirrusminer_node.smart_contracts.build_create(
@@ -183,18 +189,20 @@ def test_build_create(cirrusminer_node: CirrusMinerNode, get_node_address_with_b
     assert isinstance(response, BuildContractTransactionModel)
     # send the transaction to remove the utxo reservation
     cirrusminer_node.smart_contract_wallet.send_transaction(transaction_hex=response.hex)
+    assert wait_and_clear_mempool()
 
 
 @pytest.mark.order(6)
 @pytest.mark.integration_test
 @pytest.mark.cirrus_integration_test
-def test_build_call(cirrusminer_node: CirrusMinerNode, get_node_address_with_balance, get_smart_contract_address):
+def test_build_call(cirrusminer_node: CirrusMinerNode, get_node_address_with_balance, get_smart_contract_address, wait_and_clear_mempool):
     sending_address = get_node_address_with_balance(cirrusminer_node)
+    sc_address = get_smart_contract_address
     response = cirrusminer_node.smart_contracts.build_call(
         wallet_name='Test',
         account_name='account 0',
         outpoints=None,
-        contract_address=get_smart_contract_address,
+        contract_address=sc_address,
         method_name='TestMethod',
         amount=Money(0),
         fee_amount=Money(0.0001),
@@ -210,12 +218,13 @@ def test_build_call(cirrusminer_node: CirrusMinerNode, get_node_address_with_bal
     assert isinstance(response, BuildContractTransactionModel)
     # send the transaction to remove the utxo reservation
     cirrusminer_node.smart_contract_wallet.send_transaction(transaction_hex=response.hex)
+    assert wait_and_clear_mempool()
 
 
 @pytest.mark.order(3)
 @pytest.mark.integration_test
 @pytest.mark.cirrus_integration_test
-def test_build_transaction(cirrusminer_node: CirrusMinerNode, get_node_address_with_balance, generate_p2pkh_address):
+def test_build_transaction(cirrusminer_node: CirrusMinerNode, get_node_address_with_balance, generate_p2pkh_address, wait_and_clear_mempool):
     sending_address = get_node_address_with_balance(cirrusminer_node)
     response = cirrusminer_node.smart_contracts.build_transaction(
         sender=sending_address,
@@ -241,6 +250,7 @@ def test_build_transaction(cirrusminer_node: CirrusMinerNode, get_node_address_w
     assert isinstance(response, BuildContractTransactionModel)
     # Send the transaction to remove the utxo reservation
     cirrusminer_node.smart_contract_wallet.send_transaction(transaction_hex=response.hex)
+    assert wait_and_clear_mempool()
 
 
 @pytest.mark.order(2)
@@ -273,8 +283,8 @@ def test_estimate_fee(cirrusminer_node: CirrusMinerNode, get_node_address_with_b
 @pytest.mark.order(7)
 @pytest.mark.integration_test
 @pytest.mark.cirrus_integration_test
-def test_build_and_send_create(cirrusminer_node: CirrusMinerNode, get_node_address_with_balance,
-                               apitestcontract_bytecode):
+def test_build_and_send_create(cirrusminer_node: CirrusMinerNode, get_node_address_with_balance, apitestcontract_bytecode, wait_and_clear_mempool):
+    assert wait_and_clear_mempool()
     sending_address = get_node_address_with_balance(cirrusminer_node)
     response = cirrusminer_node.smart_contracts.build_and_send_create(
         wallet_name='Test',
@@ -305,18 +315,21 @@ def test_build_and_send_create(cirrusminer_node: CirrusMinerNode, get_node_addre
     assert isinstance(response, BuildContractTransactionModel)
     # Send the transaction to remove the utxo reservation
     cirrusminer_node.smart_contract_wallet.send_transaction(transaction_hex=response.hex)
+    assert wait_and_clear_mempool()
 
 
 @pytest.mark.order(9)
 @pytest.mark.integration_test
 @pytest.mark.cirrus_integration_test
-def test_build_and_send_call(cirrusminer_node: CirrusMinerNode, get_node_address_with_balance, get_smart_contract_address):
+def test_build_and_send_call(cirrusminer_node: CirrusMinerNode, get_node_address_with_balance, get_smart_contract_address, wait_and_clear_mempool):
+    assert wait_and_clear_mempool()
     sending_address = get_node_address_with_balance(cirrusminer_node)
+    sc_address = get_smart_contract_address
     response = cirrusminer_node.smart_contracts.build_and_send_call(
         wallet_name='Test',
         account_name='account 0',
         outpoints=None,
-        contract_address=get_smart_contract_address,
+        contract_address=sc_address,
         method_name='TestMethod',
         amount=Money(0),
         fee_amount=Money(0.0001),
@@ -332,6 +345,7 @@ def test_build_and_send_call(cirrusminer_node: CirrusMinerNode, get_node_address
     assert isinstance(response, BuildContractTransactionModel)
     # send the transaction to remove the utxo reservation
     cirrusminer_node.smart_contract_wallet.send_transaction(transaction_hex=response.hex)
+    assert wait_and_clear_mempool()
 
 
 @pytest.mark.order(8)
@@ -339,8 +353,9 @@ def test_build_and_send_call(cirrusminer_node: CirrusMinerNode, get_node_address
 @pytest.mark.cirrus_integration_test
 def test_local_call(cirrusminer_node: CirrusMinerNode, get_node_address_with_balance, get_smart_contract_address):
     sending_address = get_node_address_with_balance(cirrusminer_node)
+    sc_address = get_smart_contract_address
     response = cirrusminer_node.smart_contracts.local_call(
-        contract_address=get_smart_contract_address,
+        contract_address=sc_address,
         method_name='TestMethod',
         amount=Money(0),
         gas_price=100,

@@ -37,7 +37,7 @@ def test_all_interfluxcirrus_endpoints_implemented(interfluxcirrus_swagger_json)
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_status(mocker: MockerFixture, network, fakeuri):
+def test_status(mocker: MockerFixture, network):
     data = {
         'agent': 'nodeagent',
         'version': 'nodeversion',
@@ -78,7 +78,7 @@ def test_status(mocker: MockerFixture, network, fakeuri):
         'inIbd': False
     }
     mocker.patch.object(Node, 'get', return_value=data)
-    node = Node(network=network, baseuri=fakeuri)
+    node = Node(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     response = node.status()
 
@@ -88,7 +88,7 @@ def test_status(mocker: MockerFixture, network, fakeuri):
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_get_blockheader(mocker: MockerFixture, network, fakeuri, generate_uint256):
+def test_get_blockheader(mocker: MockerFixture, network, generate_uint256):
     data = {
         'version': 1,
         'merkleroot': generate_uint256,
@@ -98,7 +98,7 @@ def test_get_blockheader(mocker: MockerFixture, network, fakeuri, generate_uint2
         'time': 1,
     }
     mocker.patch.object(Node, 'get', return_value=data)
-    node = Node(network=network, baseuri=fakeuri)
+    node = Node(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
     response = node.get_blockheader(
         block_hash=generate_uint256,
         is_json_format=True
@@ -110,12 +110,11 @@ def test_get_blockheader(mocker: MockerFixture, network, fakeuri, generate_uint2
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_get_raw_transaction_verbose(mocker: MockerFixture, network, fakeuri,
-                                     generate_coinbase_transaction, generate_uint256):
+def test_get_raw_transaction_verbose(mocker: MockerFixture, network, generate_coinbase_transaction, generate_uint256):
     trxid = generate_uint256
     data = generate_coinbase_transaction(trxid)
     mocker.patch.object(Node, 'get', return_value=data)
-    node = Node(network=network, baseuri=fakeuri)
+    node = Node(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     response = node.get_raw_transaction(trxid=trxid, verbose=True)
 
@@ -125,13 +124,12 @@ def test_get_raw_transaction_verbose(mocker: MockerFixture, network, fakeuri,
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_get_raw_transaction_nonverbose(mocker: MockerFixture, network, fakeuri,
-                                        generate_coinbase_transaction, generate_uint256):
+def test_get_raw_transaction_nonverbose(mocker: MockerFixture, network, generate_coinbase_transaction, generate_uint256):
     trxid = generate_uint256
     data = generate_coinbase_transaction(trxid)
     hexified_data = bytes(str(data), 'ascii').hex()
     mocker.patch.object(Node, 'get', return_value=hexified_data)
-    node = Node(network=network, baseuri=fakeuri)
+    node = Node(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     response = node.get_raw_transaction(trxid=trxid, verbose=False)
 
@@ -143,13 +141,12 @@ def test_get_raw_transaction_nonverbose(mocker: MockerFixture, network, fakeuri,
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_decode_raw_transaction(mocker: MockerFixture, network, fakeuri, generate_uint256,
-                                generate_coinbase_transaction):
+def test_decode_raw_transaction(mocker: MockerFixture, network, generate_uint256, generate_coinbase_transaction):
     trxid = generate_uint256
     data = generate_coinbase_transaction(trxid)
     hexified_data = bytes(str(data), 'ascii').hex()
     mocker.patch.object(Node, 'post', return_value=data)
-    node = Node(network=network, baseuri=fakeuri)
+    node = Node(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     response = node.decode_raw_transaction(raw_hex=hexified_data)
 
@@ -159,7 +156,7 @@ def test_decode_raw_transaction(mocker: MockerFixture, network, fakeuri, generat
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_validate_address(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address):
+def test_validate_address(mocker: MockerFixture, network, generate_p2pkh_address):
     address = generate_p2pkh_address(network=network)
     data = {
         'isvalid': True,
@@ -169,7 +166,7 @@ def test_validate_address(mocker: MockerFixture, network, fakeuri, generate_p2pk
         'iswitness': False
     }
     mocker.patch.object(Node, 'get', return_value=data)
-    node = Node(network=network, baseuri=fakeuri)
+    node = Node(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     response = node.validate_address(address=address)
 
@@ -179,8 +176,7 @@ def test_validate_address(mocker: MockerFixture, network, fakeuri, generate_p2pk
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_get_txout(mocker: MockerFixture, network, fakeuri, generate_uint256, generate_hexstring,
-                   generate_p2pkh_address):
+def test_get_txout(mocker: MockerFixture, network, generate_uint256, generate_hexstring, generate_p2pkh_address):
     data = {
         'bestblock': generate_uint256,
         'confirmations': 1,
@@ -197,7 +193,7 @@ def test_get_txout(mocker: MockerFixture, network, fakeuri, generate_uint256, ge
         'coinbase': False
     }
     mocker.patch.object(Node, 'get', return_value=data)
-    node = Node(network=network, baseuri=fakeuri)
+    node = Node(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     response = node.get_txout(trxid=generate_uint256, vout=0, include_mempool=False)
 
@@ -207,10 +203,10 @@ def test_get_txout(mocker: MockerFixture, network, fakeuri, generate_uint256, ge
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_get_txout_proof(mocker: MockerFixture, network, fakeuri, generate_uint256, generate_hexstring):
+def test_get_txout_proof(mocker: MockerFixture, network, generate_uint256, generate_hexstring):
     data = generate_hexstring(128)
     mocker.patch.object(Node, 'get', return_value=data)
-    node = Node(network=network, baseuri=fakeuri)
+    node = Node(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
     response = node.get_txout_proof(
         txids=[
             generate_uint256,
@@ -225,10 +221,10 @@ def test_get_txout_proof(mocker: MockerFixture, network, fakeuri, generate_uint2
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_shutdown(mocker: MockerFixture, network, fakeuri):
+def test_shutdown(mocker: MockerFixture, network):
     data = None
     mocker.patch.object(Node, 'post', return_value=data)
-    node = Node(network=network, baseuri=fakeuri)
+    node = Node(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     node.shutdown()
 
@@ -237,10 +233,10 @@ def test_shutdown(mocker: MockerFixture, network, fakeuri):
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_stop(mocker: MockerFixture, network, fakeuri):
+def test_stop(mocker: MockerFixture, network):
     data = None
     mocker.patch.object(Node, 'post', return_value=data)
-    node = Node(network=network, baseuri=fakeuri)
+    node = Node(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     node.stop()
 
@@ -249,10 +245,10 @@ def test_stop(mocker: MockerFixture, network, fakeuri):
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_log_levels(mocker: MockerFixture, network, fakeuri):
+def test_log_levels(mocker: MockerFixture, network):
     data = None
     mocker.patch.object(Node, 'put', return_value=data)
-    node = Node(network=network, baseuri=fakeuri)
+    node = Node(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     node.log_levels(log_rules=[LogRule(rule_name='TestRule', log_level='Debug')])
 
@@ -261,7 +257,7 @@ def test_log_levels(mocker: MockerFixture, network, fakeuri):
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_log_rules(mocker: MockerFixture, network, fakeuri):
+def test_log_rules(mocker: MockerFixture, network):
     data = [
         {
             'ruleName': 'TestRule',
@@ -271,7 +267,7 @@ def test_log_rules(mocker: MockerFixture, network, fakeuri):
     ]
 
     mocker.patch.object(Node, 'get', return_value=data)
-    node = Node(network=network, baseuri=fakeuri)
+    node = Node(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     response = node.log_rules()
 
@@ -281,7 +277,7 @@ def test_log_rules(mocker: MockerFixture, network, fakeuri):
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_async_loops(mocker: MockerFixture, network, fakeuri):
+def test_async_loops(mocker: MockerFixture, network):
     data = [
         {
             'loopName': 'Loop1',
@@ -289,7 +285,7 @@ def test_async_loops(mocker: MockerFixture, network, fakeuri):
         }
     ]
     mocker.patch.object(Node, 'get', return_value=data)
-    node = Node(network=network, baseuri=fakeuri)
+    node = Node(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     response = node.async_loops()
 

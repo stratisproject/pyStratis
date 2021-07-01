@@ -35,7 +35,7 @@ def test_all_interfluxcirrus_endpoints_implemented(interfluxcirrus_swagger_json)
 
 
 @pytest.mark.parametrize('network', [StraxMain()], ids=['StraxMain'])
-def test_generate(mocker: MockerFixture, network, fakeuri, generate_uint256):
+def test_generate(mocker: MockerFixture, network, generate_uint256):
     data = {
         'blocks': [
             generate_uint256,
@@ -43,7 +43,7 @@ def test_generate(mocker: MockerFixture, network, fakeuri, generate_uint256):
         ]
     }
     mocker.patch.object(Mining, 'post', return_value=data)
-    mining = Mining(network=network, baseuri=fakeuri)
+    mining = Mining(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     response = mining.generate(block_count=2)
 
@@ -53,10 +53,10 @@ def test_generate(mocker: MockerFixture, network, fakeuri, generate_uint256):
 
 
 @pytest.mark.parametrize('network', [StraxMain()], ids=['StraxMain'])
-def test_stop_mining(mocker: MockerFixture, network, fakeuri):
+def test_stop_mining(mocker: MockerFixture, network):
     data = None
     mocker.patch.object(Mining, 'post', return_value=data)
-    mining = Mining(network=network, baseuri=fakeuri)
+    mining = Mining(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     mining.stop_mining()
 

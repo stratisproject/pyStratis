@@ -26,7 +26,7 @@ def test_get_blockheader(strax_hot_node: BaseNode):
 @pytest.mark.strax_integration_test
 def test_get_raw_transaction(strax_hot_node: BaseNode):
     spendable_transactions = strax_hot_node.wallet.spendable_transactions(
-        wallet_name='Test', account_name='account 0', min_confirmations=10
+        wallet_name='Test', account_name='account 0', min_confirmations=2
     )
     spendable_transactions = [x for x in spendable_transactions.transactions]
     for spendable_transaction in spendable_transactions:
@@ -41,7 +41,7 @@ def test_get_raw_transaction(strax_hot_node: BaseNode):
 @pytest.mark.strax_integration_test
 def test_decode_raw_transaction(strax_hot_node: BaseNode):
     spendable_transactions = strax_hot_node.wallet.spendable_transactions(
-        wallet_name='Test', account_name='account 0', min_confirmations=10
+        wallet_name='Test', account_name='account 0', min_confirmations=2
     )
     spendable_transactions = [x for x in spendable_transactions.transactions]
     for spendable_transaction in spendable_transactions:
@@ -62,7 +62,7 @@ def test_validate_address(strax_hot_node: BaseNode, generate_p2pkh_address):
 @pytest.mark.strax_integration_test
 def test_get_txout(strax_hot_node: BaseNode):
     spendable_transactions = strax_hot_node.wallet.spendable_transactions(
-        wallet_name='Test', account_name='account 0', min_confirmations=10
+        wallet_name='Test', account_name='account 0', min_confirmations=2
     )
     spendable_transactions = [x for x in spendable_transactions.transactions]
     for spendable_transaction in spendable_transactions:
@@ -77,7 +77,7 @@ def test_get_txout(strax_hot_node: BaseNode):
 @pytest.mark.integration_test
 @pytest.mark.strax_integration_test
 def test_get_txout_proof(strax_hot_node: BaseNode):
-    spendable_transactions = strax_hot_node.wallet.spendable_transactions(wallet_name='Test', account_name='account 0', min_confirmations=10)
+    spendable_transactions = strax_hot_node.wallet.spendable_transactions(wallet_name='Test', account_name='account 0', min_confirmations=2)
     spendable_transactions = [x for x in spendable_transactions.transactions]
     for spendable_transaction in spendable_transactions:
         raw_transaction = strax_hot_node.node.get_raw_transaction(trxid=spendable_transaction.transaction_id, verbose=True)

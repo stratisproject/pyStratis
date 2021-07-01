@@ -35,10 +35,10 @@ def test_all_interfluxcirrus_endpoints_implemented(interfluxcirrus_swagger_json)
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_disconnect(mocker: MockerFixture, network, fakeuri):
+def test_disconnect(mocker: MockerFixture, network):
     data = None
     mocker.patch.object(Network, 'post', return_value=data)
-    network_controller = Network(network=network, baseuri=fakeuri)
+    network_controller = Network(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     network_controller.disconnect(peer_address='http://peeraddress')
 
@@ -47,10 +47,10 @@ def test_disconnect(mocker: MockerFixture, network, fakeuri):
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_setban(mocker: MockerFixture, network, fakeuri):
+def test_setban(mocker: MockerFixture, network):
     data = None
     mocker.patch.object(Network, 'post', return_value=data)
-    network_controller = Network(network=network, baseuri=fakeuri)
+    network_controller = Network(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
     network_controller.set_ban(
         ban_command='add',
         ban_duration_seconds=60,
@@ -62,7 +62,7 @@ def test_setban(mocker: MockerFixture, network, fakeuri):
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_getbans(mocker: MockerFixture, network, fakeuri):
+def test_getbans(mocker: MockerFixture, network):
     data = [
         {
             'endPoint': 'http://badpeer0',
@@ -76,7 +76,7 @@ def test_getbans(mocker: MockerFixture, network, fakeuri):
         }
     ]
     mocker.patch.object(Network, 'get', return_value=data)
-    network_controller = Network(network=network, baseuri=fakeuri)
+    network_controller = Network(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     response = network_controller.get_bans()
 
@@ -86,10 +86,10 @@ def test_getbans(mocker: MockerFixture, network, fakeuri):
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_clear_banned(mocker: MockerFixture, network, fakeuri):
+def test_clear_banned(mocker: MockerFixture, network):
     data = None
     mocker.patch.object(Network, 'post', return_value=data)
-    network_controller = Network(network=network, baseuri=fakeuri)
+    network_controller = Network(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     network_controller.clear_banned()
 

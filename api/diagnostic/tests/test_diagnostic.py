@@ -35,7 +35,7 @@ def test_all_interfluxcirrus_endpoints_implemented(interfluxcirrus_swagger_json)
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_get_connected_peers_info(mocker: MockerFixture, network, fakeuri):
+def test_get_connected_peers_info(mocker: MockerFixture, network):
     data = {
         'peersByPeerId': [
             {
@@ -64,7 +64,7 @@ def test_get_connected_peers_info(mocker: MockerFixture, network, fakeuri):
         ]
     }
     mocker.patch.object(Diagnostic, 'get', return_value=data)
-    diagnostic = Diagnostic(network=network, baseuri=fakeuri)
+    diagnostic = Diagnostic(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     response = diagnostic.get_connectedpeers_info()
 
@@ -74,10 +74,10 @@ def test_get_connected_peers_info(mocker: MockerFixture, network, fakeuri):
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_get_status(mocker: MockerFixture, network, fakeuri):
+def test_get_status(mocker: MockerFixture, network):
     data = {'peerStatistics': 'Enabled'}
     mocker.patch.object(Diagnostic, 'get', return_value=data)
-    diagnostic = Diagnostic(network=network, baseuri=fakeuri)
+    diagnostic = Diagnostic(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     response = diagnostic.get_status()
 
@@ -87,7 +87,7 @@ def test_get_status(mocker: MockerFixture, network, fakeuri):
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_get_peer_statistics(mocker: MockerFixture, network, fakeuri):
+def test_get_peer_statistics(mocker: MockerFixture, network):
     data = [
         {
             'peerEndPoint': '[::ffff:x.x.x.x]:17105',
@@ -111,7 +111,7 @@ def test_get_peer_statistics(mocker: MockerFixture, network, fakeuri):
         }
     ]
     mocker.patch.object(Diagnostic, 'get', return_value=data)
-    diagnostic = Diagnostic(network=network, baseuri=fakeuri)
+    diagnostic = Diagnostic(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     response = diagnostic.get_peer_statistics(connected_only=True)
 
@@ -121,10 +121,10 @@ def test_get_peer_statistics(mocker: MockerFixture, network, fakeuri):
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_start_collecting_peer_statistics(mocker: MockerFixture, network, fakeuri):
+def test_start_collecting_peer_statistics(mocker: MockerFixture, network):
     data = 'Diagnostic Peer Statistic Collector enabled.'
     mocker.patch.object(Diagnostic, 'get', return_value=data)
-    diagnostic = Diagnostic(network=network, baseuri=fakeuri)
+    diagnostic = Diagnostic(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     response = diagnostic.start_collecting_peerstatistics()
 
@@ -134,10 +134,10 @@ def test_start_collecting_peer_statistics(mocker: MockerFixture, network, fakeur
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_stop_collecting_peer_statistics(mocker: MockerFixture, network, fakeuri):
+def test_stop_collecting_peer_statistics(mocker: MockerFixture, network):
     data = 'Diagnostic Peer Statistic Collector disabled.'
     mocker.patch.object(Diagnostic, 'get', return_value=data)
-    diagnostic = Diagnostic(network=network, baseuri=fakeuri)
+    diagnostic = Diagnostic(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     response = diagnostic.stop_collecting_peerstatistics()
 

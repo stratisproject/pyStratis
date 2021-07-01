@@ -37,15 +37,14 @@ def test_all_interfluxcirrus_endpoints_implemented(interfluxcirrus_swagger_json)
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_build_transaction(mocker: MockerFixture, network, fakeuri, generate_p2pkh_address,
-                           generate_p2sh_address, generate_hexstring, generate_uint256):
+def test_build_transaction(mocker: MockerFixture, network, generate_p2pkh_address, generate_p2sh_address, generate_hexstring, generate_uint256):
     data = {
         'fee': 1,
         'hex': generate_hexstring(128),
         'transactionId': generate_uint256
     }
     mocker.patch.object(Multisig, 'post', return_value=data)
-    multisig = Multisig(network=network, baseuri=fakeuri)
+    multisig = Multisig(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
     response = multisig.build_transaction(
         recipients=[
             Recipient(

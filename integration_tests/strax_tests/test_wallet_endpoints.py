@@ -279,8 +279,7 @@ def test_build_interflux_transaction(
 
 @pytest.mark.integration_test
 @pytest.mark.strax_integration_test
-def test_send_transaction(strax_hot_node: BaseNode, strax_syncing_node: BaseNode, get_spendable_transactions,
-                          get_node_address_with_balance, get_node_unused_address):
+def test_send_transaction(strax_hot_node: BaseNode, strax_syncing_node: BaseNode, get_spendable_transactions, get_node_address_with_balance, get_node_unused_address):
     destination_address = get_node_unused_address(strax_syncing_node)
     change_address = get_node_address_with_balance(strax_hot_node)
     fee_amount = Money(0.0001)
@@ -382,9 +381,7 @@ def test_addresses(strax_hot_node: BaseNode):
 @pytest.mark.integration_test
 @pytest.mark.strax_integration_test
 def test_remove_transactions(strax_hot_node: BaseNode, get_datetime):
-    spendable_transactions = strax_hot_node.wallet.spendable_transactions(
-        wallet_name='Test', account_name='account 0', min_confirmations=10
-    )
+    spendable_transactions = strax_hot_node.wallet.spendable_transactions(wallet_name='Test', account_name='account 0', min_confirmations=2)
     trxids = [x.transaction_id for x in spendable_transactions.transactions]
     response = strax_hot_node.wallet.remove_transactions(
         wallet_name='Test',
@@ -465,7 +462,7 @@ def test_wallet_stats(strax_hot_node: BaseNode):
 @pytest.mark.integration_test
 @pytest.mark.strax_integration_test
 def test_split_coins(strax_hot_node: BaseNode, node_mines_some_blocks_and_syncs):
-    node_mines_some_blocks_and_syncs(mining_node=strax_hot_node, num_blocks_to_mine=15)
+    assert node_mines_some_blocks_and_syncs(mining_node=strax_hot_node, num_blocks_to_mine=15)
     response = strax_hot_node.wallet.split_coins(
         wallet_name='Test',
         account_name='account 0',
@@ -482,9 +479,17 @@ def test_split_coins(strax_hot_node: BaseNode, node_mines_some_blocks_and_syncs)
 @pytest.mark.integration_test
 @pytest.mark.strax_integration_test
 def test_distribute_utxos(strax_hot_node: BaseNode, node_mines_some_blocks_and_syncs):
-    node_mines_some_blocks_and_syncs(mining_node=strax_hot_node, num_blocks_to_mine=15)
+    # split coins first
+    strax_hot_node.wallet.split_coins(
+        wallet_name='Test',
+        account_name='account 0',
+        wallet_password='password',
+        total_amount_to_split=Money(100),
+        utxos_count=10
+    )
+    assert node_mines_some_blocks_and_syncs(mining_node=strax_hot_node, num_blocks_to_mine=15)
     spendable_transactions = strax_hot_node.wallet.spendable_transactions(
-        wallet_name='Test', account_name='account 0', min_confirmations=10
+        wallet_name='Test', account_name='account 0', min_confirmations=2
     )
     spendable_transactions = [x for x in spendable_transactions.transactions]
     response = strax_hot_node.wallet.distribute_utxos(
@@ -565,7 +570,7 @@ def test_offline_sign_request(
         node_mines_some_blocks_and_syncs,
         get_node_address_with_balance,
         get_node_unused_address):
-    node_mines_some_blocks_and_syncs(mining_node=strax_hot_node, num_blocks_to_mine=15)
+    assert node_mines_some_blocks_and_syncs(mining_node=strax_hot_node, num_blocks_to_mine=15)
     destination_address = get_node_unused_address(strax_syncing_node)
     change_address = get_node_address_with_balance(strax_hot_node)
     fee_amount = Money(0.0001)
@@ -604,8 +609,8 @@ def test_offline_sign_request(
 @pytest.mark.integration_test
 @pytest.mark.strax_integration_test
 def test_consolidate(strax_hot_node: BaseNode, get_node_address_with_balance, node_mines_some_blocks_and_syncs):
-    node_mines_some_blocks_and_syncs(mining_node=strax_hot_node, num_blocks_to_mine=15)
-    spendable_transactions = strax_hot_node.wallet.spendable_transactions(wallet_name='Test', account_name='account 0', min_confirmations=10)
+    assert node_mines_some_blocks_and_syncs(mining_node=strax_hot_node, num_blocks_to_mine=15)
+    spendable_transactions = strax_hot_node.wallet.spendable_transactions(wallet_name='Test', account_name='account 0', min_confirmations=2)
     spendable_transactions = [x for x in spendable_transactions.transactions if x.amount < 100_0000_0000]
     assert len(spendable_transactions) > 1  # Count must be more than 1 to consolidate.
     destination_address = get_node_address_with_balance(strax_hot_node)

@@ -34,13 +34,13 @@ def test_all_interfluxcirrus_endpoints_implemented(interfluxcirrus_swagger_json)
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_get_connection_info(mocker: MockerFixture, network, fakeuri):
+def test_get_connection_info(mocker: MockerFixture, network):
     data = {
         'signalRUri': 'http://localhost',
         'signalRPort': 17104
     }
     mocker.patch.object(SignalR, 'get', return_value=data)
-    signalr = SignalR(network=network, baseuri=fakeuri)
+    signalr = SignalR(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     response = signalr.get_connection_info()
 

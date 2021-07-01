@@ -15,7 +15,8 @@ class EndpointRegister(type):
 def endpoint(end_point: str):
     """A class function decorator for endpoints. Passes the endpoint to the function as a kwarg."""
     def decorator(func):
-        func = functools.partialmethod(func, endpoint=end_point)
-        func._endpoint = end_point
-        return func
+        partial_func = functools.partialmethod(func, endpoint=end_point)
+        functools.update_wrapper(partial_func, func)
+        partial_func._endpoint = end_point
+        return partial_func
     return decorator

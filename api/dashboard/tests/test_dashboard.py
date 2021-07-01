@@ -33,7 +33,7 @@ def test_all_interfluxcirrus_endpoints_implemented(interfluxcirrus_swagger_json)
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_asyncloopsstats(mocker: MockerFixture, network, fakeuri):
+def test_asyncloopsstats(mocker: MockerFixture, network):
     data = """Async Loops
     Status                  : x running [0 faulted]
     Name                                                                            Type           Health         
@@ -73,7 +73,7 @@ def test_asyncloopsstats(mocker: MockerFixture, network, fakeuri):
     --------------------------------------------------------------------------------------------------------------
     """
     mocker.patch.object(Dashboard, 'get', return_value=data)
-    dashboard = Dashboard(network=network, baseuri=fakeuri)
+    dashboard = Dashboard(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     response = dashboard.asyncloops_stats()
 
@@ -83,7 +83,7 @@ def test_asyncloopsstats(mocker: MockerFixture, network, fakeuri):
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_stats(mocker: MockerFixture, network, fakeuri):
+def test_stats(mocker: MockerFixture, network):
     data = """Node Stats
     Agent                   : StratisFullNode:1.0.7.2 (70012)
     Network                 : StraxMain
@@ -149,7 +149,7 @@ def test_stats(mocker: MockerFixture, network, fakeuri):
     x/x          : Confirmed balance: x.x          Unconfirmed balance: 0.00000000
     """
     mocker.patch.object(Dashboard, 'get', return_value=data)
-    dashboard = Dashboard(network=network, baseuri=fakeuri)
+    dashboard = Dashboard(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     response = dashboard.stats()
 

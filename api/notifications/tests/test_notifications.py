@@ -34,10 +34,10 @@ def test_all_interfluxcirrus_endpoints_implemented(interfluxcirrus_swagger_json)
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_sync(mocker: MockerFixture, network, fakeuri, generate_uint256):
+def test_sync(mocker: MockerFixture, network, generate_uint256):
     data = None
     mocker.patch.object(Notifications, 'get', return_value=data)
-    notifications = Notifications(network=network, baseuri=fakeuri)
+    notifications = Notifications(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
     notifications.sync(sync_from=generate_uint256)
 

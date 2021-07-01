@@ -90,7 +90,9 @@ def test_get_utxoset(cirrusminer_node: CirrusMinerNode):
 def test_get_last_balance_update_transaction(
         cirrusminer_node: CirrusMinerNode,
         cirrusminer_syncing_node: CirrusMinerNode,
-        get_node_address_with_balance):
+        get_node_address_with_balance,
+        wait_and_clear_mempool):
+    assert wait_and_clear_mempool()
     # Check address on both nodes
     receiving_address = get_node_address_with_balance(cirrusminer_syncing_node)
     response = cirrusminer_node.blockstore.get_last_balance_update_transaction(address=receiving_address)

@@ -1,5 +1,6 @@
 from typing import List
 import requests
+from requests.exceptions import ConnectionError
 from pybitcoin.networks import BaseNetwork
 from api.addressbook import AddressBook
 from api.blockstore import BlockStore
@@ -48,6 +49,15 @@ class BaseNode:
             *self._rpc.endpoints,
             *self._wallet.endpoints,
         ]
+
+    def stop_node(self) -> bool:
+        """Convenience method for stopping node."""
+        try:
+            self.node.stop()
+        except ConnectionError:
+            # Thrown if trying to stop a node that is already stopped.
+            pass
+        return True
 
     @property
     def name(self) -> str:
@@ -110,6 +120,11 @@ class BaseNode:
         return self._wallet
 
     def check_all_endpoints_implemented(self) -> bool:
+        """Queries a running node's swagger schema and compares the pystratis implemented endpoints with those defined by the swagger schema.
+
+        Returns:
+            bool: True if all endpoints are implemented, otherwise False.
+        """
         request_url = f'{self.api_route}{self._api_schema_endpoint}'
         response = requests.get(
             url=request_url,

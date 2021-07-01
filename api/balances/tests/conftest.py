@@ -4,7 +4,7 @@ from pybitcoin.types import Address
 from pybitcoin.networks import BaseNetwork
 
 
-@pytest.fixture(scope='function')
+@pytest.fixture(scope='package')
 def overamountatheightresponse(generate_p2wpkh_address):
     def _overamountatheightresponse(network: BaseNetwork) -> List[Address]:
         return [

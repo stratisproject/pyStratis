@@ -38,6 +38,7 @@ def test_money_negative():
         Money(Decimal(-10.5))
 
 
+# noinspection PyTypeChecker
 def test_money_invalid():
     with pytest.raises(ValueError):
         Money('string')
