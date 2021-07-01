@@ -1,26 +1,20 @@
 Networks
 ==========================
 
-BaseNetwork
--------------------------------------
-
-.. automodule:: pybitcoin.networks.basenetwork
-   :members:
-
 CirrusNetwork
 ---------------------------------------
 
 .. automodule:: pybitcoin.networks.cirrusnetwork
-   :members:
+   :undoc-members:
 
 Ethereum
 ----------------------------------
 
 .. automodule:: pybitcoin.networks.ethereum
-   :members:
+   :undoc-members:
 
 StraxNetwork
 --------------------------------------
 
 .. automodule:: pybitcoin.networks.straxnetwork
-   :members:
+   :undoc-members:

@@ -9,7 +9,7 @@ from .basenetwork import BaseNetwork
 class Ethereum(BaseNetwork):
     """Default settings for the ethereum network."""
     name: str = Field(default='Ethereum')
-    DEFAULT_PORT: Optional[int]
+    DEFAULT_PORT: Optional[int] = Field(default=30303)
 
     def validate_address(self, address: str) -> bool:
         if self._check_ethereum_checksum(address):

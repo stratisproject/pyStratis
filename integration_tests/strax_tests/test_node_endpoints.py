@@ -104,7 +104,7 @@ def test_stop():
 @pytest.mark.integration_test
 @pytest.mark.strax_integration_test
 def test_log_levels(strax_hot_node: BaseNode):
-    strax_hot_node.node.log_levels(log_rules=[LogRule(rule_name='Stratis.*', log_level='Debug')])
+    strax_hot_node.node.log_levels(log_rules=[LogRule(rule_name='Stratis.*', log_level='Debug', file_name='filename')])
 
 
 @pytest.mark.integration_test
