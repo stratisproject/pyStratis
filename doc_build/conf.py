@@ -30,7 +30,7 @@ release = '1.0.9.0'
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = ['sphinx.ext.autodoc', 'sphinxcontrib.napoleon', 'sphinxcontrib.autodoc_pydantic', 'sphinx.ext.autosummary']
+extensions = ['sphinx.ext.autodoc', 'sphinx.ext.napoleon', 'sphinxcontrib.autodoc_pydantic', 'sphinx.ext.autosummary']
 autosummary_generate = True
 add_module_names = False
 python_use_unqualified_type_names = True
