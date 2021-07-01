@@ -30,16 +30,9 @@ release = '1.0.9.0'
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = ['sphinx.ext.autodoc', 'sphinx.ext.napoleon', 'sphinxcontrib.autodoc_pydantic']
+extensions = ['sphinx.ext.autodoc', 'sphinx.ext.napoleon']
 add_module_names = False
 python_use_unqualified_type_names = True
-autodoc_pydantic_model_show_json = False
-autodoc_pydantic_settings_show_json = False
-autodoc_pydantic_model_show_config_summary = False
-autodoc_pydantic_model_show_field_summary = False
-autodoc_pydantic_model_undoc_members = False
-autodoc_pydantic_model_show_validator_members = False
-autodoc_pydantic_model_show_validator_summary = False
 napoleon_numpy_docstring = True
 autoclass_content = 'class'
 autodoc_typehints = 'signature'
