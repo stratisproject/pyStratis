@@ -5,6 +5,16 @@ from .smartcontractparametertype import SmartContractParameterType
 
 
 class SmartContractParameter:
+    """Type representing smart contract's parameter.
+
+    Args:
+        value_type (SmartContractParameterType): The type of parameter.
+        value: The value of the paramater.
+    Note:
+        Learn more about smart contracts in `Stratis Academy`__.
+
+    .. __: https://academy.stratisplatform.com/Architecture%20Reference/SmartContracts/working-with-contracts.html
+    """
     def __init__(self, value_type: SmartContractParameterType, value: Any):
         self.type = value_type
         self.value = value
@@ -46,6 +56,7 @@ class SmartContractParameter:
 
     @staticmethod
     def validate_values(value_type: SmartContractParameterType, value: Any) -> bool:
+        """Validates that type of value matching with value_type."""
         if value_type.Boolean and isinstance(value, bool):
             return True
         # noinspection PyTypeChecker

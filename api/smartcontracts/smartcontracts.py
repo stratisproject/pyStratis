@@ -508,7 +508,7 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
                             account_name: str = 'account 0',
                             parameters: List[Union[str, SmartContractParameter]] = None,
                             **kwargs) -> BuildContractTransactionModel:
-        """Biuilds a transaction to call a smart contract method and then broadcasts.
+        """Builds a transaction to call a smart contract method and then broadcasts.
 
         Args:
             wallet_name (str): The wallet name.

@@ -6,7 +6,22 @@ from .depositretrievaltype import DepositRetrievalType
 
 
 class Deposit(BaseModel):
-    """A Deposit."""
+    """Represents a deposit made to a sidechain mutlisig, 
+    with the aim of triggering a cross chain transfer.
+
+    Args:
+        deposit_id (uint256): The Id (or hash) of the source transaction that originates the fund transfer.
+        amount (Money): The amount of the requested fund transfer.
+        target_address (Address): The target address, on the target chain, for the fund deposited on the multisig.
+        target_chain (DestinationChain, optional): Chain on which STRAX minting or burning should occur.
+        block_number (int): The block number where the source deposit has been persisted.
+        block_hash (uint256): The hash of the block where the source deposit has been persisted.
+        retrieval_type (DepositRetrievalType): Whether the deposit is a "faster" or "normal" deposit.
+    Note:
+        Learn how to `acquire CRS token using GUI`__.
+
+    .. __: https://academy.stratisplatform.com/Operation%20Guides/Sidechain/AcquiringCRS/cross-chain-transfer.html
+    """
     deposit_id: uint256 = Field(alias='id')
     amount: Money
     target_address: Address = Field(alias='targetAddress')

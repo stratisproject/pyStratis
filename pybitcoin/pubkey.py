@@ -4,6 +4,18 @@ from binascii import unhexlify
 
 
 class PubKey:
+    """Type representing public key.
+    A public key is the number that corresponds to a private key, 
+    but does not need to be kept secret.
+    A public key can be calculated from a private key, but not vice versa.
+
+    A public key can be presented in compressed or uncompressed format.
+
+    Note:
+        Read more about `public key formats`__.
+
+    .. __: https://github.com/bitcoinbook/bitcoinbook/blob/develop/ch04.asciidoc#public-key-formats
+    """
     def __init__(self, value: str):
         value = value.replace('0x', '')
         if value[:2] == '04':
@@ -13,7 +25,12 @@ class PubKey:
 
     @classmethod
     def _check_uncompressed(cls, value: str) -> Tuple[str, str]:
-        """Validates and returns an uncompressed pubkey"""
+        """Validates and returns an uncompressed pubkey.
+        An uncompressed public key must be 64 bytes long and start with '04' value.
+
+        Returns:
+            :rtype: (str, str): The (x,y) parts of a public key.
+        """
         uncompressed_bytes = unhexlify(value[2:])
         assert len(uncompressed_bytes) == 64
         return uncompressed_bytes[:32].hex(), uncompressed_bytes[32:].hex()
@@ -21,6 +38,7 @@ class PubKey:
     @classmethod
     def _check_compressed(cls, value: str) -> Tuple[str, str]:
         """Calculates y from x.
+        A compressed public key must start with '02' or '03' value.
 
         Notes:
             https://bitcointalk.org/index.php?topic=644919.0
@@ -38,8 +56,8 @@ class PubKey:
 
     @staticmethod
     def _pow_mod(x: int, y: int, z: int) -> int:
-        """
-
+        """Modular exponentiation.
+        
         Notes:
             https://bitcointalk.org/index.php?topic=644919.0
         """
