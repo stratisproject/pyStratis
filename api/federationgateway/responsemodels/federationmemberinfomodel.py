@@ -1,7 +1,7 @@
 from typing import List, Optional
 from pydantic import Field, conint
 from pybitcoin import Model, PubKey
-from .federationmemberconnectioninfo import FederationMemberConnectionInfo
+from .federationmemberconnectioninfomodel import FederationMemberConnectionInfoModel
 
 
 class FederationMemberInfoModel(Model):
@@ -17,4 +17,4 @@ class FederationMemberInfoModel(Model):
     node_version: Optional[str] = Field(alias='nodeVersion')
     pubkey: Optional[PubKey] = Field(alias='pubKey')
     federation_connection_state: Optional[str] = Field(alias='federationConnectionState')
-    federation_member_connections: Optional[List[FederationMemberConnectionInfo]] = Field(alias='federationMemberConnections')
+    federation_member_connections: Optional[List[FederationMemberConnectionInfoModel]] = Field(alias='federationMemberConnections')

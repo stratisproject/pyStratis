@@ -10,6 +10,7 @@ class AddressBook(APIRequest, metaclass=EndpointRegister):
     route = '/api/addressbook'
 
     def __init__(self, **kwargs):
+        """Implements the stratis addressbook api endpoints."""
         super().__init__(**kwargs)
 
     @endpoint(f'{route}/address')

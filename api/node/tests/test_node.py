@@ -250,7 +250,7 @@ def test_log_levels(mocker: MockerFixture, network):
     mocker.patch.object(Node, 'put', return_value=data)
     node = Node(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
-    node.log_levels(log_rules=[LogRule(rule_name='TestRule', log_level='Debug')])
+    node.log_levels(log_rules=[LogRule(rule_name='TestRule', log_level='Debug', filename='filename')])
 
     # noinspection PyUnresolvedReferences
     node.put.assert_called_once()

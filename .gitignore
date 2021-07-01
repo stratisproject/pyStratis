@@ -1,7 +1,8 @@
 # Sphinx files
-docs/build/
-docs/_static/
-docs/_templates/
+doc_build/build/
+doc_build/_static/
+doc_build/_templates/
+docs/
 
 # Extra folders
 /.idea

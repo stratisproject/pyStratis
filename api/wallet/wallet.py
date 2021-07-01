@@ -31,8 +31,7 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
         Raises:
             APIError
 
-        .. _BIP39
-            https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki
+        .. _BIP39: https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki
         """
         request_model = MnemonicRequest(
             language=language,

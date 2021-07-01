@@ -1,2 +1,1 @@
-# noinspection PyUnresolvedReferences
 from pybitcoin import BuildTransactionModel
