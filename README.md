@@ -51,6 +51,42 @@ another_extended_public_key = ExtPubKey(str(extended_public_key))
 assert extended_public_key == another_extended_public_key
 ```
 
+## Examples
+
+### Create wallet
+
+```python
+from nodes import StraxNode
+
+# back up the mnemonic phrase, that's the only thing that could restore your wallet
+mnemonic = node.wallet.create(name='MyWallet', password='qwerty12345', passphrase='')
+```
+
+### Send funds
+
+```python
+from nodes import StraxNode
+from pybitcoin.networks import StraxMain
+from pybitcoin.types import uint256, Money, Address
+from pybitcoin import Outpoint, Recipient
+
+node = StraxNode()
+
+# get first spendable transaction
+s_tx = node.wallet.spendable_transactions(wallet_name='MyWallet').transactions[0]
+
+# set our own address as recipient of change, use Money arithmetics for amount calculations
+recipient_self = Recipient(destinationAddress=s_tx.address, amount=s_tx.amount-Money(1.0), subtraction_fee_from_amount=True)
+
+recipient_another = Recipient(destinationAddress=Address('<another address>', network=StraxMain()), amount=Money(1.0), subtractFeeFromAmount=False)
+
+# spend utxo from our transaction
+outpoint = Outpoint(transaction_id=s_tx.transaction_id, index=s_tx.index)
+
+built_transaction = node.wallet.build_transaction(wallet_name='MyWallet', password='qwerty12345', outpoints=[outpoint], recipients=[recipient_self, recipient_another], fee_type='high')
+
+node.wallet.send_transaction(built_transaction.hex)
+```
 ## Testing guide
 
 - Unit tests: `pytest -m "not integration_test"`

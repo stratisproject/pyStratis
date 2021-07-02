@@ -42,10 +42,10 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
 
     @endpoint(f'{route}/create')
     def create(self,
-               mnemonic: Optional[str],
+               name: str,
                password: str, 
                passphrase: str, 
-               name: str,
+               mnemonic: Optional[str] = None,
                **kwargs) -> List[str]:
         """Creates a new wallet on this full node.
 
