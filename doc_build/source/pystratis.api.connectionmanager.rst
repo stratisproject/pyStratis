@@ -7,10 +7,8 @@ ConnectionManager
 .. autoclass:: pystratis.api.connectionmanager.ConnectionManager
    :members:
 
-Subpackages
------------
+PeerInfoModel
+---------------------------------------------------------
 
-.. toctree::
-   :maxdepth: 4
-
-   ResponseModels <pystratis.api.connectionmanager.responsemodels>
+.. automodule:: pystratis.api.connectionmanager.responsemodels.peerinfomodel
+   :members:

@@ -7,12 +7,8 @@ AddressBook
 .. autoclass:: pystratis.api.addressbook.AddressBook
    :members:
 
+AddressBookEntryModel
+-----------------------------------------------------------
 
-Subpackages
------------
-
-.. toctree::
-   :maxdepth: 4
-
-   ResponseModels <pystratis.api.addressbook.responsemodels>
-
+.. automodule:: pystratis.api.addressbook.responsemodels.addressbookentrymodel
+   :members:

@@ -7,10 +7,14 @@ RPC
 .. autoclass:: pystratis.api.rpc.RPC
    :members:
 
-Subpackages
------------
+RPCCommandListModel
+-------------------------------------------------
 
-.. toctree::
-   :maxdepth: 4
+.. automodule:: pystratis.api.rpc.responsemodels.rpccommandlistmodel
+   :members:
 
-   ResponseModels <pystratis.api.rpc.responsemodels>
+RPCCommandResponseModel
+-----------------------------------------------------
+
+.. automodule:: pystratis.api.rpc.responsemodels.rpccommandresponsemodel
+   :members:

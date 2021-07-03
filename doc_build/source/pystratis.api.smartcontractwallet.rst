@@ -7,10 +7,29 @@ SmartContractWallet
 .. autoclass:: pystratis.api.smartcontractwallet.SmartContractWallet
    :members:
 
-Subpackages
------------
+BuildContractTransactionModel
+----------------------------------------------
 
-.. toctree::
-   :maxdepth: 4
+.. automodule:: pystratis.api.global_responsemodels.buildcontracttransactionmodel
+   :members:
+   :noindex:
 
-   ResponseModels <pystratis.api.smartcontractwallet.responsemodels>
+ContractTransactionItemModel
+--------------------------------------------------------------------------
+
+.. automodule:: pystratis.api.smartcontractwallet.responsemodels.contracttransactionitemmodel
+   :members:
+
+TransactionOutputModel
+---------------------------------------
+
+.. automodule:: pystratis.api.global_responsemodels.transactionoutputmodel
+   :members:
+   :noindex:
+
+WalletSendTransactionModel
+-------------------------------------------
+
+.. automodule:: pystratis.api.global_responsemodels.walletsendtransactionmodel
+   :members:
+   :noindex:

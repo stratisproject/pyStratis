@@ -7,10 +7,39 @@ ColdStaking
 .. autoclass:: pystratis.api.coldstaking.ColdStaking
    :members:
 
-Subpackages
------------
+AccountModel
+--------------------------------------------------
 
-.. toctree::
-   :maxdepth: 4
+.. automodule:: pystratis.api.coldstaking.responsemodels.accountmodel
+   :members:
 
-   ResponseModels <pystratis.api.coldstaking.responsemodels>
+AddressModel
+--------------------------------------------------
+
+.. automodule:: pystratis.api.coldstaking.responsemodels.addressmodel
+   :members:
+
+BuildOfflineSignModel
+--------------------------------------
+
+.. automodule:: pystratis.api.global_responsemodels.buildofflinesignmodel
+   :members:
+   :noindex:
+
+InfoModel
+-----------------------------------------------
+
+.. automodule:: pystratis.api.coldstaking.responsemodels.infomodel
+   :members:
+
+SetupModel
+------------------------------------------------
+
+.. automodule:: pystratis.api.coldstaking.responsemodels.setupmodel
+   :members:
+
+WithdrawalModel
+-----------------------------------------------------
+
+.. automodule:: pystratis.api.coldstaking.responsemodels.withdrawalmodel
+   :members:

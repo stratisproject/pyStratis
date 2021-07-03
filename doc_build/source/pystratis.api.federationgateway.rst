@@ -7,11 +7,44 @@ FederationGateway
 .. autoclass:: pystratis.api.federationgateway.FederationGateway
    :members:
 
-Subpackages
------------
+CrosschainTransferModel
+-------------------------------------------------------------------
 
-.. toctree::
-   :maxdepth: 4
+.. automodule:: pystratis.api.federationgateway.responsemodels.crosschaintransfermodel
+   :members:
 
-   ResponseModels <pystratis.api.federationgateway.responsemodels>
+FederationGatewayInfoModel
+----------------------------------------------------------------------
 
+.. automodule:: pystratis.api.federationgateway.responsemodels.federationgatewayinfomodel
+   :members:
+
+FederationMemberConnectionInfoModel
+--------------------------------------------------------------------------
+
+.. automodule:: pystratis.api.federationgateway.responsemodels.federationmemberconnectioninfomodel
+   :members:
+
+FederationMemberInfoModel
+---------------------------------------------------------------------
+
+.. automodule:: pystratis.api.federationgateway.responsemodels.federationmemberinfomodel
+   :members:
+
+MaturedBlockDepositsModel
+---------------------------------------------------------------------
+
+.. automodule:: pystratis.api.federationgateway.responsemodels.maturedblockdepositsmodel
+   :members:
+
+SerializableResult
+--------------------------------------------------------------
+
+.. automodule:: pystratis.api.federationgateway.responsemodels.serializableresult
+   :members:
+
+ValidateTransactionResultModel
+--------------------------------------------------------------------------
+
+.. automodule:: pystratis.api.federationgateway.responsemodels.validatetransactionresultmodel
+   :members:

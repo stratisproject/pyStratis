@@ -7,10 +7,14 @@ Interop
 .. autoclass:: pystratis.api.interop.Interop
    :members:
 
-Subpackages
------------
+ConversionRequestModel
+--------------------------------------------------------
 
-.. toctree::
-   :maxdepth: 4
+.. automodule:: pystratis.api.interop.responsemodels.conversionrequestmodel
+   :members:
 
-   ResponseModels <pystratis.api.interop.responsemodels>
+StatusModel
+---------------------------------------------
+
+.. automodule:: pystratis.api.interop.responsemodels.statusmodel
+   :members:

@@ -1,13 +1,6 @@
 Nodes
 ===============
 
-
-BaseNode
----------------------
-
-.. automodule:: pystratis.nodes.basenode
-   :members:
-
 CirrusMinerNode
 ----------------------------
 

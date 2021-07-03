@@ -7,10 +7,8 @@ SignalR
 .. autoclass:: pystratis.api.signalr.SignalR
    :members:
 
-Subpackages
------------
+GetConnectionInfoModel
+--------------------------------------------------------
 
-.. toctree::
-   :maxdepth: 4
-
-   ResponseModels <pystratis.api.signalr.responsemodels>
+.. automodule:: pystratis.api.signalr.responsemodels.getconnectioninfomodel
+   :members:

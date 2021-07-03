@@ -7,10 +7,14 @@ Federation
 .. autoclass:: pystratis.api.federation.Federation
    :members:
 
-Subpackages
------------
+FederationMemberDetailedModel
+------------------------------------------------------------------
 
-.. toctree::
-   :maxdepth: 4
+.. automodule:: pystratis.api.federation.responsemodels.federationmemberdetailedmodel
+   :members:
 
-   ResponseModels <pystratis.api.federation.responsemodels>
+FederationMemberModel
+----------------------------------------------------------
+
+.. automodule:: pystratis.api.federation.responsemodels.federationmembermodel
+   :members:

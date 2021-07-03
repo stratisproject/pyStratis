@@ -7,10 +7,21 @@ Voting
 .. autoclass:: pystratis.api.voting.Voting
    :members:
 
-Subpackages
------------
+PollViewModel
+------------------------------
 
-.. toctree::
-   :maxdepth: 4
+.. automodule:: pystratis.api.global_responsemodels.pollviewmodel
+   :members:
+   :noindex:
 
-   ResponseModels <pystratis.api.voting.responsemodels>
+VotingDataModel
+------------------------------------------------
+
+.. automodule:: pystratis.api.voting.responsemodels.votingdatamodel
+   :members:
+
+WhitelistedHashesModel
+-------------------------------------------------------
+
+.. automodule:: pystratis.api.voting.responsemodels.whitelistedhashesmodel
+   :members:

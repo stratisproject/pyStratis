@@ -6,9 +6,3 @@ Notifications
 
 .. autoclass:: pystratis.api.notifications.Notifications
    :members:
-
-Subpackages
------------
-
-.. toctree::
-   :maxdepth: 4

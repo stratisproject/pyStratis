@@ -7,12 +7,6 @@ Address
 .. automodule:: pystratis.core.types.address
    :members:
 
-customint
---------------------------------
-
-.. automodule:: pystratis.core.types.customint
-   :members:
-
 hexstr
 -----------------------------
 

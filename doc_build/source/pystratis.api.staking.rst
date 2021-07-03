@@ -7,10 +7,8 @@ Staking
 .. autoclass:: pystratis.api.staking.Staking
    :members:
 
-Subpackages
------------
+GetStakingInfoModel
+-----------------------------------------------------
 
-.. toctree::
-   :maxdepth: 4
-
-   ResponseModels <pystratis.api.staking.responsemodels>
+.. automodule:: pystratis.api.staking.responsemodels.getstakinginfomodel
+   :members:

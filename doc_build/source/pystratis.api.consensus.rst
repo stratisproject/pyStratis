@@ -7,11 +7,8 @@ Consensus
 .. autoclass:: pystratis.api.consensus.Consensus
    :members:
 
-Subpackages
------------
+DeploymentFlagsModel
+--------------------------------------------------------
 
-.. toctree::
-   :maxdepth: 4
-
-   ResponseModels <pystratis.api.consensus.responsemodels>
-
+.. automodule:: pystratis.api.consensus.responsemodels.deploymentflagsmodel
+   :members:

@@ -53,9 +53,3 @@ LogRule
 
 .. automodule:: pystratis.api.logrule
    :members:
-
-Model
-----------------------
-
-.. automodule:: pystratis.api.model
-   :members:

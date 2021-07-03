@@ -7,10 +7,8 @@ Network
 .. autoclass:: pystratis.api.network.Network
    :members:
 
-Subpackages
------------
+BannedPeerModel
+-------------------------------------------------
 
-.. toctree::
-   :maxdepth: 4
-
-   ResponseModels <pystratis.api.network.responsemodels>
+.. automodule:: pystratis.api.network.responsemodels.bannedpeermodel
+   :members:

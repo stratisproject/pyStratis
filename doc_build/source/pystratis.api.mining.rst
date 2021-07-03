@@ -7,10 +7,8 @@ Mining
 .. autoclass:: pystratis.api.mining.Mining
    :members:
 
-Subpackages
------------
+GenerateBlocksModel
+----------------------------------------------------
 
-.. toctree::
-   :maxdepth: 4
-
-   ResponseModels <pystratis.api.mining.responsemodels>
+.. automodule:: pystratis.api.mining.responsemodels.generateblocksmodel
+   :members:

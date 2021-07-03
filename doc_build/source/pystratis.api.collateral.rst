@@ -7,10 +7,8 @@ Collateral
 .. autoclass:: pystratis.api.collateral.Collateral
    :members:
 
-Subpackages
------------
+JoinFederationResponseModel
+----------------------------------------------------------------
 
-.. toctree::
-   :maxdepth: 4
-
-   ResponseModels <pystratis.api.collateral.responsemodels>
+.. automodule:: pystratis.api.collateral.responsemodels.joinfederationresponsemodel
+   :members:

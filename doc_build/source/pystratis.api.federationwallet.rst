@@ -7,10 +7,30 @@ FederationWallet
 .. autoclass:: pystratis.api.federationwallet.FederationWallet
    :members:
 
-Subpackages
------------
+RemovedTransactionModel
+----------------------------------------
 
-.. toctree::
-   :maxdepth: 4
+.. automodule:: pystratis.api.global_responsemodels.removedtransactionmodel
+   :members:
+   :noindex:
 
-   ResponseModels <pystratis.api.federationwallet.responsemodels>
+WalletBalanceModel
+-----------------------------------
+
+.. automodule:: pystratis.api.global_responsemodels.walletbalancemodel
+   :members:
+   :noindex:
+
+WalletGeneralInfoModel
+---------------------------------------
+
+.. automodule:: pystratis.api.global_responsemodels.walletgeneralinfomodel
+   :members:
+   :noindex:
+
+WithdrawalModel
+----------------------------------------------------------
+
+.. automodule:: pystratis.api.federationwallet.responsemodels.withdrawalmodel
+   :members:
+
