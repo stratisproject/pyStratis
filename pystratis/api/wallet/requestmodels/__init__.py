@@ -36,4 +36,4 @@ from .syncfromdaterequest import SyncFromDateRequest
 from .syncrequest import SyncRequest
 from .verifymessagerequest import VerifyMessageRequest
 # noinspection PyUnresolvedReferences
-from pystratis.core import SendTransactionRequest
+from pystratis.api.global_requestmodels import SendTransactionRequest

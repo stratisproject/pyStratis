@@ -34,7 +34,7 @@ def test_all_interfluxcirrus_endpoints_implemented(interfluxcirrus_swagger_json)
             assert endpoint in Interop.endpoints
 
 
-@pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
+@pytest.mark.parametrize('network', [CirrusMain()], ids=['CirrusMain'])
 def test_status(mocker: MockerFixture, network, generate_uint256, generate_compressed_pubkey,
                 generate_ethereum_checksum_address, generate_p2pkh_address):
     data = {

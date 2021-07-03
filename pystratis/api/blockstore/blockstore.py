@@ -2,7 +2,7 @@ from typing import Union, List
 from pystratis.api import APIRequest, EndpointRegister, endpoint
 from pystratis.api.blockstore.requestmodels import *
 from pystratis.api.blockstore.responsemodels import *
-from pystratis.core import TransactionModel
+from pystratis.api.global_responsemodels import TransactionModel
 from pystratis.core.types import Address, hexstr, Money, uint256
 
 

@@ -1,5 +1,5 @@
 from pystratis.core.types import Address
-from pystratis.core import Model
+from pystratis.api import Model
 
 
 class GetLastBalanceUpdateTransactionRequest(Model):

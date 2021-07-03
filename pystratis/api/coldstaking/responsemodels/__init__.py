@@ -4,4 +4,4 @@ from .infomodel import InfoModel
 from .setupmodel import SetupModel
 from .withdrawalmodel import WithdrawalModel
 # noinspection PyUnresolvedReferences
-from pystratis.core import BuildOfflineSignModel
+from pystratis.api.global_responsemodels import BuildOfflineSignModel

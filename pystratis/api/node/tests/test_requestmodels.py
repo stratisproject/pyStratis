@@ -1,7 +1,7 @@
 import pytest
 import json
 from pystratis.api.node.requestmodels import *
-from pystratis.core import LogRule
+from pystratis.api import LogRule
 from pystratis.core.networks import StraxMain, CirrusMain
 
 

@@ -1,6 +1,7 @@
 from typing import List, Dict, Optional
 from pydantic import Field
-from pystratis.core import Model, PubKey
+from pystratis.api import Model
+from pystratis.core import PubKey
 from pystratis.core.types import uint256
 from .conversionrequestmodel import ConversionRequestModel
 

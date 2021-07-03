@@ -1,7 +1,7 @@
-from pydantic import BaseModel
+from pystratis.api import Model
 
 
-class ScriptSig(BaseModel):
+class ScriptSig(Model):
     """Represents ScriptSig.
     
     A ScriptSig is a part of transaction's input, and is the first half of a script.

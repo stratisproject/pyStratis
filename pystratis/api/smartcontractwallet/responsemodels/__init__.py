@@ -1,3 +1,3 @@
 from .contracttransactionitemmodel import ContractTransactionItemModel
 # noinspection PyUnresolvedReferences
-from pystratis.core import BuildContractTransactionModel, WalletSendTransactionModel, TransactionOutputModel
+from pystratis.api.global_responsemodels import BuildContractTransactionModel, WalletSendTransactionModel, TransactionOutputModel

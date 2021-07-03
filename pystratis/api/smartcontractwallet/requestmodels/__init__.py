@@ -4,4 +4,4 @@ from .callcontracttransactionrequest import CallContractTransactionRequest
 from .createtransactionrequest import CreateContractTransactionRequest
 from .historyrequest import HistoryRequest
 # noinspection PyUnresolvedReferences
-from pystratis.core import SendTransactionRequest
+from pystratis.api.global_requestmodels import SendTransactionRequest

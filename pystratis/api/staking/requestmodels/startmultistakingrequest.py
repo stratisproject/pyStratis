@@ -1,6 +1,7 @@
 from typing import List
 from pydantic import Field
-from pystratis.core import Model, WalletSecret
+from pystratis.api import Model
+from pystratis.core import WalletSecret
 
 
 class StartMultiStakingRequest(Model):

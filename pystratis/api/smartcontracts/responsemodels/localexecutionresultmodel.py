@@ -1,6 +1,6 @@
 from typing import List, Optional, Any
 from pydantic import Field, conint
-from pystratis.core import Model
+from pystratis.api import Model
 from .transferinfomodel import TransferInfoModel
 from .logmodel import LogModel
 

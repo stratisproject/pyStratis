@@ -1,9 +1,10 @@
 from typing import Optional
-from pydantic import BaseModel, Field, conint
+from pydantic import Field, conint
+from pystratis.api import Model
 from .scriptsig import ScriptSig
 
 
-class VIn(BaseModel):
+class VIn(Model):
     """Represents transaction's input.
     
     Args:
@@ -23,9 +24,3 @@ class VIn(BaseModel):
     vout: Optional[conint(ge=0)]
     script_sig: Optional[ScriptSig] = Field(alias='scriptSig')
     sequence: conint(ge=0)
-
-    class Config:
-        allow_population_by_field_name = True
-
-    def json(self, *args, **kwargs) -> str:
-        return super().json(exclude_none=True, by_alias=True)

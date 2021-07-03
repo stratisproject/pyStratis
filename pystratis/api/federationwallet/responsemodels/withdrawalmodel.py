@@ -1,7 +1,8 @@
 from typing import Union, Optional
 from pydantic import Field, conint
 from pystratis.core.types import Address
-from pystratis.core import CrossChainTransferStatus, Model
+from pystratis.core import CrossChainTransferStatus
+from pystratis.api import Model
 from pystratis.core.types import Money, uint256
 
 

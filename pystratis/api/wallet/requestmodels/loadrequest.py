@@ -1,5 +1,5 @@
 from pydantic import SecretStr
-from pystratis.core import Model
+from pystratis.api import Model
 
 
 class LoadRequest(Model):

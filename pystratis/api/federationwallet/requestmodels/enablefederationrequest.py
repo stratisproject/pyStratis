@@ -1,6 +1,6 @@
 from typing import Optional
 from pydantic import Field, SecretStr, conint
-from pystratis.core import Model
+from pystratis.api import Model
 
 
 class EnableFederationRequest(Model):

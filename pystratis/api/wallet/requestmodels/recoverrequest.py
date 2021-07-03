@@ -1,6 +1,6 @@
 from typing import Optional, Union
 from pydantic import SecretStr, Field
-from pystratis.core import Model
+from pystratis.api import Model
 from datetime import datetime
 
 

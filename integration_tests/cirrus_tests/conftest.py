@@ -3,7 +3,8 @@ from typing import Union
 from pystratis import api
 from pystratis.api.smartcontracts.responsemodels import ReceiptModel
 from pystratis.core.types import Address, Money, hexstr, uint32, uint64, uint128, uint256, int32, int64
-from pystratis.core import SmartContractParameter, SmartContractParameterType, BuildContractTransactionModel, WalletSendTransactionModel
+from pystratis.core import SmartContractParameter, SmartContractParameterType
+from pystratis.api.global_responsemodels import BuildContractTransactionModel, WalletSendTransactionModel
 from pystratis.nodes import CirrusMinerNode, CirrusNode, BaseNode
 
 

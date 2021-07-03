@@ -1,6 +1,6 @@
 from typing import Optional
 from pydantic import conint, Field
-from pystratis.core import Model
+from pystratis.api import Model
 
 
 class PeerInfoModel(Model):

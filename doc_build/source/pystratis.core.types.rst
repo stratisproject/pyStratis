@@ -31,7 +31,7 @@ int64
 .. automodule:: pystratis.core.types.int64
    :members:
 
-money
+Money
 ----------------------------
 
 .. automodule:: pystratis.core.types.money

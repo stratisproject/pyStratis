@@ -1,9 +1,10 @@
 from typing import Optional
-from pydantic import BaseModel, Field, conint
+from pydantic import Field, conint
 from datetime import datetime
+from pystratis.api import Model
 
 
-class WalletGeneralInfoModel(BaseModel):
+class WalletGeneralInfoModel(Model):
     """A model representing general wallet info.
 
     Args:
@@ -24,9 +25,3 @@ class WalletGeneralInfoModel(BaseModel):
     chain_tip: Optional[conint(ge=0)] = Field(alias='chainTip')
     is_chain_synced: bool = Field(alias='isChainSynced')
     connected_nodes: conint(ge=0) = Field(alias='connectedNodes')
-
-    class Config:
-        allow_population_by_field_name = True
-
-    def json(self, *args, **kwargs) -> str:
-        return super().json(exclude_none=True, by_alias=True)

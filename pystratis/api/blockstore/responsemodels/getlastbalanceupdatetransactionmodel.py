@@ -1,6 +1,7 @@
 from typing import Optional
 from pydantic import Field, conint
-from pystratis.core import Model, TransactionModel
+from pystratis.api import Model
+from pystratis.api.global_responsemodels import TransactionModel
 
 
 class GetLastBalanceUpdateTransactionModel(Model):

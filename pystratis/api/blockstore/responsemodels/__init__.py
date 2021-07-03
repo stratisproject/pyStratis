@@ -7,4 +7,4 @@ from .getverboseaddressesbalancesmodel import GetVerboseAddressesBalancesModel
 from .utxomodel import UTXOModel
 from .verboseaddressbalancemodel import VerboseAddressBalanceModel
 # noinspection PyUnresolvedReferences
-from pystratis.core import BlockTransactionDetailsModel, BlockModel
+from pystratis.api.global_responsemodels import BlockTransactionDetailsModel, BlockModel

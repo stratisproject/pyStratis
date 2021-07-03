@@ -1,6 +1,6 @@
 from typing import List
 from pydantic import Field
-from pystratis.core import LogRule, Model
+from pystratis.api import LogRule, Model
 
 
 class LogRulesRequest(Model):

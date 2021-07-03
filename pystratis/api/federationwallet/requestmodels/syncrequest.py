@@ -1,5 +1,5 @@
 from pydantic import Field
-from pystratis.core import Model
+from pystratis.api import Model
 from pystratis.core.types import uint256
 
 

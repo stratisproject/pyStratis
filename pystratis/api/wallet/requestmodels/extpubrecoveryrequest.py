@@ -1,6 +1,7 @@
 from typing import Optional, Union
 from pydantic import Field, conint
-from pystratis.core import Model, ExtPubKey
+from pystratis.api import Model
+from pystratis.core import ExtPubKey
 from datetime import datetime
 
 

@@ -1,6 +1,6 @@
 from typing import Optional, List
 from pydantic import Field, conint
-from pystratis.core import Model
+from pystratis.api import Model
 from .verboseaddressbalancemodel import VerboseAddressBalanceModel
 
 

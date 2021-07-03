@@ -1,19 +1,15 @@
-from typing import List
+from typing import List, ForwardRef
 from enum import IntEnum
 from pydantic import BaseModel, SecretStr
 from pystratis.core.types import *
-from pystratis.core.types.address import Address
-from .addressdescriptor import AddressDescriptor
-from .extpubkey import ExtPubKey
-from .multisigsecret import MultisigSecret
-from .outpoint import Outpoint
-from .pubkey import PubKey
-from .recipient import Recipient
-from .smartcontractparameter import SmartContractParameter
-from .utxodescriptor import UtxoDescriptor
-from .walletsecret import WalletSecret
-from .key import Key
-from .extkey import ExtKey
+from pystratis.core import Key, ExtKey, PubKey, ExtPubKey, SmartContractParameter
+# These must be impleented as ForwardRef to prevent circular imports
+Recipient = ForwardRef('Recipient')
+Outpoint = ForwardRef('Outpoint')
+AddressDescriptor = ForwardRef('AddressDescriptor')
+UtxoDescriptor = ForwardRef('UtxoDescriptor')
+WalletSecret = ForwardRef('WalletSecret')
+MultisigSecret = ForwardRef('MultisigSecret')
 
 
 class Model(BaseModel):
@@ -56,4 +52,5 @@ class Model(BaseModel):
         extra = 'forbid'
     
     def json(self, *args, **kwargs) -> str:
+        self.update_forward_refs()
         return super().json(exclude_none=True, by_alias=True)

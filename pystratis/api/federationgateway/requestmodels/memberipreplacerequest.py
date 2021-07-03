@@ -1,4 +1,4 @@
-from pystratis.core import Model
+from pystratis.api import Model
 from pydantic import Field
 
 

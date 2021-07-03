@@ -1,6 +1,8 @@
 from typing import List, Optional
 from pydantic import Field
-from pystratis.core import Model, Deposit, MaturedBlockInfoModel
+from pystratis.api import Model
+from pystratis.core import Deposit
+from pystratis.api.global_responsemodels import MaturedBlockInfoModel
 
 
 class MaturedBlockDepositsModel(Model):

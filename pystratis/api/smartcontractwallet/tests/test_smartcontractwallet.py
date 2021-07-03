@@ -35,7 +35,7 @@ def test_all_interfluxcirrus_endpoints_implemented(interfluxcirrus_swagger_json)
             assert endpoint in SmartContractWallet.endpoints
 
 
-@pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
+@pytest.mark.parametrize('network', [CirrusMain()], ids=['CirrusMain'])
 def test_account_addresses(mocker: MockerFixture, network, generate_p2pkh_address):
     data = [
         generate_p2pkh_address(network=network),
@@ -53,7 +53,7 @@ def test_account_addresses(mocker: MockerFixture, network, generate_p2pkh_addres
     smart_contract_wallet.get.assert_called_once()
 
 
-@pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
+@pytest.mark.parametrize('network', [CirrusMain()], ids=['CirrusMain'])
 def test_address_balance(mocker: MockerFixture, network, generate_p2pkh_address):
     data = 100
     mocker.patch.object(SmartContractWallet, 'get', return_value=data)
@@ -67,7 +67,7 @@ def test_address_balance(mocker: MockerFixture, network, generate_p2pkh_address)
     smart_contract_wallet.get.assert_called_once()
 
 
-@pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
+@pytest.mark.parametrize('network', [CirrusMain()], ids=['CirrusMain'])
 def test_history(mocker: MockerFixture, network, generate_p2pkh_address, generate_uint256):
     data = [
         {
@@ -94,7 +94,7 @@ def test_history(mocker: MockerFixture, network, generate_p2pkh_address, generat
     smart_contract_wallet.get.assert_called_once()
 
 
-@pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
+@pytest.mark.parametrize('network', [CirrusMain()], ids=['CirrusMain'])
 def test_create(mocker: MockerFixture, network, generate_uint256, generate_p2pkh_address, generate_hexstring):
     data = generate_uint256
     mocker.patch.object(SmartContractWallet, 'post', return_value=data)
@@ -132,7 +132,7 @@ def test_create(mocker: MockerFixture, network, generate_uint256, generate_p2pkh
     smart_contract_wallet.post.assert_called_once()
 
 
-@pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
+@pytest.mark.parametrize('network', [CirrusMain()], ids=['CirrusMain'])
 def test_call(mocker: MockerFixture, network, generate_p2pkh_address, generate_hexstring, generate_uint256):
     data = {
         'fee': 1,
@@ -178,7 +178,7 @@ def test_call(mocker: MockerFixture, network, generate_p2pkh_address, generate_h
     smart_contract_wallet.post.assert_called_once()
 
 
-@pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
+@pytest.mark.parametrize('network', [CirrusMain()], ids=['CirrusMain'])
 def test_send_transaction(mocker: MockerFixture, network, generate_hexstring,
                           generate_p2pkh_address, generate_uint256):
     data = {
@@ -187,7 +187,7 @@ def test_send_transaction(mocker: MockerFixture, network, generate_hexstring,
             {
                 'address': generate_p2pkh_address(network=network),
                 'amount': 10,
-                'OpReturnData': f'{generate_p2pkh_address(network=network)}'
+                'opReturnData': f'{generate_p2pkh_address(network=network)}'
             }
         ]
     }

@@ -1,6 +1,7 @@
 from typing import Optional
 from pydantic import Field, validator
-from pystratis.core import Model, PubKey
+from pystratis.api import Model
+from pystratis.core import PubKey
 from .votekey import VoteKey
 
 

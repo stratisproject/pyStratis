@@ -1,5 +1,6 @@
 from pydantic import Field, conint
-from pystratis.core import Model, PubKey
+from pystratis.api import Model
+from pystratis.core import PubKey
 from pystratis.core.types import Address
 
 

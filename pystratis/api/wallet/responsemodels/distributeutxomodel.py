@@ -1,6 +1,7 @@
 from typing import List, Optional
 from pydantic import Field, conint
-from pystratis.core import Model, WalletSendTransactionModel
+from pystratis.api import Model
+from pystratis.api.global_responsemodels import WalletSendTransactionModel
 
 
 class DistributeUtxoModel(Model):

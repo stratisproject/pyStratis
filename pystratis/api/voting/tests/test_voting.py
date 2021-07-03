@@ -4,7 +4,7 @@ from pystratis.api.voting import Voting
 from pystratis.api.voting.requestmodels import *
 from pystratis.api.voting.responsemodels import *
 from pystratis.core.networks import StraxMain, CirrusMain
-from pystratis.core import PollViewModel
+from pystratis.api.global_responsemodels import PollViewModel
 
 
 def test_all_strax_endpoints_implemented(strax_swagger_json):
@@ -49,7 +49,7 @@ def test_missing_one_poll_request_item_is_raises_exception():
         PollsRequest()
 
 
-@pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
+@pytest.mark.parametrize('network', [CirrusMain()], ids=['CirrusMain'])
 def test_executed_polls(mocker: MockerFixture, network, generate_uint256, generate_compressed_pubkey, generate_p2pkh_address):
     kicked_pubkey = generate_compressed_pubkey
     kicked_address = generate_p2pkh_address
@@ -85,7 +85,7 @@ def test_executed_polls(mocker: MockerFixture, network, generate_uint256, genera
     voting.get.assert_called_once()
 
 
-@pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
+@pytest.mark.parametrize('network', [CirrusMain()], ids=['CirrusMain'])
 def test_pending_polls(mocker: MockerFixture, network, generate_compressed_pubkey, generate_p2pkh_address, generate_uint256):
     kicked_pubkey = generate_compressed_pubkey
     kicked_address = generate_p2pkh_address
@@ -119,7 +119,7 @@ def test_pending_polls(mocker: MockerFixture, network, generate_compressed_pubke
     voting.get.assert_called_once()
 
 
-@pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
+@pytest.mark.parametrize('network', [CirrusMain()], ids=['CirrusMain'])
 def test_finished_polls(mocker: MockerFixture, network, generate_uint256, generate_compressed_pubkey, generate_p2pkh_address):
     kicked_pubkey = generate_compressed_pubkey
     kicked_address = generate_p2pkh_address
@@ -155,7 +155,7 @@ def test_finished_polls(mocker: MockerFixture, network, generate_uint256, genera
     voting.get.assert_called_once()
 
 
-@pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
+@pytest.mark.parametrize('network', [CirrusMain()], ids=['CirrusMain'])
 def test_scheduledvote_whitelisthash(mocker: MockerFixture, network, generate_uint256):
     mocker.patch.object(Voting, 'post', return_value=None)
     voting = Voting(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
@@ -164,7 +164,7 @@ def test_scheduledvote_whitelisthash(mocker: MockerFixture, network, generate_ui
     voting.post.assert_called_once()
 
 
-@pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
+@pytest.mark.parametrize('network', [CirrusMain()], ids=['CirrusMain'])
 def test_scheduledvote_removehash(mocker: MockerFixture, network, generate_uint256):
     mocker.patch.object(Voting, 'post', return_value=None)
     voting = Voting(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
@@ -173,7 +173,7 @@ def test_scheduledvote_removehash(mocker: MockerFixture, network, generate_uint2
     voting.post.assert_called_once()
 
 
-@pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
+@pytest.mark.parametrize('network', [CirrusMain()], ids=['CirrusMain'])
 def test_whitelistedhashes(mocker: MockerFixture, network, generate_uint256):
     data = [
         {
@@ -194,7 +194,7 @@ def test_whitelistedhashes(mocker: MockerFixture, network, generate_uint256):
     voting.get.assert_called_once()
 
 
-@pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
+@pytest.mark.parametrize('network', [CirrusMain()], ids=['CirrusMain'])
 def test_scheduledvotes(mocker: MockerFixture, network, generate_uint256, generate_compressed_pubkey):
     data = [
         {

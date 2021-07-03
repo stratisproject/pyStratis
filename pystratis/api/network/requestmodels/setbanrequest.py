@@ -1,5 +1,5 @@
 from pydantic import Field, conint, validator
-from pystratis.core import Model
+from pystratis.api import Model
 
 
 class SetBanRequest(Model):

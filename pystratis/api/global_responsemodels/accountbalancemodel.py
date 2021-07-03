@@ -1,11 +1,12 @@
 from typing import List, Optional
-from pydantic import BaseModel, Field
+from pydantic import Field
+from pystratis.api.model import Model
 from pystratis.core.types import Money
+from pystratis.core import CoinType
 from .addressmodel import AddressModel
-from .cointype import CoinType
 
 
-class AccountBalanceModel(BaseModel):
+class AccountBalanceModel(Model):
     """An AccountBalanceModel"""
     account_name: Optional[str] = Field(alias='accountName')
     account_hd_path: Optional[str] = Field(alias='accountHdPath')
@@ -14,12 +15,3 @@ class AccountBalanceModel(BaseModel):
     amount_unconfirmed: Money = Field(alias='amountUnconfirmed')
     spendable_amount: Optional[Money] = Field(alias='spendableAmount')
     addresses: Optional[List[AddressModel]]
-
-    class Config:
-        json_encoders = {
-            Money: lambda v: v.to_coin_unit(),
-        }
-        allow_population_by_field_name = True
-
-    def json(self, *args, **kwargs) -> str:
-        return super().json(exclude_none=True, by_alias=True)

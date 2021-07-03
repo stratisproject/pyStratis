@@ -3,7 +3,8 @@ from typing import Union
 from pystratis.api import APIRequest, EndpointRegister, endpoint
 from pystratis.api.coldstaking.requestmodels import *
 from pystratis.api.coldstaking.responsemodels import *
-from pystratis.core import UtxoDescriptor, AddressDescriptor, ExtPubKey
+from pystratis.api.global_responsemodels import UtxoDescriptor, AddressDescriptor
+from pystratis.core import ExtPubKey
 from pystratis.core.types import Address, Money, hexstr
 
 

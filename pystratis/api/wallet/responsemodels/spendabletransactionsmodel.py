@@ -1,5 +1,5 @@
 from typing import List, Optional
-from pystratis.core import Model
+from pystratis.api import Model
 from .spendabletransactionmodel import SpendableTransactionModel
 
 

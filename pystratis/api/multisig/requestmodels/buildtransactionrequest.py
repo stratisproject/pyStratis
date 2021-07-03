@@ -1,5 +1,6 @@
 from typing import List
-from pystratis.core import Model, MultisigSecret, Recipient
+from pystratis.api import Model
+from pystratis.core import MultisigSecret, Recipient
 
 
 class BuildTransactionRequest(Model):

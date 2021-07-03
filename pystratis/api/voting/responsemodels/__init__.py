@@ -1,4 +1,4 @@
 from .whitelistedhashesmodel import WhitelistedHashesModel
 from .votingdatamodel import VotingDataModel
 # noinspection PyUnresolvedReferences
-from pystratis.core import PollViewModel
+from pystratis.api.global_responsemodels import PollViewModel

@@ -1,6 +1,8 @@
 from typing import Optional
 from pydantic import Field, conint
-from pystratis.core import CrossChainTransferStatus, Model, TransactionModel
+from pystratis.core import CrossChainTransferStatus
+from pystratis.api import Model
+from pystratis.api.global_responsemodels import TransactionModel
 from pystratis.core.types import Money, uint256
 
 

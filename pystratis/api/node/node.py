@@ -2,7 +2,8 @@ from typing import Union, List
 from pystratis.api import APIRequest, EndpointRegister, endpoint
 from pystratis.api.node.requestmodels import *
 from pystratis.api.node.responsemodels import *
-from pystratis.core import ScriptPubKey, LogRule
+from pystratis.api.global_responsemodels import ScriptPubKey
+from pystratis.api import LogRule
 from pystratis.core.types import Address, hexstr, Money, uint256
 
 

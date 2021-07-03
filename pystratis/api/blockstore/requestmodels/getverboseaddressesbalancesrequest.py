@@ -1,7 +1,7 @@
 import json
 from typing import List, Union
 from pydantic import validator
-from pystratis.core import Model
+from pystratis.api import Model
 from pystratis.core.types import Address
 
 

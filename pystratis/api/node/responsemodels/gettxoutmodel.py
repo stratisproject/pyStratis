@@ -1,5 +1,6 @@
 from typing import Optional
-from pystratis.core import Model, ScriptPubKey
+from pystratis.api import Model
+from pystratis.api.global_responsemodels import ScriptPubKey
 from pystratis.core.types import Money, uint256
 from pydantic import Field, conint
 

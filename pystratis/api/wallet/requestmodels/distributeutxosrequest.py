@@ -1,6 +1,7 @@
 from typing import Optional, List
 from pydantic import SecretStr, Field, conint
-from pystratis.core import Model, Outpoint
+from pystratis.api import Model
+from pystratis.core import Outpoint
 
 
 class DistributeUTXOsRequest(Model):

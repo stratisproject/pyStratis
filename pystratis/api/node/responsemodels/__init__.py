@@ -7,4 +7,4 @@ from .logrulesmodel import LogRulesModel
 from .statusmodel import StatusModel
 from .validateaddressmodel import ValidateAddressModel
 # noinspection PyUnresolvedReferences
-from pystratis.core import TransactionModel
+from pystratis.api.global_responsemodels import TransactionModel

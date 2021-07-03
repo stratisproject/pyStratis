@@ -3,7 +3,8 @@ from decimal import Decimal
 from pystratis.api import APIRequest, EndpointRegister, endpoint
 from pystratis.api.wallet.requestmodels import *
 from pystratis.api.wallet.responsemodels import *
-from pystratis.core import PubKey, ExtPubKey, AddressDescriptor, UtxoDescriptor, Key, Outpoint, Recipient
+from pystratis.core import PubKey, ExtPubKey, Key, Outpoint, Recipient
+from pystratis.api.global_responsemodels import AddressDescriptor, UtxoDescriptor
 from pystratis.core.types import Address, Money, hexstr, uint256
 from pydantic import SecretStr
 from pystratis.core.networks import CirrusMain, StraxMain, StraxRegTest, Ethereum, StraxTest, CirrusTest

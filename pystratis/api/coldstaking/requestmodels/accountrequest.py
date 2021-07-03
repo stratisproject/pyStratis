@@ -1,6 +1,7 @@
 from typing import Optional
 from pydantic import Field
-from pystratis.core import Model, ExtPubKey
+from pystratis.api import Model
+from pystratis.core import ExtPubKey
 
 
 class AccountRequest(Model):

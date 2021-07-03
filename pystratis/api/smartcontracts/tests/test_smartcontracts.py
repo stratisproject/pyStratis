@@ -35,7 +35,7 @@ def test_all_interfluxcirrus_endpoints_implemented(interfluxcirrus_swagger_json)
             assert endpoint in SmartContracts.endpoints
 
 
-@pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
+@pytest.mark.parametrize('network', [CirrusMain()], ids=['CirrusMain'])
 def test_code(mocker: MockerFixture, network, generate_p2pkh_address):
     data = {
         'type': 'typename',
@@ -53,7 +53,7 @@ def test_code(mocker: MockerFixture, network, generate_p2pkh_address):
     smart_contracts.get.assert_called_once()
 
 
-@pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
+@pytest.mark.parametrize('network', [CirrusMain()], ids=['CirrusMain'])
 def test_balance(mocker: MockerFixture, network, generate_p2pkh_address):
     data = 1
     mocker.patch.object(SmartContracts, 'get', return_value=data)
@@ -66,7 +66,7 @@ def test_balance(mocker: MockerFixture, network, generate_p2pkh_address):
     smart_contracts.get.assert_called_once()
 
 
-@pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
+@pytest.mark.parametrize('network', [CirrusMain()], ids=['CirrusMain'])
 def test_storage(mocker: MockerFixture, network, generate_p2pkh_address, generate_hexstring):
     data = True
     mocker.patch.object(SmartContracts, 'get', return_value=data)
@@ -82,7 +82,7 @@ def test_storage(mocker: MockerFixture, network, generate_p2pkh_address, generat
     smart_contracts.get.assert_called_once()
 
 
-@pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
+@pytest.mark.parametrize('network', [CirrusMain()], ids=['CirrusMain'])
 def test_receipt(mocker: MockerFixture, network, generate_uint256, generate_hexstring, generate_p2pkh_address):
     trxid = generate_uint256
     data = {
@@ -118,7 +118,7 @@ def test_receipt(mocker: MockerFixture, network, generate_uint256, generate_hexs
     smart_contracts.get.assert_called_once()
 
 
-@pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
+@pytest.mark.parametrize('network', [CirrusMain()], ids=['CirrusMain'])
 def test_receipt_search(mocker: MockerFixture, network, generate_uint256, generate_p2pkh_address, generate_hexstring):
     data = [{
         'transactionHash': generate_uint256,
@@ -158,14 +158,15 @@ def test_receipt_search(mocker: MockerFixture, network, generate_uint256, genera
     smart_contracts.get.assert_called_once()
 
 
-@pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
+@pytest.mark.parametrize('network', [CirrusMain()], ids=['CirrusMain'])
 def test_build_create(mocker: MockerFixture, network, generate_p2pkh_address, generate_hexstring, generate_uint256):
     data = {
         'fee': 10000,
         'hex': generate_hexstring(128),
         'message': 'message',
         'success': True,
-        'transactionId': generate_uint256
+        'transactionId': generate_uint256,
+        'newContractAddress': generate_p2pkh_address(network=network)
     }
     mocker.patch.object(SmartContracts, 'post', return_value=data)
     smart_contracts = SmartContracts(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
@@ -198,12 +199,12 @@ def test_build_create(mocker: MockerFixture, network, generate_p2pkh_address, ge
         ]
     )
 
-    assert response == BuildContractTransactionModel(**data)
+    assert response == BuildCreateContractTransactionModel(**data)
     # noinspection PyUnresolvedReferences
     smart_contracts.post.assert_called_once()
 
 
-@pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
+@pytest.mark.parametrize('network', [CirrusMain()], ids=['CirrusMain'])
 def test_build_call(mocker: MockerFixture, network, generate_p2pkh_address, generate_uint256, generate_hexstring):
     data = {
         'fee': 10000,
@@ -249,7 +250,7 @@ def test_build_call(mocker: MockerFixture, network, generate_p2pkh_address, gene
     smart_contracts.post.assert_called_once()
 
 
-@pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
+@pytest.mark.parametrize('network', [CirrusMain()], ids=['CirrusMain'])
 def test_build_transaction(mocker: MockerFixture, network, generate_p2pkh_address, generate_hexstring, generate_uint256):
     data = {
         'fee': 10000,
@@ -288,7 +289,7 @@ def test_build_transaction(mocker: MockerFixture, network, generate_p2pkh_addres
     smart_contracts.post.assert_called_once()
 
 
-@pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
+@pytest.mark.parametrize('network', [CirrusMain()], ids=['CirrusMain'])
 def test_estimate_fee(mocker: MockerFixture, network, generate_uint256, generate_p2pkh_address):
     data = 10000
     mocker.patch.object(SmartContracts, 'post', return_value=data)
@@ -320,14 +321,15 @@ def test_estimate_fee(mocker: MockerFixture, network, generate_uint256, generate
     smart_contracts.post.assert_called_once()
 
 
-@pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
+@pytest.mark.parametrize('network', [CirrusMain()], ids=['CirrusMain'])
 def test_build_and_send_create(mocker: MockerFixture, network, generate_p2pkh_address, generate_uint256, generate_hexstring):
     data = {
         'fee': 10000,
         'hex': generate_hexstring(128),
         'message': 'message',
         'success': True,
-        'transactionId': generate_uint256
+        'transactionId': generate_uint256,
+        'newContractAddress': generate_p2pkh_address(network=network)
     }
     mocker.patch.object(SmartContracts, 'post', return_value=data)
     smart_contracts = SmartContracts(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
@@ -360,12 +362,12 @@ def test_build_and_send_create(mocker: MockerFixture, network, generate_p2pkh_ad
         ]
     )
 
-    assert response == BuildContractTransactionModel(**data)
+    assert response == BuildCreateContractTransactionModel(**data)
     # noinspection PyUnresolvedReferences
     smart_contracts.post.assert_called_once()
 
 
-@pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
+@pytest.mark.parametrize('network', [CirrusMain()], ids=['CirrusMain'])
 def test_build_and_send_call(mocker: MockerFixture, network, generate_uint256, generate_p2pkh_address, generate_hexstring):
     data = {
         'fee': 10000,
@@ -411,7 +413,7 @@ def test_build_and_send_call(mocker: MockerFixture, network, generate_uint256, g
     smart_contracts.post.assert_called_once()
 
 
-@pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
+@pytest.mark.parametrize('network', [CirrusMain()], ids=['CirrusMain'])
 def test_local_call(mocker: MockerFixture, network, generate_p2pkh_address, generate_hexstring):
     data = {
         'internalTransfers': [
@@ -467,7 +469,7 @@ def test_local_call(mocker: MockerFixture, network, generate_p2pkh_address, gene
     smart_contracts.post.assert_called_once()
 
 
-@pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
+@pytest.mark.parametrize('network', [CirrusMain()], ids=['CirrusMain'])
 def test_address_balances(mocker: MockerFixture, network, generate_p2pkh_address):
     data = [
         {

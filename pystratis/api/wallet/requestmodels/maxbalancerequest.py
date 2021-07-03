@@ -1,6 +1,6 @@
 from typing import Optional
 from pydantic import Field, validator
-from pystratis.core import Model
+from pystratis.api import Model
 
 
 class MaxBalanceRequest(Model):

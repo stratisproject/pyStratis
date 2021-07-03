@@ -5,8 +5,8 @@ import base64
 from pystratis.api.wallet import Wallet
 from pystratis.api.wallet.requestmodels import *
 from pystratis.api.wallet.responsemodels import *
-from pystratis.core import PubKey, CoinType, Recipient, Outpoint, \
-    DestinationChain, ExtPubKey, UtxoDescriptor, AddressDescriptor
+from pystratis.core import PubKey, CoinType, Recipient, Outpoint, DestinationChain, ExtPubKey
+from pystratis.api.global_responsemodels import UtxoDescriptor, AddressDescriptor
 from pystratis.core.types import Address, Money, uint256
 from pystratis.core.networks import StraxMain, CirrusMain, Ethereum
 
@@ -480,7 +480,7 @@ def test_send_transaction(mocker: MockerFixture, network, generate_uint256, gene
             {
                 'address': generate_p2pkh_address(network=network),
                 'amount': '10',
-                'OpReturnData': f'{generate_p2pkh_address(network=network)}'
+                'opReturnData': f'{generate_p2pkh_address(network=network)}'
             }
         ]
     }
@@ -771,27 +771,27 @@ def test_split_coins(mocker: MockerFixture, network, generate_uint256, generate_
             {
                 'address': generate_p2pkh_address(network=network),
                 'amount': '1',
-                'OpReturnData': ''
+                'opReturnData': ''
             },
             {
                 'address': generate_p2pkh_address(network=network),
                 'amount': '1',
-                'OpReturnData': ''
+                'opReturnData': ''
             },
             {
                 'address': generate_p2pkh_address(network=network),
                 'amount': '1',
-                'OpReturnData': ''
+                'opReturnData': ''
             },
             {
                 'address': generate_p2pkh_address(network=network),
                 'amount': '1',
-                'OpReturnData': ''
+                'opReturnData': ''
             },
             {
                 'address': generate_p2pkh_address(network=network),
                 'amount': '1',
-                'OpReturnData': ''
+                'opReturnData': ''
             },
         ]
     }
@@ -828,27 +828,27 @@ def test_distribute_utxos(mocker: MockerFixture, network, generate_uint256, gene
                     {
                         'address': generate_p2pkh_address(network=network),
                         'amount': '1',
-                        'OpReturnData': ''
+                        'opReturnData': ''
                     },
                     {
                         'address': generate_p2pkh_address(network=network),
                         'amount': '1',
-                        'OpReturnData': ''
+                        'opReturnData': ''
                     },
                     {
                         'address': generate_p2pkh_address(network=network),
                         'amount': '1',
-                        'OpReturnData': ''
+                        'opReturnData': ''
                     },
                     {
                         'address': generate_p2pkh_address(network=network),
                         'amount': '1',
-                        'OpReturnData': ''
+                        'opReturnData': ''
                     },
                     {
                         'address': generate_p2pkh_address(network=network),
                         'amount': '1.0',
-                        'OpReturnData': ''
+                        'opReturnData': ''
                     },
                 ]
             }

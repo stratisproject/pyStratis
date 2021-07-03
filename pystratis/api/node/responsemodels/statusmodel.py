@@ -1,6 +1,6 @@
 from typing import List, Optional
 from pydantic import Field, conint
-from pystratis.core import Model, FullNodeState
+from pystratis.api import Model, FullNodeState
 from pystratis.core.types import Money
 from .connectedpeermodel import ConnectedPeerModel
 from .featuresdatamodel import FeaturesDataModel

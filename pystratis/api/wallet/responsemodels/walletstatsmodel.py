@@ -1,6 +1,6 @@
 from typing import List, Optional
 from pydantic import Field, conint
-from pystratis.core import Model
+from pystratis.api import Model
 from .utxoamountmodel import UtxoAmountModel
 from .utxopertransactionmodel import UtxoPerTransactionModel
 from .utxoperblockmodel import UtxoPerBlockModel

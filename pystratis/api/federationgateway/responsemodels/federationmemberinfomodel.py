@@ -1,6 +1,7 @@
 from typing import List, Optional
 from pydantic import Field, conint
-from pystratis.core import Model, PubKey
+from pystratis.api import Model
+from pystratis.core import PubKey
 from .federationmemberconnectioninfomodel import FederationMemberConnectionInfoModel
 
 

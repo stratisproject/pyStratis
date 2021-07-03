@@ -1,1 +1,1 @@
-from pystratis.core import BuildTransactionModel
+from pystratis.api.global_responsemodels import BuildTransactionModel

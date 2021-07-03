@@ -33,7 +33,7 @@ def test_all_interfluxcirrus_endpoints_implemented(interfluxcirrus_swagger_json)
             assert endpoint in Balances.endpoints
 
 
-@pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
+@pytest.mark.parametrize('network', [CirrusMain()], ids=['CirrusMain'])
 def test_overamountatheight(mocker: MockerFixture, network, overamountatheightresponse):
     data = overamountatheightresponse(network)
     mocker.patch.object(Balances, 'get', return_value=data)
@@ -49,7 +49,7 @@ def test_overamountatheight(mocker: MockerFixture, network, overamountatheightre
     balances.get.assert_called_once()
 
 
-@pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
+@pytest.mark.parametrize('network', [CirrusMain()], ids=['CirrusMain'])
 def test_overamountatheight_none(mocker: MockerFixture, network):
     data = []
     mocker.patch.object(Balances, 'get', return_value=data)

@@ -190,7 +190,7 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
                      outpoints: List[Outpoint] = None,
                      account_name: str = 'account 0',
                      parameters: List[Union[str, SmartContractParameter]] = None,
-                     **kwargs) -> BuildContractTransactionModel:
+                     **kwargs) -> BuildCreateContractTransactionModel:
         """Builds a transaction to create a smart contract.
 
         Args:
@@ -208,7 +208,7 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            BuildContractTransactionModel
+            BuildCreateContractTransactionModel
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -238,7 +238,8 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
         )
         data = self.post(request_model, **kwargs)
         data['fee'] = Money.from_satoshi_units(data['fee'])
-        return BuildContractTransactionModel(**data)
+        data['newContractAddress'] = Address(address=data['newContractAddress'], network=self._network)
+        return BuildCreateContractTransactionModel(**data)
 
     @endpoint(f'{route}/build-call')
     def build_call(self,
@@ -443,7 +444,7 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
                               outpoints: List[Outpoint] = None,
                               account_name: str = 'account 0',
                               parameters: List[Union[str, SmartContractParameter]] = None,
-                              **kwargs) -> BuildContractTransactionModel:
+                              **kwargs) -> BuildCreateContractTransactionModel:
         """Builds a transaction to create a smart contract and then broadcasts.
 
         Args:
@@ -461,7 +462,7 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            BuildContractTransactionModel
+            BuildCreateContractTransactionModel
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -491,7 +492,8 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
         )
         data = self.post(request_model, **kwargs)
         data['fee'] = Money.from_satoshi_units(data['fee'])
-        return BuildContractTransactionModel(**data)
+        data['newContractAddress'] = Address(address=data['newContractAddress'], network=self._network)
+        return BuildCreateContractTransactionModel(**data)
 
     @endpoint(f'{route}/build-and-send-call')
     def build_and_send_call(self,

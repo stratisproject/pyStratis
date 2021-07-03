@@ -1,10 +1,11 @@
 from datetime import datetime
 from typing import List, Optional
-from pydantic import Field, BaseModel
+from pydantic import Field
 from pystratis.core.types import uint256
+from pystratis.api import Model
 
 
-class BlockModel(BaseModel):
+class BlockModel(Model):
     """A BlockModel."""
     hash: uint256
     confirmations: int
@@ -30,9 +31,3 @@ class BlockModel(BaseModel):
     hashproof: Optional[str]
     blocktrust: Optional[str]
     chaintrust: Optional[str]
-
-    class Config:
-        allow_population_by_field_name = True
-
-    def json(self, *args, **kwargs) -> str:
-        return super().json(exclude_none=True, by_alias=True)

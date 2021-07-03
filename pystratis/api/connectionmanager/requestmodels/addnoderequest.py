@@ -1,5 +1,5 @@
 from pydantic import validator, Field
-from pystratis.core import Model
+from pystratis.api import Model
 
 
 class AddNodeRequest(Model):

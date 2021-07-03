@@ -1,12 +1,13 @@
 from typing import Optional, List
 from datetime import datetime
-from pydantic import BaseModel, conint
+from pydantic import conint
 from pystratis.core.types import uint256, hexstr
+from pystratis.api import Model
 from .vin import VIn
 from .vout import VOut
 
 
-class TransactionModel(BaseModel):
+class TransactionModel(Model):
     """A TransactionModel."""
     hex: Optional[hexstr]
     txid: Optional[uint256]
@@ -22,9 +23,3 @@ class TransactionModel(BaseModel):
     confirmations: Optional[int]
     time: Optional[datetime]
     blocktime: Optional[datetime]
-
-    class Config:
-        allow_population_by_field_name = True
-
-    def json(self, *args, **kwargs) -> str:
-        return super().json(exclude_none=True, by_alias=True)

@@ -3,7 +3,7 @@ import ast
 from pytest_mock import MockerFixture
 from pystratis.api.node import Node
 from pystratis.api.node.responsemodels import *
-from pystratis.core import FullNodeState, FeatureInitializationState, LogRule
+from pystratis.api import FullNodeState, FeatureInitializationState, LogRule
 from pystratis.core.networks import StraxMain, CirrusMain
 
 

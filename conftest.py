@@ -261,38 +261,40 @@ def generate_ethereum_address() -> str:
 
 
 @pytest.fixture(scope='package')
-def generate_block_no_tx_data(generate_hexstring, generate_uint256) -> dict:
-    data = {
-        "hash": generate_uint256,
-        "confirmations": randint(0, 200),
-        "size": randint(0, 200),
-        "weight": randint(0, 200),
-        "height": randint(0, 200),
-        "version": randint(0, 200),
-        "versionHex": generate_hexstring(8),
-        "merkleroot": generate_uint256,
-        "tx": [
-            generate_uint256,
-            generate_uint256,
-            generate_uint256
-        ],
-        "time": 1600000000,
-        "mediantime": 1600000005,
-        "nonce": 0,
-        "bits": generate_hexstring(8),
-        "difficulty": random()*1e6,
-        "chainwork": generate_uint256,
-        "nTx": 3,
-        "previousblockhash": generate_uint256,
-        "nextblockhash": generate_uint256,
-        "signature": generate_hexstring(128),
-        "modifierv2": generate_hexstring(64),
-        "flags": "proof-of-stake",
-        "hashproof": generate_hexstring(64),
-        "blocktrust": generate_hexstring(64),
-        "chaintrust": generate_hexstring(64)
-    }
-    return data
+def generate_block_no_tx_data(generate_hexstring, generate_uint256):
+    def _generate_block_no_tx_data() -> dict:
+        data = {
+            "hash": generate_uint256,
+            "confirmations": randint(0, 200),
+            "size": randint(0, 200),
+            "weight": randint(0, 200),
+            "height": randint(0, 200),
+            "version": randint(0, 200),
+            "versionHex": generate_hexstring(8),
+            "merkleroot": generate_uint256,
+            "tx": [
+                generate_uint256,
+                generate_uint256,
+                generate_uint256
+            ],
+            "time": 1600000000,
+            "mediantime": 1600000005,
+            "nonce": 0,
+            "bits": generate_hexstring(8),
+            "difficulty": random()*1e6,
+            "chainwork": generate_uint256,
+            "nTx": 3,
+            "previousblockhash": generate_uint256,
+            "nextblockhash": generate_uint256,
+            "signature": generate_hexstring(128),
+            "modifierv2": generate_hexstring(64),
+            "flags": "proof-of-stake",
+            "hashproof": generate_hexstring(64),
+            "blocktrust": generate_hexstring(64),
+            "chaintrust": generate_hexstring(64)
+        }
+        return data
+    return _generate_block_no_tx_data
 
 
 @pytest.fixture(scope='package')
@@ -406,7 +408,7 @@ def generate_transaction(generate_hexstring, generate_uint256, generate_p2pkh_ad
 @pytest.fixture(scope='package')
 def generate_block_with_tx_data(generate_block_no_tx_data, generate_coinbase_transaction, generate_transaction):
     def _generate_block_with_tx_data(network: BaseNetwork) -> dict:
-        data = generate_block_no_tx_data
+        data = generate_block_no_tx_data()
         data['transactions'] = [
             generate_coinbase_transaction(trxid=data['tx'][0]),
             generate_transaction(trxid=data['tx'][1], network=network),

@@ -1,6 +1,7 @@
 from typing import Optional, List
 from pydantic import Field, conint
-from pystratis.core import Model, SmartContractParameter
+from pystratis.api import Model
+from pystratis.core import SmartContractParameter
 from pystratis.core.types import Address, Money
 
 

@@ -1,6 +1,7 @@
 from typing import List, Optional
 from pydantic import Field
-from pystratis.core import Model, CoinType
+from pystratis.api import Model
+from pystratis.core import CoinType
 from .transactionitemmodel import TransactionItemModel
 
 

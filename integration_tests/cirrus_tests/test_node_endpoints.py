@@ -1,6 +1,6 @@
 import pytest
 from pystratis.nodes import CirrusMinerNode
-from pystratis.core import LogRule
+from pystratis.api import LogRule
 from pystratis.core.types import uint256, hexstr, Money
 from pystratis.api.node.responsemodels import *
 

@@ -69,7 +69,7 @@ def test_addressindexertip_no_tipheight(mocker: MockerFixture, network, generate
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
 def test_block_output_hexstr_no_details(mocker: MockerFixture, network, generate_uint256, generate_block_no_tx_data):
-    data = pickle.dumps(generate_block_no_tx_data).hex()
+    data = pickle.dumps(generate_block_no_tx_data()).hex()
     mocker.patch.object(BlockStore, 'get', return_value=data)
     blockstore = BlockStore(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
@@ -103,7 +103,7 @@ def test_block_output_hexstr_include_details(mocker: MockerFixture, network, gen
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
 def test_block_output_json_no_details(mocker: MockerFixture, network, generate_uint256, generate_block_no_tx_data):
-    data = generate_block_no_tx_data
+    data = generate_block_no_tx_data()
     mocker.patch.object(BlockStore, 'get', return_value=data)
     blockstore = BlockStore(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
 
@@ -112,7 +112,6 @@ def test_block_output_json_no_details(mocker: MockerFixture, network, generate_u
         show_transaction_details=False,
         output_json=True
     )
-
     assert response == BlockModel(**data)
     # noinspection PyUnresolvedReferences
     blockstore.get.assert_called_once()

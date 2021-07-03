@@ -3,7 +3,8 @@ import json
 import ecdsa
 import base64
 from pystratis.api.wallet.requestmodels import *
-from pystratis.core import DestinationChain, Outpoint, Recipient, UtxoDescriptor, AddressDescriptor
+from pystratis.core import DestinationChain, Outpoint, Recipient
+from pystratis.api.global_responsemodels import UtxoDescriptor, AddressDescriptor
 from pystratis.core.types import Address, Money
 from pystratis.core.networks import StraxMain, CirrusMain, Ethereum
 

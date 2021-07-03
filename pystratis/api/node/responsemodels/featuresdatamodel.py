@@ -1,5 +1,5 @@
 from typing import Optional
-from pystratis.core import Model, FeatureInitializationState
+from pystratis.api import Model, FeatureInitializationState
 
 
 class FeaturesDataModel(Model):

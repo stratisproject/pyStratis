@@ -34,3 +34,29 @@ Subpackages
    pystratis.api.staking
    pystratis.api.voting
    pystratis.api.wallet
+   pystratis.api.global_requestmodels
+   pystratis.api.global_responsemodels
+
+FeatureInitializationState
+-------------------------------------------
+
+.. automodule:: pystratis.api.featureinitializationstate
+   :members:
+
+FullNodeState
+------------------------------
+
+.. automodule:: pystratis.api.fullnodestate
+   :members:
+
+LogRule
+------------------------
+
+.. automodule:: pystratis.api.logrule
+   :members:
+
+Model
+----------------------
+
+.. automodule:: pystratis.api.model
+   :members:

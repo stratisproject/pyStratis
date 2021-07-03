@@ -5,4 +5,4 @@ from .logmodel import LogModel
 from .receiptmodel import ReceiptModel
 from .transferinfomodel import TransferInfoModel
 # noinspection PyUnresolvedReferences
-from pystratis.core import BuildContractTransactionModel
+from pystratis.api.global_responsemodels import BuildContractTransactionModel, BuildCreateContractTransactionModel

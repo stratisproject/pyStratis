@@ -1,9 +1,10 @@
-from pydantic import BaseModel, Field, conint
+from pydantic import Field, conint
 from pystratis.core.types import Money
+from pystratis.api import Model
 from .scriptpubkey import ScriptPubKey
 
 
-class VOut(BaseModel):
+class VOut(Model):
     """Represents transaction's output.
     
     Args:
@@ -19,9 +20,3 @@ class VOut(BaseModel):
     value: Money
     n: conint(ge=0)
     script_pubkey: ScriptPubKey = Field(alias='scriptPubKey')
-
-    class Config:
-        allow_population_by_field_name = True
-
-    def json(self, *args, **kwargs) -> str:
-        return super().json(exclude_none=True, by_alias=True)

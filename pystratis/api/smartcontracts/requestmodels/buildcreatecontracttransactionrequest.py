@@ -1,6 +1,7 @@
 from typing import Optional, List
 from pydantic import Field, SecretStr, validator, conint
-from pystratis.core import Model, Outpoint, SmartContractParameter
+from pystratis.api import Model
+from pystratis.core import Outpoint, SmartContractParameter
 from pystratis.core.types import Address, Money, hexstr
 
 

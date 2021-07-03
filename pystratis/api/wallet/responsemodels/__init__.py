@@ -11,6 +11,6 @@ from .utxopertransactionmodel import UtxoPerTransactionModel
 from .wallethistorymodel import WalletHistoryModel
 from .walletstatsmodel import WalletStatsModel
 # noinspection PyUnresolvedReferences
-from pystratis.core import AddressesModel, AddressBalanceModel, BuildTransactionModel, BuildOfflineSignModel, \
+from pystratis.api.global_responsemodels import AddressesModel, AddressBalanceModel, BuildTransactionModel, BuildOfflineSignModel, \
     RemovedTransactionModel, WalletGeneralInfoModel, WalletBalanceModel, WalletSendTransactionModel, \
     TransactionOutputModel

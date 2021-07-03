@@ -1,6 +1,7 @@
 from typing import Optional, List
 from pydantic import Field
-from pystratis.core import Model, Key
+from pystratis.api import Model
+from pystratis.core import Key
 from pystratis.core.types import Address
 
 

@@ -1,6 +1,7 @@
 from typing import Optional, List
 from pydantic import Field, SecretStr, validator
-from pystratis.core import DestinationChain, Model, Outpoint, Recipient
+from pystratis.core import DestinationChain, Outpoint, Recipient
+from pystratis.api import Model
 from pystratis.core.types import Address, Money
 
 

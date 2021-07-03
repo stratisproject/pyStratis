@@ -1,7 +1,8 @@
 from typing import List, Optional
 from datetime import datetime
 from pydantic import Field, conint
-from pystratis.core import Model, TransactionItemType
+from pystratis.api import Model
+from pystratis.core import TransactionItemType
 from pystratis.core.types import Address, Money, uint256
 from .paymentdetailmodel import PaymentDetailModel
 

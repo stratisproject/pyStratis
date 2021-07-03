@@ -2,7 +2,7 @@ import pytest
 from pystratis.api.voting.requestmodels import VoteKey
 from pystratis.api.voting.responsemodels import *
 from pystratis.nodes import CirrusMinerNode
-from pystratis.core import PollViewModel
+from pystratis.api.global_responsemodels import PollViewModel
 
 
 @pytest.mark.integration_test

@@ -1,5 +1,6 @@
 from typing import Optional
-from pystratis.core import Model, PubKey
+from pystratis.api import Model
+from pystratis.core import PubKey
 from pystratis.core.types import Money
 from pydantic import Field
 

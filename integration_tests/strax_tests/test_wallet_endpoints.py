@@ -3,7 +3,8 @@ from pystratis.nodes import BaseNode
 from pystratis.api import APIError
 from pystratis.api.wallet.responsemodels import *
 from pystratis.core.types import Money, Address, uint256, hexstr
-from pystratis.core import Recipient, Outpoint, DestinationChain, PubKey, ExtPubKey, AccountBalanceModel, AddressModel, Key
+from pystratis.core import Recipient, Outpoint, DestinationChain, PubKey, ExtPubKey, Key
+from pystratis.api.global_responsemodels import AccountBalanceModel, AddressModel
 from pystratis.core.networks import Ethereum
 
 

@@ -1,5 +1,5 @@
 from typing import Optional
-from pystratis.core import Model
+from pystratis.api import Model
 from pystratis.core.types import Money
 from pydantic import Field, conint
 

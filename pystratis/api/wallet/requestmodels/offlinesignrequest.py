@@ -1,6 +1,7 @@
 from typing import Optional, List
 from pydantic import Field, SecretStr
-from pystratis.core import AddressDescriptor, Model, UtxoDescriptor
+from pystratis.api import Model
+from pystratis.api.global_responsemodels import AddressDescriptor, UtxoDescriptor
 from pystratis.core.types import Money, hexstr
 
 
