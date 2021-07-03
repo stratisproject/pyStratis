@@ -13,6 +13,5 @@ Subpackages
 .. toctree::
    :maxdepth: 4
 
-   RequestModels <pystratis.api.consensus.requestmodels>
    ResponseModels <pystratis.api.consensus.responsemodels>
 

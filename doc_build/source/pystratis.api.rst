@@ -34,7 +34,6 @@ Subpackages
    pystratis.api.staking
    pystratis.api.voting
    pystratis.api.wallet
-   pystratis.api.global_requestmodels
    pystratis.api.global_responsemodels
 
 FeatureInitializationState

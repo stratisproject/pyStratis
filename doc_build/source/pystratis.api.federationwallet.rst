@@ -13,5 +13,4 @@ Subpackages
 .. toctree::
    :maxdepth: 4
 
-   RequestModels <pystratis.api.federationwallet.requestmodels>
    ResponseModels <pystratis.api.federationwallet.responsemodels>

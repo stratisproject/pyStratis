@@ -13,4 +13,3 @@ Subpackages
 .. toctree::
    :maxdepth: 4
 
-   RequestModels <pystratis.api.balances.requestmodels>

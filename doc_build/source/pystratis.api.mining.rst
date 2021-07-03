@@ -13,5 +13,4 @@ Subpackages
 .. toctree::
    :maxdepth: 4
 
-   RequestModels <pystratis.api.mining.requestmodels>
    ResponseModels <pystratis.api.mining.responsemodels>
