@@ -13,9 +13,9 @@ from binascii import unhexlify
 from random import choice, randint, random
 # noinspection PyPackageRequirements
 from sha3 import keccak_256
-from pybitcoin import Key, ExtKey
-from pybitcoin.types import uint256, hexstr
-from pybitcoin.networks import BaseNetwork
+from pystratis.core import Key, ExtKey
+from pystratis.core.types import uint256, hexstr
+from pystratis.core.networks import BaseNetwork
 from datetime import datetime, timedelta
 
 
@@ -223,7 +223,7 @@ def generate_extprvkey() -> str:
 @pytest.fixture(scope='package')
 def strax_swagger_json() -> dict:
     root_dir = os.path.dirname(os.path.abspath(__file__))
-    file_path = os.path.join(root_dir, 'api', 'strax-swagger.json')
+    file_path = os.path.join(root_dir, 'pystratis/api', 'strax-swagger.json')
     with open(file_path, 'r') as f:
         return json.load(f)
 
@@ -231,7 +231,7 @@ def strax_swagger_json() -> dict:
 @pytest.fixture(scope='package')
 def cirrus_swagger_json() -> dict:
     root_dir = os.path.dirname(os.path.abspath(__file__))
-    file_path = os.path.join(root_dir, 'api', 'cirrus-swagger.json')
+    file_path = os.path.join(root_dir, 'pystratis/api', 'cirrus-swagger.json')
     with open(file_path, 'r') as f:
         return json.load(f)
 
@@ -239,7 +239,7 @@ def cirrus_swagger_json() -> dict:
 @pytest.fixture(scope='package')
 def interfluxstrax_swagger_json() -> dict:
     root_dir = os.path.dirname(os.path.abspath(__file__))
-    file_path = os.path.join(root_dir, 'api', 'interfluxstrax-swagger.json')
+    file_path = os.path.join(root_dir, 'pystratis/api', 'interfluxstrax-swagger.json')
     with open(file_path, 'r') as f:
         return json.load(f)
 
@@ -247,7 +247,7 @@ def interfluxstrax_swagger_json() -> dict:
 @pytest.fixture(scope='package')
 def interfluxcirrus_swagger_json() -> dict:
     root_dir = os.path.dirname(os.path.abspath(__file__))
-    file_path = os.path.join(root_dir, 'api', 'interfluxcirrus-swagger.json')
+    file_path = os.path.join(root_dir, 'pystratis/api', 'interfluxcirrus-swagger.json')
     with open(file_path, 'r') as f:
         return json.load(f)
 

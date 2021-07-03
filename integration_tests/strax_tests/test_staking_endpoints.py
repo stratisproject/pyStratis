@@ -1,7 +1,7 @@
 import pytest
-from nodes import StraxNode
-from api.staking.responsemodels import *
-from pybitcoin import WalletSecret
+from pystratis.nodes import StraxNode
+from pystratis.core import WalletSecret
+from pystratis.api.staking.responsemodels import *
 
 
 @pytest.mark.integration_test

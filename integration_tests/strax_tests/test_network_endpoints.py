@@ -1,6 +1,6 @@
 import pytest
-from nodes import BaseNode
-from api.network.responsemodels import *
+from pystratis.nodes import BaseNode
+from pystratis.api.network.responsemodels import *
 
 
 @pytest.mark.integration_test

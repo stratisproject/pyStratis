@@ -1,7 +1,7 @@
 import pytest
-from nodes import BaseNode
-from api.rpc.responsemodels import *
-from api import APIError
+from pystratis.nodes import BaseNode
+from pystratis.api import APIError
+from pystratis.api.rpc.responsemodels import *
 
 
 @pytest.mark.integration_test

@@ -1,7 +1,6 @@
 import pytest
-from api.federationwallet.requestmodels import *
-from api.federationwallet.responsemodels import *
-from api.consensus.requestmodels import GetBlockHashRequest
+from pystratis.api.federationwallet.responsemodels import *
+from pystratis.api.consensus.requestmodels import GetBlockHashRequest
 
 
 @pytest.mark.integration_test

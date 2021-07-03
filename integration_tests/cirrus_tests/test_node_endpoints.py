@@ -1,9 +1,8 @@
 import pytest
-from nodes import CirrusMinerNode
-from api.node.responsemodels import *
-from api.wallet.requestmodels import SpendableTransactionsRequest
-from pybitcoin import LogRule
-from pybitcoin.types import uint256, hexstr, Money
+from pystratis.nodes import CirrusMinerNode
+from pystratis.core import LogRule
+from pystratis.core.types import uint256, hexstr, Money
+from pystratis.api.node.responsemodels import *
 
 
 @pytest.mark.integration_test
@@ -100,7 +99,7 @@ def test_stop():
 @pytest.mark.integration_test
 @pytest.mark.cirrus_integration_test
 def test_log_levels(cirrusminer_node: CirrusMinerNode):
-    cirrusminer_node.node.log_levels(log_rules=[LogRule(rule_name='Stratis.*', log_level='Debug')])
+    cirrusminer_node.node.log_levels(log_rules=[LogRule(rule_name='Stratis.*', log_level='Debug', filename='filename')])
 
 
 @pytest.mark.integration_test

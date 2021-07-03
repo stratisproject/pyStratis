@@ -1,7 +1,6 @@
 import pytest
 import time
-import api
-from api.federationwallet.requestmodels import EnableFederationRequest
+from pystratis import api
 
 
 @pytest.fixture(scope='package', autouse=True)

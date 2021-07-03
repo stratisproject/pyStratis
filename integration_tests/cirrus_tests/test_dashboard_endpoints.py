@@ -1,5 +1,5 @@
 import pytest
-from nodes import CirrusMinerNode
+from pystratis.nodes import CirrusMinerNode
 
 
 @pytest.mark.integration_test

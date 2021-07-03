@@ -1,6 +1,6 @@
 import pytest
-from api.signalr.responsemodels import *
-from nodes import CirrusNode
+from pystratis.nodes import CirrusNode
+from pystratis.api.signalr.responsemodels import *
 
 
 @pytest.mark.integration_test

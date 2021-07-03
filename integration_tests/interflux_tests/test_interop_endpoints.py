@@ -1,5 +1,5 @@
 import pytest
-from api.interop.responsemodels import *
+from pystratis.api.interop.responsemodels import *
 
 
 @pytest.mark.integration_test

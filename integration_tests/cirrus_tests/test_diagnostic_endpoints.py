@@ -1,7 +1,7 @@
 import pytest
 import time
-from nodes import CirrusNode
-from api.diagnostic.responsemodels import *
+from pystratis.nodes import CirrusNode
+from pystratis.api.diagnostic.responsemodels import *
 
 
 @pytest.mark.integration_test

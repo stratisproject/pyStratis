@@ -1,8 +1,7 @@
 import pytest
-from nodes import BaseNode, StraxNode, CirrusNode
-from pybitcoin.types import uint256
-from api.node.responsemodels import BlockHeaderModel
-from api.blockstore.responsemodels import BlockTransactionDetailsModel
+from pystratis.nodes import StraxNode, CirrusNode
+from pystratis.core.types import uint256
+from pystratis.api.blockstore.responsemodels import BlockTransactionDetailsModel
 
 
 @pytest.mark.mainnet_test

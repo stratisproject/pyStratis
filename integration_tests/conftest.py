@@ -6,11 +6,11 @@ import subprocess
 import time
 from typing import List, Optional, Union
 from requests.exceptions import ConnectionError
-from nodes import StraxNode, CirrusMinerNode, CirrusNode, InterfluxCirrusNode, InterfluxStraxNode, BaseNode
-from api.wallet.responsemodels import SpendableTransactionModel
-from pybitcoin.networks import BaseNetwork, StraxRegTest, CirrusRegTest
-from pybitcoin.types import Address, Money
-from pybitcoin import Outpoint, Recipient
+from pystratis.nodes import StraxNode, CirrusMinerNode, CirrusNode, InterfluxCirrusNode, InterfluxStraxNode, BaseNode
+from pystratis.api.wallet.responsemodels import SpendableTransactionModel
+from pystratis.core.networks import BaseNetwork, StraxRegTest, CirrusRegTest
+from pystratis.core.types import Address, Money
+from pystratis.core import Outpoint, Recipient
 STRAX_HOT_NODE_PORT = 12370
 STRAX_SYNCING_NODE_PORT = 12380
 STRAX_OFFLINE_NODE_PORT = 12390
@@ -36,8 +36,12 @@ def start_regtest_node(
     if os.path.exists(data_dir):
         shutil.rmtree(data_dir)
     if private_key is not None:
-        os.makedirs(os.path.join(data_dir, 'cirrus', 'CirrusRegTest'), exist_ok=True)
-        fed_keyfile_target_path = os.path.join(data_dir, 'cirrus', 'CirrusRegTest', 'federationKey.dat')
+        if isinstance(node, CirrusNode):
+            os.makedirs(os.path.join(data_dir, 'cirrus', 'CirrusRegTest'), exist_ok=True)
+            fed_keyfile_target_path = os.path.join(data_dir, 'cirrus', 'CirrusRegTest', 'federationKey.dat')
+        else:
+            os.makedirs(os.path.join(data_dir, 'cirrus', 'CirrusDev'), exist_ok=True)
+            fed_keyfile_target_path = os.path.join(data_dir, 'cirrus', 'CirrusDev', 'federationKey.dat')
         with open(fed_keyfile_target_path, 'w+b') as f:
             f.write(bytearray(private_key))
 

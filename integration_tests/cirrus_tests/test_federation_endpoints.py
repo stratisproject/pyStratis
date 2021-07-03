@@ -1,6 +1,6 @@
 import pytest
-from nodes import CirrusMinerNode, CirrusNode
-from api.federation.responsemodels import *
+from pystratis.nodes import CirrusMinerNode, CirrusNode
+from pystratis.api.federation.responsemodels import *
 
 
 @pytest.mark.integration_test

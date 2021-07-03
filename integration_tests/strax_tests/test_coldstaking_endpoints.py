@@ -1,7 +1,7 @@
 import pytest
-from nodes import StraxNode
-from api.coldstaking.responsemodels import *
-from pybitcoin.types import Money, Address, hexstr
+from pystratis.nodes import StraxNode
+from pystratis.core.types import Money, Address, hexstr
+from pystratis.api.coldstaking.responsemodels import *
 
 
 @pytest.fixture(scope='package')

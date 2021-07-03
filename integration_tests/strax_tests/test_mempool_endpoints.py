@@ -1,6 +1,6 @@
 import pytest
-from pybitcoin.types import Money, uint256
-from nodes import BaseNode
+from pystratis.core.types import Money, uint256
+from pystratis.nodes import BaseNode
 
 
 @pytest.mark.integration_test

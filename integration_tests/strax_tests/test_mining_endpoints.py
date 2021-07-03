@@ -1,7 +1,7 @@
 import pytest
-from nodes import StraxNode
-from api.mining.responsemodels import *
-from pybitcoin.types import uint256
+from pystratis.nodes import StraxNode
+from pystratis.core.types import uint256
+from pystratis.api.mining.responsemodels import *
 
 
 @pytest.mark.integration_test

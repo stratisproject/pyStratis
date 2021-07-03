@@ -1,6 +1,5 @@
 import pytest
-from api.federationgateway.requestmodels import *
-from api.federationgateway.responsemodels import *
+from pystratis.api.federationgateway.responsemodels import *
 
 
 @pytest.mark.integration_test

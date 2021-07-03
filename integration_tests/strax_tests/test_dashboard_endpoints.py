@@ -1,5 +1,5 @@
 import pytest
-from nodes import BaseNode
+from pystratis.nodes import BaseNode
 
 
 @pytest.mark.integration_test

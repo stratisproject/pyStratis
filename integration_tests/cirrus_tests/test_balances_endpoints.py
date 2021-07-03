@@ -1,6 +1,6 @@
 import pytest
-from nodes import CirrusMinerNode
-from pybitcoin.types import Money, Address
+from pystratis.nodes import CirrusMinerNode
+from pystratis.core.types import Money, Address
 
 
 @pytest.mark.integration_test

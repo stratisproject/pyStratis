@@ -1,8 +1,8 @@
 import pytest
-from api.voting.responsemodels import *
-from api.voting.requestmodels import VoteKey
-from nodes import CirrusMinerNode
-from pybitcoin import PollViewModel
+from pystratis.api.voting.requestmodels import VoteKey
+from pystratis.api.voting.responsemodels import *
+from pystratis.nodes import CirrusMinerNode
+from pystratis.core import PollViewModel
 
 
 @pytest.mark.integration_test

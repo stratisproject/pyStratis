@@ -1,6 +1,6 @@
 import pytest
-from api.signalr.responsemodels import *
-from nodes import StraxNode
+from pystratis.nodes import StraxNode
+from pystratis.api.signalr.responsemodels import *
 
 
 @pytest.mark.integration_test

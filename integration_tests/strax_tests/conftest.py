@@ -1,7 +1,6 @@
 import pytest
-from pybitcoin.types import Money
-import time
-import api
+from pystratis.core.types import Money
+from pystratis import api
 
 
 @pytest.fixture(scope='package', autouse=True)

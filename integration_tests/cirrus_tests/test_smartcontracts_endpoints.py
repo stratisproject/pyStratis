@@ -1,9 +1,9 @@
 import pytest
-from nodes import CirrusMinerNode
-from api.smartcontracts.responsemodels import *
-from pybitcoin.networks import CirrusRegTest
-from pybitcoin import SmartContractParameter, SmartContractParameterType, Recipient
-from pybitcoin.types import Address, Money, uint32, uint64, uint128, uint256, int32, int64
+from pystratis.nodes import CirrusMinerNode
+from pystratis.api.smartcontracts.responsemodels import *
+from pystratis.core.networks import CirrusRegTest
+from pystratis.core import SmartContractParameter, SmartContractParameterType, Recipient
+from pystratis.core.types import Address, Money, uint32, uint64, uint128, uint256, int32, int64
 
 
 @pytest.mark.order(13)

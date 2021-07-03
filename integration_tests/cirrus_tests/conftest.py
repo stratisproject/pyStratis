@@ -1,10 +1,10 @@
 import pytest
 from typing import Union
-import api
-from api.smartcontracts.responsemodels import ReceiptModel
-from pybitcoin.types import Address, Money, hexstr, uint32, uint64, uint128, uint256, int32, int64
-from pybitcoin import SmartContractParameter, SmartContractParameterType, BuildContractTransactionModel, WalletSendTransactionModel
-from nodes import CirrusMinerNode, CirrusNode, BaseNode
+from pystratis import api
+from pystratis.api.smartcontracts.responsemodels import ReceiptModel
+from pystratis.core.types import Address, Money, hexstr, uint32, uint64, uint128, uint256, int32, int64
+from pystratis.core import SmartContractParameter, SmartContractParameterType, BuildContractTransactionModel, WalletSendTransactionModel
+from pystratis.nodes import CirrusMinerNode, CirrusNode, BaseNode
 
 
 @pytest.fixture(scope='package', autouse=True)

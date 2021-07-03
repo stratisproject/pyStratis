@@ -1,7 +1,7 @@
 import pytest
 import time
-from pybitcoin.types import Money, uint256
-from nodes import CirrusMinerNode
+from pystratis.core.types import Money, uint256
+from pystratis.nodes import CirrusMinerNode
 
 
 @pytest.mark.integration_test

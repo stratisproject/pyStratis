@@ -1,7 +1,6 @@
 import pytest
-from api.collateralvoting.requestmodels import *
-from pybitcoin.types import Address, Money
-from pybitcoin.networks import CirrusRegTest
+from pystratis.core.types import Address, Money
+from pystratis.core.networks import CirrusRegTest
 
 
 @pytest.mark.skip(reason='Unable to test with regtest environment.')

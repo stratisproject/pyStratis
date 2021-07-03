@@ -1,10 +1,10 @@
 import pytest
-from nodes import BaseNode
-from api import APIError
-from api.wallet.responsemodels import *
-from pybitcoin.types import Money, Address, uint256, hexstr
-from pybitcoin import Recipient, Outpoint, DestinationChain, PubKey, ExtPubKey, AccountBalanceModel, AddressModel, Key
-from pybitcoin.networks import Ethereum
+from pystratis.nodes import BaseNode
+from pystratis.api import APIError
+from pystratis.api.wallet.responsemodels import *
+from pystratis.core.types import Money, Address, uint256, hexstr
+from pystratis.core import Recipient, Outpoint, DestinationChain, PubKey, ExtPubKey, AccountBalanceModel, AddressModel, Key
+from pystratis.core.networks import Ethereum
 
 
 @pytest.mark.integration_test

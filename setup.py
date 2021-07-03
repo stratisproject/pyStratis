@@ -1,8 +1,41 @@
-import setuptools
+from setuptools import setup
+import pathlib
 
-setuptools.setup(
+here = pathlib.Path(__file__).parent.resolve()
+
+long_description = (here / 'README.md').read_text(encoding='utf-8')
+
+setup(
     name='pystratis',
-    version='1.0.9.0',
-    description='Unofficial python package for interacting with Stratis (STRAX) full node and Cirrus/Interflux sidechain.',
-    author='Tjaden Froyda'
+    version='1.0.0.0',
+    description='Official python package for interacting with Stratis (STRAX) full node and Cirrus/Interflux sidechain.',
+    author='Tjaden Froyda',
+    license='MIT',
+    packages=['pystratis'],
+    long_description=long_description,
+    long_description_content_type='text/markdown',
+    url='https://github.com/stratisproject/pystratis',
+    classifiers=[
+        'Development Status :: 4 - Beta',
+        'Intended Audience :: Developers',
+        'License :: OSI Approved :: MIT License',
+        'Programming Language :: Python :: 3.9'
+    ],
+    keywords='stratis, cirrus, pystratis, smartcontracts, blockchain',
+    python_requires='>3.9',
+    install_requires=[
+        'requests',
+        'pydantic>=1.8.2',
+        'base58',
+        'base58check',
+        'bech32'
+    ],
+    extras_require={
+        'test': [
+            'pytest',
+            'pytest_mock',
+            'pytest_order',
+            'coverage'
+        ]
+    }
 )

@@ -1,8 +1,8 @@
 import pytest
-from nodes import CirrusNode
-from api.collateral.responsemodels import *
-from pybitcoin.types import Address
-from pybitcoin.networks import StraxRegTest
+from pystratis.nodes import CirrusNode
+from pystratis.core.types import Address
+from pystratis.core.networks import StraxRegTest
+from pystratis.api.collateral.responsemodels import *
 
 
 @pytest.mark.skip(reason='Unable to test in regtest environment.')

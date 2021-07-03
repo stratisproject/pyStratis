@@ -1,8 +1,8 @@
 import pytest
-from api.smartcontractwallet.responsemodels import *
-from pybitcoin import SmartContractParameter, SmartContractParameterType
-from pybitcoin.types import Address, Money, uint32, uint64, uint128, uint256, int32, int64
-from nodes import CirrusMinerNode
+from pystratis.api.smartcontractwallet.responsemodels import *
+from pystratis.core import SmartContractParameter, SmartContractParameterType
+from pystratis.core.types import Address, Money, uint32, uint64, uint128, uint256, int32, int64
+from pystratis.nodes import CirrusMinerNode
 
 
 @pytest.mark.integration_test

@@ -1,9 +1,8 @@
 import pytest
-from api.multisig.requestmodels import *
-from api.multisig.responsemodels import *
-from pybitcoin.types import Address, Money
-from pybitcoin import Recipient, MultisigSecret
-from pybitcoin.networks import StraxRegTest
+from pystratis.api.multisig.responsemodels import *
+from pystratis.core.types import Address, Money
+from pystratis.core import Recipient, MultisigSecret
+from pystratis.core.networks import StraxRegTest
 
 
 @pytest.mark.skip(reason='Unable to test in regtest environment.')

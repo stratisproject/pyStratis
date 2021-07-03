@@ -1,9 +1,9 @@
-pystratis
+pyStratis
 =========
 
 .. toctree::
    :maxdepth: 4
 
-   api
-   nodes
-   pybitcoin
+   pystratis.api
+   pystratis.nodes
+   pystratis.core

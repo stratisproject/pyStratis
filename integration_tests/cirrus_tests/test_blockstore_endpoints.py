@@ -1,7 +1,7 @@
 import pytest
-from nodes import CirrusMinerNode
-from api.blockstore.responsemodels import *
-from pybitcoin.types import uint256, hexstr
+from pystratis.nodes import CirrusMinerNode
+from pystratis.core.types import uint256, hexstr
+from pystratis.api.blockstore.responsemodels import *
 
 
 @pytest.mark.integration_test

@@ -1,7 +1,7 @@
 import pytest
 import time
-from nodes import StraxNode
-from api.diagnostic.responsemodels import *
+from pystratis.nodes import StraxNode
+from pystratis.api.diagnostic.responsemodels import *
 
 
 @pytest.mark.integration_test

@@ -1,7 +1,6 @@
 import pytest
-from nodes import CirrusMinerNode
-from api.addressbook.responsemodels import *
-from pybitcoin.types import Address
+from pystratis.nodes import CirrusMinerNode
+from pystratis.api.addressbook.responsemodels import *
 
 
 @pytest.mark.integration_test

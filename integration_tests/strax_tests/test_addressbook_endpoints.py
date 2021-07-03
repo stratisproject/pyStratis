@@ -1,7 +1,6 @@
 import pytest
-from nodes import BaseNode
-from api.addressbook.responsemodels import *
-from pybitcoin.types import Address
+from pystratis.nodes import BaseNode
+from pystratis.api.addressbook.responsemodels import *
 
 
 @pytest.mark.integration_test
