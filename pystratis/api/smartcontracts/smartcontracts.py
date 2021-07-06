@@ -186,10 +186,10 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
                      gas_price: int,
                      gas_limit: int,
                      sender: Union[Address, str],
-                     amount: Union[Money, int, float, Decimal] = None,
+                     amount: Union[Money, int, float, Decimal],
                      outpoints: List[Outpoint] = None,
                      account_name: str = 'account 0',
-                     parameters: List[Union[str, SmartContractParameter]] = None,
+                     parameters: List[Union[str, SmartContractParameter]] = [],
                      **kwargs) -> BuildCreateContractTransactionModel:
         """Builds a transaction to create a smart contract.
 

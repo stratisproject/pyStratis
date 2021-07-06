@@ -162,7 +162,7 @@ class SmartContractWallet(APIRequest, metaclass=EndpointRegister):
              gas_price: int,
              gas_limit: int,
              sender: Union[Address, str],
-             amount: Union[Money, int, float, Decimal] = None,
+             amount: Union[Money, int, float, Decimal],
              outpoints: List[Outpoint] = None,
              account_name: str = 'account 0',
              parameters: List[str] = None,
