@@ -19,7 +19,7 @@ class Consensus(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            List[DeploymentFlagsModel]
+            List[DeploymentFlagsModel]: A list of active deployment flags..
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -35,7 +35,7 @@ class Consensus(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            uint256
+            uint256: The block hash.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -52,7 +52,7 @@ class Consensus(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            uint256
+            uint256: The block hash.
 
         Raises:
             APIError: Error thrown by node API. See message for details.

@@ -20,7 +20,7 @@ class ConnectionManager(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            bool
+            bool: If command was successful.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -37,7 +37,7 @@ class ConnectionManager(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            List[PeerInfoModel]
+            List[PeerInfoModel]: A list of connected peers.
 
         Raises:
             APIError: Error thrown by node API. See message for details.

@@ -32,7 +32,7 @@ class Collateral(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            JoinFederationResponseModel
+            JoinFederationResponseModel: The response to the join-federation API request.
 
         Raises:
             APIError: Error thrown by node API. See message for details.

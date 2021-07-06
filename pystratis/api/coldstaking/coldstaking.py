@@ -288,7 +288,7 @@ class ColdStaking(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            Money: the offline cold staking fee estimate.
+            Money: The offline cold staking fee estimate.
 
         Raises:
             APIError: Error thrown by node API. See message for details.

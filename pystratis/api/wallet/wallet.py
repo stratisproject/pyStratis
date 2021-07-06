@@ -250,7 +250,7 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            WalletGeneralInfoModel
+            WalletGeneralInfoModel: General information about the wallet.
         Raises:
             APIError: Error thrown by node API. See message for details.
         """
@@ -271,7 +271,7 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            int
+            int: The number of transactions.
         Raises:
             APIError: Error thrown by node API. See message for details.
         """
@@ -304,7 +304,7 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            WalletHistoryModel
+            WalletHistoryModel: The wallet history.
         Raises:
             APIError: Error thrown by node API. See message for details.
         """
@@ -356,7 +356,7 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            WalletBalanceModel
+            WalletBalanceModel: The wallet balance.
         Raises:
             APIError: Error thrown by node API. See message for details.
         """
@@ -386,7 +386,7 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            AddressBalanceModel
+            AddressBalanceModel: The transactions associated with the address.
         Raises:
             APIError: Error thrown by node API. See message for details.
         """
@@ -417,7 +417,7 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            MaxSpendableAmountModel
+            MaxSpendableAmountModel: Information about the maximum spendable amount and fee to send.
         Raises:
             APIError: Error thrown by node API. See message for details.
         """
@@ -438,8 +438,7 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
                                account_name: str = 'account 0',
                                min_confirmations: int = 0,
                                **kwargs) -> SpendableTransactionsModel:
-        """Gets the spendable transactions for an account with the option to specify how many
-        confirmations a transaction needs to be included.
+        """Gets the spendable transactions for an account with the option to specify how many confirmations a transaction needs to be included.
 
         Args:
             wallet_name (str): The wallet name.
@@ -448,7 +447,7 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            SpendableTransactionsModel
+            SpendableTransactionsModel: Spendable transactions.
         Raises:
             APIError: Error thrown by node API. See message for details.
         """
@@ -495,7 +494,7 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            Money
+            Money: An estimate of the transaction fee.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -552,7 +551,7 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            BuildTransactionModel
+            BuildTransactionModel: A built transaction.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -617,7 +616,7 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            BuildTransactionModel
+            BuildTransactionModel: A built interflux transaction.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -669,7 +668,7 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            WalletSendTransactionModel
+            WalletSendTransactionModel: Information about a sent transaction.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -693,7 +692,7 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            dict
+            dict: A list of wallets.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -714,7 +713,7 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            str
+            str: The newly created account name.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -737,7 +736,7 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            List[str]
+            List[str]: A list of accounts.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -761,7 +760,7 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            Address
+            Address: An unused address.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -791,7 +790,7 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            List[Address]
+            List[Address]: A list of unused addresses.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -822,7 +821,7 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            List[Address]
+            List[Address]: A new address.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -851,7 +850,7 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            AddressesModel
+            AddressesModel: All addresses associated with the account given.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -887,7 +886,7 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            List[RemovedTransactionModel]
+            List[RemovedTransactionModel]: A list of removed transactions.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -918,6 +917,7 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
 
         Returns:
             None
+
         Raises:
             APIError: Error thrown by node API. See message for details.
         """
@@ -964,7 +964,7 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            Key
+            Key: The private key.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -1044,7 +1044,8 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            WalletStatsModel
+            WalletStatsModel: Wallet statistical information.
+
         Raises:
             APIError: Error thrown by node API. See message for details.
         """
@@ -1067,7 +1068,7 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
                     utxos_count: int,
                     account_name: str = 'account 0',
                     **kwargs) -> WalletSendTransactionModel:
-        """Creates requested amount of UTXOs each of equal value.
+        """Creates requested amount of UTXOs each of equal value and sends the transaction.
 
         Args:
             wallet_name (str): The wallet name.
@@ -1078,7 +1079,8 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            WalletSendTransactionModel
+            WalletSendTransactionModel: Information about the sent transaction.
+
         Raises:
             APIError: Error thrown by node API. See message for details.
         """
@@ -1129,7 +1131,8 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            DistributeUtxoModel
+            DistributeUtxoModel: Information about the distribute utxo transaction.
+
         Raises:
             APIError: Error thrown by node API. See message for details.
         """
@@ -1172,7 +1175,8 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            List[uint256]
+            List[uint256]: A list of transactions for the sweep.
+
         Raises:
             APIError: Error thrown by node API. See message for details.
         """
@@ -1220,7 +1224,8 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            BuildOfflineSignModel
+            BuildOfflineSignModel: A built transaction that can be signed offline.
+
         Raises:
             APIError: Error thrown by node API. See message for details.
         """
@@ -1276,7 +1281,8 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            BuildTransactionModel
+            BuildTransactionModel: A signed transaction that can be broadcast.
+
         Raises:
             APIError: Error thrown by node API. See message for details.
         """
@@ -1318,7 +1324,7 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            hexstr
+            hexstr: A consolidation transaction ready for broadcast.
 
         Raises:
             APIError: Error thrown by node API. See message for details.

@@ -18,7 +18,7 @@ class Diagnostic(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            GetConnectedPeersInfoModel
+            GetConnectedPeersInfoModel: Information on connected peers.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -35,7 +35,7 @@ class Diagnostic(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            GetStatusModel
+            GetStatusModel: The feature status.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -52,7 +52,7 @@ class Diagnostic(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            List[PeerStatisticsModel]
+            List[PeerStatisticsModel]: A list of statistics on the connected peers.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -69,7 +69,7 @@ class Diagnostic(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            str
+            str: The status of the feature.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -85,7 +85,7 @@ class Diagnostic(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            str
+            str: The status of the feature.
 
         Raises:
             APIError: Error thrown by node API. See message for details.

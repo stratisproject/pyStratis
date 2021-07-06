@@ -24,7 +24,7 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            GetCodeModel
+            GetCodeModel: The smart contract code.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -44,7 +44,7 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            Money
+            Money: The smart contract balance.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -70,7 +70,7 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            Union[bool, bytes, str, uint32, uint64, int32, int64, Address, bytearray, uint128, uint256]
+            Union[bool, bytes, str, uint32, uint64, int32, int64, Address, bytearray, uint128, uint256]: The smart contract information retrieved from storage.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -116,7 +116,7 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            ReceiptModel
+            ReceiptModel: The smart contract transaction receipt.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -152,7 +152,7 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            List[ReceiptModel]
+            List[ReceiptModel]: A list of receipts.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -208,7 +208,7 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            BuildCreateContractTransactionModel
+            BuildCreateContractTransactionModel: A built create smart contract transaction.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -274,7 +274,7 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            BuildContractTransactionModel
+            BuildContractTransactionModel: A built smart contract transaction.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -346,7 +346,7 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            BuildContractTransactionModel
+            BuildContractTransactionModel: A built smart contract transaction.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -406,7 +406,7 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            Money
+            Money: The fee estimate.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -462,7 +462,7 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            BuildCreateContractTransactionModel
+            BuildCreateContractTransactionModel: A built create smart contract transaction.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -528,7 +528,7 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            BuildContractTransactionModel
+            BuildContractTransactionModel: A built smart contract transaction.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -586,7 +586,7 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            LocalExecutionResultModel
+            LocalExecutionResultModel: The results of a local contract execution.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -636,7 +636,7 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            List[AddressBalanceModel]
+            List[AddressBalanceModel]: A list of addresses with balance information.
 
         Raises:
             APIError: Error thrown by node API. See message for details.

@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 from pydantic import Field
 from pystratis.api import Model
 from pystratis.core import PubKey
@@ -25,8 +25,8 @@ class FederationMemberInfoModel(Model):
     """The local federation wallet height."""
     node_version: str = Field(alias='nodeVersion')
     """The node version."""
-    pubkey: PubKey = Field(alias='pubKey')
-    """The member's pubkey."""
+    pubkey: Optional[PubKey] = Field(alias='pubKey')
+    """The member's pubkey. Could be None."""
     federation_connection_state: str = Field(alias='federationConnectionState')
     """The federation connection state."""
     federation_member_connections: List[FederationMemberConnectionInfoModel] = Field(alias='federationMemberConnections')

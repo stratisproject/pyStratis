@@ -19,7 +19,7 @@ class Interop(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            StatusModel
+            StatusModel: The status of the interoperability service.
 
         Raises:
             APIError: Error thrown by node API. See message for details.

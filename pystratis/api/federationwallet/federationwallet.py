@@ -19,7 +19,7 @@ class FederationWallet(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            WalletGeneralInfoModel
+            WalletGeneralInfoModel: General information about the federation wallet.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -35,7 +35,7 @@ class FederationWallet(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            WalletBalanceModel
+            WalletBalanceModel: Federation wallet balance information.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -66,7 +66,7 @@ class FederationWallet(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            List[WithdrawalModel]
+            List[WithdrawalModel]: The federation wallet history.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -105,7 +105,7 @@ class FederationWallet(APIRequest, metaclass=EndpointRegister):
                           passphrase: str = None,
                           timeout_seconds: int = 60,
                           **kwargs) -> Union[None, str]:
-        """Provide the federation wallet's credentials so that it can sign transactions.
+        """Enables the federation so that it can sign transactions.
 
         Args:
             mnemonic (str): The mnemonic.
@@ -115,6 +115,9 @@ class FederationWallet(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
+            (str, None): None if successful, str if error.
+
+        Raises:
             APIError
         """
         request_model = EnableFederationRequest(mnemonic=mnemonic, password=password, passphrase=passphrase, timeout_seconds=timeout_seconds)
@@ -131,7 +134,7 @@ class FederationWallet(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            List[RemovedTransactionModel]
+            List[RemovedTransactionModel]: A list of removed transactions from the federation wallet.
 
         Raises:
             APIError: Error thrown by node API. See message for details.

@@ -19,7 +19,7 @@ class RPC(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            The RPCCommandResponse
+            The RPCCommandResponse: The command output.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -36,7 +36,7 @@ class RPC(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            List[RPCCommandListModel]
+            List[RPCCommandListModel]: A list of valid RPC commands.
 
         Raises:
             APIError: Error thrown by node API. See message for details.

@@ -17,7 +17,7 @@ class Federation(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            str
+            str: The node response ot the request.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -33,7 +33,7 @@ class Federation(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            FederationMemberDetailedModel
+            FederationMemberDetailedModel: Information on the current member.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -49,7 +49,7 @@ class Federation(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            List[FederationMemberModel]
+            List[FederationMemberModel]: Information on each of federation members.
 
         Raises:
             APIError: Error thrown by node API. See message for details.

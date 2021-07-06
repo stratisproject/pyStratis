@@ -58,7 +58,7 @@ class Network(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            List[BannedPeerModel]
+            List[BannedPeerModel]: A list of banned peers with information on duration and reason for ban.
 
         Raises:
             APIError: Error thrown by node API. See message for details.

@@ -20,3 +20,6 @@ __pycache__/
 # Integration test node
 /integration_tests/StratisFullNode/
 /integration_tests/data_dir/
+
+# Setuptools
+/pystratis.egg-info

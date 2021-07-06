@@ -1,3 +1,4 @@
+from typing import Optional
 from pydantic import Field
 from datetime import datetime
 from pystratis.api import Model
@@ -5,8 +6,8 @@ from pystratis.api import Model
 
 class WalletGeneralInfoModel(Model):
     """A model representing general wallet info."""
-    wallet_name: str = Field(alias='walletName')
-    """The name of the wallet."""
+    wallet_name: Optional[str] = Field(alias='walletName')
+    """The name of the wallet. Will be None for multisig."""
     network: str
     """The name of the network the wallet is operating on."""
     creation_time: datetime = Field(alias='creationTime')

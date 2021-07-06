@@ -20,7 +20,7 @@ class Node(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            StatusModel
+            StatusModel: Information about the node status.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -41,7 +41,7 @@ class Node(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            BlockHeaderModel
+            BlockHeaderModel: The block headers.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -66,7 +66,7 @@ class Node(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            Union[hexstr, TransactionModel]
+            Union[hexstr, TransactionModel]: A raw transaction.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -90,7 +90,7 @@ class Node(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            TransactionModel
+            TransactionModel: A transaction model.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -110,7 +110,7 @@ class Node(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            ValidateAddressModel
+            ValidateAddressModel: Information on the validity of the provided address, and if valid, if it is a witness or script address.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -135,7 +135,7 @@ class Node(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            GetTxOutModel
+            GetTxOutModel: The specified txout.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -166,7 +166,7 @@ class Node(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            hexstr
+            hexstr: The merkle proof.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -237,7 +237,7 @@ class Node(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            List[LogRule]
+            List[LogRule]: A list of active log rules.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -254,7 +254,7 @@ class Node(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            List[AsyncLoopsModel]
+            List[AsyncLoopsModel]: A list of active asynchronous loops.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
