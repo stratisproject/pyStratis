@@ -41,7 +41,6 @@ def check_basic_api_functions(node: Union[StraxNode, CirrusNode]):
     node.node.log_rules()
     node.connection_manager.getpeerinfo()
     node.consensus.deployment_flags()
-    node.diagnostic.get_connectedpeers_info()
     node.signalr.get_connection_info()
 
 
