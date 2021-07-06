@@ -9,7 +9,7 @@ class GetAddressesBalancesRequest(Model):
     """A request model for the blockstore/getaddressesbalances endpoint.
 
     Args:
-        addresses (List(Address) | Address): A list of addresses or single address to query.
+        addresses (List(Address), Address): A list of addresses or single address to query.
         min_confirmations (int, optional): Only blocks below consensus tip less this parameter will be considered. Default=0.
     """
     addresses: Union[List[Address], Address]

@@ -1,10 +1,11 @@
-from typing import Optional
 from pydantic import Field
 from pystratis.api import Model
 from pystratis.core.types import Money
 
 
 class MaxSpendableAmountModel(Model):
-    """A MaxSpendableAmountModel."""
-    max_spendable_amount: Optional[Money] = Field(alias='maxSpendableAmount')
-    fee: Optional[Money] = Field(alias='Fee')
+    """A pydantic model for the maximum spendable amount."""
+    max_spendable_amount: Money = Field(alias='maxSpendableAmount')
+    """The maximum spendable amount."""
+    fee: Money = Field(alias='Fee')
+    """The to spend the maximum amount."""

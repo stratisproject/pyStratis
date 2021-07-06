@@ -22,7 +22,7 @@ class BlockStore(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            AddressIndexerTipModel
+            AddressIndexerTipModel: The address indexer tip hash and height.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -39,14 +39,14 @@ class BlockStore(APIRequest, metaclass=EndpointRegister):
         """Retrieves the block which matches the supplied block hash.
 
         Args:
-            block_hash (uint256 | str): The hash of the required block.
+            block_hash (uint256, str): The hash of the required block.
             show_transaction_details (bool, optional): A flag that indicates whether to return each block
                 transaction complete with details or simply return transaction hashes. Default=True.
             output_json (bool): Output json or hex block. Default=True.
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            Union[BlockModel, BlockTransactionDetailsModel, hexstr, str]
+            (BlockModel, BlockTransactionDetailsModel, hexstr, str): The representation of the block.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -74,7 +74,7 @@ class BlockStore(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            int
+            int: The current block count.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -90,12 +90,12 @@ class BlockStore(APIRequest, metaclass=EndpointRegister):
         """Provides balance of the given addresses confirmed with at least min_confirmations confirmations.
 
         Args:
-            addresses (List(Address | str) | Address | str): A list of addresses or single address to query.
+            addresses (List(Address, str), Address, str): A list of addresses or single address to query.
             min_confirmations (int, optional): Only blocks below consensus tip less this parameter will be considered. Default=0.
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            GetAddressesBalancesModel
+            GetAddressesBalancesModel: The balances of the given address(es).
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -120,11 +120,11 @@ class BlockStore(APIRequest, metaclass=EndpointRegister):
         """Provides verbose balance data of the given addresses.
 
         Args:
-            addresses (List(Address | str) | Address | str): A list of addresses or single address to query.
+            addresses (List(Address, str), Address, str): A list of addresses or single address to query.
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            GetVerboseAddressesBalancesModel
+            GetVerboseAddressesBalancesModel: A verbose accounting of the balances of the specified address(es).
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -152,7 +152,7 @@ class BlockStore(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            List[UTXOModel]
+            List[UTXOModel]: A list of UTXO at the given height.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -167,14 +167,14 @@ class BlockStore(APIRequest, metaclass=EndpointRegister):
     def get_last_balance_update_transaction(self,
                                             address: Union[Address, str],
                                             **kwargs) -> Union[GetLastBalanceUpdateTransactionModel, None]:
-        """A
+        """Gets the transaction information for a transaction last updating the given address.
 
         Args:
             address (Address): An address to query.
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            A GetLastBalanceUpdateTransactionModel if transaction exists, otherwise None.
+            (GetLastBalanceUpdateTransactionModel, None): Returns the information on the last transaction if the transaction exists, otherwise None.
 
         Raises:
             APIError: Error thrown by node API. See message for details.

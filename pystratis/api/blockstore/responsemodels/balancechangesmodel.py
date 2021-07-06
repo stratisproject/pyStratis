@@ -1,10 +1,12 @@
-from typing import Optional
 from pystratis.api import Model
-from pydantic import conint, Field
+from pydantic import Field
 
 
 class BalanceChangesModel(Model):
-    """A BalanceChangesModel."""
-    deposited: Optional[bool]
-    satoshi: conint(ge=0)
-    balance_changed_height: Optional[conint(ge=0)] = Field(alias='balanceChangedHeight')
+    """A pydantic model representing changes in balance at a given address."""
+    deposited: bool
+    """If true, amount was received. False if value was withdrawn."""
+    satoshi: int
+    """The value of the amount changed, in satoshi."""
+    balance_changed_height: int = Field(alias='balanceChangedHeight')
+    """The height of the block containing the transaction."""

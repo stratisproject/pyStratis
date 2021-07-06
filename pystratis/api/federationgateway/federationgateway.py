@@ -68,8 +68,8 @@ class FederationGateway(APIRequest, metaclass=EndpointRegister):
         """Gets pending transfers.
 
         Args:
-            deposit_id (uint256 | str): The deposit id hash.
-            transaction_id (uint256 | str): The transaction id hash.
+            deposit_id (uint256, str): The deposit id hash.
+            transaction_id (uint256, str): The transaction id hash.
             **kwargs: Extra keyword arguments. 
 
         Returns:
@@ -94,8 +94,8 @@ class FederationGateway(APIRequest, metaclass=EndpointRegister):
         """Get fully signed transfers.
 
         Args:
-            deposit_id (uint256 | str): The deposit id hash.
-            transaction_id (uint256 | str): The transaction id hash.
+            deposit_id (uint256, str): The deposit id hash.
+            transaction_id (uint256, str): The transaction id hash.
             **kwargs: Extra keyword arguments. 
 
         Returns:
@@ -209,7 +209,7 @@ class FederationGateway(APIRequest, metaclass=EndpointRegister):
         """Validate a transfer transaction
 
         Args:
-            deposit_id_transaction_id (uint256 | str): The transaction id containing the deposit with the deposit id.
+            deposit_id_transaction_id (uint256, str): The transaction id containing the deposit with the deposit id.
             **kwargs: Extra keyword arguments. 
 
         Returns:

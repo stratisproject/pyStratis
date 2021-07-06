@@ -15,7 +15,7 @@ class Notifications(APIRequest, metaclass=EndpointRegister):
         """Begin synchronizing the chain from the provided block height or block hash.
 
         Args:
-            sync_from (uint256 | str): The block hash to start syncing at.
+            sync_from (uint256, str): The block hash to start syncing at.
             **kwargs: Extra keyword arguments. 
 
         Returns:

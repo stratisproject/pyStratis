@@ -1,8 +1,9 @@
-from typing import Optional
 from pystratis.api import Model
 
 
 class RPCCommandListModel(Model):
-    """A RPCCommandListModel."""
-    command: Optional[str]
-    description: Optional[str]
+    """A pydantic model for a RPC command."""
+    command: str
+    """The RPC command."""
+    description: str
+    """The command description."""

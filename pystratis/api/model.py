@@ -3,7 +3,7 @@ from enum import IntEnum
 from pydantic import BaseModel, SecretStr
 from pystratis.core.types import *
 from pystratis.core import Key, ExtKey, PubKey, ExtPubKey, SmartContractParameter
-# These must be impleented as ForwardRef to prevent circular imports
+# These must be implemented as ForwardRef to prevent circular imports
 Recipient = ForwardRef('Recipient')
 Outpoint = ForwardRef('Outpoint')
 AddressDescriptor = ForwardRef('AddressDescriptor')

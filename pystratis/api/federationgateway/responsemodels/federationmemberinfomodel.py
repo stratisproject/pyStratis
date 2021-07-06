@@ -1,21 +1,33 @@
-from typing import List, Optional
-from pydantic import Field, conint
+from typing import List
+from pydantic import Field
 from pystratis.api import Model
 from pystratis.core import PubKey
 from .federationmemberconnectioninfomodel import FederationMemberConnectionInfoModel
 
 
 class FederationMemberInfoModel(Model):
-    """A FederationMemberInfoModel."""
-    async_loop_state: Optional[str] = Field(alias='asyncLoopState')
-    consensus_height: Optional[conint(ge=0)] = Field(alias='consensusHeight')
-    ccts_height: Optional[conint(ge=0)] = Field(alias='cctsHeight')
-    ccts_next_deposit_height: Optional[conint(ge=0)] = Field(alias='cctsNextDepositHeight')
-    ccts_partials: Optional[conint(ge=0)] = Field(alias='cctsPartials')
-    ccts_suspended: Optional[conint(ge=0)] = Field(alias='cctsSuspended')
-    federation_wallet_active: Optional[bool] = Field(alias='federationWalletActive')
-    federation_wallet_height: Optional[conint(ge=0)] = Field(alias='federationWalletHeight')
-    node_version: Optional[str] = Field(alias='nodeVersion')
-    pubkey: Optional[PubKey] = Field(alias='pubKey')
-    federation_connection_state: Optional[str] = Field(alias='federationConnectionState')
-    federation_member_connections: Optional[List[FederationMemberConnectionInfoModel]] = Field(alias='federationMemberConnections')
+    """A pydantic model representing information about the current federation member."""
+    async_loop_state: str = Field(alias='asyncLoopState')
+    """The async loop state."""
+    consensus_height: int = Field(alias='consensusHeight')
+    """The current consensus height."""
+    ccts_height: int = Field(alias='cctsHeight')
+    """The node's CCTS height."""
+    ccts_next_deposit_height: int = Field(alias='cctsNextDepositHeight')
+    """The next CCTS deposit height."""
+    ccts_partials: int = Field(alias='cctsPartials')
+    """The number of partial CCTS transactions."""
+    ccts_suspended: int = Field(alias='cctsSuspended')
+    """The number of suspended CCTS transactions."""
+    federation_wallet_active: bool = Field(alias='federationWalletActive')
+    """If true, the federation wallet is active."""
+    federation_wallet_height: int = Field(alias='federationWalletHeight')
+    """The local federation wallet height."""
+    node_version: str = Field(alias='nodeVersion')
+    """The node version."""
+    pubkey: PubKey = Field(alias='pubKey')
+    """The member's pubkey."""
+    federation_connection_state: str = Field(alias='federationConnectionState')
+    """The federation connection state."""
+    federation_member_connections: List[FederationMemberConnectionInfoModel] = Field(alias='federationMemberConnections')
+    """A list of connected federation members."""

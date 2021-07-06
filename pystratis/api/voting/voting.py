@@ -115,7 +115,7 @@ class Voting(APIRequest, metaclass=EndpointRegister):
         """Vote to add a hash from whitelist.
 
         Args:
-            hash_id (uint256 | str): The hash to whitelist.
+            hash_id (uint256, str): The hash to whitelist.
             **kwargs: Extra keyword arguments. 
 
         Returns:
@@ -136,7 +136,7 @@ class Voting(APIRequest, metaclass=EndpointRegister):
         """Vote to remove a hash from whitelist.
 
         Args:
-            hash_id (uint256 | str): The hash to remove.
+            hash_id (uint256, str): The hash to remove.
             **kwargs: Extra keyword arguments. 
 
         Returns:

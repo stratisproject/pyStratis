@@ -5,5 +5,6 @@ from .transactionmodel import TransactionModel
 
 
 class BlockTransactionDetailsModel(BlockModel):
-    """A BlockTransactionDetailsModel."""
+    """A pydantic model for block transaction details."""
     transactions: List[TransactionModel] = Field(alias='Transactions')
+    """A list of transactions."""

@@ -17,30 +17,35 @@ CoinType
 
 .. automodule:: pystratis.core.cointype
    :members:
+   :undoc-members:
 
 ContractTransactionItemType
 --------------------------------------------
 
 .. automodule:: pystratis.core.contracttransactionitemtype
    :members:
+   :undoc-members:
 
 ConversionRequestStatus
 ----------------------------------------
 
 .. automodule:: pystratis.core.conversionrequeststatus
    :members:
+   :undoc-members:
 
 ConversionRequestType
 --------------------------------------
 
 .. automodule:: pystratis.core.conversionrequesttype
    :members:
+   :undoc-members:
 
 CrosschainTransferStatus
 -----------------------------------------
 
 .. automodule:: pystratis.core.crosschaintransferstatus
    :members:
+   :undoc-members:
 
 Deposit
 ------------------------
@@ -53,12 +58,14 @@ DepositRetrievalType
 
 .. automodule:: pystratis.core.depositretrievaltype
    :members:
+   :undoc-members:
 
 DestinationChain
 ---------------------------------
 
 .. automodule:: pystratis.core.destinationchain
    :members:
+   :undoc-members:
 
 ExtKey
 -----------------------
@@ -113,12 +120,14 @@ SmartContractParameterType
 
 .. automodule:: pystratis.core.smartcontractparametertype
    :members:
+   :undoc-members:
 
 TransactionItemType
 ------------------------------------
 
 .. automodule:: pystratis.core.transactionitemtype
    :members:
+   :undoc-members:
 
 WalletSecret
 -----------------------------

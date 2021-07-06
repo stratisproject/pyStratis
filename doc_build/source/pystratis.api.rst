@@ -41,12 +41,14 @@ FeatureInitializationState
 
 .. automodule:: pystratis.api.featureinitializationstate
    :members:
+   :undoc-members:
 
 FullNodeState
 ------------------------------
 
 .. automodule:: pystratis.api.fullnodestate
    :members:
+   :undoc-members:
 
 LogRule
 ------------------------

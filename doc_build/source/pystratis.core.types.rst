@@ -12,6 +12,7 @@ hexstr
 
 .. automodule:: pystratis.core.types.hexstr
    :members:
+   :no-inherited-members:
 
 int32
 ----------------------------

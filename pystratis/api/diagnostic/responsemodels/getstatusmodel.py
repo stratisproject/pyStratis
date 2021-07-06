@@ -1,8 +1,8 @@
-from typing import Optional
 from pydantic import Field
 from pystratis.api import Model
 
 
 class GetStatusModel(Model):
-    """A GetStatusModel."""
-    peer_statistics: Optional[str] = Field(alias='peerStatistics')
+    """A pydantic model for status of diagnostics collection service."""
+    peer_statistics: str = Field(alias='peerStatistics')
+    """The status of the service."""

@@ -1,9 +1,9 @@
-from typing import Optional
 from pydantic import Field
 from pystratis.api import Model
 from pystratis.core.types import hexstr
 
 
 class WithdrawalModel(Model):
-    """A WithdrawalModel."""
-    transaction_hex: Optional[hexstr] = Field(alias='transactionHex')
+    """A pydantic model for a cold staking withdrawal transaction."""
+    transaction_hex: hexstr = Field(alias='transactionHex')
+    """A hex serialized cold staking wallet withdrawal transaction."""

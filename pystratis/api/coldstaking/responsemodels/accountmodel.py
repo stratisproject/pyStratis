@@ -1,8 +1,8 @@
-from typing import Optional
 from pydantic import Field
 from pystratis.api import Model
 
 
 class AccountModel(Model):
-    """An AccountModel."""
-    account_name: Optional[str] = Field(alias='accountName')
+    """A pydantic model for a cold staking account."""
+    account_name: str = Field(alias='accountName')
+    """The cold staking account name."""

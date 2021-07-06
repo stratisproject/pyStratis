@@ -1,10 +1,12 @@
-from typing import Optional
 from pydantic import Field
 from pystratis.api import Model
 
 
 class BannedPeerModel(Model):
-    """A BannedPeerModel."""
-    endpoint: Optional[str] = Field(alias='endPoint')
-    ban_until: Optional[str] = Field(alias='banUntil')
-    ban_reason: Optional[str] = Field(alias='banReason')
+    """A pydantic model describing a banned peer."""
+    endpoint: str = Field(alias='endPoint')
+    """The banned peer endpoint."""
+    ban_until: str = Field(alias='banUntil')
+    """The time when ban end."""
+    ban_reason: str = Field(alias='banReason')
+    """The reason for the ban."""

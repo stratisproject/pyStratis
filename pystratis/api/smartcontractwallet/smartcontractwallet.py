@@ -40,7 +40,7 @@ class SmartContractWallet(APIRequest, metaclass=EndpointRegister):
         """Gets the balance at a specific wallet address in STRAX (or the sidechain coin).
 
         Args:
-            address (Address | str): The smart contract address being queried.
+            address (Address, str): The smart contract address being queried.
             **kwargs: Extra keyword arguments. 
 
         Returns:
@@ -66,7 +66,7 @@ class SmartContractWallet(APIRequest, metaclass=EndpointRegister):
 
         Args:
             wallet_name (str): The wallet name.
-            address (Address | str): The address to query the history.
+            address (Address, str): The address to query the history.
             skip (int, optional): Skip this many items. Default=0.
             take (int, optional): Take this many items.
             **kwargs: Extra keyword arguments. 
@@ -110,13 +110,13 @@ class SmartContractWallet(APIRequest, metaclass=EndpointRegister):
             wallet_name (str): The wallet name.
             account_name (str, optional): The wallet name. Default='account 0'
             outpoints (List[Outpoint], optional): A list of the outpoints used to construct the transactation.
-            amount (Money | int | float | Decimal, optional): The amount being sent.
-            fee_amount (Money | int | float | Decimal): The fee amount.
+            amount (Money, int, float, Decimal, optional): The amount being sent.
+            fee_amount (Money, int, float, Decimal): The fee amount.
             password (SecretStr): The password.
-            contract_code (hexstr | str): The smart contract code hexstring.
+            contract_code (hexstr, str): The smart contract code hexstring.
             gas_price (int): The amount of gas being used in satoshis.
             gas_limit (int): The maximum amount of gas that can be used in satoshis.
-            sender (Address | str): The address of the sending address.
+            sender (Address, str): The address of the sending address.
             parameters (List[Union[SmartContractParameter, str], optional): A list of parameters for the smart contract.
             **kwargs: Extra keyword arguments. 
 
@@ -173,14 +173,14 @@ class SmartContractWallet(APIRequest, metaclass=EndpointRegister):
             wallet_name (str): The wallet name.
             account_name (str, optional): The wallet name. Default='account 0'
             outpoints (List[Outpoint], optional): A list of the outpoints used to construct the transactation.
-            contract_address (Address | str): The smart contract address being called.
+            contract_address (Address, str): The smart contract address being called.
             method_name (str): The method name being called.
-            amount (Money | int | float | Decimal, optional): The amount being sent.
-            fee_amount (Money | int | float | Decimal): The fee amount.
+            amount (Money, int, float, Decimal, optional): The amount being sent.
+            fee_amount (Money, int, float, Decimal): The fee amount.
             password (SecretStr): The password.
             gas_price (int): The amount of gas being used in satoshis.
             gas_limit (int): The maximum amount of gas that can be used in satoshis.
-            sender (Address | str): The address of the sending address.
+            sender (Address, str): The address of the sending address.
             parameters (List[Union[SmartContractParameter, str]], optional): A list of parameters for the smart contract.
             **kwargs: Extra keyword arguments. 
 

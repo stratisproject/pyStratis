@@ -1,9 +1,11 @@
-from typing import Optional
 from pystratis.api import Model
 from pydantic import Field, conint
 
 
 class UtxoPerBlockModel(Model):
-    """An UtxoPerBlockModel."""
-    utxo_per_block: Optional[conint(ge=0)] = Field(alias='utxoPerBlock')
-    count: Optional[conint(ge=0)] = Field(alias='Count')
+    """A pydantic model representing utxo per block."""
+    utxo_per_block: int = Field(alias='utxoPerBlock')
+    """The number of utxo per block."""
+    count: int = Field(alias='Count')
+    """The number of utxos."""
+

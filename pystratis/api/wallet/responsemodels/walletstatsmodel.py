@@ -1,5 +1,5 @@
-from typing import List, Optional
-from pydantic import Field, conint
+from typing import List
+from pydantic import Field
 from pystratis.api import Model
 from .utxoamountmodel import UtxoAmountModel
 from .utxopertransactionmodel import UtxoPerTransactionModel
@@ -7,12 +7,20 @@ from .utxoperblockmodel import UtxoPerBlockModel
 
 
 class WalletStatsModel(Model):
-    """A WalletStatsModel."""
-    wallet_name: Optional[str] = Field(alias='walletName')
-    total_utxo_count: Optional[conint(ge=0)] = Field(alias='totalUtxoCount')
-    unique_transaction_count: Optional[conint(ge=0)] = Field(alias='uniqueTransactionCount')
-    unique_block_count: Optional[conint(ge=0)] = Field(alias='uniqueBlockCount')
-    finalized_transactions: Optional[conint(ge=0)] = Field(alias='countOfTransactionsWithAtLeastMaxReorgConfirmations')
-    utxo_amounts: Optional[List[UtxoAmountModel]] = Field(alias='utxoAmounts')
-    utxo_per_transaction: Optional[List[UtxoPerTransactionModel]] = Field(alias='utxoPerTransaction')
-    utxo_per_block: Optional[List[UtxoPerBlockModel]] = Field(alias='utxoPerBlock')
+    """A pydantic model for wallet stats."""
+    wallet_name: str = Field(alias='walletName')
+    """The wallet name."""
+    total_utxo_count: int = Field(alias='totalUtxoCount')
+    """The total number of utxos."""
+    unique_transaction_count: int = Field(alias='uniqueTransactionCount')
+    """The number of unique transactions."""
+    unique_block_count: int = Field(alias='uniqueBlockCount')
+    """The number of unique blocks containing wallet transactions."""
+    finalized_transactions: int = Field(alias='countOfTransactionsWithAtLeastMaxReorgConfirmations')
+    """The number of finalized transactions."""
+    utxo_amounts: List[UtxoAmountModel] = Field(alias='utxoAmounts')
+    """A list of utxo amounts."""
+    utxo_per_transaction: List[UtxoPerTransactionModel] = Field(alias='utxoPerTransaction')
+    """A list of utxo per transaction."""
+    utxo_per_block: List[UtxoPerBlockModel] = Field(alias='utxoPerBlock')
+    """A list of utxo per block."""

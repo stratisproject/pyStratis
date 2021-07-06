@@ -1,8 +1,9 @@
-from typing import List, Optional
+from typing import List
 from pystratis.api import Model
 from pystratis.core.types import uint256
 
 
 class GenerateBlocksModel(Model):
-    """A GenerateBlocksModel."""
-    blocks: Optional[List[uint256]]
+    """A pydantic model for generated blocks."""
+    blocks: List[uint256]
+    """A list of hashes of generated blocks."""

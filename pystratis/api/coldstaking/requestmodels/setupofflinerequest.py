@@ -15,7 +15,7 @@ class SetupOfflineRequest(Model):
         amount (Money): The amount to send to the old wallet.
         fees (Money): The transaction fee.
         subtract_fee_from_amount (bool, optional): If fee should be subtracted from amount. Default=True.
-        split_count (conint(ge=1), optional): Number of transactions to split over. Default=1.
+        split_count (int, optional): Number of transactions to split over. Default=1.
         segwit_change_address (bool, optional): If change address is a segwit address. Default=False.
     """
     cold_wallet_address: Address = Field(alias='coldWalletAddress')

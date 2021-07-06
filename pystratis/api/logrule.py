@@ -1,14 +1,10 @@
-from pydantic import Field, BaseModel
+from pydantic import Field
+from .model import Model
 
 
-class LogRule(BaseModel):
+class LogRule(Model):
     """
     A log rule model.
-
-    Args:
-        rule_name (str): The name of rule.
-        log_level (str): The mininal event level of event to be matched by this rule.
-        filename (str): The name of the logfile for this rule.
         
     Note:
         More information about logging in Stratis Full Node can be found here__.
@@ -16,11 +12,8 @@ class LogRule(BaseModel):
     .. __: https://github.com/stratisproject/StratisBitcoinFullNode/blob/master/Documentation/using-logging.md#using-logging
     """
     rule_name: str = Field(alias='ruleName')
+    """The name of the log rule."""
     log_level: str = Field(alias='logLevel')
+    """The log level."""
     filename: str
-
-    class Config:
-        allow_population_by_field_name = True
-
-    def json(self, *args, **kwargs):
-        return super().json(by_alias=True, exclude_none=True)
+    """The log file name."""

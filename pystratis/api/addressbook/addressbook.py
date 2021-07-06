@@ -21,11 +21,11 @@ class AddressBook(APIRequest, metaclass=EndpointRegister):
         """Adds an entry to the address book.
 
         Args:
-            address (str | Address): The address to add to the address book.
+            address (str, Address): The address to add to the address book.
             label (str): The address label.
 
         Returns:
-            AddressBookEntryModel
+            AddressBookEntryModel: The address book entry.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -47,7 +47,7 @@ class AddressBook(APIRequest, metaclass=EndpointRegister):
             label (str): The label to remove.
 
         Returns:
-            AddressBookEntryModel
+            AddressBookEntryModel: The address book entry.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -69,7 +69,7 @@ class AddressBook(APIRequest, metaclass=EndpointRegister):
             take (int): The maximum number of entries to take.
 
         Returns:
-            List[AddressBookEntryModel]
+            List[AddressBookEntryModel]: A list of address book entries.
 
         Raises:
             APIError: Error thrown by node API. See message for details.

@@ -12,7 +12,7 @@ class Money:
     A satoshi is the smallest unit of a STRAX. One STRAX is equivalent to 100 millionth of a satoshis (just like in Bitcoin).
 
     Args:
-        value (Money | float | Decimal | int | str): An amount of money. The value interpreted as a count of the STRAX coins.
+        value (Money, float, Decimal, int, str): An amount of money. The value interpreted as a count of the STRAX coins.
     Raises:
         ValueError: 
             Attempt to create Money with unsupported `value` type.

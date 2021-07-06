@@ -11,7 +11,7 @@ class Key:
     Corresponding type from StratisFullNode's implementation can be found here__.
 
     Args:
-        value (bytes | str | Key): data for private key.
+        value (bytes, str, Key): data for private key.
         
     Raises:
         ValueError: Attempt to create Key with unsupported `value` type.

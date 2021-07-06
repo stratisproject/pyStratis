@@ -22,7 +22,7 @@ class CollateralVoting(APIRequest, metaclass=EndpointRegister):
         Args:
             pubkey_hex (PubKey): The fedmember pubkey hex value.
             collateral_amount_satoshis (int): The collateral amount in satoshis.
-            collateral_mainchain_address (Address | str): The mainchain address holding the collateral.
+            collateral_mainchain_address (Address, str): The mainchain address holding the collateral.
             **kwargs: Extra keyword arguments. 
 
         Returns:

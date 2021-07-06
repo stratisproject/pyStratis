@@ -113,7 +113,7 @@ def test_log_rules(strax_hot_node: BaseNode):
     response = strax_hot_node.node.log_rules()
     assert isinstance(response, list)
     for logrule in response:
-        assert isinstance(logrule, LogRulesModel)
+        assert isinstance(logrule, LogRule)
 
 
 @pytest.mark.integration_test

@@ -84,7 +84,7 @@ class FederationWallet(APIRequest, metaclass=EndpointRegister):
         """Starts sending block to wallet for synchronisation. Demo/testing use only.
 
         Args:
-            block_hash (uint256 | str): The block hash at which to start sync.
+            block_hash (uint256, str): The block hash at which to start sync.
             **kwargs: Extra keyword arguments. 
 
         Returns:
