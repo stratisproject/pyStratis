@@ -23,7 +23,7 @@ class ColdStaking(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            InfoModel
+            InfoModel: The cold staking account information for the given wallet.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -45,11 +45,11 @@ class ColdStaking(APIRequest, metaclass=EndpointRegister):
             wallet_name (str): The wallet name.
             wallet_password (str): The wallet password.
             is_cold_wallet_account (bool, optional): If this account is for a cold wallet. Default=False.
-            extpubkey (ExtPubKey | str, optional): The extpubkey for the cold wallet.
+            extpubkey (ExtPubKey, str, optional): The extpubkey for the cold wallet.
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            AccountModel
+            AccountModel: Information about the cold staking account.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -80,7 +80,7 @@ class ColdStaking(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            AddressModel
+            AddressModel: Information about the cold staking address.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -110,20 +110,20 @@ class ColdStaking(APIRequest, metaclass=EndpointRegister):
         """Spends funds from a normal wallet addresses to the cold staking script.
 
         Args:
-            cold_wallet_address (Address | str): The cold wallet address.
-            hot_wallet_address (Address | str): The hot wallet address.
+            cold_wallet_address (Address, str): The cold wallet address.
+            hot_wallet_address (Address, str): The hot wallet address.
             wallet_name (str): The wallet name.
             wallet_account (str): The wallet account.
             wallet_password (str): The wallet password.
-            amount (Money | int | float | Decimal): The amount to send to the old wallet.
-            fees (Money | int | float | Decimal): The transaction fee.
+            amount (Money, int, float, Decimal): The amount to send to the old wallet.
+            fees (Money, int, float, Decimal): The transaction fee.
             subtract_fee_from_amount (bool, optional): If fee should be subtracted from amount. Default=True.
-            split_count (conint(ge=1), optional): Number of transactions to split over. Default=1.
+            split_count (int, optional): Number of transactions to split over. Default=1.
             segwit_change_address (bool, optional): If change address is a segwit address. Default=False.
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            SetupModel
+            SetupModel: The transaction hex for the cold staking setup transaction.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -163,19 +163,19 @@ class ColdStaking(APIRequest, metaclass=EndpointRegister):
         """Creates a cold staking setup transaction in an unsigned state.
 
         Args:
-            cold_wallet_address (Address | str): The cold wallet address.
-            hot_wallet_address (Address | str): The hot wallet address.
+            cold_wallet_address (Address, str): The cold wallet address.
+            hot_wallet_address (Address, str): The hot wallet address.
             wallet_name (str): The wallet name.
             wallet_account (str): The wallet account.
-            amount (Money | int | float | Decimal): The amount to send to the old wallet.
-            fees (Money | int | float | Decimal): The transaction fee.
+            amount (Money, int, float, Decimal): The amount to send to the old wallet.
+            fees (Money, int, float, Decimal): The transaction fee.
             subtract_fee_from_amount (bool, optional): If fee should be subtracted from amount. Default=True.
-            split_count (conint(ge=1), optional): Number of transactions to split over. Default=1.
+            split_count (int, optional): Number of transactions to split over. Default=1.
             segwit_change_address (bool, optional): If change address is a segwit address. Default=False.
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            BuildOfflineSignModel
+            BuildOfflineSignModel: The built transaction for signing offline.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -224,20 +224,20 @@ class ColdStaking(APIRequest, metaclass=EndpointRegister):
         """Estimate the cold staking setup tx fee.
 
         Args:
-            cold_wallet_address (Address | str): The cold wallet address.
-            hot_wallet_address (Address | str): The hot wallet address.
+            cold_wallet_address (Address, str): The cold wallet address.
+            hot_wallet_address (Address, str): The hot wallet address.
             wallet_name (str): The wallet name.
             wallet_account (str): The wallet account.
             wallet_password (str): The wallet password.
-            amount (Money | int | float | Decimal): The amount to send to the old wallet.
-            fees (Money | int | float | Decimal): The transaction fee.
+            amount (Money, int, float, Decimal): The amount to send to the old wallet.
+            fees (Money, int, float, Decimal): The transaction fee.
             subtract_fee_from_amount (bool, optional): If fee should be subtracted from amount. Default=True.
-            split_count (conint(ge=1), optional): Number of transactions to split over. Default=1.
+            split_count (int, optional): Number of transactions to split over. Default=1.
             segwit_change_address (bool, optional): If change address is a segwit address. Default=False.
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            Money
+            Money: The cold staking fee estimate.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -276,19 +276,19 @@ class ColdStaking(APIRequest, metaclass=EndpointRegister):
         """Estimate the cold staking offline setup tx fee.
 
         Args:
-            cold_wallet_address (Address | str): The cold wallet address.
-            hot_wallet_address (Address | str): The hot wallet address.
+            cold_wallet_address (Address, str): The cold wallet address.
+            hot_wallet_address (Address, str): The hot wallet address.
             wallet_name (str): The wallet name.
             wallet_account (str): The wallet account.
-            amount (Money | int | float | Decimal): The amount to send to the old wallet.
-            fees (Money | int | float | Decimal): The transaction fee.
+            amount (Money, int, float, Decimal): The amount to send to the old wallet.
+            fees (Money, int, float, Decimal): The transaction fee.
             subtract_fee_from_amount (bool, optional): If fee should be subtracted from amount. Default=True.
-            split_count (conint(ge=1), optional): Number of transactions to split over. Default=1.
+            split_count (int, optional): Number of transactions to split over. Default=1.
             segwit_change_address (bool, optional): If change address is a segwit address. Default=False.
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            Money
+            Money: The offline cold staking fee estimate.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -323,16 +323,16 @@ class ColdStaking(APIRequest, metaclass=EndpointRegister):
         """Spends funds from the cold staking wallet account back to a normal wallet account.
 
         Args:
-            receiving_address (Address | str): The receiving address.
+            receiving_address (Address, str): The receiving address.
             wallet_password (str): The wallet password.
             wallet_name (str): The wallet name.
-            amount (Money | int | float | Decimal): The amount to withdraw to the receiving address.
-            fees (Money | int | float | Decimal, optional): The amount paid in fees.
+            amount (Money, int, float, Decimal): The amount to withdraw to the receiving address.
+            fees (Money, int, float, Decimal, optional): The amount paid in fees.
             subtract_fee_from_amount (bool, optional): If fee should be subtracted from amount. Default=True.
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            WithdrawalModel
+            WithdrawalModel: The withdrawal transaction model.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -362,16 +362,16 @@ class ColdStaking(APIRequest, metaclass=EndpointRegister):
         """Builds a request to spend funds from a cold staking wallet account back to a normal wallet account.
 
         Args:
-            receiving_address (Address | str): The receiving address.
+            receiving_address (Address, str): The receiving address.
             wallet_name (str): The wallet name.
             account_name (str): The account name.
-            amount (Money | int | float | Decimal): The amount to withdraw to the receiving address.
-            fees (Money | int | float | Decimal): The amount paid in fees.
+            amount (Money, int, float, Decimal): The amount to withdraw to the receiving address.
+            fees (Money, int, float, Decimal): The amount paid in fees.
             subtract_fee_from_amount (bool, optional): If fee should be subtracted from amount. Default=True.
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            BuildOfflineSignModel
+            BuildOfflineSignModel: The built withdrawal transaction model for offline signing.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -413,13 +413,13 @@ class ColdStaking(APIRequest, metaclass=EndpointRegister):
         Args:
             wallet_name (str): The wallet name.
             account_name (str): The account name.
-            receiving_address (Address | str): The receiving address.
-            amount (Money | int | float | Decimal): The amount to withdraw to the receiving address.
+            receiving_address (Address, str): The receiving address.
+            amount (Money, int, float, Decimal): The amount to withdraw to the receiving address.
             subtract_fee_from_amount (bool, optional): If fee should be subtracted from amount. Default=True.
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            Money
+            Money: The estimate for offline withdrawal transaction fee.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -448,16 +448,16 @@ class ColdStaking(APIRequest, metaclass=EndpointRegister):
         """Estimate the fee for a cold staking withdrawal transaction.
 
         Args:
-            receiving_address (Address | str): The receiving address.
+            receiving_address (Address, str): The receiving address.
             wallet_password (str): The wallet password.
             wallet_name (str): The wallet name.
-            amount (Money | int | float | Decimal): The amount to withdraw to the receiving address.
-            fees (Money | int | float | Decimal, optional): The amount paid in fees.
+            amount (Money, int, float, Decimal): The amount to withdraw to the receiving address.
+            fees (Money, int, float, Decimal, optional): The amount paid in fees.
             subtract_fee_from_amount (bool, optional): If fee should be subtracted from amount. Default=True.
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            Money
+            Money: The estimate for the withdrawal transaction fee.
 
         Raises:
             APIError: Error thrown by node API. See message for details.

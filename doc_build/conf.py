@@ -41,9 +41,12 @@ autodoc_default_options = {
     'members': True,
     'member-order': 'bysource',
     'special-members': '__call__',
-    'undoc_members': False,
-    'inherited-members': False,
-    'show_inheritance': True
+    'undoc-members': False,
+    'inherited-members': True,
+    'show_inheritance': True,
+    'exclude-members': ("construct, copy, dict, update_forward_refs, schema, schema_json, validate, parse_raw, parse_file, parse_obj, json, from_orm, "
+                        "use_enum_values, extra, json_encoders, allow_population_by_field_name, route, Config, validate_class, calculate_checksum, validate_values"
+                        "validate_value, validate_allowed_types, update, get, put, post, delete, endpoints")
 }
 
 # Add any paths that contain templates here, relative to this directory.

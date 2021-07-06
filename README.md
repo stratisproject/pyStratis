@@ -68,7 +68,7 @@ mnemonic = node.wallet.create(name='MyWallet', password='qwerty12345', passphras
 
 ```python
 from pystratis.nodes import StraxNode
-from pystratis.core import StraxMain
+from pystratis.core.networks import StraxMain
 from pystratis.core.types import uint256, Money, Address
 from pystratis.core import Outpoint, Recipient
 

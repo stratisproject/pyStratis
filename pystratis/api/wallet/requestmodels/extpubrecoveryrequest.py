@@ -12,7 +12,7 @@ class ExtPubRecoveryRequest(Model):
         extpubkey (ExtPubKey): The extpubkey for the recovered wallet.
         account_index (conint(ge=0)): The account index.
         name (str): The wallet name.
-        creation_date (str | datetime, optional): An estimate of the wallet creation date.
+        creation_date (str, datetime, optional): An estimate of the wallet creation date.
     """
     extpubkey: ExtPubKey = Field(alias='extPubKey')
     account_index: conint(ge=0) = Field(alias='accountIndex')

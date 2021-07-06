@@ -6,11 +6,18 @@ from pystratis.core.types import Address, Money, uint256
 
 
 class ContractTransactionItemModel(Model):
-    """A ContractTransactionItemModel."""
-    block_height: Optional[conint(ge=0)] = Field(alias='blockHeight')
-    item_type: Optional[ContractTransactionItemType] = Field(alias='type')
-    hash: Optional[uint256]
-    to_address: Optional[Address] = Field(alias='to')
-    amount: Optional[Money]
-    transaction_fee: Optional[Money] = Field(alias='transactionFee')
-    gas_fee: Optional[Money] = Field(alias='gasFee')
+    """A pydantic model representing a contract transaction."""
+    block_height: int = Field(alias='blockHeight')
+    """The block height of block containing the transaction."""
+    item_type: ContractTransactionItemType = Field(alias='type')
+    """The contract transaction item type."""
+    hash: uint256
+    """The transaction hash."""
+    to_address: Address = Field(alias='to')
+    """The to address of the contact."""
+    amount: Money
+    """The transaction amount."""
+    transaction_fee: Money = Field(alias='transactionFee')
+    """The transaction fee."""
+    gas_fee: Money = Field(alias='gasFee')
+    """The transaction's gas fee."""

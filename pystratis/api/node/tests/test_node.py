@@ -270,7 +270,7 @@ def test_log_rules(mocker: MockerFixture, network):
 
     response = node.log_rules()
 
-    assert response == [LogRulesModel(**x) for x in data]
+    assert response == [LogRule(**x) for x in data]
     # noinspection PyUnresolvedReferences
     node.get.assert_called_once()
 

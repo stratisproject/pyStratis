@@ -21,11 +21,11 @@ class AddressBook(APIRequest, metaclass=EndpointRegister):
         """Adds an entry to the address book.
 
         Args:
-            address (str | Address): The address to add to the address book.
+            address (str, Address): The address to add to the address book.
             label (str): The address label.
 
         Returns:
-            AddressBookEntryModel
+            AddressBookEntryModel: The address book entry.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -38,16 +38,14 @@ class AddressBook(APIRequest, metaclass=EndpointRegister):
         return AddressBookEntryModel(**data)
 
     @endpoint(f'{route}/address')
-    def remove(self,
-               label: str,
-               **kwargs) -> AddressBookEntryModel:
+    def remove(self, label: str, **kwargs) -> AddressBookEntryModel:
         """Removes an entry from the address book.
 
         Args:
             label (str): The label to remove.
 
         Returns:
-            AddressBookEntryModel
+            AddressBookEntryModel: The address book entry.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -58,10 +56,7 @@ class AddressBook(APIRequest, metaclass=EndpointRegister):
         return AddressBookEntryModel(**data)
 
     @endpoint(f'{route}')
-    def __call__(self,
-                 skip: int = None,
-                 take: int = None,
-                 **kwargs) -> List[AddressBookEntryModel]:
+    def __call__(self, skip: int = None, take: int = None, **kwargs) -> List[AddressBookEntryModel]:
         """Gets the address book entries with option to implement pagination.
 
         Args:
@@ -69,7 +64,7 @@ class AddressBook(APIRequest, metaclass=EndpointRegister):
             take (int): The maximum number of entries to take.
 
         Returns:
-            List[AddressBookEntryModel]
+            List[AddressBookEntryModel]: A list of address book entries.
 
         Raises:
             APIError: Error thrown by node API. See message for details.

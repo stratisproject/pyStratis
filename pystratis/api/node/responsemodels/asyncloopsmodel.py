@@ -1,9 +1,10 @@
-from typing import Optional
 from pydantic import Field
 from pystratis.api import Model
 
 
 class AsyncLoopsModel(Model):
-    """An AsyncLoopsModel."""
-    loop_name: Optional[str] = Field(alias='loopName')
-    status: Optional[str]
+    """A pydantic model for async loops."""
+    loop_name: str = Field(alias='loopName')
+    """The loop name."""
+    status: str
+    """The loop status."""

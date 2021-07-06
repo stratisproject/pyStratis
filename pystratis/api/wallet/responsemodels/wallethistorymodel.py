@@ -1,9 +1,10 @@
-from typing import List, Optional
+from typing import List
 from pydantic import Field
 from pystratis.api import Model
 from .accounthistorymodel import AccountHistoryModel
 
 
 class WalletHistoryModel(Model):
-    """A WalletHistoryModel."""
-    history: Optional[List[AccountHistoryModel]] = Field(alias='History')
+    """A pydantic model for a wallet history."""
+    history: List[AccountHistoryModel] = Field(alias='History')
+    """A list of account histories."""

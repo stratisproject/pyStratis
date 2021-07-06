@@ -1,8 +1,10 @@
-from pydantic import Field, conint
+from pydantic import Field
 from pystratis.api import Model
 
 
 class GetConnectionInfoModel(Model):
-    """A GetConnectionInfoModel."""
+    """A pydantic model for SignalR connection information."""
     signalr_uri: str = Field(alias='signalRUri')
-    signalr_port: conint(ge=0) = Field(alias='signalRPort')
+    """The SignalR uri."""
+    signalr_port: int = Field(alias='signalRPort')
+    """The SignalR port."""

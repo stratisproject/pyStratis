@@ -22,7 +22,7 @@ class FederationGateway(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            List[MaturedBlockDepositsModel]
+            List[MaturedBlockDepositsModel]: A list of matured block deposits.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -68,12 +68,12 @@ class FederationGateway(APIRequest, metaclass=EndpointRegister):
         """Gets pending transfers.
 
         Args:
-            deposit_id (uint256 | str): The deposit id hash.
-            transaction_id (uint256 | str): The transaction id hash.
+            deposit_id (uint256, str): The deposit id hash.
+            transaction_id (uint256, str): The transaction id hash.
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            List[CrossChainTransferModel]
+            List[CrossChainTransferModel]: A list of cross chain transfers.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -94,12 +94,12 @@ class FederationGateway(APIRequest, metaclass=EndpointRegister):
         """Get fully signed transfers.
 
         Args:
-            deposit_id (uint256 | str): The deposit id hash.
-            transaction_id (uint256 | str): The transaction id hash.
+            deposit_id (uint256, str): The deposit id hash.
+            transaction_id (uint256, str): The transaction id hash.
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            List[CrossChainTransferModel]
+            List[CrossChainTransferModel]: A list of cross chain transfers.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -121,7 +121,7 @@ class FederationGateway(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            FederationMemberInfoModel
+            FederationMemberInfoModel: Information on the current multisig member.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -138,7 +138,7 @@ class FederationGateway(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            FederationGatewayInfoModel
+            FederationGatewayInfoModel: Information on the federation gateway.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -156,7 +156,7 @@ class FederationGateway(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            str
+            str: Response to ip add request.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -174,7 +174,7 @@ class FederationGateway(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            str
+            str: response to ip remove request.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -193,7 +193,7 @@ class FederationGateway(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            str
+            str: Response to ip replace request.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -206,14 +206,14 @@ class FederationGateway(APIRequest, metaclass=EndpointRegister):
     def verify_transfer(self,
                         deposit_id_transaction_id: Union[str, uint256],
                         **kwargs) -> Union[str, ValidateTransactionResultModel]:
-        """Validate a transfer transaction
+        """Validate a transfer transaction.
 
         Args:
-            deposit_id_transaction_id (uint256 | str): The transaction id containing the deposit with the deposit id.
+            deposit_id_transaction_id (uint256, str): The transaction id containing the deposit with the deposit id.
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            Union[str, ValidateTransactionResultModel]
+            Union[str, ValidateTransactionResultModel]: A model describing the validity of the transfer.
 
         Raises:
             APIError: Error thrown by node API. See message for details.

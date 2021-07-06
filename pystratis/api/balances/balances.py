@@ -21,10 +21,10 @@ class Balances(APIRequest, metaclass=EndpointRegister):
 
         Args:
             block_height (int): The specified chain height.
-            amount (Money | int | float | Decimal): The specified amount in coin units.
+            amount (Money, int, float, Decimal): The specified amount in coin units.
 
         Returns:
-            List[Address]
+            List[Address]: A list of addresses meeting the criteria.
 
         Raises:
             APIError: Error thrown by node API. See message for details.

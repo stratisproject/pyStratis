@@ -1,16 +1,22 @@
-from typing import Optional
-from pydantic import Field, conint
+from pydantic import Field
 from pystratis.api import Model
 from pystratis.core.types import Address, Money, uint256
 from datetime import datetime
 
 
 class SpendableTransactionModel(Model):
-    """A SpendableTransactionModel."""
-    transaction_id: Optional[uint256] = Field(alias='id')
-    index: Optional[conint(ge=0)]
-    address: Optional[Address]
-    is_change: Optional[bool] = Field(alias='isChange')
-    amount: Optional[Money]
-    creation_time: Optional[datetime] = Field(alias='creationTime')
-    confirmations: Optional[conint(ge=0)]
+    """A pydantic model representing spendable transactions."""
+    transaction_id: uint256 = Field(alias='id')
+    """The transaction hash with spendable output."""
+    index: int
+    """The index of the spendable output."""
+    address: Address
+    """The address holding the spendable output."""
+    is_change: bool = Field(alias='isChange')
+    """If true, address is a change address."""
+    amount: Money
+    """The amount in the unspent output."""
+    creation_time: datetime = Field(alias='creationTime')
+    """The output creation time."""
+    confirmations: int
+    """The number of confirmations for three output."""

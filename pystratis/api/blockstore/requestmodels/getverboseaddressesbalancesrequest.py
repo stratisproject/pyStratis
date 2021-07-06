@@ -9,7 +9,7 @@ class GetVerboseAddressesBalancesRequest(Model):
     """A request model for the blockstore/getverboseaddressbalances endpoint.
 
     Args:
-        addresses (List(Address) | Address): A list of addresses or single address to query.
+        addresses (List(Address), Address): A list of addresses or single address to query.
     """
     addresses: Union[List[Address], Address]
 

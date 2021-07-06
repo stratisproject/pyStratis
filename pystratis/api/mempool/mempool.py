@@ -17,7 +17,7 @@ class Mempool(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            List[uint256]
+            List[uint256]: A list of transactions in the mempool.
 
         Raises:
             APIError: Error thrown by node API. See message for details.

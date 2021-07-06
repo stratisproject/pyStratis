@@ -1,8 +1,8 @@
-from typing import Optional
 from pystratis.api import Model
 from pystratis.core.types import uint256
 
 
 class WhitelistedHashesModel(Model):
-    """A WhitelistedHashesModel."""
-    hash: Optional[uint256]
+    """A pydantic model for a whitelisted hash."""
+    hash: uint256
+    """A whitelisted hash."""

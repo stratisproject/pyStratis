@@ -53,21 +53,6 @@ def test_addressindexertip(mocker: MockerFixture, network, generate_uint256):
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_addressindexertip_no_tipheight(mocker: MockerFixture, network, generate_uint256):
-    data = {
-        'tipHash': generate_uint256
-    }
-    mocker.patch.object(BlockStore, 'get', return_value=data)
-    blockstore = BlockStore(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
-    response = blockstore.addressindexer_tip()
-
-    assert response.tip_hash.to_hex() == data['tipHash']
-    assert response.tip_height is None
-    # noinspection PyUnresolvedReferences
-    blockstore.get.assert_called_once()
-
-
-@pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
 def test_block_output_hexstr_no_details(mocker: MockerFixture, network, generate_uint256, generate_block_no_tx_data):
     data = pickle.dumps(generate_block_no_tx_data()).hex()
     mocker.patch.object(BlockStore, 'get', return_value=data)

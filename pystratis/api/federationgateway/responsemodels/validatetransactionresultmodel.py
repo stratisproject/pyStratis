@@ -4,6 +4,8 @@ from pystratis.api import Model
 
 
 class ValidateTransactionResultModel(Model):
-    """A ValidateTransactionResultModel."""
-    is_valid: Optional[bool] = Field(alias='isValid')
+    """A pydantic model for a validate transaction result."""
+    is_valid: bool = Field(alias='isValid')
+    """If true, transaction is valid."""
     errors: Optional[List[str]] = Field(alias='errors')
+    """Transaction validation errors."""

@@ -25,7 +25,7 @@ class Multisig(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            BuildTransactionModel
+            BuildTransactionModel: A built multisig transaction.
 
         Raises:
             APIError: Error thrown by node API. See message for details.

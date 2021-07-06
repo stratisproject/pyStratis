@@ -1,9 +1,10 @@
-from typing import Optional
 from pystratis.api import Model
 from pydantic import Field, conint
 
 
 class UtxoPerTransactionModel(Model):
-    """An UtxoPerTransactionModel."""
-    utxo_per_transaction: Optional[conint(ge=0)] = Field(alias='utxoPerTransaction')
-    count: Optional[conint(ge=0)] = Field(alias='Count')
+    """A pydantic model for utxo per transaction."""
+    utxo_per_transaction: int = Field(alias='utxoPerTransaction')
+    """The utxo per transaction."""
+    count: int = Field(alias='Count')
+    """The total number of utxos."""

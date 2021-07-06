@@ -12,7 +12,7 @@ class RecoverRequest(Model):
         password (str): The password for the wallet.
         passphrase (str): The passphrase for the wallet.
         name (str): The name for the wallet.
-        creation_date (str | datetime, optional): An estimate of the wallet creation date.
+        creation_date (str, datetime, optional): An estimate of the wallet creation date.
     """
     mnemonic: str
     password: SecretStr

@@ -24,7 +24,7 @@ class Voting(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            List[PollViewModel]
+            List[PollViewModel]: A list of pending polls.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -51,7 +51,7 @@ class Voting(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            List[PollViewModel]
+            List[PollViewModel]: A list of finished polls.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -78,7 +78,7 @@ class Voting(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            List[PollViewModel]
+            List[PollViewModel]: A list of executed polls.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -100,7 +100,7 @@ class Voting(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            List[WhitelistedhashesModel]
+            List[WhitelistedhashesModel]: A list of whitelisted hashes.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -115,7 +115,7 @@ class Voting(APIRequest, metaclass=EndpointRegister):
         """Vote to add a hash from whitelist.
 
         Args:
-            hash_id (uint256 | str): The hash to whitelist.
+            hash_id (uint256, str): The hash to whitelist.
             **kwargs: Extra keyword arguments. 
 
         Returns:
@@ -136,7 +136,7 @@ class Voting(APIRequest, metaclass=EndpointRegister):
         """Vote to remove a hash from whitelist.
 
         Args:
-            hash_id (uint256 | str): The hash to remove.
+            hash_id (uint256, str): The hash to remove.
             **kwargs: Extra keyword arguments. 
 
         Returns:
@@ -158,7 +158,7 @@ class Voting(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            List[VotingDataModel]
+            List[VotingDataModel]: A list of voting data.
 
         Raises:
             APIError: Error thrown by node API. See message for details.

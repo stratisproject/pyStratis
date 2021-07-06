@@ -4,5 +4,6 @@ from .addressmodel import AddressModel
 
 
 class AddressesModel(Model):
-    """An AddressesModel."""
+    """A pydantic model for a list of addressmodels."""
     addresses: List[AddressModel]
+    """The list of address models."""

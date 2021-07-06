@@ -4,6 +4,6 @@ from pystratis.api import Model
 
 
 class SerializableResult(Model):
-    """A SerializableResult."""
+    """A pydantic model for a serializable result."""
     value: Optional[Any]
     message: Optional[str] = Field(default='')

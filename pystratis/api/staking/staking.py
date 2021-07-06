@@ -19,7 +19,7 @@ class Staking(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            GetStakingInfoModel
+            GetStakingInfoModel: Information about current staking status.
 
         Raises:
             APIError: Error thrown by node API. See message for details.

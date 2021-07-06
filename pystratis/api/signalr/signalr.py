@@ -16,7 +16,7 @@ class SignalR(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            GetConnectionInfoModel
+            GetConnectionInfoModel: Information on the SignalR service.
 
         Raises:
             APIError: Error thrown by node API. See message for details.

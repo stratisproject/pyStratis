@@ -83,7 +83,7 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
         Args:
             wallet_name (str): The name of the wallet to sign message with.
             password (str): The password of the wallet to sign message with.
-            external_address (Address | str): The external address of a private key used to sign message.
+            external_address (Address, str): The external address of a private key used to sign message.
             message (str): The message to be signed.
             **kwargs: Extra keyword arguments. 
 
@@ -112,7 +112,7 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
 
         Args:
             wallet_name (str): The name of the wallet to search for pubkey in.
-            external_address (Address | str): The external address of a wanted pubkey.
+            external_address (Address, str): The external address of a wanted pubkey.
             **kwargs: Extra keyword arguments. 
 
         Returns:
@@ -139,7 +139,7 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
 
         Args:
             signature (str): The signature is to be verified.
-            external_address (Address | str): The address of the signer.
+            external_address (Address, str): The address of the signer.
             message (str): The message that was signed.
             **kwargs: Extra keyword arguments. 
 
@@ -193,7 +193,7 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
             password (str): The password for the wallet.
             passphrase (str): The passphrase for the wallet.
             name (str): The name for the wallet.
-            creation_date (str | datetime, optional): An estimate of the wallet creation date.
+            creation_date (str, datetime, optional): An estimate of the wallet creation date.
             **kwargs: Extra keyword arguments. 
 
         Returns:
@@ -220,10 +220,10 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
         """Recovers a wallet using its extended public key.
 
         Args:
-            extpubkey (ExtPubKey | str | hexstr): The extpubkey for the recovered wallet.
+            extpubkey (ExtPubKey, str, hexstr): The extpubkey for the recovered wallet.
             account_index (int): The account index.
             name (str): The wallet name.
-            creation_date (str | datetime, optional): An estimate of the wallet creation date.
+            creation_date (str, datetime, optional): An estimate of the wallet creation date.
             **kwargs: Extra keyword arguments. 
 
         Returns:
@@ -250,7 +250,7 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            WalletGeneralInfoModel
+            WalletGeneralInfoModel: General information about the wallet.
         Raises:
             APIError: Error thrown by node API. See message for details.
         """
@@ -271,7 +271,7 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            int
+            int: The number of transactions.
         Raises:
             APIError: Error thrown by node API. See message for details.
         """
@@ -295,7 +295,7 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
         Args:
             wallet_name (str): The wallet name.
             account_name (str, optional): The account name. Default='account 0'.
-            address (Address | str, optional): The address to query the history.
+            address (Address, str, optional): The address to query the history.
             skip (conint(ge=0), optional): The number of history items to skip.
             take (conint(ge=0), optional): The number of history items to take.
             prev_output_tx_time (conint(ge=0), optional): The previous output transaction time.
@@ -304,7 +304,7 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            WalletHistoryModel
+            WalletHistoryModel: The wallet history.
         Raises:
             APIError: Error thrown by node API. See message for details.
         """
@@ -356,7 +356,7 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            WalletBalanceModel
+            WalletBalanceModel: The wallet balance.
         Raises:
             APIError: Error thrown by node API. See message for details.
         """
@@ -386,7 +386,7 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            AddressBalanceModel
+            AddressBalanceModel: The transactions associated with the address.
         Raises:
             APIError: Error thrown by node API. See message for details.
         """
@@ -417,7 +417,7 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            MaxSpendableAmountModel
+            MaxSpendableAmountModel: Information about the maximum spendable amount and fee to send.
         Raises:
             APIError: Error thrown by node API. See message for details.
         """
@@ -438,8 +438,7 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
                                account_name: str = 'account 0',
                                min_confirmations: int = 0,
                                **kwargs) -> SpendableTransactionsModel:
-        """Gets the spendable transactions for an account with the option to specify how many
-        confirmations a transaction needs to be included.
+        """Gets the spendable transactions for an account with the option to specify how many confirmations a transaction needs to be included.
 
         Args:
             wallet_name (str): The wallet name.
@@ -448,7 +447,7 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            SpendableTransactionsModel
+            SpendableTransactionsModel: Spendable transactions.
         Raises:
             APIError: Error thrown by node API. See message for details.
         """
@@ -487,15 +486,15 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
             outpoints (List[Outpoint]): A list of outpoints to include in the transaction.
             recipients (List[Recipient]): A list of recipients with amounts.
             op_return_data (str, optional): The OP_RETURN data.
-            op_return_amount (Money | int | float | Decimal, optional): The amount to burn in OP_RETURN.
+            op_return_amount (Money, int, float, Decimal, optional): The amount to burn in OP_RETURN.
             fee_type (str, optional): The fee type. Allowed [low, medium, high]
             allow_unconfirmed (bool, optional): If True, includes unconfirmed outputs. Default=False.
             shuffle_outputs (bool, optional): If True, shuffle outputs. Default=False.
-            change_address (Address | str, optional): Specify a change address. If not set, a new change address is used.
+            change_address (Address, str, optional): Specify a change address. If not set, a new change address is used.
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            Money
+            Money: An estimate of the transaction fee.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -536,7 +535,7 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
         """Builds a transaction and returns the hex to use when executing the transaction.
 
         Args:
-            fee_amount (Money | int | float | Decimal, optional): The fee amount. Cannot be set with fee_type.
+            fee_amount (Money, int, float, Decimal, optional): The fee amount. Cannot be set with fee_type.
             password (str): The password.
             segwit_change_address (bool, optional): If True, the change address is a segwit address. Default=False.
             wallet_name (str): The wallet name.
@@ -544,15 +543,15 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
             outpoints (List[Outpoint]): A list of outpoints to include in the transaction.
             recipients (List[Recipient]): A list of recipients with amounts.
             op_return_data (str, optional): The OP_RETURN data.
-            op_return_amount (Money | int | float | Decimal, optional): The amount to burn in OP_RETURN.
+            op_return_amount (Money, int, float, Decimal, optional): The amount to burn in OP_RETURN.
             fee_type (str, optional): The fee type. Allowed [low, medium, high]
             allow_unconfirmed (bool, optional): If True, includes unconfirmed outputs. Default=False.
             shuffle_outputs (bool, optional): If True, shuffle outputs. Default=False.
-            change_address (Address | str, optional): Specify a change address. If not set, a new change address is used.
+            change_address (Address, str, optional): Specify a change address. If not set, a new change address is used.
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            BuildTransactionModel
+            BuildTransactionModel: A built transaction.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -600,8 +599,8 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
 
         Args:
             destination_chain (int): Enumeration representing the destination chain.
-            destination_address (Address | str): The destination address.
-            fee_amount (Money | int | float | Decimal, optional): The fee amount. Cannot be set with fee_type.
+            destination_address (Address, str): The destination address.
+            fee_amount (Money, int, float, Decimal, optional): The fee amount. Cannot be set with fee_type.
             password (str): The password.
             segwit_change_address (bool, optional): If True, the change address is a segwit address.
             wallet_name (str): The wallet name.
@@ -609,15 +608,15 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
             outpoints (List[Outpoint]): A list of outpoints to include in the transaction.
             recipients (List[Recipient]): A list of recipients with amounts.
             op_return_data (str, optional): The OP_RETURN data.
-            op_return_amount (Money | int | float | Decimal, optional): The amount to burn in OP_RETURN.
+            op_return_amount (Money, int, float, Decimal, optional): The amount to burn in OP_RETURN.
             fee_type (str, optional): The fee type. Allowed [low, medium, high]
             allow_unconfirmed (bool, optional): If True, includes unconfirmed outputs. Default=False.
             shuffle_outputs (bool, optional): If True, shuffle outputs. Default=False.
-            change_address (Address | str, optional): Specify a change address. If not set, a new change address is used.
+            change_address (Address, str, optional): Specify a change address. If not set, a new change address is used.
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            BuildTransactionModel
+            BuildTransactionModel: A built interflux transaction.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -665,11 +664,11 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
         """Sends a transaction that has already been built.
 
         Args:
-            transaction_hex (hexstr | str): The hexified transaction.
+            transaction_hex (hexstr, str): The hexified transaction.
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            WalletSendTransactionModel
+            WalletSendTransactionModel: Information about a sent transaction.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -693,7 +692,7 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            dict
+            dict: A list of wallets.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -714,7 +713,7 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            str
+            str: The newly created account name.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -737,7 +736,7 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            List[str]
+            List[str]: A list of accounts.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -761,7 +760,7 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            Address
+            Address: An unused address.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -791,7 +790,7 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            List[Address]
+            List[Address]: A list of unused addresses.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -822,7 +821,7 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            List[Address]
+            List[Address]: A new address.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -851,7 +850,7 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            AddressesModel
+            AddressesModel: All addresses associated with the account given.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -880,14 +879,14 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
 
         Args:
             wallet_name (str): The wallet name.
-            ids (List[uint256 | str], optional): A list of transaction ids to remove.
+            ids (List[uint256, str], optional): A list of transaction ids to remove.
             from_date (str, optional): An option to remove transactions after given date.
             remove_all (bool, optional): An option to remove all transactions. Default=False.
             resync (bool, optional): If True, resyncs wallet after items removed. Default=True.
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            List[RemovedTransactionModel]
+            List[RemovedTransactionModel]: A list of removed transactions.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -918,6 +917,7 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
 
         Returns:
             None
+
         Raises:
             APIError: Error thrown by node API. See message for details.
         """
@@ -960,11 +960,11 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
         Args:
             password (str): The wallet password.
             wallet_name (str): The wallet name.
-            address (Address | str): The address to request a private key for.
+            address (Address, str): The address to request a private key for.
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            Key
+            Key: The private key.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -986,7 +986,7 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
         """Requests the node resyncs from a block specified by its block hash.
 
         Args:
-            block_hash (uint256 | str): The hash to start syncing from.
+            block_hash (uint256, str): The hash to start syncing from.
             **kwargs: Extra keyword arguments. 
 
         Returns:
@@ -1044,7 +1044,8 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            WalletStatsModel
+            WalletStatsModel: Wallet statistical information.
+
         Raises:
             APIError: Error thrown by node API. See message for details.
         """
@@ -1067,18 +1068,19 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
                     utxos_count: int,
                     account_name: str = 'account 0',
                     **kwargs) -> WalletSendTransactionModel:
-        """Creates requested amount of UTXOs each of equal value.
+        """Creates requested amount of UTXOs each of equal value and sends the transaction.
 
         Args:
             wallet_name (str): The wallet name.
             account_name (str, optional): The account name. Default='account 0'.
             wallet_password (str): The wallet password.
-            total_amount_to_split (Money | int | float | Decimal): The total amount to split.
+            total_amount_to_split (Money, int, float, Decimal): The total amount to split.
             utxos_count (int): The number of utxos to create. (Must be greater than 2).
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            WalletSendTransactionModel
+            WalletSendTransactionModel: Information about the sent transaction.
+
         Raises:
             APIError: Error thrown by node API. See message for details.
         """
@@ -1129,7 +1131,8 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            DistributeUtxoModel
+            DistributeUtxoModel: Information about the distribute utxo transaction.
+
         Raises:
             APIError: Error thrown by node API. See message for details.
         """
@@ -1166,13 +1169,14 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
         """Sweeps a wallet to specified address.
 
         Args:
-            private_keys (List[Key | str]): A list of private keys to sweep.
-            destination_address (Address | str): The address to sweep the coins to.
+            private_keys (List[Key, str]): A list of private keys to sweep.
+            destination_address (Address, str): The address to sweep the coins to.
             broadcast (bool, optional): Broadcast transaction after creation. Default=False.
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            List[uint256]
+            List[uint256]: A list of transactions for the sweep.
+
         Raises:
             APIError: Error thrown by node API. See message for details.
         """
@@ -1206,7 +1210,7 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
         """Builds an offline sign request for a transaction.
 
         Args:
-            fee_amount (Money | int | float | Decimal): The fee amount. Cannot be set with fee_type.
+            fee_amount (Money, int, float, Decimal): The fee amount. Cannot be set with fee_type.
             wallet_name (str): The wallet name.
             account_name (str, optional): The account name. Default='account 0'.
             outpoints (List[Outpoint]): A list of outputs to use for the transaction.
@@ -1220,7 +1224,8 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            BuildOfflineSignModel
+            BuildOfflineSignModel: A built transaction that can be signed offline.
+
         Raises:
             APIError: Error thrown by node API. See message for details.
         """
@@ -1269,14 +1274,15 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
             wallet_password (str): The wallet password.
             wallet_name (str): The wallet name.
             wallet_account (str, optional): The account name. Default='account 0'.
-            unsigned_transaction (hexstr | str): The unsigned transaction hexstr.
-            fee (Money | int | float | Decimal): The fee.
+            unsigned_transaction (hexstr, str): The unsigned transaction hexstr.
+            fee (Money, int, float, Decimal): The fee.
             utxos (List[UtxoDescriptor]): A list of utxodescriptors.
             addresses (List[AddressDescriptor]): A list of addresses to send transactions.
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            BuildTransactionModel
+            BuildTransactionModel: A signed transaction that can be broadcast.
+
         Raises:
             APIError: Error thrown by node API. See message for details.
         """
@@ -1312,13 +1318,13 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
             wallet_password (str): The wallet password.
             wallet_name (str): The wallet name.
             wallet_account (str, optional): The account name. Default='account 0'.
-            destination_address (Address | str): The destination address.
+            destination_address (Address, str): The destination address.
             utxo_value_threshold_in_satoshis (int): The threshold where amounts below this amount will be consolidated. (min 1e8)
             broadcast (bool, optional): If True, broadcast consolidation transaction. Default=False.
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            hexstr
+            hexstr: A consolidation transaction ready for broadcast.
 
         Raises:
             APIError: Error thrown by node API. See message for details.

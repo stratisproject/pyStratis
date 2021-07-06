@@ -1,10 +1,12 @@
-from typing import Optional
 from pydantic import Field
 from pystratis.api import Model
 
 
 class FederationMemberConnectionInfoModel(Model):
-    """A FederationMemberConnectionInfoModel."""
-    federation_member_ip: Optional[str] = Field(alias='federationMemberIp')
-    is_connected: Optional[bool] = Field(alias='isConnected')
-    is_banned: Optional[bool] = Field(alias='isBanned')
+    """A pydantic model for federation member connections."""
+    federation_member_ip: str = Field(alias='federationMemberIp')
+    """The federation member ip."""
+    is_connected: bool = Field(alias='isConnected')
+    """If true, federation member is connected."""
+    is_banned: bool = Field(alias='isBanned')
+    """If true, federation member is banned."""

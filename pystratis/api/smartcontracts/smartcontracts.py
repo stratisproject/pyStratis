@@ -20,11 +20,11 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
         """Gets the bytecode for a smart contract as a hexadecimal string.
 
         Args:
-            address (Address | str): The smart contract address containing the contract bytecode.
+            address (Address, str): The smart contract address containing the contract bytecode.
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            GetCodeModel
+            GetCodeModel: The smart contract code.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -40,11 +40,11 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
         """Gets the balance of a smart contract in strax or sidechain coin.
 
         Args:
-            address (Address | str): The smart contract address.
+            address (Address, str): The smart contract address.
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            Money
+            Money: The smart contract balance.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -64,13 +64,13 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
         """Gets a single piece of smart contract data. Returns a serialized string, if exists.
 
         Args:
-            contract_address (Address | str): The smart contract address being called.
+            contract_address (Address, str): The smart contract address being called.
             storage_key (str): The key in the key-value store.
             data_type: The data type. Allowed values: [1,12]
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            Union[bool, bytes, str, uint32, uint64, int32, int64, Address, bytearray, uint128, uint256]
+            Union[bool, bytes, str, uint32, uint64, int32, int64, Address, bytearray, uint128, uint256]: The smart contract information retrieved from storage.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -112,11 +112,11 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
         """Gets a smart contract transaction receipt.
 
         Args:
-            tx_hash (uint256 | str): The transaction hash of the smart contract receipt.
+            tx_hash (uint256, str): The transaction hash of the smart contract receipt.
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            ReceiptModel
+            ReceiptModel: The smart contract transaction receipt.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -144,7 +144,7 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
         """Searches a smart contract's receipts for those which match a specific event.
 
         Args:
-            contract_address (Address | str): The address for the smart contract.
+            contract_address (Address, str): The address for the smart contract.
             event_name (str, optional): The event to search for.
             topics (List[str], optional): A list of topics to search for.
             from_block (int): Block to start search from.
@@ -152,7 +152,7 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            List[ReceiptModel]
+            List[ReceiptModel]: A list of receipts.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -197,18 +197,18 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
             wallet_name (str): The wallet name.
             account_name (str, optional): The wallet name. Default='account 0'
             outpoints (List[Outpoint], optional): A list of the outpoints used to construct the transactation.
-            amount (Money | int | float | Decimal, optional): The amount being sent.
-            fee_amount (Money | int | float | Decimal): The fee amount.
+            amount (Money, int, float, Decimal, optional): The amount being sent.
+            fee_amount (Money, int, float, Decimal): The fee amount.
             password (SecretStr): The password.
-            contract_code (hexstr | str): The smart contract code hexstring.
+            contract_code (hexstr, str): The smart contract code hexstring.
             gas_price (int): The amount of gas being used in satoshis.
             gas_limit (int): The maximum amount of gas that can be used in satoshis.
-            sender (Address | str): The address of the sending address.
+            sender (Address, str): The address of the sending address.
             parameters (List[Union[SmartContractParameter, str], optional): A list of parameters for the smart contract.
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            BuildCreateContractTransactionModel
+            BuildCreateContractTransactionModel: A built create smart contract transaction.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -262,19 +262,19 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
             wallet_name (str): The wallet name.
             account_name (str, optional): The wallet name. Default='account 0'
             outpoints (List[Outpoint], optional): A list of the outpoints used to construct the transactation.
-            contract_address (Address | str): The smart contract address being called.
+            contract_address (Address, str): The smart contract address being called.
             method_name (str): The method name being called.
-            amount (Money | int | float | Decimal, optional): The amount being sent.
-            fee_amount (Money | int | float | Decimal): The fee amount.
+            amount (Money, int, float, Decimal, optional): The amount being sent.
+            fee_amount (Money, int, float, Decimal): The fee amount.
             password (SecretStr): The password.
             gas_price (int): The amount of gas being used in satoshis.
             gas_limit (int): The maximum amount of gas that can be used in satoshis.
-            sender (Address | str): The address of the sending address.
+            sender (Address, str): The address of the sending address.
             parameters (List[Union[SmartContractParameter, str]], optional): A list of parameters for the smart contract.
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            BuildContractTransactionModel
+            BuildContractTransactionModel: A built smart contract transaction.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -330,7 +330,7 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
 
         Args:
             sender (Address): The sender address.
-            fee_amount (Money | int | float | Decimal, optional): The fee amount.
+            fee_amount (Money, int, float, Decimal, optional): The fee amount.
             password (SecretStr): The password.
             segwit_change_address (bool, optional): If the change address is a segwit address. Default=False.
             wallet_name (str): The wallet name.
@@ -338,7 +338,7 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
             outpoints (List[Outpoint]): A list of the outpoints used to construct the transactation.
             recipients (List[Recipient]): A list of the recipients, including amounts, for the transaction.
             op_return_data (str, optional): OP_RETURN data to include with the transaction.
-            op_return_amount (Money | int | float | Decimal, optional): Amount to burn in the OP_RETURN transaction.
+            op_return_amount (Money, int, float, Decimal, optional): Amount to burn in the OP_RETURN transaction.
             fee_type (str, optional): low, medium, or high.
             allow_unconfirmed (bool, optional): If True, allow unconfirmed transactions in the estimation. Default=False
             shuffle_outputs (bool, optional): If True, shuffles outputs. Default=False.
@@ -346,7 +346,7 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            BuildContractTransactionModel
+            BuildContractTransactionModel: A built smart contract transaction.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -392,21 +392,21 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
         """Gets a fee estimate for a specific smart contract account-based transfer transaction.
 
         Args:
-            sender (Address | str): The sender address.
+            sender (Address, str): The sender address.
             wallet_name (str): The wallet name.
             account_name (str, optional): The account name. Default='account 0'.
             outpoints (List[Outpoint], optional): A list of the outpoints used to construct the transactation.
             recipients (List[Recipient]): A list of the recipients, including amounts, for the transaction.
             op_return_data (str, optional): OP_RETURN data to include with the transaction.
-            op_return_amount (Money | int | float | Decimal, optional): Amount to burn in the OP_RETURN transaction.
+            op_return_amount (Money, int, float, Decimal, optional): Amount to burn in the OP_RETURN transaction.
             fee_type (str, optional): low, medium, or high.
             allow_unconfirmed (bool, optional): If True, allow unconfirmed transactions in the estimation. Default=False
             shuffle_outputs (bool, optional): If True, shuffles outputs. Default=False.
-            change_address (Address | str, optional): Sends output sum less amount sent to recipients to this designated change address, if provided.
+            change_address (Address, str, optional): Sends output sum less amount sent to recipients to this designated change address, if provided.
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            Money
+            Money: The fee estimate.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -451,18 +451,18 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
             wallet_name (str): The wallet name.
             account_name (str, optional): The wallet name. Default='account 0'
             outpoints (List[Outpoint], optional): A list of the outpoints used to construct the transactation.
-            amount (Money | int | float | Decimal, optional): The amount being sent.
-            fee_amount (Money | int | float | Decimal): The fee amount.
+            amount (Money, int, float, Decimal, optional): The amount being sent.
+            fee_amount (Money, int, float, Decimal): The fee amount.
             password (SecretStr): The password.
-            contract_code (hexstr | str): The smart contract code hexstring.
+            contract_code (hexstr, str): The smart contract code hexstring.
             gas_price (int): The amount of gas being used in satoshis.
             gas_limit (int): The maximum amount of gas that can be used in satoshis.
-            sender (Address | str): The address of the sending address.
+            sender (Address, str): The address of the sending address.
             parameters (List[Union[SmartContractParameter, str]], optional): A list of parameters for the smart contract.
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            BuildCreateContractTransactionModel
+            BuildCreateContractTransactionModel: A built create smart contract transaction.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -516,19 +516,19 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
             wallet_name (str): The wallet name.
             account_name (str, optional): The wallet name. Default='account 0'
             outpoints (List[Outpoint], optional): A list of the outpoints used to construct the transactation.
-            contract_address (Address | str): The smart contract address being called.
+            contract_address (Address, str): The smart contract address being called.
             method_name (str): The method name being called.
-            amount (Money | int | float | Decimal, optional): The amount being sent.
-            fee_amount (Money | int | float | Decimal): The fee amount.
+            amount (Money, int, float, Decimal, optional): The amount being sent.
+            fee_amount (Money, int, float, Decimal): The fee amount.
             password (SecretStr): The password.
             gas_price (int): The amount of gas being used in satoshis.
             gas_limit (int): The maximum amount of gas that can be used in satoshis.
-            sender (Address | str): The address of the sending address.
+            sender (Address, str): The address of the sending address.
             parameters (List[Union[SmartContractParameter, str]], optional): A list of parameters for the smart contract.
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            BuildContractTransactionModel
+            BuildContractTransactionModel: A built smart contract transaction.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -576,17 +576,17 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
         """Makes a local call to a method on a smart contract that has been successfully deployed. The purpose is to query and test methods.
 
         Args:
-            contract_address (Address | str): The smart contract address being called.
+            contract_address (Address, str): The smart contract address being called.
             method_name (str): The smart contract method being called.
             amount (Money, int, float, Decimal): The amount being sent.
             gas_price (int): The amount of gas being used in satoshis.
             gas_limit (int): The maximum amount of gas that can be used in satoshis.
-            sender (Address | str): The address of the sending address.
+            sender (Address, str): The address of the sending address.
             parameters (List[Union[SmartContractParameter, str]], optional): A list of parameters for the smart contract.
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            LocalExecutionResultModel
+            LocalExecutionResultModel: The results of a local contract execution.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -636,7 +636,7 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            List[AddressBalanceModel]
+            List[AddressBalanceModel]: A list of addresses with balance information.
 
         Raises:
             APIError: Error thrown by node API. See message for details.

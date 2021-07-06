@@ -1,7 +1,7 @@
-from typing import Optional
 from pystratis.api import Model
 
 
 class RPCCommandResponseModel(Model):
-    """A RPCCommandResponseModel."""
-    value: Optional[dict]
+    """A pydantic model for a RPC response."""
+    value: dict
+    """The response."""

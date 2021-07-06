@@ -10,7 +10,7 @@ class ExtKey(Key):
     Corresponding type from StratisFullNode's implementation can be found here__.
 
     Args:
-        value (bytes | str | Key): data for a private key.
+        value (bytes, str, Key): data for a private key.
     Raises:
         ValueError: 
             Attempt to create ExtKey with unsupported `value` type.

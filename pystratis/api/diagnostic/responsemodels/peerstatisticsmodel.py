@@ -1,15 +1,23 @@
-from typing import List, Optional
-from pydantic import Field, conint
+from typing import List
+from pydantic import Field
 from pystratis.api import Model
 
 
 class PeerStatisticsModel(Model):
-    """A PeerStatisticsModel."""
-    peer_endpoint: Optional[str] = Field(alias='peerEndPoint')
-    connected: Optional[bool]
-    inbound: Optional[bool]
-    bytes_sent: Optional[conint(ge=0)] = Field(alias='bytesSent')
-    bytes_received: Optional[conint(ge=0)] = Field(alias='bytesReceived')
-    received_messages: Optional[conint(ge=0)] = Field(alias='receivedMessages')
-    send_messages: Optional[conint(ge=0)] = Field(alias='sentMessages')
-    latest_events: Optional[List[str]] = Field(alias='latestEvents')
+    """A pydantic model for peer statistics."""
+    peer_endpoint: str = Field(alias='peerEndPoint')
+    """The peer endpoint."""
+    connected: bool
+    """If true, peer is connected."""
+    inbound: bool
+    """If true, peer is inbound connection."""
+    bytes_sent: int = Field(alias='bytesSent')
+    """Bytes sent to peer."""
+    bytes_received: int = Field(alias='bytesReceived')
+    """Bytes received from peer."""
+    received_messages: int = Field(alias='receivedMessages')
+    """The number of received messages from peer."""
+    send_messages: int = Field(alias='sentMessages')
+    """The number of sent  messages to peer."""
+    latest_events: List[str] = Field(alias='latestEvents')
+    """A list of peer events."""

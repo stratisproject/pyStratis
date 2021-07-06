@@ -37,12 +37,6 @@ GetTxOutModel
 .. automodule:: pystratis.api.node.responsemodels.gettxoutmodel
    :members:
 
-LogRulesModel
---------------------------------------------
-
-.. automodule:: pystratis.api.node.responsemodels.logrulesmodel
-   :members:
-
 StatusModel
 ------------------------------------------
 

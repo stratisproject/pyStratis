@@ -1,33 +1,59 @@
 from typing import Optional
-from pydantic import conint, Field
+from pydantic import Field
 from pystratis.api import Model
 
 
 class PeerInfoModel(Model):
-    """A PeerInfoModel."""
-    peer_id: Optional[conint(ge=0)] = Field(alias='id')
-    addr: Optional[str]
-    addrlocal: Optional[str]
-    services: Optional[str]
-    relaytxes: Optional[bool]
-    lastsend: Optional[conint(ge=0)]
-    lastrecv: Optional[conint(ge=0)]
-    bytessent: Optional[conint(ge=0)]
-    bytesrecv: Optional[conint(ge=0)]
-    conntime: Optional[conint(ge=0)]
-    timeoffset: Optional[conint(ge=0)]
-    pingtime: Optional[conint(ge=0)]
-    minping: Optional[conint(ge=0)]
-    pingwait: Optional[conint(ge=0)]
-    version: Optional[conint(ge=0)]
-    subver: Optional[str]
-    inbound: Optional[bool]
-    addnode: Optional[bool]
-    starting_height: Optional[conint(ge=0)] = Field(alias='startingheight')
-    banscore: Optional[conint(ge=0)]
-    synced_headers: Optional[conint(ge=0)]
-    synced_blocks: Optional[conint(ge=0)]
-    whitelisted: Optional[bool]
+    """A pydantic model with power information.."""
+    peer_id: int = Field(alias='id')
+    """The peer id."""
+    addr: str
+    """The peer address."""
+    addrlocal: str
+    """The local peer address."""
+    services: str
+    """Peer services."""
+    relaytxes: bool
+    """Relay transactions."""
+    lastsend: int
+    """Last send."""
+    lastrecv: int
+    """Last received."""
+    bytessent: int
+    """Bytes sent."""
+    bytesrecv: int
+    """Bytes received."""
+    conntime: int
+    """Connection time in seconds."""
+    timeoffset: int
+    """The peer time offset in seconds."""
+    pingtime: int
+    """The ping time in ms."""
+    minping: int
+    """The minimum ping time."""
+    pingwait: int
+    """The point wait time."""
+    version: int
+    """The peer version"""
+    subver: str
+    """The peer subversion."""
+    inbound: bool
+    """Inbound connected peer."""
+    addnode: bool
+    """If true, peer was connected by addnode."""
+    starting_height: int = Field(alias='startingheight')
+    """Connection starting height."""
+    banscore: int
+    """The peer's ban score."""
+    synced_headers: int
+    """The number of synced headers."""
+    synced_blocks: int
+    """The number of synced blocks."""
+    whitelisted: bool
+    """If true, peer is whitelisted."""
     inflight: Optional[bool]
-    bytessent_per_msg: Optional[conint(ge=0)]
-    bytesrecv_per_msg: Optional[conint(ge=0)]
+    """Inflight peer."""
+    bytessent_per_msg: Optional[int]
+    """Bytes sent per message."""
+    bytesrecv_per_msg: Optional[int]
+    """Bytes received per message."""

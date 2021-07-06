@@ -2,14 +2,11 @@ from pydantic import BaseModel, Field, SecretStr
 
 
 class WalletSecret(BaseModel):
-    """A model representing credentials of the wallet.
-    
-    Args:
-        wallet_name (str): The name of the wallet.
-        wallet_password (SecretStr): The password of the wallet.
-    """
+    """A pydantic model representing credentials of the wallet."""
     wallet_name: str = Field(alias='walletName')
+    """The name of the wallet."""
     wallet_password: SecretStr = Field(alias='walletPassword')
+    """The wallet password."""
 
     class Config:
         json_encoders = {

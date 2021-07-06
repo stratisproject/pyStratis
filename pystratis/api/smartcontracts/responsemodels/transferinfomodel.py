@@ -1,11 +1,13 @@
-from typing import Optional
 from pydantic import Field
 from pystratis.api import Model
 from pystratis.core.types import Address, Money
 
 
 class TransferInfoModel(Model):
-    """A TransferInfoModel."""
-    from_address: Optional[Address] = Field(alias='from')
-    to_address: Optional[Address] = Field(alias='to')
-    value: Optional[Money]
+    """A pydantic model of a smart contact transfer."""
+    from_address: Address = Field(alias='from')
+    """The sending address."""
+    to_address: Address = Field(alias='to')
+    """The receiving address."""
+    value: Money
+    """The amount sent."""

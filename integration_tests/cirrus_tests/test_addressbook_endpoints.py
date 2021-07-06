@@ -16,7 +16,7 @@ def test_add_address(cirrusminer_node: CirrusMinerNode, cirrusminer_syncing_node
 
 @pytest.mark.integration_test
 @pytest.mark.cirrus_integration_test
-def test_remove_address(cirrusminer_node: CirrusMinerNode, cirrusminer_syncing_node: CirrusMinerNode,  generate_p2pkh_address):
+def test_remove_address(cirrusminer_node: CirrusMinerNode, cirrusminer_syncing_node: CirrusMinerNode, generate_p2pkh_address):
     address = generate_p2pkh_address(network=cirrusminer_node.blockchainnetwork)
     cirrusminer_node.addressbook.add(address=address, label='AddressToRemove')
 

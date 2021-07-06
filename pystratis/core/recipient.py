@@ -1,15 +1,18 @@
 from typing import Optional
-from pydantic import BaseModel, Field
-from pystratis.core.types import Money
-from pystratis.core.types.address import Address
+from pydantic import Field, BaseModel
+from pystratis.core.types import Money, Address
 
 
 class Recipient(BaseModel):
-    """A Recipient."""
+    """A pydantic model for a recipient."""
     destination_address: Optional[Address] = Field(alias='destinationAddress')
+    """The destination address, if applicable."""
     destination_script: Optional[Address] = Field(alias='destinationScript')
+    """The destination script, if applicable."""
     subtraction_fee_from_amount: Optional[bool] = Field(default=True, alias='subtractFeeFromAmount')
+    """If true, subtract fee from amount."""
     amount: Money
+    """The amount to send to this recipient."""
 
     class Config:
         json_encoders = {

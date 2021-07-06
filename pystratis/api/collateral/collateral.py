@@ -23,7 +23,7 @@ class Collateral(APIRequest, metaclass=EndpointRegister):
         """Called by a miner wanting to join the federation.
 
         Args:
-            collateral_address (Address | str): The collateral address.
+            collateral_address (Address, str): The collateral address.
             collateral_wallet_name (str): The collateral wallet name.
             collateral_wallet_password (SecretStr): The collateral wallet password.
             wallet_password (SecretStr): The wallet password.
@@ -32,7 +32,7 @@ class Collateral(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            JoinFederationResponseModel
+            JoinFederationResponseModel: The response to the join-federation API request.
 
         Raises:
             APIError: Error thrown by node API. See message for details.

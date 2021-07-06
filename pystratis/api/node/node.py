@@ -1,9 +1,8 @@
 from typing import Union, List
-from pystratis.api import APIRequest, EndpointRegister, endpoint
+from pystratis.api import APIRequest, EndpointRegister, endpoint, LogRule
 from pystratis.api.node.requestmodels import *
 from pystratis.api.node.responsemodels import *
 from pystratis.api.global_responsemodels import ScriptPubKey
-from pystratis.api import LogRule
 from pystratis.core.types import Address, hexstr, Money, uint256
 
 
@@ -21,7 +20,7 @@ class Node(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            StatusModel
+            StatusModel: Information about the node status.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -37,12 +36,12 @@ class Node(APIRequest, metaclass=EndpointRegister):
         """Gets the specified block header.
 
         Args:
-            block_hash (str | uint256): The specified block hash.
+            block_hash (str, uint256): The specified block hash.
             is_json_format (bool, optional): If block header should be returned as json. Default=True.
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            BlockHeaderModel
+            BlockHeaderModel: The block headers.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -62,12 +61,12 @@ class Node(APIRequest, metaclass=EndpointRegister):
         """Gets a raw transaction from a transaction id.
 
         Args:
-            trxid (uint256 | str): The transaction hash.
+            trxid (uint256, str): The transaction hash.
             verbose (bool, optional): If output should include verbose transaction data. Default=False.
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            Union[hexstr, TransactionModel]
+            Union[hexstr, TransactionModel]: A raw transaction.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -87,11 +86,11 @@ class Node(APIRequest, metaclass=EndpointRegister):
         """Decodes raw transaction hex into a transaction model.
 
         Args:
-            raw_hex (hexstr | str): The transaction hexstring.
+            raw_hex (hexstr, str): The transaction hexstring.
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            TransactionModel
+            TransactionModel: A transaction model.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -111,7 +110,7 @@ class Node(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            ValidateAddressModel
+            ValidateAddressModel: Information on the validity of the provided address, and if valid, if it is a witness or script address.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -130,13 +129,13 @@ class Node(APIRequest, metaclass=EndpointRegister):
         """Gets a specified txout from a given transaction.
 
         Args:
-            trxid (uint256 | str): The trxid to check.
+            trxid (uint256, str): The trxid to check.
             vout (int): The vout.
             include_mempool (bool, optional): Include mempool in check. Default=True.
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            GetTxOutModel
+            GetTxOutModel: The specified txout.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -167,7 +166,7 @@ class Node(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            hexstr
+            hexstr: The merkle proof.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -231,21 +230,21 @@ class Node(APIRequest, metaclass=EndpointRegister):
         self.put(request_model, **kwargs)
 
     @endpoint(f'{route}/logrules')
-    def log_rules(self, **kwargs) -> List[LogRulesModel]:
+    def log_rules(self, **kwargs) -> List[LogRule]:
         """Returns the enabled log rules.
 
         Args:
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            List[LogRulesModel]
+            List[LogRule]: A list of active log rules.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
 
         """
         data = self.get(**kwargs)
-        return [LogRulesModel(**x) for x in data]
+        return [LogRule(**x) for x in data]
 
     @endpoint(f'{route}/asyncloops')
     def async_loops(self, **kwargs) -> List[AsyncLoopsModel]:
@@ -255,7 +254,7 @@ class Node(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            List[AsyncLoopsModel]
+            List[AsyncLoopsModel]: A list of active asynchronous loops.
 
         Raises:
             APIError: Error thrown by node API. See message for details.

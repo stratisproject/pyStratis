@@ -15,7 +15,7 @@ class Dashboard(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            str
+            str: The dashboard text.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
@@ -31,7 +31,7 @@ class Dashboard(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            str
+            str: The async loop stats.
 
         Raises:
             APIError: Error thrown by node API. See message for details.

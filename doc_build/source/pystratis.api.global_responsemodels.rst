@@ -93,6 +93,7 @@ ScriptPubKey
 
 .. automodule:: pystratis.api.global_responsemodels.scriptpubkey
    :members:
+   :inherited-members:
 
 ScriptSig
 --------------------------

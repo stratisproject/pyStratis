@@ -18,7 +18,7 @@ class Mining(APIRequest, metaclass=EndpointRegister):
             **kwargs: Extra keyword arguments. 
 
         Returns:
-            GenerateBlocksModel
+            GenerateBlocksModel: A list of generated blocks.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
