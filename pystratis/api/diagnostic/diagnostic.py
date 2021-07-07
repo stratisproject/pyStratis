@@ -5,6 +5,8 @@ from pystratis.api.diagnostic.responsemodels import *
 
 
 class Diagnostic(APIRequest, metaclass=EndpointRegister):
+    """Implements the diagnostic api endpoints."""
+
     route = '/api/diagnostic'
 
     def __init__(self, **kwargs):

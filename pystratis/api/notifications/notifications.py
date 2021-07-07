@@ -5,6 +5,8 @@ from pystratis.api import APIRequest, EndpointRegister, endpoint
 
 
 class Notifications(APIRequest, metaclass=EndpointRegister):
+    """Implements the notifications api endpoints."""
+
     route = '/api/notifications'
 
     def __init__(self, **kwargs):

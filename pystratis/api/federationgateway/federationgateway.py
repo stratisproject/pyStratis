@@ -8,6 +8,8 @@ from pystratis.core.networks import StraxMain, StraxTest, StraxRegTest, CirrusMa
 
 
 class FederationGateway(APIRequest, metaclass=EndpointRegister):
+    """Implements the federationgateway api endpoints."""
+
     route = '/api/federationgateway'
 
     def __init__(self, **kwargs):

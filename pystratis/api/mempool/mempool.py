@@ -4,6 +4,8 @@ from pystratis.core.types import uint256
 
 
 class Mempool(APIRequest, metaclass=EndpointRegister):
+    """Implements the mempool api endpoints."""
+
     route = '/api/mempool'
 
     def __init__(self, **kwargs):

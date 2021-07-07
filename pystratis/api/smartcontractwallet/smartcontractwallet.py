@@ -8,6 +8,8 @@ from pystratis.core import Outpoint, SmartContractParameter
 
 
 class SmartContractWallet(APIRequest, metaclass=EndpointRegister):
+    """Implements the smartcontractwallet api endpoints."""
+
     route = '/api/smartcontractwallet'
 
     def __init__(self, **kwargs):

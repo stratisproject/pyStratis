@@ -6,6 +6,8 @@ from pystratis.api.collateral.requestmodels import *
 
 
 class Collateral(APIRequest, metaclass=EndpointRegister):
+    """Implements the collateral api endpoints."""
+
     route = '/api/collateral'
 
     def __init__(self, **kwargs):

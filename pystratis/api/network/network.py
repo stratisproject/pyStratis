@@ -5,6 +5,8 @@ from pystratis.api.network.responsemodels import *
 
 
 class Network(APIRequest, metaclass=EndpointRegister):
+    """Implements the network api endpoints."""
+
     route = '/api/network'
 
     def __init__(self, **kwargs):

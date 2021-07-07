@@ -11,6 +11,8 @@ from pystratis.core.networks import CirrusMain, StraxMain, StraxRegTest, Ethereu
 
 
 class Wallet(APIRequest, metaclass=EndpointRegister):
+    """Implements the wallet api endpoints."""
+
     route = '/api/wallet'
 
     def __init__(self, **kwargs):

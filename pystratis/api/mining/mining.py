@@ -4,6 +4,8 @@ from pystratis.api.mining.responsemodels import *
 
 
 class Mining(APIRequest, metaclass=EndpointRegister):
+    """Implements the mining api endpoints."""
+
     route = '/api/mining'
 
     def __init__(self, **kwargs):

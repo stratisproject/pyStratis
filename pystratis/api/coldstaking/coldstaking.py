@@ -9,6 +9,8 @@ from pystratis.core.types import Address, Money, hexstr
 
 
 class ColdStaking(APIRequest, metaclass=EndpointRegister):
+    """Implements the coldstaking api endpoints."""
+
     route = '/api/coldstaking'
 
     def __init__(self, **kwargs):

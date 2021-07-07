@@ -5,6 +5,8 @@ from pystratis.api.connectionmanager.responsemodels import *
 
 
 class ConnectionManager(APIRequest, metaclass=EndpointRegister):
+    """Implements the connectionmanager api endpoints."""
+
     route = '/api/connectionmanager'
 
     def __init__(self, **kwargs):
@@ -12,7 +14,7 @@ class ConnectionManager(APIRequest, metaclass=EndpointRegister):
 
     @endpoint(f'{route}/addnode')
     def addnode(self, ipaddr: str, command: str, **kwargs) -> bool:
-        """
+        """Interface for the addnode command. Can continuously try to addnode, remove node, or onetry a node connection.
 
         Args:
             ipaddr (str): The endpoint.

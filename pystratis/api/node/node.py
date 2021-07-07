@@ -7,6 +7,8 @@ from pystratis.core.types import Address, hexstr, Money, uint256
 
 
 class Node(APIRequest, metaclass=EndpointRegister):
+    """Implements the node api endpoints."""
+
     route = '/api/node'
 
     def __init__(self, **kwargs):

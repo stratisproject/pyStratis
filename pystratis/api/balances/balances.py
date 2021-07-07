@@ -6,7 +6,8 @@ from pystratis.core.types import Address, Money
 
 
 class Balances(APIRequest, metaclass=EndpointRegister):
-    """Implements the stratis balances api endpoints"""
+    """Implements the balances api endpoints."""
+
     route = '/api/balances'
 
     def __init__(self, **kwargs):

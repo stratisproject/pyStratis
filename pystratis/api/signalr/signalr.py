@@ -3,6 +3,8 @@ from pystratis.api.signalr.responsemodels import *
 
 
 class SignalR(APIRequest, metaclass=EndpointRegister):
+    """Implements the signalr api endpoints."""
+
     route = '/api/signalr'
 
     def __init__(self, **kwargs):

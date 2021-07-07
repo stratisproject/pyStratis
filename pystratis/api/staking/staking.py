@@ -6,6 +6,8 @@ from pystratis.core import WalletSecret
 
 
 class Staking(APIRequest, metaclass=EndpointRegister):
+    """Implements the staking api endpoints."""
+
     route = '/api/staking'
 
     def __init__(self, **kwargs):

@@ -6,7 +6,8 @@ from pystratis.api import APIRequest, EndpointRegister, endpoint
 
 
 class AddressBook(APIRequest, metaclass=EndpointRegister):
-    """Implements the stratis addressbook api endpoints."""
+    """Implements the addressbook api endpoints."""
+
     route = '/api/addressbook'
 
     def __init__(self, **kwargs):

@@ -7,7 +7,8 @@ from pystratis.core.types import Address, hexstr, Money, uint256
 
 
 class BlockStore(APIRequest, metaclass=EndpointRegister):
-    """Implements the stratis blockstore api endpoints."""
+    """Implements the blockstore api endpoints."""
+
     route = '/api/blockstore'
 
     def __init__(self, **kwargs):

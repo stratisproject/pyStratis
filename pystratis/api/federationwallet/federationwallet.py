@@ -6,6 +6,8 @@ from pystratis.core.types import Address, Money, uint256
 
 
 class FederationWallet(APIRequest, metaclass=EndpointRegister):
+    """Implements the federationwallet api endpoints."""
+
     route = '/api/federationwallet'
 
     def __init__(self, **kwargs):

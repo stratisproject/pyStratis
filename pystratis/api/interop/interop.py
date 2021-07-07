@@ -6,6 +6,8 @@ from pystratis.core import PubKey
 
 
 class Interop(APIRequest, metaclass=EndpointRegister):
+    """Implements the interop api endpoints."""
+
     route = '/api/interop'
 
     def __init__(self, **kwargs):

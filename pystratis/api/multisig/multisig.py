@@ -7,6 +7,8 @@ from pystratis.core.types import Money
 
 
 class Multisig(APIRequest, metaclass=EndpointRegister):
+    """Implements the multisig api endpoints."""
+
     route = '/api/multisig'
 
     def __init__(self, **kwargs):

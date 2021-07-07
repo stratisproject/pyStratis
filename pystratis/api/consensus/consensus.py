@@ -6,6 +6,8 @@ from pystratis.core.types import uint256
 
 
 class Consensus(APIRequest, metaclass=EndpointRegister):
+    """Implements the consensus api endpoints."""
+
     route = '/api/consensus'
 
     def __init__(self, **kwargs):

@@ -6,6 +6,8 @@ from pystratis.core.types import hexstr, uint256
 
 
 class Voting(APIRequest, metaclass=EndpointRegister):
+    """Implements the voting api endpoints."""
+
     route = '/api/voting'
 
     def __init__(self, **kwargs):

@@ -2,6 +2,8 @@ from pystratis.api import APIRequest, EndpointRegister, endpoint
 
 
 class Dashboard(APIRequest, metaclass=EndpointRegister):
+    """Implements the dashboard api endpoints."""
+
     route = '/api/dashboard'
 
     def __init__(self, **kwargs):

@@ -5,6 +5,8 @@ from pystratis.api.rpc.responsemodels import *
 
 
 class RPC(APIRequest, metaclass=EndpointRegister):
+    """Implements the rpc api endpoints."""
+
     route = '/api/rpc'
 
     def __init__(self, **kwargs):

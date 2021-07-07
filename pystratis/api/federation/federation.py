@@ -4,6 +4,8 @@ from pystratis.api.federation.responsemodels import *
 
 
 class Federation(APIRequest, metaclass=EndpointRegister):
+    """Implements the federation api endpoints."""
+
     route = '/api/federation'
 
     def __init__(self, **kwargs):

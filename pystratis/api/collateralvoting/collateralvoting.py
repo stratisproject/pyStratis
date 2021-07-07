@@ -6,6 +6,8 @@ from pystratis.api.collateralvoting.requestmodels import *
 
 
 class CollateralVoting(APIRequest, metaclass=EndpointRegister):
+    """Implements the collateralvoting api endpoints."""
+
     route = '/api/collateralvoting'
 
     def __init__(self, **kwargs):

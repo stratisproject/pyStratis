@@ -10,6 +10,8 @@ from pystratis.core import SmartContractParameter, Outpoint, Recipient
 
 
 class SmartContracts(APIRequest, metaclass=EndpointRegister):
+    """Implements the smartcontracts api endpoints."""
+
     route = '/api/smartcontracts'
 
     def __init__(self, **kwargs):
