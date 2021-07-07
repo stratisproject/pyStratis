@@ -60,8 +60,8 @@ class AddressBook(APIRequest, metaclass=EndpointRegister):
         """Gets the address book entries with option to implement pagination.
 
         Args:
-            skip (int): The number of entries to skip.
-            take (int): The maximum number of entries to take.
+            skip (int, optional): The number of entries to skip.
+            take (int, optional): The maximum number of entries to take.
 
         Returns:
             List[AddressBookEntryModel]: A list of address book entries.
