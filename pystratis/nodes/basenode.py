@@ -1,7 +1,7 @@
-from typing import List
+from typing import List, Union
 import requests
 from requests.exceptions import ConnectionError
-from pystratis.core.networks import BaseNetwork
+from pystratis.core.networks import StraxMain, StraxTest, StraxRegTest, CirrusMain, CirrusTest, CirrusRegTest, Ethereum
 from pystratis.api.addressbook import AddressBook
 from pystratis.api.blockstore import BlockStore
 from pystratis.api.connectionmanager import ConnectionManager
@@ -19,7 +19,14 @@ class BaseNode:
 
     Strax, Cirrus, and Interflux nodes use different controllers that are added in subclasses.
     """
-    def __init__(self, name: str, ipaddr: str, blockchainnetwork: BaseNetwork):
+    def __init__(self, name: str, ipaddr: str, blockchainnetwork: Union[StraxMain, StraxTest, StraxRegTest, CirrusMain, CirrusTest, CirrusRegTest]):
+        """A Node base class.
+
+        Args:
+            name (str): The name of the node.
+            ipaddr (str): The node's ip address.
+            blockchainnetwork (StraxMain, StraxTest, StraxRegTest, CirrusMain, CirrusTest, CirrusRegTest): The node's network.
+        """
         self._name = name
         self._ipaddr = ipaddr
         self._blockchainnetwork = blockchainnetwork
@@ -61,62 +68,137 @@ class BaseNode:
 
     @property
     def name(self) -> str:
+        """The node's name.
+
+        Returns:
+            str: The node name.
+        """
         return self._name
 
     @property
     def ipaddr(self) -> str:
+        """The node's ip address.
+
+        Returns:
+            str: The specified ip address of the node.
+        """
         return self._ipaddr
 
     @property
-    def blockchainnetwork(self) -> BaseNetwork:
+    def blockchainnetwork(self) -> Union[StraxMain, StraxTest, StraxRegTest, CirrusMain, CirrusTest, CirrusRegTest]:
+        """The node's network type.
+
+        Returns:
+            (StraxMain, StraxTest, StraxRegTest, CirrusMain, CirrusTest, CirrusRegTest): The node's network.
+        """
         return self._blockchainnetwork
 
     @property
     def api_route(self) -> str:
+        """The node's api route.
+
+        Returns:
+            str: The api uri.
+        """
         return f'{self.ipaddr}:{self.blockchainnetwork.API_PORT}'
 
     @property
     def endpoints(self) -> List[str]:
+        """The list of endpoints active for the node.
+
+        Returns:
+            List[str]: A list of endpoints active in the node API.
+        """
         return self._endpoints
 
     @property
     def addressbook(self) -> AddressBook:
+        """The addressbook route.
+
+        Returns:
+            AddressBook: An addressbook instance.
+        """
         return self._addressbook
 
     @property
     def blockstore(self) -> BlockStore:
+        """The blockstore route.
+
+        Returns:
+            BlockStore: A BlockStore instance.
+        """
         return self._blockstore
 
     @property
     def connection_manager(self) -> ConnectionManager:
+        """The connectionmanager route.
+
+        Returns:
+            ConnectionManager: A ConnectionManager instance.
+        """
         return self._connection_manager
 
     @property
     def consensus(self) -> Consensus:
+        """The consensus route.
+
+        Returns:
+            Consensus: A Consensus instance.
+        """
         return self._consensus
 
     @property
     def dashboard(self) -> Dashboard:
+        """The dashboard route.
+
+        Returns:
+            Dashboard: A Dashboard instance.
+        """
         return self._dashboard
 
     @property
     def mempool(self) -> Mempool:
+        """The mempool route.
+
+        Returns:
+            Mempool: A Mempool instance.
+        """
         return self._mempool
 
     @property
     def network(self) -> Network:
+        """The netowrk route.
+
+        Returns:
+            Network: A Network instance.
+        """
         return self._network
 
     @property
     def node(self) -> Node:
+        """The node route.
+
+        Returns:
+            Node: A Node instance.
+        """
         return self._node
 
     @property
     def rpc(self) -> RPC:
+        """The RPC route.
+
+        Returns:
+            RPC: A RPC instance.
+        """
         return self._rpc
 
     @property
     def wallet(self) -> Wallet:
+        """The wallet route.
+
+        Returns:
+            Wallet: A Wallet instance.
+        """
         return self._wallet
 
     def check_all_endpoints_implemented(self) -> bool:

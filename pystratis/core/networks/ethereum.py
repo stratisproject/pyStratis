@@ -7,7 +7,11 @@ from .basenetwork import BaseNetwork
 
 
 class Ethereum(BaseNetwork):
-    """Default settings for the ethereum network."""
+    """Default settings for the ethereum network.
+
+    Args:
+        DEFAULT_PORT (int, optional): The network communication port. Default=30303.
+    """
     name: str = Field(default='Ethereum')
     DEFAULT_PORT: Optional[int] = Field(default=30303)
 

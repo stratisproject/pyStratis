@@ -1,5 +1,6 @@
+from typing import Union
 from .basenode import BaseNode
-from pystratis.core.networks import BaseNetwork, CirrusMain, CirrusTest, CirrusRegTest, StraxTest, StraxRegTest, StraxMain
+from pystratis.core.networks import CirrusMain, CirrusTest, CirrusRegTest, StraxTest, StraxRegTest, StraxMain
 from pystratis.api.collateral import Collateral
 from pystratis.api.collateralvoting import CollateralVoting
 from pystratis.api.federationgateway import FederationGateway
@@ -17,7 +18,14 @@ from pystratis.api.voting import Voting
 
 
 class InterfluxStraxNode(BaseNode):
-    def __init__(self, ipaddr: str = 'http://localhost', blockchainnetwork: BaseNetwork = StraxMain()):
+    """A Interflux Strax Node."""
+    def __init__(self, ipaddr: str = 'http://localhost', blockchainnetwork: Union[StraxTest, StraxRegTest, StraxMain] = StraxMain()):
+        """Initialize a InterfluxStrax node api.
+
+        Args:
+            ipaddr (str, optional): The node's ip address. Default='http://localhost'
+            blockchainnetwork (StraxTest, StraxRegTest, StraxMain, optional): The node's network. Default=StraxMain().
+        """
         if not isinstance(blockchainnetwork, (StraxMain, StraxTest, StraxRegTest)):
             raise ValueError('Invalid network. Must be one of: [StraxMain, StraxTest, StraxRegTest]')
         super().__init__(name='InterfluxStrax', ipaddr=ipaddr, blockchainnetwork=blockchainnetwork)
@@ -45,39 +53,86 @@ class InterfluxStraxNode(BaseNode):
 
     @property
     def collateral(self) -> Collateral:
+        """The collateral route.
+
+        Returns:
+            Collateral: A Collateral instance.
+        """
         return self._collateral
 
     @property
     def collateral_voting(self) -> CollateralVoting:
+        """The collateralvoting route.
+
+        Returns:
+            CollateralVoting: A CollateralVoting instance.
+        """
         return self._collateral_voting
 
     @property
     def federation_gateway(self) -> FederationGateway:
+        """The federationgateway route.
+
+        Returns:
+            FederationGateway: A FederationGateway instance.
+        """
         return self._federation_gateway
 
     @property
     def federation_wallet(self) -> FederationWallet:
+        """The federationwallet route.
+
+        Returns:
+            FederationWallet: A FederationWallet instance.
+        """
         return self._federation_wallet
 
     @property
     def mining(self) -> Mining:
+        """The mining route.
+
+        Returns:
+            Mining: A Mining instance.
+        """
         return self._mining
 
     @property
     def multisig(self) -> Multisig:
+        """The multisig route.
+
+        Returns:
+            Multisig: A Multisig instance.
+        """
         return self._multisig
 
     @property
     def notifications(self) -> Notifications:
+        """The notifications route.
+
+        Returns:
+            Notifications: A Notificiations instance.
+        """
         return self._notifications
 
     @property
     def staking(self) -> Staking:
+        """The staking route."
+
+        Returns:
+            Staking: A Staking instance.
+        """
         return self._staking
 
 
 class InterfluxCirrusNode(BaseNode):
-    def __init__(self, ipaddr: str = 'http://localhost', blockchainnetwork: BaseNetwork = CirrusMain()):
+    """An Interflux Cirrus node."""
+    def __init__(self, ipaddr: str = 'http://localhost', blockchainnetwork: Union[CirrusMain, CirrusTest, CirrusRegTest] = CirrusMain()):
+        """Initialize an Interflux Cirrus node api.
+
+        Args:
+            ipaddr (str, optional): The node's ip address. Default='http://localhost'
+            blockchainnetwork (CirrusMain, CirrusTest, CirrusRegTest, optional): The node's network. Default=CirrusMain().
+        """
         if not isinstance(blockchainnetwork, (CirrusMain, CirrusTest, CirrusRegTest)):
             raise ValueError('Invalid network. Must be one of: [CirrusMain, CirrusTest, CirrusRegTest]')
         super().__init__(name='InterfluxCirrus', ipaddr=ipaddr, blockchainnetwork=blockchainnetwork)
@@ -113,48 +168,109 @@ class InterfluxCirrusNode(BaseNode):
 
     @property
     def balances(self) -> Balances:
+        """The balances route.
+
+        Returns:
+            Balances: A Balances instance.
+        """
         return self._balances
 
     @property
     def collateral(self) -> Collateral:
+        """The collateral route.
+
+        Returns:
+            Collateral: A Collateral instance.
+        """
         return self._collateral
 
     @property
     def collateral_voting(self) -> CollateralVoting:
+        """The collateralvoting route.
+
+        Returns:
+            CollateralVoting: A CollateralVoting instance.
+        """
         return self._collateral_voting
 
     @property
     def federation(self) -> Federation:
+        """The federation route.
+
+        Returns:
+            Federation: A Federation instance.
+        """
         return self._federation
 
     @property
     def federation_gateway(self) -> FederationGateway:
+        """The federationgateway route.
+
+        Returns:
+            FederationGateway: A FederationGateway instance.
+        """
         return self._federation_gateway
 
     @property
     def federation_wallet(self) -> FederationWallet:
+        """The federationwallet route.
+
+        Returns:
+            FederationWallet: A FederationWallet instance.
+        """
         return self._federation_wallet
 
     @property
     def interop(self) -> Interop:
+        """The interop route.
+
+
+        Returns:
+            Interop: An Interop instance.
+        """
         return self._interop
 
     @property
     def multisig(self) -> Multisig:
+        """The multisig route.
+
+        Returns:
+            Multisig: A Multisig instance.
+        """
         return self._multisig
 
     @property
     def smart_contracts(self) -> SmartContracts:
+        """The smartcontracts route.
+
+        Returns:
+            SmartContracts: A SmartContracts instance.
+        """
         return self._smart_contracts
 
     @property
     def smart_contract_wallet(self) -> SmartContractWallet:
+        """The smartcontractwallet route.
+
+        Returns:
+            SmartContractWallet: A SmartContractWallet instance.
+        """
         return self._smart_contract_wallet
 
     @property
     def notifications(self) -> Notifications:
+        """The notifications route.
+
+        Returns:
+            Notifications: A Notifications instance.
+        """
         return self._notifications
 
     @property
     def voting(self) -> Voting:
+        """The voting route.
+
+        Returns:
+            Voting: A Voting instance.
+        """
         return self._voting

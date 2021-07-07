@@ -4,7 +4,14 @@ from .basenetwork import BaseNetwork
 
 
 class CirrusMain(BaseNetwork):
-    """Describes the CirrusMain network."""
+    """Describes the CirrusMain network.
+
+    Args:
+        DEFAULT_PORT (int, optional): The network communication port. Default=16179.
+        RPC_PORT (int, optional): The rpc port, if active. Default=16175.
+        API_PORT (int, optional): The API port. Default=37223.
+        SIGNALR_PORT (int, optional): The SignalR port. Default=38823.
+    """
     name: str = Field(default='CirrusMain')
     PUBKEY_ADDRESS: StrictBytes = Field(default=bytes([28]))
     SCRIPT_ADDRESS: StrictBytes = Field(default=bytes([88]))
@@ -26,7 +33,14 @@ class CirrusMain(BaseNetwork):
 
 
 class CirrusTest(BaseNetwork):
-    """Describes the CirrusTest network."""
+    """Describes the CirrusTest network.
+
+    Args:
+        DEFAULT_PORT (int, optional): The network communication port. Default=26179.
+        RPC_PORT (int, optional): The rpc port, if active. Default=26175.
+        API_PORT (int, optional): The API port. Default=38223.
+        SIGNALR_PORT (int, optional): The SignalR port. Default=39823.
+    """
     name: str = Field(default='CirrusTest')
     PUBKEY_ADDRESS: StrictBytes = Field(default=bytes([127]))
     SCRIPT_ADDRESS: StrictBytes = Field(default=bytes([137]))
@@ -48,7 +62,14 @@ class CirrusTest(BaseNetwork):
 
 
 class CirrusRegTest(BaseNetwork):
-    """Describes the CirrusRegTest network."""
+    """Describes the CirrusRegTest network.
+
+    Args:
+        DEFAULT_PORT (int, optional): The network communication port. Default=26179.
+        RPC_PORT (int, optional): The rpc port, if active. Default=26175.
+        API_PORT (int, optional): The API port. Default=38223.
+        SIGNALR_PORT (int, optional): The SignalR port. Default=39823.
+    """
     name: str = Field(default='CirrusRegTest')
     PUBKEY_ADDRESS: StrictBytes = Field(default=bytes([55]))
     SCRIPT_ADDRESS: StrictBytes = Field(default=bytes([117]))

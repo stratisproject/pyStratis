@@ -1,4 +1,5 @@
-from pystratis.core.networks import BaseNetwork, CirrusMain, CirrusTest, CirrusRegTest
+from typing import Union
+from pystratis.core.networks import CirrusMain, CirrusTest, CirrusRegTest
 from .basenode import BaseNode
 from pystratis.api.balances import Balances
 from pystratis.api.collateral import Collateral
@@ -11,7 +12,14 @@ from pystratis.api.voting import Voting
 
 
 class CirrusNode(BaseNode):
-    def __init__(self, ipaddr: str = 'http://localhost', blockchainnetwork: BaseNetwork = CirrusMain()):
+    """A Cirrus Node."""
+    def __init__(self, ipaddr: str = 'http://localhost', blockchainnetwork: Union[CirrusMain, CirrusTest, CirrusRegTest] = CirrusMain()):
+        """Initialize a Cirrus node api.
+
+        Args:
+            ipaddr (str, optional): The node's ip address. Default='http://localhost'
+            blockchainnetwork (CirrusMain, CirrusTest, CirrusRegTest, optional): The node's network. Default=CirrusMain().
+        """
         if not isinstance(blockchainnetwork, (CirrusMain, CirrusTest, CirrusRegTest)):
             raise ValueError('Invalid network. Must be one of: [CirrusMain, CirrusTest, CirrusRegTest]')
         super().__init__(name='Cirrus', ipaddr=ipaddr, blockchainnetwork=blockchainnetwork)
@@ -39,32 +47,72 @@ class CirrusNode(BaseNode):
 
     @property
     def balances(self) -> Balances:
+        """The balances route.
+
+        Returns:
+            Balances: A Balances instance.
+        """
         return self._balances
 
     @property
     def collateral(self) -> Collateral:
+        """The collateral route.
+
+        Returns:
+            Collateral: A Collateral instance.
+        """
         return self._collateral
 
     @property
     def diagnostic(self) -> Diagnostic:
+        """The diagnostic route.
+
+        Returns:
+            Diagnostic: A Diagnostic instance.
+        """
         return self._diagnostic
 
     @property
     def federation(self) -> Federation:
+        """The federation route.
+
+        Returns:
+            Federation: A Federation instance.
+        """
         return self._federation
 
     @property
     def smart_contracts(self) -> SmartContracts:
+        """The smartcontracts route.
+
+        Returns:
+            SmartContracts: A SmartContracts instance.
+        """
         return self._smart_contracts
 
     @property
     def smart_contract_wallet(self) -> SmartContractWallet:
+        """The smartcontractwallet route.
+
+        Returns:
+            SmartContractWallet: A SmartContractWallet instance.
+        """
         return self._smart_contract_wallet
 
     @property
     def signalr(self) -> SignalR:
+        """The signalr route.
+
+        Returns:
+            SignalR: A SignalR instance.
+        """
         return self._signalr
 
     @property
     def voting(self) -> Voting:
+        """The voting route.
+
+        Returns:
+            Voting: A Voting instance.
+        """
         return self._voting

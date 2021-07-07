@@ -4,7 +4,14 @@ from .basenetwork import BaseNetwork
 
 
 class StraxMain(BaseNetwork):
-    """Describes the StraxMain network."""
+    """Describes the StraxMain network.
+
+    Args:
+        DEFAULT_PORT (int, optional): The network communication port. Default=17105.
+        RPC_PORT (int, optional): The rpc port, if active. Default=17104.
+        API_PORT (int, optional): The API port. Default=17103.
+        SIGNALR_PORT (int, optional): The SignalR port. Default=17102.
+    """
     name: str = Field(default='StraxMain')
     PUBKEY_ADDRESS: StrictBytes = Field(default=bytes([75]))
     SCRIPT_ADDRESS: StrictBytes = Field(default=bytes([140]))
@@ -26,7 +33,14 @@ class StraxMain(BaseNetwork):
 
 
 class StraxTest(BaseNetwork):
-    """Describes the StraxTest network."""
+    """Describes the StraxTest network.
+
+    Args:
+        DEFAULT_PORT (int, optional): The network communication port. Default=27105.
+        RPC_PORT (int, optional): The rpc port, if active. Default=27104.
+        API_PORT (int, optional): The API port. Default=27103.
+        SIGNALR_PORT (int, optional): The SignalR port. Default=27102.
+    """
     name: str = Field(default='StraxTest')
     PUBKEY_ADDRESS: StrictBytes = Field(default=bytes([120]))
     SCRIPT_ADDRESS: StrictBytes = Field(default=bytes([127]))
@@ -48,7 +62,14 @@ class StraxTest(BaseNetwork):
 
 
 class StraxRegTest(BaseNetwork):
-    """Describes the StraxRegTest network."""
+    """Describes the StraxRegTest network.
+
+    Args:
+        DEFAULT_PORT (int, optional): The network communication port. Default=37105.
+        RPC_PORT (int, optional): The rpc port, if active. Default=37104.
+        API_PORT (int, optional): The API port. Default=37103.
+        SIGNALR_PORT (int, optional): The SignalR port. Default=37102.
+    """
     name: str = Field(default='StraxRegTest')
     PUBKEY_ADDRESS: StrictBytes = Field(default=bytes([120]))
     SCRIPT_ADDRESS: StrictBytes = Field(default=bytes([127]))
