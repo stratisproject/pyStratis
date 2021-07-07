@@ -22,3 +22,10 @@ from .vout import VOut
 from .walletbalancemodel import WalletBalanceModel
 from .walletgeneralinfomodel import WalletGeneralInfoModel
 from .walletsendtransactionmodel import WalletSendTransactionModel
+
+__all__ = [
+    'AccountBalanceModel', 'AddressBalanceModel', 'AddressDescriptor', 'AddressesModel', 'AddressModel', 'BlockModel', 'BlockTransactionDetailsModel',
+    'BuildContractTransactionModel', 'BuildCreateContractTransactionModel', 'BuildOfflineSignModel', 'BuildTransactionModel', 'MaturedBlockInfoModel',
+    'PollViewModel', 'RemovedTransactionModel', 'ScriptPubKey', 'ScriptSig', 'TransactionModel', 'TransactionOutputModel', 'UtxoDescriptor',
+    'VIn', 'VOut', 'WalletBalanceModel', 'WalletGeneralInfoModel', 'WalletSendTransactionModel'
+]

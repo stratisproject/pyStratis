@@ -7,11 +7,11 @@ long_description = (here / 'README.md').read_text(encoding='utf-8')
 
 setup(
     name='pystratis',
-    version='1.0.0.4',
+    version='1.0.0.5',
     description='Official python package for interacting with Stratis (STRAX) full node and Cirrus/Interflux sidechain.',
     author='Tjaden Froyda',
     license='MIT',
-    packages=[x for x in find_packages() if 'test' not in x],
+    packages=[x for x in find_packages() if 'tests' not in x],
     long_description=long_description,
     long_description_content_type='text/markdown',
     url='https://github.com/stratisproject/pystratis',

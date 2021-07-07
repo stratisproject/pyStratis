@@ -14,3 +14,10 @@ from .walletstatsmodel import WalletStatsModel
 from pystratis.api.global_responsemodels import AddressesModel, AddressBalanceModel, BuildTransactionModel, BuildOfflineSignModel, \
     RemovedTransactionModel, WalletGeneralInfoModel, WalletBalanceModel, WalletSendTransactionModel, \
     TransactionOutputModel
+
+__all__ = [
+    'AccountHistoryModel', 'DistributeUtxoModel', 'MaxSpendableAmountModel', 'PaymentDetailModel', 'SpendableTransactionModel', 'SpendableTransactionsModel',
+    'TransactionItemModel', 'UtxoAmountModel', 'UtxoPerBlockModel', 'UtxoPerTransactionModel', 'WalletHistoryModel', 'WalletStatsModel',
+    'AddressesModel', 'AddressBalanceModel', 'BuildTransactionModel', 'BuildOfflineSignModel', 'RemovedTransactionModel', 'WalletGeneralInfoModel',
+    'WalletBalanceModel', 'WalletSendTransactionModel', 'TransactionOutputModel'
+]

@@ -8,3 +8,8 @@ from .utxomodel import UTXOModel
 from .verboseaddressbalancemodel import VerboseAddressBalanceModel
 # noinspection PyUnresolvedReferences
 from pystratis.api.global_responsemodels import BlockTransactionDetailsModel, BlockModel
+
+__all__ = [
+    'AddressBalanceModel', 'AddressIndexerTipModel', 'BalanceChangesModel', 'GetAddressesBalancesModel', 'GetLastBalanceUpdateTransactionModel',
+    'GetVerboseAddressesBalancesModel', 'UTXOModel', 'VerboseAddressBalanceModel', 'BlockModel', 'BlockTransactionDetailsModel'
+]

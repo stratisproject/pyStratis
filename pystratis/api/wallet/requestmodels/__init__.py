@@ -37,3 +37,13 @@ from .syncrequest import SyncRequest
 from .verifymessagerequest import VerifyMessageRequest
 # noinspection PyUnresolvedReferences
 from pystratis.api.global_requestmodels import SendTransactionRequest
+
+__all__ = [
+    'AccountRequest', 'BalanceRequest', 'BuildInterfluxTransactionRequest', 'BuildOfflineSignRequest', 'BuildTransactionRequest',
+    'ConsolidateRequest', 'CreateRequest', 'DistributeUTXOsRequest', 'EstimateTxFeeRequest', 'ExtPubKeyRequest', 'ExtPubRecoveryRequest',
+    'GeneralInfoRequest', 'GetAccountsRequest', 'GetAddressesRequest', 'GetNewAddressesRequest', 'GetUnusedAccountRequest', 'GetUnusedAddressesRequest',
+    'GetUnusedAddressRequest', 'HistoryRequest', 'LoadRequest', 'MaxBalanceRequest', 'MnemonicRequest', 'OfflineSignRequest', 'PrivateKeyRequest',
+    'PubKeyRequest', 'ReceivedByAddressRequest', 'RecoverRequest', 'RemoveTransactionsRequest', 'RemoveWalletRequest', 'SignMessageRequest',
+    'SpendableTransactionsRequest', 'SplitCoinsRequest', 'StatsRequest', 'SweepRequest', 'SyncFromDateRequest', 'SyncRequest', 'VerifyMessageRequest',
+    'SendTransactionRequest'
+]
