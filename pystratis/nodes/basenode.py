@@ -1,7 +1,7 @@
 from typing import List, Union
 import requests
 from requests.exceptions import ConnectionError
-from pystratis.core.networks import StraxMain, StraxTest, StraxRegTest, CirrusMain, CirrusTest, CirrusRegTest, Ethereum
+from pystratis.core.networks import BaseNetwork, Ethereum
 from pystratis.api.addressbook import AddressBook
 from pystratis.api.blockstore import BlockStore
 from pystratis.api.connectionmanager import ConnectionManager
@@ -19,7 +19,7 @@ class BaseNode:
 
     Strax, Cirrus, and Interflux nodes use different controllers that are added in subclasses.
     """
-    def __init__(self, name: str, ipaddr: str, blockchainnetwork: Union[StraxMain, StraxTest, StraxRegTest, CirrusMain, CirrusTest, CirrusRegTest]):
+    def __init__(self, name: str, ipaddr: str, blockchainnetwork: BaseNetwork):
         """A Node base class.
 
         Args:
@@ -85,11 +85,11 @@ class BaseNode:
         return self._ipaddr
 
     @property
-    def blockchainnetwork(self) -> Union[StraxMain, StraxTest, StraxRegTest, CirrusMain, CirrusTest, CirrusRegTest]:
+    def blockchainnetwork(self) -> BaseNetwork:
         """The node's network type.
 
         Returns:
-            (StraxMain, StraxTest, StraxRegTest, CirrusMain, CirrusTest, CirrusRegTest): The node's network.
+            BaseNetwork: The node's network.
         """
         return self._blockchainnetwork
 
