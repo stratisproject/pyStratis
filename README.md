@@ -1,6 +1,16 @@
 # pystratis
 Python package for interacting with Stratis (STRAX) full node and Cirrus/Interflux sidechain.
 
+## Installation
+### From the Python Package Index (PyPi)
+`pip install pystratis`
+
+### Most recent (from GitHub)
+`pip install git+https://github.com/stratisproject/pystratis.git`
+
+### Install from PyPi with test dependencies
+`pip install pystratis[test]`
+
 ## Basic models example
 
 ### Private key

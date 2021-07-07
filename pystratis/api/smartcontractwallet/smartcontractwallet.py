@@ -129,13 +129,14 @@ class SmartContractWallet(APIRequest, metaclass=EndpointRegister):
         if isinstance(sender, str):
             sender = Address(address=sender, network=self._network)
         new_parameters = []
-        for item in parameters:
-            if isinstance(item, SmartContractParameter):
-                new_parameters.append(item)
-            else:
-                assert isinstance(item, str)
-                value_type, value = item.split('#')
-                new_parameters.append(SmartContractParameter(value_type=value_type, value=value))
+        if parameters is not None:
+            for item in parameters:
+                if isinstance(item, SmartContractParameter):
+                    new_parameters.append(item)
+                else:
+                    assert isinstance(item, str)
+                    value_type, value = item.split('#')
+                    new_parameters.append(SmartContractParameter(value_type=value_type, value=value))
         request_model = CreateContractTransactionRequest(
             wallet_name=wallet_name,
             account_name=account_name,
@@ -195,13 +196,14 @@ class SmartContractWallet(APIRequest, metaclass=EndpointRegister):
         if isinstance(sender, str):
             sender = Address(address=sender, network=self._network)
         new_parameters = []
-        for item in parameters:
-            if isinstance(item, SmartContractParameter):
-                new_parameters.append(item)
-            else:
-                assert isinstance(item, str)
-                value_type, value = item.split('#')
-                new_parameters.append(SmartContractParameter(value_type=value_type, value=value))
+        if parameters is not None:
+            for item in parameters:
+                if isinstance(item, SmartContractParameter):
+                    new_parameters.append(item)
+                else:
+                    assert isinstance(item, str)
+                    value_type, value = item.split('#')
+                    new_parameters.append(SmartContractParameter(value_type=value_type, value=value))
         request_model = CallContractTransactionRequest(
             wallet_name=wallet_name,
             account_name=account_name,

@@ -189,7 +189,7 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
                      amount: Union[Money, int, float, Decimal],
                      outpoints: List[Outpoint] = None,
                      account_name: str = 'account 0',
-                     parameters: List[Union[str, SmartContractParameter]] = [],
+                     parameters: List[Union[str, SmartContractParameter]] = None,
                      **kwargs) -> BuildCreateContractTransactionModel:
         """Builds a transaction to create a smart contract.
 
@@ -216,13 +216,14 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
         if isinstance(sender, str):
             sender = Address(address=sender, network=self._network)
         new_parameters = []
-        for item in parameters:
-            if isinstance(item, SmartContractParameter):
-                new_parameters.append(item)
-            else:
-                assert isinstance(item, str)
-                value_type, value = item.split('#')
-                new_parameters.append(SmartContractParameter(value_type=value_type, value=value))
+        if parameters is not None:
+            for item in parameters:
+                if isinstance(item, SmartContractParameter):
+                    new_parameters.append(item)
+                else:
+                    assert isinstance(item, str)
+                    value_type, value = item.split('#')
+                    new_parameters.append(SmartContractParameter(value_type=value_type, value=value))
         request_model = BuildCreateContractTransactionRequest(
             wallet_name=wallet_name,
             account_name=account_name,
@@ -284,13 +285,14 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
         if isinstance(sender, str):
             sender = Address(address=sender, network=self._network)
         new_parameters = []
-        for item in parameters:
-            if isinstance(item, SmartContractParameter):
-                new_parameters.append(item)
-            else:
-                assert isinstance(item, str)
-                value_type, value = item.split('#')
-                new_parameters.append(SmartContractParameter(value_type=value_type, value=value))
+        if parameters is not None:
+            for item in parameters:
+                if isinstance(item, SmartContractParameter):
+                    new_parameters.append(item)
+                else:
+                    assert isinstance(item, str)
+                    value_type, value = item.split('#')
+                    new_parameters.append(SmartContractParameter(value_type=value_type, value=value))
         request_model = BuildCallContractTransactionRequest(
             wallet_name=wallet_name,
             account_name=account_name,
@@ -470,13 +472,14 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
         if isinstance(sender, str):
             sender = Address(address=sender, network=self._network)
         new_parameters = []
-        for item in parameters:
-            if isinstance(item, SmartContractParameter):
-                new_parameters.append(item)
-            else:
-                assert isinstance(item, str)
-                value_type, value = item.split('#')
-                new_parameters.append(SmartContractParameter(value_type=value_type, value=value))
+        if parameters is not None:
+            for item in parameters:
+                if isinstance(item, SmartContractParameter):
+                    new_parameters.append(item)
+                else:
+                    assert isinstance(item, str)
+                    value_type, value = item.split('#')
+                    new_parameters.append(SmartContractParameter(value_type=value_type, value=value))
         request_model = BuildAndSendCreateContractTransactionRequest(
             wallet_name=wallet_name,
             account_name=account_name,
@@ -538,13 +541,14 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
         if isinstance(sender, str):
             sender = Address(address=sender, network=self._network)
         new_parameters = []
-        for item in parameters:
-            if isinstance(item, SmartContractParameter):
-                new_parameters.append(item)
-            else:
-                assert isinstance(item, str)
-                value_type, value = item.split('#')
-                new_parameters.append(SmartContractParameter(value_type=value_type, value=value))
+        if parameters is not None:
+            for item in parameters:
+                if isinstance(item, SmartContractParameter):
+                    new_parameters.append(item)
+                else:
+                    assert isinstance(item, str)
+                    value_type, value = item.split('#')
+                    new_parameters.append(SmartContractParameter(value_type=value_type, value=value))
         request_model = BuildAndSendCallContractTransactionRequest(
             wallet_name=wallet_name,
             account_name=account_name,
@@ -596,13 +600,14 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
         if isinstance(sender, str):
             sender = Address(address=sender, network=self._network)
         new_parameters = []
-        for item in parameters:
-            if isinstance(item, SmartContractParameter):
-                new_parameters.append(item)
-            else:
-                assert isinstance(item, str)
-                value_type, value = item.split('#')
-                new_parameters.append(SmartContractParameter(value_type=value_type, value=value))
+        if parameters is not None:
+            for item in parameters:
+                if isinstance(item, SmartContractParameter):
+                    new_parameters.append(item)
+                else:
+                    assert isinstance(item, str)
+                    value_type, value = item.split('#')
+                    new_parameters.append(SmartContractParameter(value_type=value_type, value=value))
         request_model = LocalCallContractTransactionRequest(
             contract_address=contract_address,
             method_name=method_name,

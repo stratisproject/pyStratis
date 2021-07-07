@@ -19,10 +19,13 @@ setup(
         'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
-        'Programming Language :: Python :: 3.9'
+        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10',
     ],
     keywords='stratis, cirrus, pystratis, smartcontracts, blockchain',
-    python_requires='>3.9',
+    python_requires='>=3.7',
     install_requires=[
         'requests',
         'pydantic>=1.8.2',
