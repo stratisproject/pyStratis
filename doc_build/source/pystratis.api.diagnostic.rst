@@ -7,9 +7,6 @@ Diagnostic
 .. autoclass:: pystratis.api.diagnostic.Diagnostic
    :members:
 
-ResponseModels
-=====================================
-
 ConnectedPeerInfoModel
 -----------------------------------------------------------
 
