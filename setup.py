@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 import pathlib
 
 here = pathlib.Path(__file__).parent.resolve()
@@ -11,7 +11,7 @@ setup(
     description='Official python package for interacting with Stratis (STRAX) full node and Cirrus/Interflux sidechain.',
     author='Tjaden Froyda',
     license='MIT',
-    packages=['pystratis'],
+    packages=[x for x in find_packages() if 'test' not in x],
     long_description=long_description,
     long_description_content_type='text/markdown',
     url='https://github.com/stratisproject/pystratis',
@@ -31,14 +31,17 @@ setup(
         'pydantic>=1.8.2',
         'base58',
         'base58check',
-        'bech32'
+        'bech32',
+        'pysha3'
     ],
     extras_require={
         'test': [
             'pytest',
             'pytest_mock',
             'pytest_order',
-            'coverage'
+            'coverage',
+            'ecdsa',
+            'mnemonic'
         ]
     }
 )

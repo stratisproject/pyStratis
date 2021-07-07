@@ -23,3 +23,7 @@ __pycache__/
 
 # Setuptools
 /pystratis.egg-info
+
+# Distribution
+build/
+dist/
