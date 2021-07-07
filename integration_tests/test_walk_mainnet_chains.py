@@ -1,5 +1,6 @@
 import pytest
 from typing import Union
+from pystratis.api import APIError
 from pystratis.nodes import StraxNode, CirrusNode
 from pystratis.core.types import uint256
 from pystratis.api.blockstore.responsemodels import BlockTransactionDetailsModel
@@ -41,7 +42,16 @@ def check_basic_api_functions(node: Union[StraxNode, CirrusNode]):
     node.node.log_rules()
     node.connection_manager.getpeerinfo()
     node.consensus.deployment_flags()
-    node.signalr.get_connection_info()
+    try:
+        node.diagnostic.get_connectedpeers_info()
+    except APIError:
+        # Thrown if diagnostic route is not active on the current node.
+        pass
+    try:
+        node.signalr.get_connection_info()
+    except APIError:
+        # Thrown if signalr route is not active on the current node.
+        pass
 
 
 def check_block_and_transactions(node: Union[StraxNode, CirrusNode], height: int):
