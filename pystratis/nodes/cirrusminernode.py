@@ -23,13 +23,13 @@ class CirrusMinerNode(BaseNode):
         if not isinstance(blockchainnetwork, (CirrusMain, CirrusTest, CirrusRegTest)):
             raise ValueError('Invalid network. Must be one of: [CirrusMain, CirrusTest, CirrusRegTest]')
         super().__init__(name='Cirrus', ipaddr=ipaddr, blockchainnetwork=blockchainnetwork)
+        self._devmode = devmode
 
         # API endpoints
         self._balances = Balances(baseuri=self.api_route, network=blockchainnetwork)
         if not devmode:
             self._collateral = Collateral(baseuri=self.api_route, network=blockchainnetwork)
             self._endpoints.extend(self._collateral.endpoints)
-            setattr(self.__class__, 'collateral', property(lambda p: self._collateral))
         self._federation = Federation(baseuri=self.api_route, network=blockchainnetwork)
         self._notifications = Notifications(baseuri=self.api_route, network=blockchainnetwork)
         self._smart_contracts = SmartContracts(baseuri=self.api_route, network=blockchainnetwork)
@@ -53,6 +53,17 @@ class CirrusMinerNode(BaseNode):
             Balances: A Balances instance
         """
         return self._balances
+
+    @property
+    def collateral(self) -> Collateral:
+        """The collateral route. Not available in devmode.
+
+        Returns:
+            Collateral: A Collateral instance.
+        """
+        if self._devmode:
+            raise NotImplementedError('Not implemented in devmode cirrus miner node.')
+        return self._collateral
 
     @property
     def federation(self) -> Federation:
