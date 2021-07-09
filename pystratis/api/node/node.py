@@ -62,6 +62,8 @@ class Node(APIRequest, metaclass=EndpointRegister):
                             **kwargs) -> Union[hexstr, TransactionModel]:
         """Gets a raw transaction from a transaction id.
 
+        Requires txindex=1 in node configuration.
+
         Args:
             trxid (uint256, str): The transaction hash.
             verbose (bool, optional): If output should include verbose transaction data. Default=False.

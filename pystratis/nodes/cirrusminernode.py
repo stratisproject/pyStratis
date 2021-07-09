@@ -1,5 +1,5 @@
 from typing import Union
-from pystratis.core.networks import CirrusMain, CirrusTest, CirrusRegTest
+from pystratis.core.networks import CirrusMain, CirrusTest, CirrusRegTest, StraxMain, StraxTest, StraxRegTest
 from .basenode import BaseNode
 from pystratis.api.balances import Balances
 from pystratis.api.collateral import Collateral
@@ -11,18 +11,22 @@ from pystratis.api.voting import Voting
 
 
 class CirrusMinerNode(BaseNode):
-    """A Cirrus Mining Node."""
-    def __init__(self, ipaddr: str = 'http://localhost', blockchainnetwork: Union[CirrusMain, CirrusTest, CirrusRegTest] = CirrusMain(), devmode=False):
-        """Initialize a Cirrus mining node api.
+    """A CirrusMiner Node."""
+    def __init__(self,
+                 name: str = 'CirrusMiner',
+                 ipaddr: str = 'http://localhost',
+                 blockchainnetwork: Union[CirrusMain, CirrusTest, CirrusRegTest, StraxMain, StraxTest, StraxRegTest] = None, devmode=False):
+        """Initialize a standard masternode node api.
 
         Args:
+            name (str): The name of the node.
             ipaddr (str, optional: The node's ip address. Default='http://localhost'
-            blockchainnetwork (CirrusMain, CirrusTest, CirrusRegTest, optional: The node's network. Default=CirrusMain().
+            blockchainnetwork (CirrusMain, CirrusTest, CirrusRegTest, StraxMain, StraxTest, StraxRegTest, optional: The node's network. Default=None.
             devmode (bool): Activate devmode, for testing only. Default=False.
         """
-        if not isinstance(blockchainnetwork, (CirrusMain, CirrusTest, CirrusRegTest)):
-            raise ValueError('Invalid network. Must be one of: [CirrusMain, CirrusTest, CirrusRegTest]')
-        super().__init__(name='Cirrus', ipaddr=ipaddr, blockchainnetwork=blockchainnetwork)
+        if not isinstance(blockchainnetwork, (CirrusMain, CirrusTest, CirrusRegTest, StraxMain, StraxTest, StraxRegTest)):
+            raise ValueError('Invalid network. Must be one of: [CirrusMain, CirrusTest, CirrusRegTest, StraxMain, StraxTest, StraxRegTest]')
+        super().__init__(name=name, ipaddr=ipaddr, blockchainnetwork=blockchainnetwork)
         self._devmode = devmode
 
         # API endpoints
@@ -109,3 +113,15 @@ class CirrusMinerNode(BaseNode):
             Voting: A Voting instance.
         """
         return self._voting
+
+
+class StraxMasterNode(CirrusMinerNode):
+    """The Strax member of the masternode pair."""
+    def __init__(self, ipaddr: str = 'http://localhost', blockchainnetwork: Union[StraxMain, StraxTest, StraxRegTest] = StraxMain()):
+        super().__init__(name='StraxMasternode', ipaddr=ipaddr, blockchainnetwork=blockchainnetwork)
+
+
+class CirrusMasterNode(CirrusMinerNode):
+    """The Cirrus member of the masternode pair."""
+    def __init__(self, ipaddr: str = 'http://localhost', blockchainnetwork: Union[CirrusMain, CirrusTest, CirrusRegTest] = CirrusMain()):
+        super().__init__(name='CirrusMasternode', ipaddr=ipaddr, blockchainnetwork=blockchainnetwork)

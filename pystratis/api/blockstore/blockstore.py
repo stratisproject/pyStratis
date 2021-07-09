@@ -89,6 +89,8 @@ class BlockStore(APIRequest, metaclass=EndpointRegister):
                                **kwargs) -> GetAddressesBalancesModel:
         """Provides balance of the given addresses confirmed with at least min_confirmations confirmations.
 
+        Requires addressindex=1 in node configuration.
+
         Args:
             addresses (List(Address, str), Address, str): A list of addresses or single address to query.
             min_confirmations (int, optional): Only blocks below consensus tip less this parameter will be considered. Default=0.
