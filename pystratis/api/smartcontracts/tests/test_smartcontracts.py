@@ -4,7 +4,7 @@ from pystratis.api.smartcontracts import SmartContracts
 from pystratis.api.smartcontracts.responsemodels import *
 from pystratis.core import Outpoint, SmartContractParameter, SmartContractParameterType, Recipient
 from pystratis.core.types import Address, Money, uint32, uint64, uint128, uint256, int32, int64
-from pystratis.core.networks import StraxMain, CirrusMain
+from pystratis.core.networks import CirrusMain
 
 
 def test_all_strax_endpoints_implemented(strax_swagger_json):

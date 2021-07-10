@@ -4,6 +4,7 @@ from pystratis.core import PubKey
 from pystratis.core.types import Address
 
 
+# noinspection PyUnresolvedReferences
 class ScheduleVoteKickFedMemberRequest(Model):
     """A request model for collateralvoting/schedulevote-kickfedmember endpoint.
 

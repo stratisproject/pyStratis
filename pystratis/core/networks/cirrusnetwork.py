@@ -3,6 +3,7 @@ from pydantic import StrictBytes, Field
 from .basenetwork import BaseNetwork
 
 
+# noinspection PyUnresolvedReferences
 class CirrusMain(BaseNetwork):
     """Describes the CirrusMain network.
 
@@ -32,6 +33,7 @@ class CirrusMain(BaseNetwork):
     SIGNALR_PORT: Optional[int] = Field(default=38823)
 
 
+# noinspection PyUnresolvedReferences
 class CirrusTest(BaseNetwork):
     """Describes the CirrusTest network.
 
@@ -61,6 +63,7 @@ class CirrusTest(BaseNetwork):
     SIGNALR_PORT: Optional[int] = Field(default=39823)
 
 
+# noinspection PyUnresolvedReferences
 class CirrusRegTest(BaseNetwork):
     """Describes the CirrusRegTest network.
 

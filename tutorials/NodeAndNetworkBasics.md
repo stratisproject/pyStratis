@@ -1,10 +1,10 @@
-Pystratis Node & Network Basics
+pyStratis Node & Network Basics
 ===============================
 
-Pystratis provides a python interface to a running Stratis or Cirrus node's API. 
+pyStratis provides a python interface to a running Strax or Cirrus node's API. 
 Therefore, to use pystratis, you will need a running node daemon. 
 
-The information in this tutorial describes some basic steps to set up a Stratis/Cirrus node for use with pystratis. 
+The information in this tutorial describes some basic steps to set up a Strax/Cirrus node for use with pystratis. 
 For more information on the StratisFullNode architecture, please refer to the [Stratis Academy](https://academy.stratisplatform.com/) base documentation or the [Academy's developer API reference](https://academy.stratisplatform.com/Developer%20Resources/API%20Reference/api.html#stratis-core-api-reference). 
 
 Finally, a quick reference on the pystratis package can be found at [pystratis.readthedocs.io](https://pystratis.readthedocs.io/en/latest/)
@@ -57,7 +57,7 @@ The node daemon can be started with `dotnet run`.
 - See above for information on useful command line args.
 
 ### Interflux
-A more involved setup process is used for masternodes. Please see official documentation for information on [registering](https://www.stratisplatform.com/wp-content/uploads/2020/11/STRAX-Sidechain-Masternode-Joining-the-Federation-v2.pdf) and [running](https://www.stratisplatform.com/wp-content/uploads/2020/11/STRAX-Sidechain-Masternodes-User-Setup-Guide.pdf) a masternode.
+Masternode setup is more complex. Please see official documentation for information on [registering](https://www.stratisplatform.com/wp-content/uploads/2020/11/STRAX-Sidechain-Masternode-Joining-the-Federation-v2.pdf) and [running](https://www.stratisplatform.com/wp-content/uploads/2020/11/STRAX-Sidechain-Masternodes-User-Setup-Guide.pdf) a masternode.
 
 ## pystratis.nodes
 The [pystratis.nodes](https://pystratis.readthedocs.io/en/latest/source/pystratis.nodes.html) namespace defines the primary node types used on the Stratis/Cirrus blockchains.
@@ -118,6 +118,8 @@ API endpoints can be called as in the following example:
 
 ```python
 # API endpoint: http://localhost:17103/api/node/status
+from pystratis.nodes import StraxNode
+strax_node = StraxNode()
 strax_node.node.status()
 ```
 Please see the [pystratis.api namespace](https://pystratis.readthedocs.io/en/latest/source/pystratis.api.html#subpackages) documentation (or other tutorials) for more information on calling specific API endpoints. 

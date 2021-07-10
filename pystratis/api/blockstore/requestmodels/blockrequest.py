@@ -4,6 +4,7 @@ from pystratis.api import Model
 from pystratis.core.types import uint256
 
 
+# noinspection PyUnresolvedReferences
 class BlockRequest(Model):
     """A request model for the blockstore block endpoint.
 

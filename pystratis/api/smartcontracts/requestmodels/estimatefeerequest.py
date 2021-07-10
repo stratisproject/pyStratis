@@ -5,6 +5,7 @@ from pystratis.core import Outpoint, Recipient
 from pystratis.core.types import Address, Money
 
 
+# noinspection PyUnresolvedReferences
 class EstimateFeeRequest(Model):
     """A request model for the smartcontracts/estimate-fee endpoint.
 

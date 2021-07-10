@@ -2,7 +2,7 @@ import pytest
 from pytest_mock import MockerFixture
 from pystratis.api.balances import Balances
 from pystratis.core.types import Address
-from pystratis.core.networks import StraxMain, CirrusMain
+from pystratis.core.networks import CirrusMain
 
 
 def test_all_strax_endpoints_implemented(strax_swagger_json):

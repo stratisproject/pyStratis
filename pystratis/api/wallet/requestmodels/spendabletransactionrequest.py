@@ -3,6 +3,7 @@ from pydantic import Field, conint
 from pystratis.api import Model
 
 
+# noinspection PyUnresolvedReferences
 class SpendableTransactionsRequest(Model):
     """A request model for the wallet/spendable-transactions endpoint.
 

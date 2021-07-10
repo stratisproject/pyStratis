@@ -5,6 +5,7 @@ from pystratis.core import SmartContractParameter
 from pystratis.core.types import Address, Money
 
 
+# noinspection PyUnresolvedReferences
 class LocalCallContractTransactionRequest(Model):
     """A request model for the smartcontracts/local-call endpoint.
 

@@ -4,6 +4,7 @@ from pystratis.api import Model
 from pystratis.core.types import Address, Money
 
 
+# noinspection PyUnresolvedReferences
 class OfflineWithdrawalRequest(Model):
     """A request model for the coldstaking/offline-cold-staking-withdrawal endpoint.
 

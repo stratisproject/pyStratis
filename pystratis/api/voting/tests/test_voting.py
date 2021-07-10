@@ -3,7 +3,7 @@ from pytest_mock import MockerFixture
 from pystratis.api.voting import Voting
 from pystratis.api.voting.requestmodels import *
 from pystratis.api.voting.responsemodels import *
-from pystratis.core.networks import StraxMain, CirrusMain
+from pystratis.core.networks import CirrusMain
 from pystratis.api.global_responsemodels import PollViewModel
 
 

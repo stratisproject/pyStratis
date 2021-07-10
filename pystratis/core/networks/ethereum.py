@@ -6,6 +6,7 @@ from sha3 import keccak_256
 from .basenetwork import BaseNetwork
 
 
+# noinspection PyUnresolvedReferences
 class Ethereum(BaseNetwork):
     """Default settings for the ethereum network.
 

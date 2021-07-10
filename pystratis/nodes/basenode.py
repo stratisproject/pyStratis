@@ -1,7 +1,7 @@
-from typing import List, Union
+from typing import List
 import requests
 from requests.exceptions import ConnectionError
-from pystratis.core.networks import BaseNetwork, Ethereum
+from pystratis.core.networks import BaseNetwork
 from pystratis.api.addressbook import AddressBook
 from pystratis.api.blockstore import BlockStore
 from pystratis.api.connectionmanager import ConnectionManager

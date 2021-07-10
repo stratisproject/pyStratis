@@ -5,6 +5,7 @@ from pystratis.api.global_responsemodels import AddressDescriptor, UtxoDescripto
 from pystratis.core.types import Money, hexstr
 
 
+# noinspection PyUnresolvedReferences
 class OfflineSignRequest(Model):
     """A request model for the wallet/offline-sign-request endpoint.
 

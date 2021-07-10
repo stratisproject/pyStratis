@@ -2,6 +2,7 @@ from pystratis.api import Model
 from pystratis.core.types import Address
 
 
+# noinspection PyUnresolvedReferences
 class CodeRequest(Model):
     """A request model for the smartcontracts/code endpoint.
 

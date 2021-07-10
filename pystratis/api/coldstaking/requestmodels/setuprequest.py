@@ -2,6 +2,7 @@ from pydantic import Field, SecretStr
 from .setupofflinerequest import SetupOfflineRequest
 
 
+# noinspection PyUnresolvedReferences
 class SetupRequest(SetupOfflineRequest):
     """A request model for the coldstaking/setup-cold-staking and coldstaking/estimate-cold-staking-setup-tx-fee endpoints.
 

@@ -2,7 +2,7 @@ import pytest
 from pytest_mock import MockerFixture
 from pystratis.api.interop import Interop
 from pystratis.api.interop.responsemodels import *
-from pystratis.core.networks import StraxMain, CirrusMain
+from pystratis.core.networks import CirrusMain
 from pystratis.core import ConversionRequestStatus, ConversionRequestType
 
 

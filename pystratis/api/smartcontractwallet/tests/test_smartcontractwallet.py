@@ -2,7 +2,7 @@ import pytest
 from pytest_mock import MockerFixture
 from pystratis.api.smartcontractwallet import SmartContractWallet
 from pystratis.api.smartcontractwallet.responsemodels import *
-from pystratis.core.networks import StraxMain, CirrusMain
+from pystratis.core.networks import CirrusMain
 from pystratis.core import ContractTransactionItemType, Outpoint, SmartContractParameter, SmartContractParameterType
 from pystratis.core.types import Address, Money, uint32, uint64, uint128, uint256, int32, int64
 

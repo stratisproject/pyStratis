@@ -3,6 +3,7 @@ from pydantic import Field
 from pystratis.api import LogRule, Model
 
 
+# noinspection PyUnresolvedReferences
 class LogRulesRequest(Model):
     """A request model for the node/logrules endpoint.
 

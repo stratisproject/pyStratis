@@ -2,6 +2,7 @@ from pydantic import Field
 from pystratis.api import Model
 
 
+# noinspection PyUnresolvedReferences
 class AccountAddressesRequest(Model):
     """A request model for the smartcontractwallet/account-addresses endpoint.
 

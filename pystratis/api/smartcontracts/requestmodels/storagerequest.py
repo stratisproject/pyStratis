@@ -3,6 +3,7 @@ from pystratis.api import Model
 from pystratis.core.types import Address
 
 
+# noinspection PyUnresolvedReferences
 class StorageRequest(Model):
     """A request model for the smartcontracts/storage endpoint.
 

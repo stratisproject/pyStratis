@@ -4,6 +4,7 @@ from pystratis.api import Model
 from pystratis.core.types import Address
 
 
+# noinspection PyUnresolvedReferences
 class ReceiptSearchRequest(Model):
     """A request model for the smartcontracts/receipt-search endpoint.
 

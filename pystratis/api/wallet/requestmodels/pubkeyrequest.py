@@ -3,6 +3,7 @@ from pystratis.api import Model
 from pystratis.core.types import Address
 
 
+# noinspection PyUnresolvedReferences
 class PubKeyRequest(Model):
     """A request model used for /wallet/pubkey endpoint. 
 

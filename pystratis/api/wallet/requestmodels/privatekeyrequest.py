@@ -3,6 +3,7 @@ from pystratis.api import Model
 from pystratis.core.types import Address
 
 
+# noinspection PyUnresolvedReferences
 class PrivateKeyRequest(Model):
     """A request model for the wallet/privatekey endpoint.
 

@@ -4,6 +4,7 @@ from pystratis.api import Model
 from pystratis.core import Outpoint
 
 
+# noinspection PyUnresolvedReferences
 class DistributeUTXOsRequest(Model):
     """A request model for the wallet/distribute-utxos endpoint.
 

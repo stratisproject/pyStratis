@@ -1,7 +1,6 @@
 import pytest
 from pytest_mock import MockerFixture
 from pystratis.api.consensus.responsemodels import *
-from pystratis.api.consensus.requestmodels import *
 from pystratis.api.consensus import Consensus
 from pystratis.core.types import uint256
 from pystratis.core.networks import StraxMain, CirrusMain

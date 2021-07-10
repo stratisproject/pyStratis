@@ -3,6 +3,7 @@ from pydantic import Field, SecretStr, conint
 from pystratis.api import Model
 
 
+# noinspection PyUnresolvedReferences
 class EnableFederationRequest(Model):
     """A request model for the federationwallet/enable-federation endpoint.
 

@@ -1,5 +1,5 @@
 from pystratis.api import Model
-from pydantic import Field, conint
+from pydantic import Field
 
 
 class UtxoPerBlockModel(Model):

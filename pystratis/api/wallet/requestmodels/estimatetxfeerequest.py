@@ -5,6 +5,7 @@ from pystratis.core import Outpoint, Recipient
 from pystratis.core.types import Address, Money
 
 
+# noinspection PyUnresolvedReferences
 class EstimateTxFeeRequest(Model):
     """A request model for the wallet/estimate-txfee endpoint.
 

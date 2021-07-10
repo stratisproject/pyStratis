@@ -3,6 +3,7 @@ from pydantic import Field
 from pystratis.api import Model
 
 
+# noinspection PyUnresolvedReferences
 class RemoveTransactionsRequest(Model):
     """A request model for the federationwallet/remove-transactions endpoint.
 

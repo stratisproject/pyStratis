@@ -5,6 +5,7 @@ from pystratis.core import Outpoint, Recipient
 from pystratis.core.types import Address, Money
 
 
+# noinspection PyUnresolvedReferences
 class BuildOfflineSignRequest(Model):
     """A request model for the wallet/build-offline-sign-request endpoint.
 

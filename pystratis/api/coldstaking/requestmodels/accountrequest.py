@@ -4,6 +4,7 @@ from pystratis.api import Model
 from pystratis.core import ExtPubKey
 
 
+# noinspection PyUnresolvedReferences
 class AccountRequest(Model):
     """A request model for the coldstaking/cold-staking-account endpoint.
 

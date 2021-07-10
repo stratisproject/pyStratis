@@ -5,6 +5,7 @@ from pystratis.core import PubKey
 from .votekey import VoteKey
 
 
+# noinspection PyUnresolvedReferences
 class PollsRequest(Model):
     """A request model for multiple voting endpoints.
 

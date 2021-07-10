@@ -1,8 +1,9 @@
-from pydantic import BaseModel, Field
+from pydantic import Field
 from pystratis.api import Model
 from pystratis.core.types import hexstr
 
 
+# noinspection PyUnresolvedReferences
 class SendTransactionRequest(Model):
     """A request model for multiple api endpoints.
 

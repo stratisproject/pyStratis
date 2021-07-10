@@ -5,6 +5,7 @@ from pystratis.core import Key
 from pystratis.core.types import Address
 
 
+# noinspection PyUnresolvedReferences
 class SweepRequest(Model):
     """A request model for the wallet/sweep endpoint.
 

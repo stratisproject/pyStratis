@@ -1,6 +1,7 @@
 from pystratis.api import Model
 
 
+# noinspection PyUnresolvedReferences
 class CallByNameRequest(Model):
     """A request model for the rpc/callbyname endpoint.
 

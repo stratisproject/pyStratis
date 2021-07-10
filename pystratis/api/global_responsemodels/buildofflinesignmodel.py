@@ -1,6 +1,6 @@
 from typing import List
 from pydantic import Field
-from pystratis.core.types import Address, Money, hexstr, uint256
+from pystratis.core.types import Money, hexstr
 from pystratis.api import Model
 from .utxodescriptor import UtxoDescriptor
 from .addressdescriptor import AddressDescriptor

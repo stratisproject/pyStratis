@@ -2,6 +2,7 @@ from pydantic import Field, conint, validator
 from pystratis.api import Model
 
 
+# noinspection PyUnresolvedReferences
 class SetBanRequest(Model):
     """A request model for the network/setban endpoint.
 

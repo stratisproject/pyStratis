@@ -3,6 +3,7 @@ from pystratis.api import Model
 from pystratis.core.types import Money
 
 
+# noinspection PyUnresolvedReferences
 class SplitCoinsRequest(Model):
     """A request model for the wallet/splitcoins endpoint.
 

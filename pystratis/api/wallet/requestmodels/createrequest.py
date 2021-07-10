@@ -3,6 +3,7 @@ from pydantic import SecretStr
 from pystratis.api import Model
 
 
+# noinspection PyUnresolvedReferences
 class CreateRequest(Model):
     """A request model used for the /wallet/create endpoint.
 

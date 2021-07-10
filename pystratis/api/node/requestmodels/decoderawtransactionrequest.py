@@ -3,6 +3,7 @@ from pystratis.api import Model
 from pystratis.core.types import hexstr
 
 
+# noinspection PyUnresolvedReferences
 class DecodeRawTransactionRequest(Model):
     """A request model for the node/decoderawtransaction endpoint.
 

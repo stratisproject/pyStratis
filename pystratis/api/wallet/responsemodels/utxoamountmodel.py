@@ -1,6 +1,6 @@
 from pystratis.api import Model
 from pystratis.core.types import Money
-from pydantic import Field, conint
+from pydantic import Field
 
 
 class UtxoAmountModel(Model):

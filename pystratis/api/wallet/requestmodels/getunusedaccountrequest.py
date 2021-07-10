@@ -2,6 +2,7 @@ from pydantic import Field, SecretStr
 from pystratis.api import Model
 
 
+# noinspection PyUnresolvedReferences
 class GetUnusedAccountRequest(Model):
     """A request model for the wallet/account endpoint.
 

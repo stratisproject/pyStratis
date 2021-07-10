@@ -4,6 +4,7 @@ from pystratis.api import Model
 from datetime import datetime
 
 
+# noinspection PyUnresolvedReferences
 class RecoverRequest(Model):
     """A request model for the wallet/recover endpoint.
 

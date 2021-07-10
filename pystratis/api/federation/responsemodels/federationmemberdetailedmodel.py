@@ -1,5 +1,5 @@
 from typing import Optional
-from pydantic import Field, conint
+from pydantic import Field
 from pystratis.core.types import Money
 from .federationmembermodel import FederationMemberModel
 

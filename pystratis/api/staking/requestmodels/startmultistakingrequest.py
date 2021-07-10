@@ -4,6 +4,7 @@ from pystratis.api import Model
 from pystratis.core import WalletSecret
 
 
+# noinspection PyUnresolvedReferences
 class StartMultiStakingRequest(Model):
     """A request model for the staking/startmultistaking endpoint.
 

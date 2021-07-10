@@ -3,6 +3,7 @@ from pydantic import conint
 from pystratis.api import Model
 
 
+# noinspection PyUnresolvedReferences
 class GetRequest(Model):
     """A request model for the addressbook endpoint.
 

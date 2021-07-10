@@ -3,6 +3,7 @@ from pydantic import Field
 from pystratis.api import Model
 
 
+# noinspection PyUnresolvedReferences
 class AccountRequest(Model):
     """A request model for several wallet endpoints.
 

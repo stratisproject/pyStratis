@@ -5,6 +5,7 @@ from pystratis.core import Outpoint, SmartContractParameter
 from pystratis.core.types import Address, Money, hexstr
 
 
+# noinspection PyUnresolvedReferences
 class CreateContractTransactionRequest(Model):
     """A request model for the smartcontractwallet/create endpoint.
 

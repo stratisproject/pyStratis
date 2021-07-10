@@ -1,7 +1,6 @@
 import pytest
 from pytest_mock import MockerFixture
 from pystratis.api.connectionmanager import ConnectionManager
-from pystratis.api.connectionmanager.requestmodels import *
 from pystratis.api.connectionmanager.responsemodels import *
 from pystratis.core.networks import StraxMain, CirrusMain
 

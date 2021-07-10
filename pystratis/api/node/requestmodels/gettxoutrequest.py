@@ -4,6 +4,7 @@ from pystratis.api import Model
 from pystratis.core.types import uint256
 
 
+# noinspection PyUnresolvedReferences
 class GetTxOutRequest(Model):
     """A request model for the node/gettxout endpoint.
     Args:

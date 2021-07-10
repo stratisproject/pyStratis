@@ -4,6 +4,7 @@ from pystratis.api import Model
 from pystratis.core.types import Address, Money
 
 
+# noinspection PyUnresolvedReferences
 class SetupOfflineRequest(Model):
     """A request model for the coldstaking/setup-offline-cold-staking and coldstaking/estimate-offline-cold-staking-setup-tx-fee endpoints.
 

@@ -2,6 +2,7 @@ from pydantic import Field
 from pystratis.api import Model
 
 
+# noinspection PyUnresolvedReferences
 class GetUTXOSetRequest(Model):
     """A request model for the GetUTXOSetRequest.
 

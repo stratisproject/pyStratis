@@ -2,6 +2,7 @@ from pydantic import Field
 from pystratis.api import Model
 
 
+# noinspection PyUnresolvedReferences
 class RemoveWalletRequest(Model):
     """A request model for the wallet/remove-wallet endpoint.
 

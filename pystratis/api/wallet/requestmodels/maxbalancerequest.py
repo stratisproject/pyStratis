@@ -3,6 +3,7 @@ from pydantic import Field, validator
 from pystratis.api import Model
 
 
+# noinspection PyUnresolvedReferences
 class MaxBalanceRequest(Model):
     """A request model for the wallet/maxbalance endpoint.
 

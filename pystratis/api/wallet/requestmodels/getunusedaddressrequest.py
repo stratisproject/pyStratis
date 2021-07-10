@@ -3,6 +3,7 @@ from pydantic import Field
 from pystratis.api import Model
 
 
+# noinspection PyUnresolvedReferences
 class GetUnusedAddressRequest(Model):
     """A request model for the wallet/unusedaddress endpoint.
 

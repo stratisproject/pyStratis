@@ -2,6 +2,7 @@ from pystratis.api import Model
 from pystratis.core.types import Address
 
 
+# noinspection PyUnresolvedReferences
 class AddRequest(Model):
     """A request model for the addressbook/address endpoint.
 

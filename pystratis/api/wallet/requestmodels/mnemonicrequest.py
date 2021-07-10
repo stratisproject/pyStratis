@@ -2,6 +2,7 @@ from pydantic import Field, conint
 from pystratis.api import Model
 
 
+# noinspection PyUnresolvedReferences
 class MnemonicRequest(Model):
     """A request model for the wallet/mnemonic endpoint.
 

@@ -3,6 +3,7 @@ from pydantic import StrictBytes, Field
 from .basenetwork import BaseNetwork
 
 
+# noinspection PyUnresolvedReferences
 class StraxMain(BaseNetwork):
     """Describes the StraxMain network.
 
@@ -32,6 +33,7 @@ class StraxMain(BaseNetwork):
     SIGNALR_PORT: Optional[int] = Field(default=17102)
 
 
+# noinspection PyUnresolvedReferences
 class StraxTest(BaseNetwork):
     """Describes the StraxTest network.
 
@@ -61,6 +63,7 @@ class StraxTest(BaseNetwork):
     SIGNALR_PORT: Optional[int] = Field(default=27102)
 
 
+# noinspection PyUnresolvedReferences
 class StraxRegTest(BaseNetwork):
     """Describes the StraxRegTest network.
 

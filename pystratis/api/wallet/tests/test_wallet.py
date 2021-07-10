@@ -3,7 +3,6 @@ from pytest_mock import MockerFixture
 import ecdsa
 import base64
 from pystratis.api.wallet import Wallet
-from pystratis.api.wallet.requestmodels import *
 from pystratis.api.wallet.responsemodels import *
 from pystratis.core import PubKey, CoinType, Recipient, Outpoint, DestinationChain, ExtPubKey
 from pystratis.api.global_responsemodels import UtxoDescriptor, AddressDescriptor

@@ -1,5 +1,4 @@
-from typing import Optional
-from pydantic import Field, conint
+from pydantic import Field
 from pystratis.api import Model
 from pystratis.core import ContractTransactionItemType
 from pystratis.core.types import Address, Money, uint256

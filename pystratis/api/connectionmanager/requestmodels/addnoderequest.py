@@ -2,6 +2,7 @@ from pydantic import validator, Field
 from pystratis.api import Model
 
 
+# noinspection PyUnresolvedReferences
 class AddNodeRequest(Model):
     """A request model for the connectionmanager/addnode endpoint.
 

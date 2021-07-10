@@ -3,6 +3,7 @@ from pystratis.api import Model
 from pystratis.core.types import Money
 
 
+# noinspection PyUnresolvedReferences
 class OverAmountAtHeightRequest(Model):
     """A request model for the balances over-amount-at-height endpoint.
 

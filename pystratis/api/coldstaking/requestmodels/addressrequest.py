@@ -3,6 +3,7 @@ from pydantic import Field
 from pystratis.api import Model
 
 
+# noinspection PyUnresolvedReferences
 class AddressRequest(Model):
     """A request model for the coldstaking/cold-staking-address endpoint.
 

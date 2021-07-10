@@ -2,6 +2,7 @@ from pydantic import SecretStr
 from pystratis.api import Model
 
 
+# noinspection PyUnresolvedReferences
 class StartStakingRequest(Model):
     """A request model for the staking/startstaking endpoint.
 

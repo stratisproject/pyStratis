@@ -3,6 +3,7 @@ from pystratis.api import Model
 from pystratis.core import MultisigSecret, Recipient
 
 
+# noinspection PyUnresolvedReferences
 class BuildTransactionRequest(Model):
     """A request model for the multisig/build-transaction endpoint.
 

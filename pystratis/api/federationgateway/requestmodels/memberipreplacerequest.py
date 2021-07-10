@@ -2,6 +2,7 @@ from pystratis.api import Model
 from pydantic import Field
 
 
+# noinspection PyUnresolvedReferences
 class MemberIPReplaceRequest(Model):
     """A request model for the federationgateway/member/ip/replace endpoint.
 

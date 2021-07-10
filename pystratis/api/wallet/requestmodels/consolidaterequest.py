@@ -4,6 +4,7 @@ from pystratis.api import Model
 from pystratis.core.types import Address
 
 
+# noinspection PyUnresolvedReferences
 class ConsolidateRequest(Model):
     """A request model for the wallet/consolidate endpoint.
 

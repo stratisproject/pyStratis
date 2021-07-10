@@ -5,6 +5,7 @@ from pystratis.core import ExtPubKey
 from datetime import datetime
 
 
+# noinspection PyUnresolvedReferences
 class ExtPubRecoveryRequest(Model):
     """A request model for the wallet/recover-via-extpubkey endpoint.
 

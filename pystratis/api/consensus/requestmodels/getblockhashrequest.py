@@ -2,6 +2,7 @@ from pydantic import conint
 from pystratis.api import Model
 
 
+# noinspection PyUnresolvedReferences
 class GetBlockHashRequest(Model):
     """A request model for the consensus/getblockhash endpoint.
 

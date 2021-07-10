@@ -3,6 +3,7 @@ from pystratis.api import Model
 from pystratis.core.types import uint256
 
 
+# noinspection PyUnresolvedReferences
 class FullySignedTransferRequest(Model):
     """A request model for the federationgateway/transfer/fullysigned endpoint.
 

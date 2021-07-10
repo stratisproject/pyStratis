@@ -5,6 +5,7 @@ from pystratis.api import Model
 from pystratis.core.types import Address, Money
 
 
+# noinspection PyUnresolvedReferences
 class BuildInterfluxTransactionRequest(Model):
     """A request model for the wallet/build-interflux-transaction endpoint.
 

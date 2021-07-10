@@ -3,6 +3,7 @@ from pydantic import Field
 from pystratis.api import Model
 
 
+# noinspection PyUnresolvedReferences
 class ExtPubKeyRequest(Model):
     """A request model for the wallet/extpubkey endpoint.
 
