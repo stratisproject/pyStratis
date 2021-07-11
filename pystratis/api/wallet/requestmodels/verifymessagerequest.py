@@ -8,7 +8,7 @@ class VerifyMessageRequest(Model):
     """A request model used for the /wallet/verifymessage endpoint.
 
     Args:
-        signature (str): The signature is to be verified.
+        signature (str): The signature to be verified.
         external_address (Address): The address of the signer.
         message (str): The message that was signed.
     """

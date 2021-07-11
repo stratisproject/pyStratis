@@ -140,7 +140,7 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
         """Verifies the signature of a message.
 
         Args:
-            signature (str): The signature is to be verified.
+            signature (str): The signature to be verified.
             external_address (Address, str): The address of the signer.
             message (str): The message that was signed.
             **kwargs: Extra keyword arguments. 

@@ -139,7 +139,7 @@ def get_spendable_transactions():
             wallet_name=wallet_name, account_name='account 0', min_confirmations=min_confirmations
         )
         spendable_transactions = [x for x in spendable_transactions.transactions]
-        sorted_spendable_transactions = sorted(spendable_transactions, key=lambda x: int(x.amount))
+        sorted_spendable_transactions = sorted(spendable_transactions, key=lambda x: x.amount)
         amount_to_send = amount
         op_return_amount = op_return_amount
         transactions = []
