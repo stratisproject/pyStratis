@@ -10,7 +10,8 @@ Please refer to [pystratis documentation](https://pystratis.readthedocs.io/en/la
 ```python
 from pystratis.nodes import CirrusNode
 from pystratis.core.networks import CirrusTest
-from pystratis.core.types import Money
+from pystratis.core.types import Money, int32
+from pystratis.core import SmartContractParameterType, SmartContractParameter
 
 # The smart contracts are available on Cirrus sidechain.
 node = CirrusNode(blockchainnetwork=CirrusTest())
