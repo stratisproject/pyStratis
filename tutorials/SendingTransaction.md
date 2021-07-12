@@ -1,6 +1,6 @@
 Sending a Standard Transaction with Pystratis
 =============================================
-When you used a wallet GUI to send a transaction, several steps to build the transaction are hidden from the user.
+When you use a wallet GUI to send a transaction, several steps to build the transaction are hidden from the user.
 These include:
 - Retrieving a list of spendable outputs
 - Building the transaction
@@ -8,7 +8,7 @@ These include:
 - Broadcasting the transaction. Details about performing these steps will be covered in this tutorial.
 
 ## Retrieving spendable utxo
-The spendable_transactions method returns a [SpendableTransactionsModel](https://pystratis.readthedocs.io/en/latest/source/pystratis.api.wallet.html?pystratis.api.wallet.responsemodels.spendabletransactionsmodel.SpendableTransactionsModel#pystratis.api.wallet.responsemodels.spendabletransactionsmodel.SpendableTransactionsModel), 
+The [spendable_transactions](https://pystratis.readthedocs.io/en/latest/source/pystratis.api.wallet.html#pystratis.api.wallet.Wallet.spendable_transactions) method returns a [SpendableTransactionsModel](https://pystratis.readthedocs.io/en/latest/source/pystratis.api.wallet.html?pystratis.api.wallet.responsemodels.spendabletransactionsmodel.SpendableTransactionsModel#pystratis.api.wallet.responsemodels.spendabletransactionsmodel.SpendableTransactionsModel), 
 which contains a list of [SpendableTransactionModel](https://pystratis.readthedocs.io/en/latest/source/pystratis.api.wallet.html?pystratis.api.wallet.responsemodels.spendabletransactionsmodel.SpendableTransactionsModel#pystratis.api.wallet.responsemodels.spendabletransactionsmodel.SpendableTransactionModel). 
 
 ```python
@@ -26,7 +26,7 @@ In this example we are going to send a transaction to an unused address on our n
 
 See [Recipient](https://pystratis.readthedocs.io/en/latest/source/pystratis.core.html#module-pystratis.core.recipient) and [Outpoint](https://pystratis.readthedocs.io/en/latest/source/pystratis.core.html#module-pystratis.core.outpoint) for details on usage below.
 
-The result of the build_transaction call is a [BuildTransactionModel](https://pystratis.readthedocs.io/en/latest/source/pystratis.api.global_responsemodels.html#pystratis.api.global_responsemodels.buildtransactionmodel.BuildTransactionModel). The transaction hex is then ready for broadcasting. 
+The result of the [build_transaction](https://pystratis.readthedocs.io/en/latest/source/pystratis.api.wallet.html#pystratis.api.wallet.Wallet.build_transaction) call is a [BuildTransactionModel](https://pystratis.readthedocs.io/en/latest/source/pystratis.api.global_responsemodels.html#pystratis.api.global_responsemodels.buildtransactionmodel.BuildTransactionModel). The transaction hex is then ready for broadcasting. 
 ```python
 from pystratis.core import Outpoint, Recipient
 from pystratis.core.types import Money
@@ -127,7 +127,7 @@ with open(signed_transaction_file, 'w') as f:
     f.write(response.hex)
 ```
 
-Back on the online node.
+Back on the online node, time to broadcast the transaction.
 ```python
 from pystratis.core.types import hexstr
 with open('signed_transaction_file') as f:
