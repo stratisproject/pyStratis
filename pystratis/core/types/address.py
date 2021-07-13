@@ -6,6 +6,8 @@ from pystratis.core.networks import BaseNetwork
 class Address:
     """A address model. Address is validated by the network."""
 
+    __slots__ = ('address', 'network')
+
     def __init__(self, address: str, network: BaseNetwork):
         self.validate_values(address=address, network=network)
         self.address = address

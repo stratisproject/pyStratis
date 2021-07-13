@@ -22,6 +22,9 @@ class Key:
     .. __: 
         https://github.com/stratisproject/StratisFullNode/blob/master/src/NBitcoin/Key.cs#L10
     """
+
+    __slots__ = ('_keybytes', )
+
     def __init__(self, value: Union[bytes, str, Key]):
         if isinstance(value, str):
             self._keybytes: bytes = base58.b58decode(value)

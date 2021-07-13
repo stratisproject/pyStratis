@@ -18,6 +18,9 @@ class ExtPubKey:
     .. __: 
         https://github.com/stratisproject/StratisFullNode/blob/master/src/NBitcoin/BIP32/ExtPubKey.cs#L11
     """
+
+    __slots__ = ('version', 'depth', 'parent_fingerprint', 'index', 'chain_code', 'key', 'checksum')
+
     # noinspection PyTypeChecker
     def __init__(self, extpubkey: str):
         self.version: bytes = None

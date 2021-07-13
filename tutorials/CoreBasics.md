@@ -65,7 +65,7 @@ from pystratis.core.types import Money
 my_money_float = Money(1.0)
 my_money_str = Money('1.0')
 assert my_money_float == my_money_str
-assert my_money_float.to_coin_unit() == my_money_float.to_coin_unit()
+assert my_money_float.to_coin_unit() == my_money_str.to_coin_unit()
 ```
 ### Address
 Misspelling an address is a common cause of lost funds across cryptocurrency networks. 

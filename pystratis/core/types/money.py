@@ -18,6 +18,9 @@ class Money:
             Attempt to create Money with unsupported `value` type.
             Attempt to create Money with negative `value`.
     """
+
+    __slots__ = ('_value', )
+
     def __init__(self, value: Union[Money, float, Decimal, int, str]):
         self._validate_value(value)
         value = self._fix_comma_separated_str(value)

@@ -16,6 +16,9 @@ class PubKey:
 
     .. __: https://github.com/bitcoinbook/bitcoinbook/blob/develop/ch04.asciidoc#public-key-formats
     """
+
+    __slots__ = ('x', 'y')
+
     def __init__(self, value: str):
         value = value.replace('0x', '')
         if value[:2] == '04':

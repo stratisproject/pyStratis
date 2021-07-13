@@ -12,6 +12,8 @@ class customint:
     _minvalue: int = None
     _maxvalue: int = None
 
+    __slots__ = ('_value', )
+
     def __init__(self, value, num_bits=None, minvalue=None, maxvalue=None):
         self.update(num_bits=num_bits, minvalue=minvalue, maxvalue=maxvalue)
         self.value = value
