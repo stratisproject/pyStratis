@@ -55,3 +55,9 @@ LogRule
 
 .. automodule:: pystratis.api.logrule
    :members:
+
+APIError
+------------------------
+
+.. automodule:: pystratis.api.apierror
+

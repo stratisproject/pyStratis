@@ -36,7 +36,6 @@ class APIRequest:
                 except JSONDecodeError:
                     return response.text
         else:
-            print(response.text)
             raise APIError(code=response.status_code, message=response.text)
 
     def post(self, request_model: BaseModel, **kwargs) -> Any:
@@ -54,7 +53,6 @@ class APIRequest:
                 except JSONDecodeError:
                     return response.text
         else:
-            print(response.text)
             raise APIError(code=response.status_code, message=response.text)
 
     def delete(self, request_model: BaseModel, **kwargs) -> Any:
@@ -78,7 +76,6 @@ class APIRequest:
                 except JSONDecodeError:
                     return response.text
         else:
-            print(response.text)
             raise APIError(code=response.status_code, message=response.text)
 
     def put(self, request_model: BaseModel = None, **kwargs) -> Any:
@@ -96,5 +93,4 @@ class APIRequest:
                 except JSONDecodeError:
                     return response.text
         else:
-            print(response.text)
             raise APIError(code=response.status_code, message=response.text)
