@@ -15,7 +15,9 @@ from pystratis.api.voting import Voting
 
 class CirrusNode(BaseNode):
     """A Cirrus Node."""
-    def __init__(self, ipaddr: str = 'http://localhost', blockchainnetwork: Union[CirrusMain, CirrusTest, CirrusRegTest] = CirrusMain()):
+    def __init__(self,
+                 ipaddr: str = 'http://localhost',
+                 blockchainnetwork: Union[CirrusMain, CirrusTest, CirrusRegTest] = CirrusMain()):
         """Initialize a Cirrus node api.
 
         Args:

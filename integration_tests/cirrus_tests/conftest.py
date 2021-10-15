@@ -5,7 +5,7 @@ from pystratis.api.smartcontracts.responsemodels import ReceiptModel
 from pystratis.core.types import Address, Money, hexstr, uint32, uint64, uint128, uint256, int32, int64
 from pystratis.core import SmartContractParameter, SmartContractParameterType
 from pystratis.api.global_responsemodels import BuildContractTransactionModel, WalletSendTransactionModel
-from pystratis.nodes import CirrusMinerNode, CirrusNode, BaseNode
+from pystratis.nodes import CirrusMinerNode, CirrusNode, BaseNode, CirrusUnity3DNode
 
 
 @pytest.fixture(scope='package', autouse=True)
@@ -13,7 +13,7 @@ def initialize_nodes(
         start_cirrusminer_regtest_node,
         start_cirrus_regtest_node,
         cirrusminer_node,
-        cirrusminer_syncing_node,
+        cirrusminerunity3d_node,
         cirrus_node,
         node_creates_a_wallet,
         send_a_transaction,
@@ -33,8 +33,16 @@ def initialize_nodes(
 
     # Start two cirrus nodes on the same regtest network.
     cirrusminer_extra_cmd_ops_node_mining = ['-devmode=miner', '-mincoinmaturity=1', '-mindepositconfirmations=1', '-bantime=1']
+    """
+    Cirrusminer doesn't have unityapi enabled at this time. For unity3d testing, requires modifying the following to enable unity3d:
+    1) src/Stratis.CirrusMinerD/Program.cs (enable unity3d api)
+    2) src/Stratis.CirrusMinerD/Stratis.CirrusMinerD.csproj (add project reference)
+    """
     cirrusminer_extra_cmd_ops_node_syncing = ['-devmode=miner', '-mincoinmaturity=1', '-mindepositconfirmations=1', '-bantime=1',
-                                              f'-whitelist=127.0.0.1:{cirrusminer_node.blockchainnetwork.DEFAULT_PORT}']
+                                              '-txindex=1', '-addressindex=1', '-unityapi_enable=1',
+                                              f'-whitelist=127.0.0.1:{cirrusminer_node.blockchainnetwork.DEFAULT_PORT}',
+                                              f'-unityapi_apiport={cirrusminerunity3d_node.blockchainnetwork.UNITY3D_PORT}'
+                                              ]
     cirrus_extra_cmd_ops_node_syncing = ['-mincoinmaturity=1', '-mindepositconfirmations=1', '-bantime=1',
                                          f'-whitelist=127.0.0.1:{cirrusminer_node.blockchainnetwork.DEFAULT_PORT}']
     start_cirrusminer_regtest_node(cirrusminer_node, extra_cmd_ops=cirrusminer_extra_cmd_ops_node_mining, private_key=get_federation_private_key(0))
@@ -45,42 +53,41 @@ def initialize_nodes(
         if above_height:
             break
 
-    start_cirrusminer_regtest_node(cirrusminer_syncing_node, extra_cmd_ops=cirrusminer_extra_cmd_ops_node_syncing, private_key=get_federation_private_key(2))
+    start_cirrusminer_regtest_node(cirrusminerunity3d_node, extra_cmd_ops=cirrusminer_extra_cmd_ops_node_syncing, private_key=get_federation_private_key(2))
     start_cirrus_regtest_node(cirrus_node, extra_cmd_ops=cirrus_extra_cmd_ops_node_syncing)
 
     # Check all endpoints
     assert cirrusminer_node.check_all_endpoints_implemented()
-    assert cirrusminer_syncing_node.check_all_endpoints_implemented()
     assert cirrus_node.check_all_endpoints_implemented()
 
     # Set up wallets for the second node. Wallets need to be setup before mining or joining federation
-    assert node_creates_a_wallet(cirrusminer_syncing_node)
+    assert node_creates_a_wallet(cirrusminerunity3d_node)
 
     # Connect federation nodes
-    assert connect_two_nodes(cirrusminer_node, cirrusminer_syncing_node)
+    assert connect_two_nodes(cirrusminer_node, cirrusminerunity3d_node)
     assert wait_and_clear_mempool()
 
     # Transfer the cirrusdev funds to the first node's wallet, balance the funds, and remove cirrusdev wallet from each.
     assert transfer_funds_to_test(cirrusminer_node)
     assert wait_and_clear_mempool()
-    assert transfer_funds_to_test(cirrusminer_syncing_node)
+    assert transfer_funds_to_test(cirrusminerunity3d_node)
     assert wait_and_clear_mempool()
-    assert balance_funds_across_nodes(cirrusminer_node, cirrusminer_syncing_node)
+    assert balance_funds_across_nodes(cirrusminer_node, cirrusminerunity3d_node)
     assert wait_and_clear_mempool()
     assert fund_smartcontract_address(cirrusminer_node)
     assert wait_and_clear_mempool()
-    assert fund_smartcontract_address(cirrusminer_syncing_node)
+    assert fund_smartcontract_address(cirrusminerunity3d_node)
     assert wait_and_clear_mempool()
     assert make_some_transactions_by_splitting(cirrusminer_node)
     assert wait_and_clear_mempool()
-    assert make_some_transactions_by_splitting(cirrusminer_syncing_node)
+    assert make_some_transactions_by_splitting(cirrusminerunity3d_node)
     assert wait_and_clear_mempool()
 
     yield
 
     # Teardown
     assert cirrusminer_node.stop_node()
-    assert cirrusminer_syncing_node.stop_node()
+    assert cirrusminerunity3d_node.stop_node()
     assert cirrus_node.stop_node()
 
 
@@ -100,12 +107,12 @@ def get_node_smart_contract_address():
 
 @pytest.fixture(scope='package')
 def fund_smartcontract_address(get_node_smart_contract_address, send_a_transaction, get_node_address_with_balance):
-    def _fund_smartcontract_address(node: Union[CirrusMinerNode, CirrusNode]) -> bool:
+    def _fund_smartcontract_address(node: Union[CirrusMinerNode, CirrusNode, CirrusUnity3DNode]) -> bool:
         sending_address = get_node_address_with_balance(node)
         receiving_address = get_node_smart_contract_address(node)
         assert send_a_transaction(
             node=node, sending_address=sending_address, wallet_name='Test',
-            receiving_address=receiving_address, amount_to_send=Money(5000), min_confirmations=0
+            receiving_address=receiving_address, amount_to_send=Money(50), min_confirmations=0
         )
         return True
     return _fund_smartcontract_address
@@ -179,6 +186,64 @@ def get_contract_setup_receipt(cirrusminer_node, get_contract_create_trxid) -> R
 @pytest.fixture(scope='package')
 def get_smart_contract_address(get_contract_setup_receipt) -> Address:
     receipt = get_contract_setup_receipt
+    address = receipt.new_contract_address
+    assert isinstance(address, Address)
+    return address
+
+
+@pytest.fixture(scope='package')
+def create_smart_contract_transaction_unity(cirrusminerunity3d_node, apitestcontract_bytecode, get_node_address_with_balance) -> BuildContractTransactionModel:
+    sending_address = get_node_address_with_balance(cirrusminerunity3d_node)
+    response = cirrusminerunity3d_node.smart_contracts.build_and_send_create(
+        wallet_name='Test',
+        account_name='account 0',
+        outpoints=None,
+        amount=Money(0),
+        fee_amount=Money(0.0001),
+        password='password',
+        contract_code=apitestcontract_bytecode,
+        gas_price=1000,
+        gas_limit=250000,
+        sender=sending_address,
+        parameters=[
+            SmartContractParameter(value_type=SmartContractParameterType.Boolean, value=True),
+            SmartContractParameter(value_type=SmartContractParameterType.Byte, value=b'\xff'),
+            SmartContractParameter(value_type=SmartContractParameterType.Char, value='c'),
+            SmartContractParameter(value_type=SmartContractParameterType.String, value='Stratis'),
+            SmartContractParameter(value_type=SmartContractParameterType.UInt32, value=uint32(123)),
+            SmartContractParameter(value_type=SmartContractParameterType.Int32, value=int32(-123)),
+            SmartContractParameter(value_type=SmartContractParameterType.UInt64, value=uint64(456)),
+            SmartContractParameter(value_type=SmartContractParameterType.Int64, value=int64(-456)),
+            SmartContractParameter(value_type=SmartContractParameterType.Address, value=sending_address),
+            SmartContractParameter(value_type=SmartContractParameterType.ByteArray, value=bytearray(b'\x04\xa6\xb9')),
+            SmartContractParameter(value_type=SmartContractParameterType.UInt128, value=uint128(789)),
+            SmartContractParameter(value_type=SmartContractParameterType.UInt256, value=uint256(987))
+        ]
+    )
+    assert isinstance(response, BuildContractTransactionModel)
+    return response
+
+
+@pytest.fixture(scope='package')
+def get_contract_create_trxid_unity(cirrusminerunity3d_node, create_smart_contract_transaction_unity, wait_and_clear_mempool) -> uint256:
+    trx = create_smart_contract_transaction_unity
+    response = cirrusminerunity3d_node.smart_contract_wallet.send_transaction(transaction_hex=trx.hex)
+    assert isinstance(response, WalletSendTransactionModel)
+    assert wait_and_clear_mempool()
+    return response.transaction_id
+
+
+@pytest.fixture(scope='package')
+def get_contract_setup_receipt_unity(cirrusminerunity3d_node, get_contract_create_trxid_unity) -> ReceiptModel:
+    trxid = get_contract_create_trxid_unity
+    response = cirrusminerunity3d_node.smart_contracts.receipt(tx_hash=trxid)
+    assert isinstance(response, ReceiptModel)
+    return response
+
+
+@pytest.fixture(scope='package')
+def get_smart_contract_address_unity(get_contract_setup_receipt_unity) -> Address:
+    receipt = get_contract_setup_receipt_unity
     address = receipt.new_contract_address
     assert isinstance(address, Address)
     return address

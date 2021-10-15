@@ -577,6 +577,7 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
                    gas_price: int,
                    gas_limit: int,
                    sender: Union[Address, str],
+                   block_height: int = None,
                    parameters: List[Union[str, SmartContractParameter]] = None,
                    **kwargs) -> LocalExecutionResultModel:
         """Makes a local call to a method on a smart contract that has been successfully deployed. The purpose is to query and test methods.
@@ -588,6 +589,7 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
             gas_price (int): The amount of gas being used in satoshis.
             gas_limit (int): The maximum amount of gas that can be used in satoshis.
             sender (Address, str): The address of the sending address.
+            block_height (int, optional): The height at which to query the contract's state. If unset, will default to the current chain tip.
             parameters (List[Union[SmartContractParameter, str]], optional): A list of parameters for the smart contract.
             **kwargs: Extra keyword arguments. 
 
@@ -617,6 +619,7 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
             gas_price=gas_price,
             gas_limit=gas_limit,
             sender=sender,
+            block_height=block_height,
             parameters=new_parameters
         )
         data = self.post(request_model, **kwargs)
