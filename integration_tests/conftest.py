@@ -361,6 +361,13 @@ def cirrus_node():
 
 
 @pytest.fixture(scope='package')
+def cirrusminerunity3d_node():
+    node = cirrusminerunity3d_regtest_node(port=CIRRUSMINER_SYNCING_NODE_PORT)
+    yield node
+    assert node.stop_node()
+
+
+@pytest.fixture(scope='package')
 def interflux_strax_node():
     node = interflux_strax_regtest_node(port=INTERFLUX_STRAX_MAIN_NODE_PORT)
     yield node
@@ -384,13 +391,6 @@ def interflux_cirrusminer_node():
 @pytest.fixture(scope='package')
 def interflux_cirrusminer_syncing_node():
     node = interflux_cirrus_regtest_node(port=INTERFLUX_CIRRUS_SYNCING_NODE_PORT)
-    yield node
-    assert node.stop_node()
-
-
-@pytest.fixture(scope='package')
-def cirrusminerunity3d_node():
-    node = cirrusminerunity3d_regtest_node(port=CIRRUSMINER_SYNCING_NODE_PORT)
     yield node
     assert node.stop_node()
 

@@ -56,7 +56,7 @@ def initialize_nodes(
     start_cirrusminer_regtest_node(cirrusminerunity3d_node, extra_cmd_ops=cirrusminer_extra_cmd_ops_node_syncing, private_key=get_federation_private_key(2))
     start_cirrus_regtest_node(cirrus_node, extra_cmd_ops=cirrus_extra_cmd_ops_node_syncing)
 
-    # Check all endpoints
+    # Check endpoints implemented for cirrusminer and cirrus node.
     assert cirrusminer_node.check_all_endpoints_implemented()
     assert cirrus_node.check_all_endpoints_implemented()
 
@@ -82,7 +82,6 @@ def initialize_nodes(
     assert wait_and_clear_mempool()
     assert make_some_transactions_by_splitting(cirrusminerunity3d_node)
     assert wait_and_clear_mempool()
-
     yield
 
     # Teardown
