@@ -3,6 +3,8 @@ from pystratis.core.networks import CirrusMain, CirrusTest, CirrusRegTest, Strax
 from .basenode import BaseNode
 from pystratis.api.balances import Balances
 from pystratis.api.collateral import Collateral
+from pystratis.api.contract_swagger import ContractSwagger
+from pystratis.api.dynamic_contract import DynamicContract
 from pystratis.api.notifications import Notifications
 from pystratis.api.federation import Federation
 from pystratis.api.smartcontracts import SmartContracts
@@ -34,6 +36,8 @@ class CirrusMinerNode(BaseNode):
         if not devmode:
             self._collateral = Collateral(baseuri=self.api_route, network=blockchainnetwork)
             self._endpoints.extend(self._collateral.endpoints)
+        self._contract_swagger = ContractSwagger(baseuri=self.api_route, network=blockchainnetwork)
+        self._dynamic_contract = DynamicContract(baseuri=self.api_route, network=blockchainnetwork)
         self._federation = Federation(baseuri=self.api_route, network=blockchainnetwork)
         self._notifications = Notifications(baseuri=self.api_route, network=blockchainnetwork)
         self._smart_contracts = SmartContracts(baseuri=self.api_route, network=blockchainnetwork)
@@ -42,6 +46,8 @@ class CirrusMinerNode(BaseNode):
 
         # Add CirrusMiner specific endpoints to superclass endpoints.
         self._endpoints.extend(self._balances.endpoints)
+        self._endpoints.extend(self._contract_swagger.endpoints)
+        self._endpoints.extend(self._dynamic_contract.endpoints)
         self._endpoints.extend(self._federation.endpoints)
         self._endpoints.extend(self._notifications.endpoints)
         self._endpoints.extend(self._smart_contracts.endpoints)
@@ -68,6 +74,24 @@ class CirrusMinerNode(BaseNode):
         if self._devmode:
             raise NotImplementedError('Not implemented in devmode cirrus miner node.')
         return self._collateral
+
+    @property
+    def contract_swagger(self) -> ContractSwagger:
+        """The contract_swagger route.
+
+        Returns:
+            ContractSwagger: A ContractSwagger instance.
+        """
+        return self._contract_swagger
+
+    @property
+    def dynamic_contract(self) -> DynamicContract:
+        """The dynamic contract route.
+
+        Returns:
+            DynamicContract: A DynamicContract instance.
+        """
+        return self._dynamic_contract
 
     @property
     def federation(self) -> Federation:

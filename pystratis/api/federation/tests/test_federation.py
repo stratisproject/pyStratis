@@ -5,39 +5,11 @@ from pystratis.api.federation import Federation
 from pystratis.core.networks import StraxMain, CirrusMain
 
 
-def test_all_strax_endpoints_implemented(strax_swagger_json):
-    paths = [key.lower() for key in strax_swagger_json['paths']]
-    for endpoint in paths:
-        if Federation.route + '/' in endpoint:
-            assert endpoint in Federation.endpoints
-
-
-def test_all_cirrus_endpoints_implemented(cirrus_swagger_json):
-    paths = [key.lower() for key in cirrus_swagger_json['paths']]
-    for endpoint in paths:
-        if Federation.route + '/' in endpoint:
-            assert endpoint in Federation.endpoints
-
-
-def test_all_interfluxstrax_endpoints_implemented(interfluxstrax_swagger_json):
-    paths = [key.lower() for key in interfluxstrax_swagger_json['paths']]
-    for endpoint in paths:
-        if Federation.route + '/' in endpoint:
-            assert endpoint in Federation.endpoints
-
-
-def test_all_interfluxcirrus_endpoints_implemented(interfluxcirrus_swagger_json):
-    paths = [key.lower() for key in interfluxcirrus_swagger_json['paths']]
-    for endpoint in paths:
-        if Federation.route + '/' in endpoint:
-            assert endpoint in Federation.endpoints
-
-
-@pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
+@pytest.mark.parametrize('network', [CirrusMain()], ids=['CirrusMain'])
 def test_reconstruct(mocker: MockerFixture, network):
     data = "Reconstruction flag set, please restart the node."
     mocker.patch.object(Federation, 'put', return_value=data)
-    federation = Federation(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    federation = Federation(network=network, baseuri=mocker.MagicMock())
 
     response = federation.reconstruct()
 
@@ -46,7 +18,7 @@ def test_reconstruct(mocker: MockerFixture, network):
     federation.put.assert_called_once()
 
 
-@pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
+@pytest.mark.parametrize('network', [CirrusMain()], ids=['CirrusMain'])
 def test_members_current(mocker: MockerFixture, network, generate_compressed_pubkey, get_datetime):
     data = {
         "pollStartBlockHeight": None,
@@ -65,7 +37,7 @@ def test_members_current(mocker: MockerFixture, network, generate_compressed_pub
     }
 
     mocker.patch.object(Federation, 'get', return_value=data)
-    federation = Federation(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    federation = Federation(network=network, baseuri=mocker.MagicMock())
 
     response = federation.members_current()
 
@@ -74,7 +46,7 @@ def test_members_current(mocker: MockerFixture, network, generate_compressed_pub
     federation.get.assert_called_once()
 
 
-@pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
+@pytest.mark.parametrize('network', [CirrusMain()], ids=['CirrusMain'])
 def test_member(mocker: MockerFixture, network, generate_compressed_pubkey, get_datetime):
     data = [
         {
@@ -98,7 +70,7 @@ def test_member(mocker: MockerFixture, network, generate_compressed_pubkey, get_
     ]
 
     mocker.patch.object(Federation, 'get', return_value=data)
-    federation = Federation(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    federation = Federation(network=network, baseuri=mocker.MagicMock())
 
     response = federation.members()
 

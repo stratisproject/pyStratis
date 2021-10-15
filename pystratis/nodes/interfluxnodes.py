@@ -3,6 +3,8 @@ from .basenode import BaseNode
 from pystratis.core.networks import CirrusMain, CirrusTest, CirrusRegTest, StraxTest, StraxRegTest, StraxMain
 from pystratis.api.collateral import Collateral
 from pystratis.api.collateralvoting import CollateralVoting
+from pystratis.api.contract_swagger import ContractSwagger
+from pystratis.api.dynamic_contract import DynamicContract
 from pystratis.api.federationgateway import FederationGateway
 from pystratis.api.federationwallet import FederationWallet
 from pystratis.api.mining import Mining
@@ -141,6 +143,8 @@ class InterfluxCirrusNode(BaseNode):
         self._balances = Balances(baseuri=self.api_route, network=blockchainnetwork)
         self._collateral = Collateral(baseuri=self.api_route, network=blockchainnetwork)
         self._collateral_voting = CollateralVoting(baseuri=self.api_route, network=blockchainnetwork)
+        self._contract_swagger = ContractSwagger(baseuri=self.api_route, network=blockchainnetwork)
+        self._dynamic_contract = DynamicContract(baseuri=self.api_route, network=blockchainnetwork)
         self._federation = Federation(baseuri=self.api_route, network=blockchainnetwork)
         self._federation_gateway = FederationGateway(baseuri=self.api_route, network=blockchainnetwork)
         self._federation_wallet = FederationWallet(baseuri=self.api_route, network=blockchainnetwork)
@@ -155,6 +159,8 @@ class InterfluxCirrusNode(BaseNode):
         self._endpoints.extend(self._balances.endpoints)
         self._endpoints.extend(self._collateral.endpoints)
         self._endpoints.extend(self._collateral_voting.endpoints)
+        self._endpoints.extend(self._contract_swagger.endpoints)
+        self._endpoints.extend(self._dynamic_contract.endpoints)
         self._endpoints.extend(self._federation.endpoints)
         self._endpoints.extend(self._federation_gateway.endpoints)
         self._endpoints.extend(self._federation_wallet.endpoints)
@@ -192,6 +198,24 @@ class InterfluxCirrusNode(BaseNode):
             CollateralVoting: A CollateralVoting instance.
         """
         return self._collateral_voting
+
+    @property
+    def contract_swagger(self) -> ContractSwagger:
+        """The contract_swagger route.
+
+        Returns:
+            ContractSwagger: A ContractSwagger instance.
+        """
+        return self._contract_swagger
+
+    @property
+    def dynamic_contract(self) -> DynamicContract:
+        """The dynamic contract route.
+
+        Returns:
+            DynamicContract: A DynamicContract instance.
+        """
+        return self._dynamic_contract
 
     @property
     def federation(self) -> Federation:

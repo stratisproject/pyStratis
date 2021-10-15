@@ -4,34 +4,6 @@ from pystratis.api.dashboard import Dashboard
 from pystratis.core.networks import StraxMain, CirrusMain
 
 
-def test_all_strax_endpoints_implemented(strax_swagger_json):
-    paths = [key.lower() for key in strax_swagger_json['paths']]
-    for endpoint in paths:
-        if Dashboard.route + '/' in endpoint:
-            assert endpoint in Dashboard.endpoints
-
-
-def test_all_cirrus_endpoints_implemented(cirrus_swagger_json):
-    paths = [key.lower() for key in cirrus_swagger_json['paths']]
-    for endpoint in paths:
-        if Dashboard.route + '/' in endpoint:
-            assert endpoint in Dashboard.endpoints
-
-
-def test_all_interfluxstrax_endpoints_implemented(interfluxstrax_swagger_json):
-    paths = [key.lower() for key in interfluxstrax_swagger_json['paths']]
-    for endpoint in paths:
-        if Dashboard.route + '/' in endpoint:
-            assert endpoint in Dashboard.endpoints
-
-
-def test_all_interfluxcirrus_endpoints_implemented(interfluxcirrus_swagger_json):
-    paths = [key.lower() for key in interfluxcirrus_swagger_json['paths']]
-    for endpoint in paths:
-        if Dashboard.route + '/' in endpoint:
-            assert endpoint in Dashboard.endpoints
-
-
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
 def test_asyncloopsstats(mocker: MockerFixture, network):
     data = """Async Loops
@@ -73,7 +45,7 @@ def test_asyncloopsstats(mocker: MockerFixture, network):
     --------------------------------------------------------------------------------------------------------------
     """
     mocker.patch.object(Dashboard, 'get', return_value=data)
-    dashboard = Dashboard(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    dashboard = Dashboard(network=network, baseuri=mocker.MagicMock())
 
     response = dashboard.asyncloops_stats()
 
@@ -149,7 +121,7 @@ def test_stats(mocker: MockerFixture, network):
     x/x          : Confirmed balance: x.x          Unconfirmed balance: 0.00000000
     """
     mocker.patch.object(Dashboard, 'get', return_value=data)
-    dashboard = Dashboard(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    dashboard = Dashboard(network=network, baseuri=mocker.MagicMock())
 
     response = dashboard.stats()
 

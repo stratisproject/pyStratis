@@ -150,7 +150,7 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
             event_name (str, optional): The event to search for.
             topics (List[str], optional): A list of topics to search for.
             from_block (int): Block to start search from.
-            to_block (int): Block to search up to.
+            to_block (int, optional): Block to search up to.
             **kwargs: Extra keyword arguments. 
 
         Returns:
