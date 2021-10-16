@@ -1,6 +1,7 @@
 from typing import List, Union
 from requests import get, post
 from pystratis.api import APIRequest, EndpointRegister, endpoint
+from pystratis.api.contract_swagger.requestmodels import *
 from pystratis.api.contract_swagger.responsemodels import *
 from pystratis.core.types import Address
 
@@ -34,7 +35,7 @@ class ContractSwagger(APIRequest, metaclass=EndpointRegister):
         data['paths'] = OpenAPIEndpointsModel(data['paths'])
         return OpenAPISchemaModel(**data)
 
-    @endpoint(f'{route}')
+    @endpoint(f'/api{route}')
     def __call__(self, address: Union[Address, str], **kwargs) -> None:
         """Add the contract address to the Swagger dropdown.
 
@@ -50,5 +51,5 @@ class ContractSwagger(APIRequest, metaclass=EndpointRegister):
         """
         if isinstance(address, str):
             address = Address(address=address, network=self._network)
-        request_model = str(address)
+        request_model = ContractRequest(address=address)
         self.post(request_model, **kwargs)
