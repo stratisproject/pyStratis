@@ -1,5 +1,4 @@
-from typing import List, Union
-from requests import get, post
+from typing import Union
 from pystratis.api import APIRequest, EndpointRegister, endpoint
 from pystratis.api.contract_swagger.requestmodels import *
 from pystratis.api.contract_swagger.responsemodels import *
@@ -35,7 +34,7 @@ class ContractSwagger(APIRequest, metaclass=EndpointRegister):
         data['paths'] = OpenAPIEndpointsModel(data['paths'])
         return OpenAPISchemaModel(**data)
 
-    @endpoint(f'/api{route}')
+    @endpoint(f'{route}')
     def __call__(self, address: Union[Address, str], **kwargs) -> None:
         """Add the contract address to the Swagger dropdown.
 
@@ -49,7 +48,5 @@ class ContractSwagger(APIRequest, metaclass=EndpointRegister):
         Raises:
             APIError: Error thrown by node API. See message for details.
         """
-        if isinstance(address, str):
-            address = Address(address=address, network=self._network)
-        request_model = ContractRequest(address=address)
+        request_model = str(address)
         self.post(request_model, **kwargs)

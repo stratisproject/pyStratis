@@ -1,5 +1,5 @@
 import ast
-from typing import List, Union
+from typing import Union
 from decimal import Decimal
 from pystratis.api import APIRequest, EndpointRegister, endpoint
 from pystratis.core.types import Address, Money

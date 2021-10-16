@@ -20,7 +20,7 @@ The most up-to-date version of the Strax Wallet can be found at [https://github.
 Clone the repository from GitHub, checkout the latest release, and enter the directory.
 ```commandline
 git clone https://github.com/stratisproject/StratisFullNode.git
-git checkout -b release/1.0.9.6
+git checkout -b release/1.0.9.7
 cd StratisFullNode\src\Stratis.StraxD
 ```
 The node daemon can be started with `dotnet run`.
@@ -50,7 +50,7 @@ The most up-to-date version of the Cirrus Wallet can be found at [https://github
 Clone the repository from GitHub, checkout the latest release, and enter the directory.
 ```commandline
 git clone https://github.com/stratisproject/StratisFullNode.git
-git checkout -b release/1.0.9.6
+git checkout -b release/1.0.9.7
 cd StratisFullNode\src\Stratis.CirrusD
 ```
 The node daemon can be started with `dotnet run`. 

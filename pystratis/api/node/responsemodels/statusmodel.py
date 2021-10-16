@@ -48,3 +48,5 @@ class StatusModel(Model):
     """The node state model."""
     in_ibd: bool = Field(alias='inIbd')
     """If true, the node is in IBD state."""
+    header_height: int = Field(alias='headerHeight')
+    """The header height."""

@@ -9,7 +9,6 @@ from pystratis.api.notifications import Notifications
 from pystratis.api.federation import Federation
 from pystratis.api.smartcontracts import SmartContracts
 from pystratis.api.smartcontractwallet import SmartContractWallet
-from pystratis.api.signalr import SignalR
 from pystratis.api.voting import Voting
 
 
@@ -43,7 +42,6 @@ class CirrusMinerNode(BaseNode):
         self._notifications = Notifications(baseuri=self.api_route, network=blockchainnetwork)
         self._smart_contracts = SmartContracts(baseuri=self.api_route, network=blockchainnetwork)
         self._smart_contract_wallet = SmartContractWallet(baseuri=self.api_route, network=blockchainnetwork)
-        self._signalr = SignalR(baseuri=self.api_route, network=blockchainnetwork)
         self._voting = Voting(baseuri=self.api_route, network=blockchainnetwork)
 
         # Add CirrusMiner specific endpoints to superclass endpoints.
@@ -54,7 +52,6 @@ class CirrusMinerNode(BaseNode):
         self._endpoints.extend(self._notifications.endpoints)
         self._endpoints.extend(self._smart_contracts.endpoints)
         self._endpoints.extend(self._smart_contract_wallet.endpoints)
-        self._endpoints.extend(self._signalr.endpoints)
         self._endpoints.extend(self._voting.endpoints)
         self._endpoints.sort()
 
@@ -131,15 +128,6 @@ class CirrusMinerNode(BaseNode):
             SmartContractWallet: A SmartContractWallet instance.
         """
         return self._smart_contract_wallet
-
-    @property
-    def signalr(self) -> SignalR:
-        """The signalr route.
-
-        Returns:
-            SignalR: A SignalR instance.
-        """
-        return self._signalr
 
     @property
     def voting(self) -> Voting:

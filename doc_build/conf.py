@@ -22,7 +22,7 @@ copyright = '2021, Tjaden Froyda'
 author = 'Tjaden Froyda'
 
 # The full version, including alpha/beta/rc tags
-release = '1.0.6.0'
+release = '1.0.7.0'
 
 
 # -- General configuration ---------------------------------------------------

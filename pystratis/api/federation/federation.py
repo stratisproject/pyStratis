@@ -1,6 +1,7 @@
 from typing import List
 from pystratis.api import APIRequest, EndpointRegister, endpoint
 from pystratis.api.federation.responsemodels import *
+from pystratis.core.types import Address
 
 
 class Federation(APIRequest, metaclass=EndpointRegister):
@@ -41,6 +42,9 @@ class Federation(APIRequest, metaclass=EndpointRegister):
             APIError: Error thrown by node API. See message for details.
         """
         data = self.get(**kwargs)
+        if data['miningStats']['miningAddress'] is not None:
+            data['miningStats']['miningAddress'] = Address(address=data['miningStats']['miningAddress'], network=self._network)
+        data['miningStats'] = MiningStats(**data['miningStats'])
         return FederationMemberDetailedModel(**data)
 
     @endpoint(f'{route}/members')

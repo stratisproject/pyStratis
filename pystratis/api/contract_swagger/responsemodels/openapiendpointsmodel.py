@@ -1,5 +1,4 @@
 from __future__ import annotations
-from pystratis.api import Model
 from typing import Callable, List
 from .swaggerendpointmodel import SwaggerEndpointModel
 

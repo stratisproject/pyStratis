@@ -2,7 +2,7 @@ import pytest
 from pytest_mock import MockerFixture
 from pystratis.api.federation.responsemodels import *
 from pystratis.api.federation import Federation
-from pystratis.core.networks import StraxMain, CirrusMain
+from pystratis.core.networks import CirrusMain
 
 
 @pytest.mark.parametrize('network', [CirrusMain()], ids=['CirrusMain'])
@@ -19,7 +19,7 @@ def test_reconstruct(mocker: MockerFixture, network):
 
 
 @pytest.mark.parametrize('network', [CirrusMain()], ids=['CirrusMain'])
-def test_members_current(mocker: MockerFixture, network, generate_compressed_pubkey, get_datetime):
+def test_members_current(mocker: MockerFixture, network, generate_compressed_pubkey, get_datetime, generate_p2pkh_address):
     data = {
         "pollStartBlockHeight": None,
         "pollNumberOfVotesAcquired": None,
@@ -33,7 +33,10 @@ def test_members_current(mocker: MockerFixture, network, generate_compressed_pub
         "pubkey": generate_compressed_pubkey,
         "collateralAmount": 50000,
         "lastActiveTime": get_datetime(5),
-        "periodOfInactivity": "00:02:32.9200000"
+        "periodOfInactivity": "00:02:32.9200000",
+        "federationSize": 2,
+        "producedBlockInLastRound": False,
+        "miningStats": {"minerHits": 1, "producedBlockInLastRound": False, 'miningAddress': generate_p2pkh_address(network=network)}
     }
 
     mocker.patch.object(Federation, 'get', return_value=data)

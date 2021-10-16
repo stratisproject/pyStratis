@@ -1,4 +1,3 @@
-from typing import Optional
 from pydantic import Field
 from pystratis.api import Model
 from pystratis.core.types import hexstr

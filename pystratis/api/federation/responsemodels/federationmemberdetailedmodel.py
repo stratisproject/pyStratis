@@ -2,6 +2,7 @@ from typing import Optional
 from pydantic import Field
 from pystratis.core.types import Money
 from .federationmembermodel import FederationMemberModel
+from .miningstats import MiningStats
 
 
 class FederationMemberDetailedModel(FederationMemberModel):
@@ -24,3 +25,9 @@ class FederationMemberDetailedModel(FederationMemberModel):
     """The poll type."""
     reward_estimate_per_block: Optional[Money] = Field(alias='rewardEstimatePerBlock')
     """The reward estimate per block."""
+    produced_block_in_last_round: bool = Field(alias='producedBlockInLastRound')
+    """If the miner produced a block in the last round."""
+    federation_size: int = Field(alias='federationSize')
+    """The size of the federation."""
+    mining_stats: MiningStats = Field(alias='miningStats')
+    """The mining stats for the federation member."""

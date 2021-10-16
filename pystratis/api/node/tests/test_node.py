@@ -46,7 +46,8 @@ def test_status(mocker: MockerFixture, network):
         'testnet': False,
         'relayFee': 0,
         'state': FullNodeState.Initialized,
-        'inIbd': False
+        'inIbd': False,
+        'headerHeight': 1
     }
     mocker.patch.object(Node, 'get', return_value=data)
     node = Node(network=network, baseuri=mocker.MagicMock())
