@@ -19,11 +19,14 @@ class Unity3D(APIRequest, metaclass=EndpointRegister):
     @endpoint(f'{route}/getutxosforaddress')
     def get_utxos_for_address(self, address: Union[str, Address], **kwargs) -> GetUTXOModel:
         """Gets UTXOs for specified address.
+
         Args:
             address (str, Address): The address.
             **kwargs: Extra keyword arguments.
+
         Returns:
             GetUTXOModel: UTXOs for the specified address.
+
         Raises:
             APIError: Error thrown by node API. See message for details.
         """
@@ -42,11 +45,14 @@ class Unity3D(APIRequest, metaclass=EndpointRegister):
     @endpoint(f'{route}/getaddressbalance')
     def get_address_balance(self, address: Union[str, Address], **kwargs) -> Money:
         """Provides balance of the given address confirmed with at least 1 confirmation.
+
         Args:
             address (str, Address): The address.
             **kwargs: Extra keyword arguments.
+
         Returns:
             Money: The amount in the address.
+
         Raises:
             APIError: Error thrown by node API. See message for details.
         """
@@ -62,12 +68,15 @@ class Unity3D(APIRequest, metaclass=EndpointRegister):
                         is_json_format: bool = True,
                         **kwargs) -> BlockHeaderModel:
         """Gets the specified block header.
+
         Args:
             block_hash (str, uint256): The specified block hash.
             is_json_format (bool, optional): If block header should be returned as json. Default=True.
             **kwargs: Extra keyword arguments.
+
         Returns:
             BlockHeaderModel: The block headers.
+
         Raises:
             APIError: Error thrown by node API. See message for details.
         """
@@ -84,13 +93,17 @@ class Unity3D(APIRequest, metaclass=EndpointRegister):
                             verbose: bool = False,
                             **kwargs) -> Union[hexstr, TransactionModel]:
         """Gets a raw transaction from a transaction id.
+
         Requires txindex=1 in node configuration.
+
         Args:
             trxid (uint256, str): The transaction hash.
             verbose (bool, optional): If output should include verbose transaction data. Default=False.
             **kwargs: Extra keyword arguments.
+
         Returns:
             Union[hexstr, TransactionModel]: A raw transaction.
+
         Raises:
             APIError: Error thrown by node API. See message for details.
         """
@@ -109,11 +122,14 @@ class Unity3D(APIRequest, metaclass=EndpointRegister):
                          transaction_hex: Union[str, hexstr],
                          **kwargs) -> WalletSendTransactionModel:
         """Sends a transaction that has already been built.
+
         Args:
             transaction_hex (hexstr, str): The hexified transaction.
             **kwargs: Extra keyword arguments.
+
         Returns:
             WalletSendTransactionModel: Information about a sent transaction.
+
         Raises:
             APIError: Error thrown by node API. See message for details.
         """
@@ -131,11 +147,14 @@ class Unity3D(APIRequest, metaclass=EndpointRegister):
     @endpoint(f'/api/{route}/validateaddress')
     def validate_address(self, address: str, **kwargs) -> ValidateAddressModel:
         """Validate an address
+
         Args:
             address (str): The address to validate.
             **kwargs: Extra keyword arguments.
+
         Returns:
             ValidateAddressModel: Information on the validity of the provided address, and if valid, if it is a witness or script address.
+
         Raises:
             APIError: Error thrown by node API. See message for details.
         """
@@ -151,14 +170,17 @@ class Unity3D(APIRequest, metaclass=EndpointRegister):
               output_json: bool = True,
               **kwargs) -> Union[BlockModel, BlockTransactionDetailsModel, hexstr, str]:
         """Retrieves the block which matches the supplied block hash.
+
         Args:
             block_hash (uint256, str): The hash of the required block.
             show_transaction_details (bool, optional): A flag that indicates whether to return each block
                 transaction complete with details or simply return transaction hashes. Default=True.
             output_json (bool): Output json or hex block. Default=True.
             **kwargs: Extra keyword arguments.
+
         Returns:
             (BlockModel, BlockTransactionDetailsModel, hexstr, str): The representation of the block.
+
         Raises:
             APIError: Error thrown by node API. See message for details.
         """
@@ -180,10 +202,13 @@ class Unity3D(APIRequest, metaclass=EndpointRegister):
     @endpoint(f'/api/{route}/tip')
     def addressindexer_tip(self, **kwargs) -> AddressIndexerTipModel:
         """Retrieves the address indexer tip.
+
         Args:
             **kwargs: Extra keyword arguments.
+
         Returns:
             AddressIndexerTipModel: The address indexer tip hash and height.
+
         Raises:
             APIError: Error thrown by node API. See message for details.
         """
@@ -193,11 +218,14 @@ class Unity3D(APIRequest, metaclass=EndpointRegister):
     @endpoint(f'/api/{route}/reciept')
     def receipt(self, tx_hash: Union[uint256, str], **kwargs) -> ReceiptModel:
         """Gets a smart contract transaction receipt.
+
         Args:
             tx_hash (uint256, str): The transaction hash of the smart contract receipt.
             **kwargs: Extra keyword arguments.
+
         Returns:
             ReceiptModel: The smart contract transaction receipt.
+
         Raises:
             APIError: Error thrown by node API. See message for details.
         """
@@ -225,6 +253,7 @@ class Unity3D(APIRequest, metaclass=EndpointRegister):
                    parameters: List[Union[str, SmartContractParameter]] = None,
                    **kwargs) -> LocalExecutionResultModel:
         """Makes a local call to a method on a smart contract that has been successfully deployed. The purpose is to query and test methods.
+
         Args:
             contract_address (Address, str): The smart contract address being called.
             method_name (str): The smart contract method being called.
@@ -235,8 +264,10 @@ class Unity3D(APIRequest, metaclass=EndpointRegister):
             block_height (int, optional): The height at which to query the contract's state. If unset, will default to the current chain tip.
             parameters (List[Union[SmartContractParameter, str]], optional): A list of parameters for the smart contract.
             **kwargs: Extra keyword arguments.
+
         Returns:
             LocalExecutionResultModel: The results of a local contract execution.
+
         Raises:
             APIError: Error thrown by node API. See message for details.
         """

@@ -1,4 +1,5 @@
 from pydantic import Field
+from typing import Optional
 from pystratis.api import Model
 from pystratis.core.types import Money, uint256
 
