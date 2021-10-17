@@ -1,6 +1,8 @@
 from typing import List
 from pystratis.api import APIRequest, EndpointRegister, endpoint
 from pystratis.api.federation.responsemodels import *
+from pystratis.api.federation.requestmodels import *
+from pystratis.core import PubKey
 from pystratis.core.types import Address
 
 
@@ -62,3 +64,39 @@ class Federation(APIRequest, metaclass=EndpointRegister):
         """
         data = self.get(**kwargs)
         return [FederationMemberModel(**x) for x in data]
+
+    @endpoint(f'{route}/mineratheight')
+    def miner_at_height(self, block_height: int, **kwargs) -> PubKey:
+        """Gets the federation pubkey that mined the block at the specified height.
+
+        Args:
+            block_height: The height to query
+            **kwargs:
+
+        Returns:
+            PubKey: The pubkey that produced the block at the specified height.
+
+        Raises:
+            APIError: Error thrown by node API. See message for details.
+        """
+        request_model = AtHeightRequest(block_height=block_height)
+        data = self.get(request_model, **kwargs)
+        return PubKey(data)
+
+    @endpoint(f'{route}/federationatheight')
+    def federation_at_height(self, block_height: int, **kwargs) -> List[PubKey]:
+        """Gets the federation membership at the specified height.
+
+        Args:
+            block_height: The height to query
+            **kwargs:
+
+        Returns:
+            List[PubKey]: The pubkeys of federation members at the specified height.
+
+        Raises:
+            APIError: Error thrown by node API. See message for details.
+        """
+        request_model = AtHeightRequest(block_height=block_height)
+        data = self.get(request_model, **kwargs)
+        return [PubKey(x) for x in data]

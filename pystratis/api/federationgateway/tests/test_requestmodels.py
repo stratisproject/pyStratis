@@ -76,3 +76,13 @@ def test_verifytransferrequest(generate_uint256):
         deposit_id_transaction_id=data['depositIdTransactionId']
     )
     assert json.dumps(data) == request_model.json()
+
+
+def test_transferrequest(generate_uint256):
+    data = {
+        'depositId': generate_uint256
+    }
+    request_model = TransferRequest(
+        deposit_id=data['depositId']
+    )
+    assert json.dumps(data) == request_model.json()

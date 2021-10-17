@@ -264,7 +264,8 @@ def test_receipt(mocker: MockerFixture, network, generate_uint256, generate_hexs
                 ],
                 'data': generate_hexstring(32)
             }
-        ]
+        ],
+        'blockNumber': 5
     }
 
     mocker.patch.object(Unity3D, 'get', return_value=data)

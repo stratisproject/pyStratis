@@ -1,4 +1,5 @@
 from .conversionrequestmodel import ConversionRequestModel
-from .statusmodel import StatusModel
+from .transactionresponsemodel import TransactionResponseModel
 
-__all__ = ['ConversionRequestModel', 'StatusModel']
+
+__all__ = ['ConversionRequestModel', 'TransactionResponseModel']

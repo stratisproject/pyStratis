@@ -3,6 +3,7 @@ from pystratis.api.voting.requestmodels import VoteKey
 from pystratis.api.voting.responsemodels import *
 from pystratis.nodes import CirrusMinerNode
 from pystratis.api.global_responsemodels import PollViewModel
+from pystratis.core import PubKey
 
 
 @pytest.mark.integration_test
@@ -69,3 +70,18 @@ def test_scheduledvotes(cirrusminer_node: CirrusMinerNode):
     assert isinstance(response, list)
     for item in response:
         assert isinstance(item, VotingDataModel)
+
+
+@pytest.mark.integration_test
+@pytest.mark.cirrus_integration_test
+def test_scheduledvote_kickmember(cirrusminer_node: CirrusMinerNode):
+    response = cirrusminer_node.federation.members_current()
+    current_member = str(response.pubkey)
+    cirrusminer_node.voting.schedulevote_kickmember(pubkey=current_member)
+
+
+@pytest.mark.integration_test
+@pytest.mark.cirrus_integration_test
+def test_polls_tip(cirrusminer_node: CirrusMinerNode, generate_compressed_pubkey):
+    response = cirrusminer_node.voting.polls_tip()
+    assert isinstance(response, int)

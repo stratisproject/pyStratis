@@ -3,12 +3,20 @@ from pystratis.nodes import BaseNode
 from pystratis.api import LogRule
 from pystratis.core.types import uint256, hexstr, Money
 from pystratis.api.node.responsemodels import *
+from pystratis.api import APIError
 
 
 @pytest.mark.integration_test
 @pytest.mark.strax_integration_test
-def test_status(strax_hot_node: BaseNode):
-    response = strax_hot_node.node.status()
+def test_status_nopublish(strax_hot_node: BaseNode):
+    response = strax_hot_node.node.status(publish=False)
+    assert isinstance(response, StatusModel)
+
+
+@pytest.mark.integration_test
+@pytest.mark.strax_integration_test
+def test_status_publish(strax_hot_node: BaseNode):
+    response = strax_hot_node.node.status(publish=True)
     assert isinstance(response, StatusModel)
 
 
@@ -104,7 +112,9 @@ def test_stop():
 @pytest.mark.integration_test
 @pytest.mark.strax_integration_test
 def test_log_levels(strax_hot_node: BaseNode):
-    strax_hot_node.node.log_levels(log_rules=[LogRule(rule_name='Stratis.*', log_level='Debug', filename='filename')])
+    with pytest.raises(APIError):
+        # Raises if duplicate rule names are found
+        strax_hot_node.node.log_levels(log_rules=[LogRule(rule_name='Stratis.*', log_level='Debug', filename='filename')])
 
 
 @pytest.mark.integration_test
@@ -123,3 +133,16 @@ def test_async_loops(strax_hot_node: BaseNode):
     assert isinstance(response, list)
     for asyncloop in response:
         assert isinstance(asyncloop, AsyncLoopsModel)
+
+
+@pytest.mark.integration_test
+@pytest.mark.strax_integration_test
+def test_rewind(strax_hot_node: BaseNode):
+    response = strax_hot_node.node.rewind(height=2)
+    assert isinstance(response, str)
+
+
+@pytest.mark.integration_test
+@pytest.mark.strax_integration_test
+def test_delete_datafolder_chain(strax_hot_node: BaseNode):
+    strax_hot_node.node.delete_datafolder_chain()

@@ -77,7 +77,8 @@ def test_receipt(mocker: MockerFixture, network, generate_uint256, generate_hexs
                 ],
                 'data': generate_hexstring(32)
             }
-        ]
+        ],
+        'blockNumber': 5
     }
 
     mocker.patch.object(SmartContracts, 'get', return_value=data)
@@ -112,7 +113,8 @@ def test_receipt_search(mocker: MockerFixture, network, generate_uint256, genera
                 ],
                 'data': generate_hexstring(32)
             }
-        ]
+        ],
+        'blockNumber': 5
     }]
     mocker.patch.object(SmartContracts, 'get', return_value=data)
     smart_contracts = SmartContracts(network=network, baseuri=mocker.MagicMock())

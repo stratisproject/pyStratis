@@ -3,6 +3,7 @@ from pytest_mock import MockerFixture
 from pystratis.api.federation.responsemodels import *
 from pystratis.api.federation import Federation
 from pystratis.core.networks import CirrusMain
+from pystratis.core import PubKey
 
 
 @pytest.mark.parametrize('network', [CirrusMain()], ids=['CirrusMain'])
@@ -34,9 +35,8 @@ def test_members_current(mocker: MockerFixture, network, generate_compressed_pub
         "collateralAmount": 50000,
         "lastActiveTime": get_datetime(5),
         "periodOfInactivity": "00:02:32.9200000",
-        "federationSize": 2,
-        "producedBlockInLastRound": False,
-        "miningStats": {"minerHits": 1, "producedBlockInLastRound": False, 'miningAddress': generate_p2pkh_address(network=network)}
+        "federationSize": 1,
+        'miningStats': {'minerHits': 1, "producedBlockInLastRound": False, 'miningAddress': generate_p2pkh_address(network=network)}
     }
 
     mocker.patch.object(Federation, 'get', return_value=data)
@@ -78,5 +78,29 @@ def test_member(mocker: MockerFixture, network, generate_compressed_pubkey, get_
     response = federation.members()
 
     assert response == [FederationMemberModel(**x) for x in data]
+    # noinspection PyUnresolvedReferences
+    federation.get.assert_called_once()
+
+
+@pytest.mark.parametrize('network', [CirrusMain()], ids=['CirrusMain'])
+def test_miner_at_height_request(mocker: MockerFixture, network, generate_compressed_pubkey):
+    data = generate_compressed_pubkey
+    mocker.patch.object(Federation, 'get', return_value=data)
+    federation = Federation(network=network, baseuri=mocker.MagicMock())
+    response = federation.miner_at_height(block_height=1)
+    assert response == PubKey(data)
+    # noinspection PyUnresolvedReferences
+    federation.get.assert_called_once()
+
+
+@pytest.mark.parametrize('network', [CirrusMain()], ids=['CirrusMain'])
+def test_federation_at_height_request(mocker: MockerFixture, network, generate_compressed_pubkey):
+    data = [generate_compressed_pubkey]
+    mocker.patch.object(Federation, 'get', return_value=data)
+    federation = Federation(network=network, baseuri=mocker.MagicMock())
+    response = federation.federation_at_height(block_height=1)
+    assert isinstance(response, list)
+    for item in response:
+        assert isinstance(item, PubKey)
     # noinspection PyUnresolvedReferences
     federation.get.assert_called_once()

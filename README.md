@@ -90,12 +90,18 @@ make html
 Thanks goes to [@TjadenFroyda](https://github.com/tjadenfroyda) for his contributions in kickstarting this repository.
 
 # ChangeLog
-### Version 1.0.7.0 (StratisFullNode release/1.0.9.7)
-- Minor updates to responsemodels for node/status
+### Version 1.1.0.0 (StratisFullNode release/1.1.0.13)
+- Added externalapi route and endpoints
+- Added blockstore/getutxosetforaddress endpoint
+- Added voting/schedulevote-kickmember and voting/polls/tip endpoints
+- Added node/rewind and node/datafolder/chain endpoints
+- Added federationgateway/transfer and federationgateway/transfers/deletesuspended endpoints
+- Added multiple interop endpoints, removed interop/status endpoint
+- Added federation/federationatheight and federation/mineratheight endpoints
 ### Version 1.0.6.0 (StratisFullNode release/1.0.9.6)
 - SignalR added to cirrusminernode
 ### Version 1.0.5.0 (StratisFullNode release/1.0.9.5)
-- Adding 'retrieve-filtered-utxos' endpoint for coldstaking
+- Added 'retrieve-filtered-utxos' endpoint for coldstaking
 ### Version 1.0.4.0 (StratisFullNode release/1.0.9.4)
 - No API updates for SFN release/1.0.9.4
 ### Version 1.0.3.0 (StratisFullNode release/1.0.9.3)

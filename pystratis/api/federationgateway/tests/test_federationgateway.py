@@ -189,3 +189,32 @@ def test_verify_transfer(mocker: MockerFixture, network, generate_uint256):
     assert response == ValidateTransactionResultModel(**data)
     # noinspection PyUnresolvedReferences
     federation_gateway.get.assert_called_once()
+
+
+@pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
+def test_transfers_delete_suspended(mocker: MockerFixture, network, generate_uint256):
+    data = "Deleting suspended transfers is only available on test networks."
+    mocker.patch.object(FederationGateway, 'delete', return_value=data)
+    federation_gateway = FederationGateway(network=network, baseuri=mocker.MagicMock())
+    response = federation_gateway.transfers_delete_suspended()
+    assert response == data
+    # noinspection PyUnresolvedReferences
+    federation_gateway.delete.assert_called_once()
+
+
+@pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
+def test_transfer(mocker: MockerFixture, network, generate_uint256, generate_coinbase_transaction):
+    txid = generate_uint256
+    data = {
+        'depositAmount': 5,
+        'depositId': generate_uint256,
+        'depositHeight': 5,
+        'transferStatus': CrossChainTransferStatus.Partial,
+        'tx': generate_coinbase_transaction(txid)
+    }
+    mocker.patch.object(FederationGateway, 'get', return_value=data)
+    federation_gateway = FederationGateway(network=network, baseuri=mocker.MagicMock())
+    response = federation_gateway.transfer(deposit_id=data['depositId'])
+    assert response == CrossChainTransferModel(**data)
+    # noinspection PyUnresolvedReferences
+    federation_gateway.get.assert_called_once()

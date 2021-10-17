@@ -3,6 +3,7 @@ from pystratis.core.networks import StraxMain, StraxTest, StraxRegTest
 from .basenode import BaseNode
 from pystratis.api.coldstaking import ColdStaking
 from pystratis.api.diagnostic import Diagnostic
+from pystratis.api.externalapi import ExternalAPI
 from pystratis.api.mining import Mining
 from pystratis.api.signalr import SignalR
 from pystratis.api.staking import Staking
@@ -24,6 +25,7 @@ class StraxNode(BaseNode):
         # API endpoints
         self._coldstaking = ColdStaking(baseuri=self.api_route, network=blockchainnetwork)
         self._diagnostic = Diagnostic(baseuri=self.api_route, network=blockchainnetwork)
+        self._externalapi = ExternalAPI(baseuri=self.api_route, network=blockchainnetwork)
         self._mining = Mining(baseuri=self.api_route, network=blockchainnetwork)
         self._signalr = SignalR(baseuri=self.api_route, network=blockchainnetwork)
         self._staking = Staking(baseuri=self.api_route, network=blockchainnetwork)
@@ -31,6 +33,7 @@ class StraxNode(BaseNode):
         # Add Strax specific endpoints to superclass endpoints.
         self._endpoints.extend(self._coldstaking.endpoints)
         self._endpoints.extend(self._diagnostic.endpoints)
+        self._endpoints.extend(self._externalapi.endpoints)
         self._endpoints.extend(self._mining.endpoints)
         self._endpoints.extend(self._signalr.endpoints)
         self._endpoints.extend(self._staking.endpoints)
@@ -53,6 +56,15 @@ class StraxNode(BaseNode):
             Diagnostic: A Diagnostic instance.
         """
         return self._diagnostic
+
+    @property
+    def externalapi(self) -> ExternalAPI:
+        """The externalapi route.
+
+        Returns:
+            ExternalAPI: A ExternalAPI instance.
+        """
+        return self._externalapi
 
     @property
     def mining(self) -> Mining:

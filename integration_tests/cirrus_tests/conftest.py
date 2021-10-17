@@ -38,8 +38,7 @@ def initialize_nodes(
     1) src/Stratis.CirrusMinerD/Program.cs (enable unity3d api)
     2) src/Stratis.CirrusMinerD/Stratis.CirrusMinerD.csproj (add project reference)
     """
-    cirrusminer_extra_cmd_ops_node_syncing = ['-devmode=miner', '-mincoinmaturity=1', '-mindepositconfirmations=1', '-bantime=1',
-                                              '-txindex=1', '-addressindex=1', '-unityapi_enable=1',
+    cirrusminer_extra_cmd_ops_node_syncing = ['-devmode=miner', '-mincoinmaturity=1', '-mindepositconfirmations=1', '-bantime=1', '-unityapi_enable=1',
                                               f'-whitelist=127.0.0.1:{cirrusminer_node.blockchainnetwork.DEFAULT_PORT}',
                                               f'-unityapi_apiport={cirrusminerunity3d_node.blockchainnetwork.UNITY3D_PORT}'
                                               ]

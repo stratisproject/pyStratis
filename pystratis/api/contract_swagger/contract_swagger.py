@@ -34,7 +34,7 @@ class ContractSwagger(APIRequest, metaclass=EndpointRegister):
         data['paths'] = OpenAPIEndpointsModel(data['paths'])
         return OpenAPISchemaModel(**data)
 
-    @endpoint(f'{route}')
+    @endpoint(f'/api{route}')
     def __call__(self, address: Union[Address, str], **kwargs) -> None:
         """Add the contract address to the Swagger dropdown.
 
@@ -48,5 +48,7 @@ class ContractSwagger(APIRequest, metaclass=EndpointRegister):
         Raises:
             APIError: Error thrown by node API. See message for details.
         """
-        request_model = str(address)
+        if isinstance(address, str):
+            address = Address(address=address, network=self._network)
+        request_model = ContractRequest(address=address)
         self.post(request_model, **kwargs)

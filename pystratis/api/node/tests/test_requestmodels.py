@@ -102,3 +102,23 @@ def test_validateaddressrequest(network, generate_p2pkh_address):
         address=data['address']
     )
     assert json.dumps(data) == request_model.json()
+
+
+def test_rewindrequest():
+    data = {
+        'height': 500
+    }
+    request_model = RewindRequest(
+        height=data['height']
+    )
+    assert json.dumps(data) == request_model.json()
+
+
+def test_statusrequest():
+    data = {
+        'publish': True
+    }
+    request_model = StatusRequest(
+        publish=data['publish']
+    )
+    assert json.dumps(data) == request_model.json()

@@ -8,7 +8,7 @@ from pystratis.core.networks import StraxMain, CirrusMain
 
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
-def test_status(mocker: MockerFixture, network):
+def test_status_no_publish(mocker: MockerFixture, network):
     data = {
         'agent': 'nodeagent',
         'version': 'nodeversion',
@@ -52,7 +52,59 @@ def test_status(mocker: MockerFixture, network):
     mocker.patch.object(Node, 'get', return_value=data)
     node = Node(network=network, baseuri=mocker.MagicMock())
 
-    response = node.status()
+    response = node.status(publish=False)
+
+    assert response == StatusModel(**data)
+    # noinspection PyUnresolvedReferences
+    node.get.assert_called_once()
+
+
+@pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
+def test_status_publish(mocker: MockerFixture, network):
+    data = {
+        'agent': 'nodeagent',
+        'version': 'nodeversion',
+        'externalAddress': '[::0.0.0.0]',
+        'network': network.name,
+        'coin_ticker': 'STRAX' if 'Strax' in network.name else 'CRS',
+        'processId': '0',
+        'consensusHeight': 10,
+        'blockStoreHeight': 10,
+        'bestPeerHeight': 10,
+        'inboundPeers': [
+            {
+                'version': 1,
+                'remoteSocketEndpoint': '[::0.0.0.0]',
+                'tipHeight': 10
+            }
+        ],
+        'outboundPeers': [
+            {
+                'version': 1,
+                'remoteSocketEndpoint': '[::0.0.0.0]',
+                'tipHeight': 10
+            }
+        ],
+        'featuresData': [
+            {
+                'namespace': 'node.feature',
+                'state': FeatureInitializationState.Initialized
+            }
+        ],
+        'dataDirectoryPath': '/my/data/dir',
+        'runningTime': 'a long time',
+        'difficulty': 100000.0000,
+        'protocolVersion': 123,
+        'testnet': False,
+        'relayFee': 0,
+        'state': FullNodeState.Initialized,
+        'inIbd': False,
+        'headerHeight': 1
+    }
+    mocker.patch.object(Node, 'get', return_value=data)
+    node = Node(network=network, baseuri=mocker.MagicMock())
+
+    response = node.status(publish=True)
 
     assert response == StatusModel(**data)
     # noinspection PyUnresolvedReferences
@@ -264,3 +316,28 @@ def test_async_loops(mocker: MockerFixture, network):
     assert response == [AsyncLoopsModel(**x) for x in data]
     # noinspection PyUnresolvedReferences
     node.get.assert_called_once()
+
+
+@pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
+def test_rewind(mocker: MockerFixture, network):
+    data = "Rewind flag set, please restart the node."
+    mocker.patch.object(Node, 'put', return_value=data)
+    node = Node(network=network, baseuri=mocker.MagicMock())
+
+    response = node.rewind(height=2)
+
+    assert isinstance(response, str)
+    # noinspection PyUnresolvedReferences
+    node.put.assert_called_once()
+
+
+@pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
+def test_delete_datafolder_chain(mocker: MockerFixture, network):
+    data = None
+    mocker.patch.object(Node, 'delete', return_value=data)
+    node = Node(network=network, baseuri=mocker.MagicMock())
+
+    node.delete_datafolder_chain()
+
+    # noinspection PyUnresolvedReferences
+    node.delete.assert_called_once()

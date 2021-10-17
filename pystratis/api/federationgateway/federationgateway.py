@@ -227,3 +227,41 @@ class FederationGateway(APIRequest, metaclass=EndpointRegister):
         if isinstance(data, str):
             return data
         return ValidateTransactionResultModel(**data)
+
+    @endpoint(f'{route}/transfers/deletesuspended')
+    def transfers_delete_suspended(self, **kwargs) -> str:
+        """Delete a suspended transfer transaction.
+
+        Args:
+            **kwargs: Extra keyword arguments.
+
+        Returns:
+            str: A message about the deletion request.
+
+        Raises:
+            APIError: Error thrown by node API. See message for details.
+        """
+        data = self.delete(**kwargs)
+        return data
+
+    @endpoint(f'{route}/transfer')
+    def transfer(self,
+                 deposit_id: Union[str, uint256],
+                 **kwargs) -> CrossChainTransferModel:
+        """Gets pending transfers.
+
+        Args:
+            deposit_id (uint256, str): The deposit id hash.
+            **kwargs: Extra keyword arguments.
+
+        Returns:
+            CrossChainTransferModel: A cross chain transfer.
+
+        Raises:
+            APIError: Error thrown by node API. See message for details.
+        """
+        if isinstance(deposit_id, str):
+            deposit_id = uint256(deposit_id)
+        request_model = TransferRequest(deposit_id=deposit_id)
+        data = self.get(request_model, **kwargs)
+        return CrossChainTransferModel(**data)

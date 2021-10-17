@@ -67,7 +67,7 @@ class APIRequest:
         else:
             raise APIError(code=response.status_code, message=response.text)
 
-    def delete(self, request_model: Union[BaseModel, dict], **kwargs) -> Any:
+    def delete(self, request_model: Union[BaseModel, dict] = None, **kwargs) -> Any:
         """API delete request."""
         headers = self._headers
         if 'headers' in kwargs:

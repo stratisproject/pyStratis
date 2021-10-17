@@ -51,6 +51,13 @@ GetLastBalanceUpdateTransactionModel
 .. automodule:: pystratis.api.blockstore.responsemodels.getlastbalanceupdatetransactionmodel
    :members:
 
+
+GetUTXOsForAddressModel
+-------------------------------------------------------------------------
+
+.. automodule:: pystratis.api.blockstore.responsemodels.getutxosforaddressmodel
+   :members:
+
 GetVerboseAddressesBalancesModel
 ---------------------------------------------------------------------
 

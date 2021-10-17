@@ -76,7 +76,7 @@ class Voting(APIRequest, metaclass=EndpointRegister):
 
         Args:
             vote_type (VoteKey, optional): The type of vote to query.
-            pubkey_of_member_being_voted_on (PubKey, optional): The pubkey to query.
+            pubkey_of_member_being_voted_on (hexstr, str, optional): The pubkey to query.
             **kwargs: Extra keyword arguments. 
 
         Returns:
@@ -152,6 +152,27 @@ class Voting(APIRequest, metaclass=EndpointRegister):
         request_model = ScheduleVoteRemoveHashRequest(hash_id=hash_id)
         self.post(request_model, **kwargs)
 
+    @endpoint(f'{route}/schedulevote-kickmember')
+    def schedulevote_kickmember(self,
+                                pubkey: Union[hexstr, str],
+                                **kwargs) -> None:
+        """Vote to remove a hash from whitelist.
+
+        Args:
+            pubkey (hexstr, str): The pubkey to vote on kicking.
+            **kwargs: Extra keyword arguments.
+
+        Returns:
+            None
+
+        Raises:
+            APIError: Error thrown by node API. See message for details.
+        """
+        if isinstance(pubkey, str):
+            pubkey = hexstr(pubkey)
+        request_model = ScheduleVoteKickMemberRequest(pubkey=pubkey)
+        self.post(request_model, **kwargs)
+
     @endpoint(f'{route}/scheduledvotes')
     def scheduled_votes(self, **kwargs) -> List[VotingDataModel]:
         """Gets the scheduled voting data.
@@ -167,3 +188,19 @@ class Voting(APIRequest, metaclass=EndpointRegister):
         """
         data = self.get(**kwargs)
         return [VotingDataModel(**x) for x in data]
+
+    @endpoint(f'{route}/polls/tip')
+    def polls_tip(self, **kwargs) -> int:
+        """Gets the tip of the polls repository.
+
+        Args:
+            **kwargs: Extra keyword arguments.
+
+        Returns:
+            int: The pols repository tip.
+
+        Raises:
+            APIError: Error thrown by node API. See message for details.
+        """
+        data = self.get(**kwargs)
+        return data

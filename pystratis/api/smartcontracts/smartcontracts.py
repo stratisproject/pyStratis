@@ -627,7 +627,10 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
             data['internalTransfers'][i]['from'] = Address(address=data['internalTransfers'][i]['from'], network=self._network)
             data['internalTransfers'][i]['to'] = Address(address=data['internalTransfers'][i]['to'], network=self._network)
         for i in range(len(data['logs'])):
-            data['logs'][i]['address'] = Address(address=data['logs'][i]['address'], network=self._network)
+            if isinstance(data['logs'][i]['address'], str):
+                data['logs'][i]['address'] = Address(address=data['logs'][i]['address'], network=self._network)
+            else:
+                data['logs'][i]['address'] = None
         if data['errorMessage'] is not None:
             data['errorMessage'] = ast.literal_eval(data['errorMessage'])
             data['errorMessage'] = data['errorMessage']['value']
