@@ -5,7 +5,7 @@ from pystratis.core.types import Money, hexstr
 
 
 class TransactionResponseModel(Model):
-    """A pydantic model of a multisig transaction request."""
+    """A pydantic model of a multisig transaction response."""
     data: hexstr
     """The transaction hexstr."""
     destination: DestinationChain

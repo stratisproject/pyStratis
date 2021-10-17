@@ -4,7 +4,7 @@ from pystratis.api import Model
 
 # noinspection PyUnresolvedReferences
 class AtHeightRequest(Model):
-    """A request model for the federation/get-mining-pubkey-at-height endpoint.
+    """A request model for the federation/mineratheight and federationatheight endpoints.
 
     Args:
         block_height (int): The height to query.

@@ -5,7 +5,7 @@ from pystratis.core.types import Address
 
 
 class BalanceRequest(Model):
-    """A pydantic model of a addowner request."""
+    """A pydantic model of a balance request."""
     destination_chain: DestinationChain = Field(alias='destinationChain')
     """The destination chain."""
     account: str

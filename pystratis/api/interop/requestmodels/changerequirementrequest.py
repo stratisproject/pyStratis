@@ -5,7 +5,7 @@ from pystratis.core.types import Address
 
 
 class ChangeRequirementRequest(Model):
-    """A pydantic model of a addowner request."""
+    """A pydantic model of a changerequirement request."""
     destination_chain: DestinationChain = Field(alias='destinationChain')
     """The destination chain."""
     requirement: int

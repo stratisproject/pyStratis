@@ -5,7 +5,7 @@ from pystratis.core.types import Address
 
 
 class MultisigTransactionRequest(Model):
-    """A pydantic model of a addowner request."""
+    """A pydantic model of a multisigtransaction request."""
     destination_chain: DestinationChain = Field(alias='destinationChain')
     """The destination chain."""
     transaction_id: int = Field(alias='transactionId')
