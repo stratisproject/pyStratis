@@ -7,34 +7,6 @@ from pystratis.core.types import Address, Money, uint32, uint64, uint128, uint25
 from pystratis.core.networks import CirrusMain
 
 
-def test_all_strax_endpoints_implemented(strax_swagger_json):
-    paths = [key.lower() for key in strax_swagger_json['paths']]
-    for endpoint in paths:
-        if SmartContracts.route + '/' in endpoint:
-            assert endpoint in SmartContracts.endpoints
-
-
-def test_all_cirrus_endpoints_implemented(cirrus_swagger_json):
-    paths = [key.lower() for key in cirrus_swagger_json['paths']]
-    for endpoint in paths:
-        if SmartContracts.route + '/' in endpoint:
-            assert endpoint in SmartContracts.endpoints
-
-
-def test_all_interfluxstrax_endpoints_implemented(interfluxstrax_swagger_json):
-    paths = [key.lower() for key in interfluxstrax_swagger_json['paths']]
-    for endpoint in paths:
-        if SmartContracts.route + '/' in endpoint:
-            assert endpoint in SmartContracts.endpoints
-
-
-def test_all_interfluxcirrus_endpoints_implemented(interfluxcirrus_swagger_json):
-    paths = [key.lower() for key in interfluxcirrus_swagger_json['paths']]
-    for endpoint in paths:
-        if SmartContracts.route + '/' in endpoint:
-            assert endpoint in SmartContracts.endpoints
-
-
 @pytest.mark.parametrize('network', [CirrusMain()], ids=['CirrusMain'])
 def test_code(mocker: MockerFixture, network, generate_p2pkh_address):
     data = {
@@ -44,7 +16,7 @@ def test_code(mocker: MockerFixture, network, generate_p2pkh_address):
         'message': 'message'
     }
     mocker.patch.object(SmartContracts, 'get', return_value=data)
-    smart_contracts = SmartContracts(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    smart_contracts = SmartContracts(network=network, baseuri=mocker.MagicMock())
 
     response = smart_contracts.code(address=Address(address=generate_p2pkh_address(network), network=network))
 
@@ -57,7 +29,7 @@ def test_code(mocker: MockerFixture, network, generate_p2pkh_address):
 def test_balance(mocker: MockerFixture, network, generate_p2pkh_address):
     data = 1
     mocker.patch.object(SmartContracts, 'get', return_value=data)
-    smart_contracts = SmartContracts(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    smart_contracts = SmartContracts(network=network, baseuri=mocker.MagicMock())
 
     response = smart_contracts.balance(address=Address(address=generate_p2pkh_address(network), network=network))
 
@@ -70,7 +42,7 @@ def test_balance(mocker: MockerFixture, network, generate_p2pkh_address):
 def test_storage(mocker: MockerFixture, network, generate_p2pkh_address, generate_hexstring):
     data = True
     mocker.patch.object(SmartContracts, 'get', return_value=data)
-    smart_contracts = SmartContracts(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    smart_contracts = SmartContracts(network=network, baseuri=mocker.MagicMock())
     response = smart_contracts.storage(
         contract_address=Address(address=generate_p2pkh_address(network=network), network=network),
         storage_key='key',
@@ -105,11 +77,12 @@ def test_receipt(mocker: MockerFixture, network, generate_uint256, generate_hexs
                 ],
                 'data': generate_hexstring(32)
             }
-        ]
+        ],
+        'blockNumber': 5
     }
 
     mocker.patch.object(SmartContracts, 'get', return_value=data)
-    smart_contracts = SmartContracts(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    smart_contracts = SmartContracts(network=network, baseuri=mocker.MagicMock())
 
     response = smart_contracts.receipt(tx_hash=trxid)
 
@@ -140,10 +113,11 @@ def test_receipt_search(mocker: MockerFixture, network, generate_uint256, genera
                 ],
                 'data': generate_hexstring(32)
             }
-        ]
+        ],
+        'blockNumber': 5
     }]
     mocker.patch.object(SmartContracts, 'get', return_value=data)
-    smart_contracts = SmartContracts(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    smart_contracts = SmartContracts(network=network, baseuri=mocker.MagicMock())
 
     response = smart_contracts.receipt_search(
         contract_address=Address(address=generate_p2pkh_address(network=network), network=network),
@@ -169,7 +143,7 @@ def test_build_create(mocker: MockerFixture, network, generate_p2pkh_address, ge
         'newContractAddress': generate_p2pkh_address(network=network)
     }
     mocker.patch.object(SmartContracts, 'post', return_value=data)
-    smart_contracts = SmartContracts(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    smart_contracts = SmartContracts(network=network, baseuri=mocker.MagicMock())
 
     response = smart_contracts.build_create(
         wallet_name='Test',
@@ -214,7 +188,7 @@ def test_build_call(mocker: MockerFixture, network, generate_p2pkh_address, gene
         'transactionId': generate_uint256
     }
     mocker.patch.object(SmartContracts, 'post', return_value=data)
-    smart_contracts = SmartContracts(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    smart_contracts = SmartContracts(network=network, baseuri=mocker.MagicMock())
 
     response = smart_contracts.build_call(
         wallet_name='Test',
@@ -260,7 +234,7 @@ def test_build_transaction(mocker: MockerFixture, network, generate_p2pkh_addres
         'transactionId': generate_uint256
     }
     mocker.patch.object(SmartContracts, 'post', return_value=data)
-    smart_contracts = SmartContracts(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    smart_contracts = SmartContracts(network=network, baseuri=mocker.MagicMock())
     response = smart_contracts.build_transaction(
         sender=Address(address=generate_p2pkh_address(network=network), network=network),
         fee_amount=Money(0.0001),
@@ -293,7 +267,7 @@ def test_build_transaction(mocker: MockerFixture, network, generate_p2pkh_addres
 def test_estimate_fee(mocker: MockerFixture, network, generate_uint256, generate_p2pkh_address):
     data = 10000
     mocker.patch.object(SmartContracts, 'post', return_value=data)
-    smart_contracts = SmartContracts(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    smart_contracts = SmartContracts(network=network, baseuri=mocker.MagicMock())
 
     response = smart_contracts.estimate_fee(
         sender=Address(address=generate_p2pkh_address(network=network), network=network),
@@ -332,7 +306,7 @@ def test_build_and_send_create(mocker: MockerFixture, network, generate_p2pkh_ad
         'newContractAddress': generate_p2pkh_address(network=network)
     }
     mocker.patch.object(SmartContracts, 'post', return_value=data)
-    smart_contracts = SmartContracts(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    smart_contracts = SmartContracts(network=network, baseuri=mocker.MagicMock())
 
     response = smart_contracts.build_and_send_create(
         wallet_name='Test',
@@ -377,7 +351,7 @@ def test_build_and_send_call(mocker: MockerFixture, network, generate_uint256, g
         'transactionId': generate_uint256
     }
     mocker.patch.object(SmartContracts, 'post', return_value=data)
-    smart_contracts = SmartContracts(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    smart_contracts = SmartContracts(network=network, baseuri=mocker.MagicMock())
 
     response = smart_contracts.build_and_send_call(
         wallet_name='Test',
@@ -439,7 +413,7 @@ def test_local_call(mocker: MockerFixture, network, generate_p2pkh_address, gene
     }
 
     mocker.patch.object(SmartContracts, 'post', return_value=data)
-    smart_contracts = SmartContracts(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    smart_contracts = SmartContracts(network=network, baseuri=mocker.MagicMock())
     response = smart_contracts.local_call(
         contract_address=Address(address=generate_p2pkh_address(network=network), network=network),
         method_name='method',
@@ -482,7 +456,7 @@ def test_address_balances(mocker: MockerFixture, network, generate_p2pkh_address
         }
     ]
     mocker.patch.object(SmartContracts, 'get', return_value=data)
-    smart_contracts = SmartContracts(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    smart_contracts = SmartContracts(network=network, baseuri=mocker.MagicMock())
 
     response = smart_contracts.address_balances(wallet_name='Test')
 

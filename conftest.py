@@ -220,38 +220,6 @@ def generate_extprvkey() -> str:
     return base58.b58encode(payload_bytes + checksum[:4]).decode('ascii')
 
 
-@pytest.fixture(scope='package')
-def strax_swagger_json() -> dict:
-    root_dir = os.path.dirname(os.path.abspath(__file__))
-    file_path = os.path.join(root_dir, 'pystratis/api', 'strax-swagger.json')
-    with open(file_path, 'r') as f:
-        return json.load(f)
-
-
-@pytest.fixture(scope='package')
-def cirrus_swagger_json() -> dict:
-    root_dir = os.path.dirname(os.path.abspath(__file__))
-    file_path = os.path.join(root_dir, 'pystratis/api', 'cirrus-swagger.json')
-    with open(file_path, 'r') as f:
-        return json.load(f)
-
-
-@pytest.fixture(scope='package')
-def interfluxstrax_swagger_json() -> dict:
-    root_dir = os.path.dirname(os.path.abspath(__file__))
-    file_path = os.path.join(root_dir, 'pystratis/api', 'interfluxstrax-swagger.json')
-    with open(file_path, 'r') as f:
-        return json.load(f)
-
-
-@pytest.fixture(scope='package')
-def interfluxcirrus_swagger_json() -> dict:
-    root_dir = os.path.dirname(os.path.abspath(__file__))
-    file_path = os.path.join(root_dir, 'pystratis/api', 'interfluxcirrus-swagger.json')
-    with open(file_path, 'r') as f:
-        return json.load(f)
-
-
 def generate_ethereum_address() -> str:
     privatekey = keccak_256(secrets.token_bytes(32)).digest()
     privatekey = ecdsa.SigningKey.from_string(privatekey, curve=ecdsa.SECP256k1)

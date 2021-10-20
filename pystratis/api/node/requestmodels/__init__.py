@@ -6,8 +6,10 @@ from .gettxoutproofrequest import GetTxOutProofRequest
 from .logrulesrequest import LogRulesRequest
 from .shutdownrequest import ShutdownRequest
 from .validateaddressrequest import ValidateAddressRequest
+from .rewindrequest import RewindRequest
+from .statusrequest import StatusRequest
 
 __all__ = [
     'DecodeRawTransactionRequest', 'GetBlockHeaderRequest', 'GetRawTransactionRequest', 'GetTxOutRequest', 'GetTxOutProofRequest',
-    'LogRulesRequest', 'ShutdownRequest', 'ValidateAddressRequest'
+    'LogRulesRequest', 'ShutdownRequest', 'ValidateAddressRequest', 'RewindRequest', 'StatusRequest'
 ]

@@ -5,7 +5,7 @@ from pystratis.core.types import Address
 
 class LogModel(Model):
     """A pydantic model of a smart contact log."""
-    address: Address
+    address: Optional[Address]
     """The smart contact address."""
     topics: Optional[List[str]]
     """A list of topics."""

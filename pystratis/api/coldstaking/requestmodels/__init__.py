@@ -6,8 +6,9 @@ from .offlinewithdrawalrequest import OfflineWithdrawalRequest
 from .setuprequest import SetupRequest
 from .setupofflinerequest import SetupOfflineRequest
 from .withdrawalrequest import WithdrawalRequest
+from .retrievefilteredutxosrequest import RetrieveFilteredUTXOsRequest
 
 __all__ = [
     'AccountRequest', 'AddressRequest', 'InfoRequest', 'OfflineWithdrawalRequest', 'OfflineWithdrawalFeeEstimationRequest',
-    'SetupRequest', 'SetupOfflineRequest', 'WithdrawalRequest'
+    'SetupRequest', 'SetupOfflineRequest', 'WithdrawalRequest', 'RetrieveFilteredUTXOsRequest'
 ]

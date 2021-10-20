@@ -267,9 +267,9 @@ def test_build_interflux_transaction(
     assert wait_and_clear_mempool()
     destination_address = get_node_unused_address(cirrusminer_syncing_node)
     change_address = get_node_address_with_balance(cirrusminer_node)
-    fee_amount = Money(0.0001)
-    amount_to_send = Money(10)
-    op_return_amount = Money(0.00000001)
+    fee_amount = Money(0.0008)
+    amount_to_send = Money(1100)
+    op_return_amount = Money(0)
     transactions = get_spendable_transactions(
         node=cirrusminer_node, amount=amount_to_send, op_return_amount=op_return_amount, wallet_name='Test'
     )
@@ -284,7 +284,6 @@ def test_build_interflux_transaction(
         outpoints=[Outpoint(transaction_id=x.transaction_id, index=x.index) for x in transactions],
         recipients=[Recipient(destination_address=destination_address, subtraction_fee_from_amount=True, amount=amount_to_send)],
         op_return_data=generate_ethereum_checksum_address,
-        op_return_amount=op_return_amount,
         allow_unconfirmed=False,
         shuffle_outputs=True,
         change_address=change_address

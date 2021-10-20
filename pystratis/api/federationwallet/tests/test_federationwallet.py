@@ -6,34 +6,6 @@ from pystratis.core.networks import StraxMain, CirrusMain
 from pystratis.core import CoinType
 
 
-def test_all_strax_endpoints_implemented(strax_swagger_json):
-    paths = [key.lower() for key in strax_swagger_json['paths']]
-    for endpoint in paths:
-        if FederationWallet.route + '/' in endpoint:
-            assert endpoint in FederationWallet.endpoints
-
-
-def test_all_cirrus_endpoints_implemented(cirrus_swagger_json):
-    paths = [key.lower() for key in cirrus_swagger_json['paths']]
-    for endpoint in paths:
-        if FederationWallet.route + '/' in endpoint:
-            assert endpoint in FederationWallet.endpoints
-
-
-def test_all_interfluxstrax_endpoints_implemented(interfluxstrax_swagger_json):
-    paths = [key.lower() for key in interfluxstrax_swagger_json['paths']]
-    for endpoint in paths:
-        if FederationWallet.route + '/' in endpoint:
-            assert endpoint in FederationWallet.endpoints
-
-
-def test_all_interfluxcirrus_endpoints_implemented(interfluxcirrus_swagger_json):
-    paths = [key.lower() for key in interfluxcirrus_swagger_json['paths']]
-    for endpoint in paths:
-        if FederationWallet.route + '/' in endpoint:
-            assert endpoint in FederationWallet.endpoints
-
-
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
 def test_general_info(mocker: MockerFixture, network):
     data = {
@@ -47,7 +19,7 @@ def test_general_info(mocker: MockerFixture, network):
         'connectedNodes': 10
     }
     mocker.patch.object(FederationWallet, 'get', return_value=data)
-    federation_wallet = FederationWallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    federation_wallet = FederationWallet(network=network, baseuri=mocker.MagicMock())
 
     response = federation_wallet.general_info()
 
@@ -80,7 +52,7 @@ def test_balance(mocker: MockerFixture, network, get_base_keypath, generate_p2pk
         ]
     }
     mocker.patch.object(FederationWallet, 'get', return_value=data)
-    federation_wallet = FederationWallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    federation_wallet = FederationWallet(network=network, baseuri=mocker.MagicMock())
 
     response = federation_wallet.balance()
 
@@ -116,7 +88,7 @@ def test_history(mocker: MockerFixture, network, generate_uint256, generate_p2pk
         }
     ]
     mocker.patch.object(FederationWallet, 'get', return_value=data)
-    federation_wallet = FederationWallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    federation_wallet = FederationWallet(network=network, baseuri=mocker.MagicMock())
     response = federation_wallet.history(max_entries_to_return=2)
     assert response == [WithdrawalModel(**x) for x in data]
     # noinspection PyUnresolvedReferences
@@ -127,7 +99,7 @@ def test_history(mocker: MockerFixture, network, generate_uint256, generate_p2pk
 def test_sync(mocker: MockerFixture, network, generate_uint256):
     data = None
     mocker.patch.object(FederationWallet, 'post', return_value=data)
-    federation_wallet = FederationWallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    federation_wallet = FederationWallet(network=network, baseuri=mocker.MagicMock())
     federation_wallet.sync(block_hash=generate_uint256)
     # noinspection PyUnresolvedReferences
     federation_wallet.post.assert_called_once()
@@ -137,7 +109,7 @@ def test_sync(mocker: MockerFixture, network, generate_uint256):
 def test_enable_federation(mocker: MockerFixture, network):
     data = None
     mocker.patch.object(FederationWallet, 'post', return_value=data)
-    federation_wallet = FederationWallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    federation_wallet = FederationWallet(network=network, baseuri=mocker.MagicMock())
     response = federation_wallet.enable_federation(
         mnemonic='secret mnemonic',
         password='password',
@@ -156,7 +128,7 @@ def test_remove_transactions(mocker: MockerFixture, network, generate_uint256):
         'creationTime': '2020-01-01T00:00:01'
     }]
     mocker.patch.object(FederationWallet, 'delete', return_value=data)
-    federation_wallet = FederationWallet(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    federation_wallet = FederationWallet(network=network, baseuri=mocker.MagicMock())
     response = federation_wallet.remove_transactions(resync=True)
     assert response == [RemovedTransactionModel(**x) for x in data]
     # noinspection PyUnresolvedReferences

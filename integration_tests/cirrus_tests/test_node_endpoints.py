@@ -3,12 +3,20 @@ from pystratis.nodes import CirrusMinerNode
 from pystratis.api import LogRule
 from pystratis.core.types import uint256, hexstr, Money
 from pystratis.api.node.responsemodels import *
+from pystratis.api import APIError
 
 
 @pytest.mark.integration_test
 @pytest.mark.cirrus_integration_test
-def test_status(cirrusminer_node: CirrusMinerNode):
-    response = cirrusminer_node.node.status()
+def test_status_nopublish(cirrusminer_node: CirrusMinerNode):
+    response = cirrusminer_node.node.status(publish=False)
+    assert isinstance(response, StatusModel)
+
+
+@pytest.mark.integration_test
+@pytest.mark.cirrus_integration_test
+def test_status_publish(cirrusminer_node: CirrusMinerNode):
+    response = cirrusminer_node.node.status(publish=True)
     assert isinstance(response, StatusModel)
 
 
@@ -99,7 +107,9 @@ def test_stop():
 @pytest.mark.integration_test
 @pytest.mark.cirrus_integration_test
 def test_log_levels(cirrusminer_node: CirrusMinerNode):
-    cirrusminer_node.node.log_levels(log_rules=[LogRule(rule_name='Stratis.*', log_level='Debug', filename='filename')])
+    with pytest.raises(APIError):
+        # Raises error because of duplicate rules found.
+        cirrusminer_node.node.log_levels(log_rules=[LogRule(rule_name='Stratis.*', log_level='Debug', filename='filename')])
 
 
 @pytest.mark.integration_test

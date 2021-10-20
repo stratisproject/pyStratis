@@ -3,7 +3,9 @@ from pystratis.core.networks import CirrusMain, CirrusTest, CirrusRegTest
 from .basenode import BaseNode
 from pystratis.api.balances import Balances
 from pystratis.api.collateral import Collateral
+from pystratis.api.contract_swagger import ContractSwagger
 from pystratis.api.diagnostic import Diagnostic
+from pystratis.api.dynamic_contract import DynamicContract
 from pystratis.api.federation import Federation
 from pystratis.api.smartcontracts import SmartContracts
 from pystratis.api.smartcontractwallet import SmartContractWallet
@@ -13,7 +15,9 @@ from pystratis.api.voting import Voting
 
 class CirrusNode(BaseNode):
     """A Cirrus Node."""
-    def __init__(self, ipaddr: str = 'http://localhost', blockchainnetwork: Union[CirrusMain, CirrusTest, CirrusRegTest] = CirrusMain()):
+    def __init__(self,
+                 ipaddr: str = 'http://localhost',
+                 blockchainnetwork: Union[CirrusMain, CirrusTest, CirrusRegTest] = CirrusMain()):
         """Initialize a Cirrus node api.
 
         Args:
@@ -27,7 +31,9 @@ class CirrusNode(BaseNode):
         # API endpoints
         self._balances = Balances(baseuri=self.api_route, network=blockchainnetwork)
         self._collateral = Collateral(baseuri=self.api_route, network=blockchainnetwork)
+        self._contract_swagger = ContractSwagger(baseuri=self.api_route, network=blockchainnetwork)
         self._diagnostic = Diagnostic(baseuri=self.api_route, network=blockchainnetwork)
+        self._dynamic_contract = DynamicContract(baseuri=self.api_route, network=blockchainnetwork)
         self._federation = Federation(baseuri=self.api_route, network=blockchainnetwork)
         self._smart_contracts = SmartContracts(baseuri=self.api_route, network=blockchainnetwork)
         self._smart_contract_wallet = SmartContractWallet(baseuri=self.api_route, network=blockchainnetwork)
@@ -37,7 +43,9 @@ class CirrusNode(BaseNode):
         # Add Cirrus specific endpoints to superclass endpoints.
         self._endpoints.extend(self._balances.endpoints)
         self._endpoints.extend(self._collateral.endpoints)
+        self._endpoints.extend(self._contract_swagger.endpoints)
         self._endpoints.extend(self._diagnostic.endpoints)
+        self._endpoints.extend(self._dynamic_contract.endpoints)
         self._endpoints.extend(self._federation.endpoints)
         self._endpoints.extend(self._smart_contracts.endpoints)
         self._endpoints.extend(self._smart_contract_wallet.endpoints)
@@ -64,6 +72,15 @@ class CirrusNode(BaseNode):
         return self._collateral
 
     @property
+    def contract_swagger(self) -> ContractSwagger:
+        """The contract_swagger route.
+
+        Returns:
+            ContractSwagger: A ContractSwagger instance.
+        """
+        return self._contract_swagger
+
+    @property
     def diagnostic(self) -> Diagnostic:
         """The diagnostic route.
 
@@ -71,6 +88,15 @@ class CirrusNode(BaseNode):
             Diagnostic: A Diagnostic instance.
         """
         return self._diagnostic
+
+    @property
+    def dynamic_contract(self) -> DynamicContract:
+        """The dynamic contract route.
+
+        Returns:
+            DynamicContract: A DynamicContract instance.
+        """
+        return self._dynamic_contract
 
     @property
     def federation(self) -> Federation:

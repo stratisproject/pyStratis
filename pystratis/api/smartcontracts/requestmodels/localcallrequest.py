@@ -16,6 +16,7 @@ class LocalCallContractTransactionRequest(Model):
         gas_price (int): The amount of gas being used in satoshis.
         gas_limit (int): The maximum amount of gas that can be used in satoshis.
         sender (Address): The address of the sending address.
+        block_height (int, optional): The height at which to query the contract's state. If unset, will default to the current chain tip.
         parameters (List[SmartContractParameters], optional): A list of parameters for the smart contract.
     """
     contract_address: Address = Field(alias='contractAddress')
@@ -24,4 +25,5 @@ class LocalCallContractTransactionRequest(Model):
     gas_price: conint(ge=100, le=10000) = Field(alias='gasPrice')
     gas_limit: conint(ge=12000, le=250000) = Field(alias='gasLimit')
     sender: Address
+    block_height: Optional[int] = Field(alias='blockHeight')
     parameters: Optional[List[SmartContractParameter]]

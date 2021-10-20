@@ -31,3 +31,5 @@ class ReceiptModel(Model):
     """Error message, if present."""
     logs: Optional[List[LogModel]]
     """Smart contact log model data, if present."""
+    block_number: int = Field(alias='blockNumber')
+    """The block number."""

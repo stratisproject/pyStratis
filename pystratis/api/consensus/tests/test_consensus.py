@@ -6,34 +6,6 @@ from pystratis.core.types import uint256
 from pystratis.core.networks import StraxMain, CirrusMain
 
 
-def test_all_strax_endpoints_implemented(strax_swagger_json):
-    paths = [key.lower() for key in strax_swagger_json['paths']]
-    for endpoint in paths:
-        if Consensus.route + '/' in endpoint:
-            assert endpoint in Consensus.endpoints
-
-
-def test_all_cirrus_endpoints_implemented(cirrus_swagger_json):
-    paths = [key.lower() for key in cirrus_swagger_json['paths']]
-    for endpoint in paths:
-        if Consensus.route + '/' in endpoint:
-            assert endpoint in Consensus.endpoints
-
-
-def test_all_interfluxstrax_endpoints_implemented(interfluxstrax_swagger_json):
-    paths = [key.lower() for key in interfluxstrax_swagger_json['paths']]
-    for endpoint in paths:
-        if Consensus.route + '/' in endpoint:
-            assert endpoint in Consensus.endpoints
-
-
-def test_all_interfluxcirrus_endpoints_implemented(interfluxcirrus_swagger_json):
-    paths = [key.lower() for key in interfluxcirrus_swagger_json['paths']]
-    for endpoint in paths:
-        if Consensus.route + '/' in endpoint:
-            assert endpoint in Consensus.endpoints
-
-
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
 def test_deployment_flags(mocker: MockerFixture, network):
     data = [
@@ -96,7 +68,7 @@ def test_deployment_flags(mocker: MockerFixture, network):
         }
     ]
     mocker.patch.object(Consensus, 'get', return_value=data)
-    consensus = Consensus(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    consensus = Consensus(network=network, baseuri=mocker.MagicMock())
 
     response = consensus.deployment_flags()
 
@@ -109,7 +81,7 @@ def test_deployment_flags(mocker: MockerFixture, network):
 def test_get_best_block_hash(mocker: MockerFixture, network, generate_uint256):
     data = generate_uint256
     mocker.patch.object(Consensus, 'get', return_value=data)
-    consensus = Consensus(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    consensus = Consensus(network=network, baseuri=mocker.MagicMock())
 
     response = consensus.get_best_blockhash()
 
@@ -122,7 +94,7 @@ def test_get_best_block_hash(mocker: MockerFixture, network, generate_uint256):
 def test_get_block_hash(mocker: MockerFixture, network, generate_uint256):
     data = generate_uint256
     mocker.patch.object(Consensus, 'get', return_value=data)
-    consensus = Consensus(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    consensus = Consensus(network=network, baseuri=mocker.MagicMock())
 
     response = consensus.get_blockhash(height=10)
 

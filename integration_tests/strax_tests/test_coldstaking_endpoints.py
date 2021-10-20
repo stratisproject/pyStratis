@@ -333,3 +333,43 @@ def test_estimate_withdrawal_fee(
         fees=Money(0.0002)
     )
     assert isinstance(response, Money)
+
+
+@pytest.mark.integration_test
+@pytest.mark.strax_integration_test
+def test_retreive_filtered_utxos(
+        strax_hot_node: StraxNode,
+        strax_offline_node: StraxNode,
+        hot_wallet_name,
+        connect_two_nodes,
+        sync_two_nodes,
+        offline_node_default_wallet_name,
+        setup_coldstaking_accounts_and_addresses,
+        setup_coldstaking_transaction_and_send):
+    # First create a coldstaking transaction
+    cold_wallet_address = setup_coldstaking_accounts_and_addresses['cold_address']
+    hot_wallet_address = setup_coldstaking_accounts_and_addresses['hot_address']
+    response = strax_hot_node.coldstaking.setup(
+        wallet_name=hot_wallet_name,
+        wallet_account='account 0',
+        wallet_password='password',
+        cold_wallet_address=cold_wallet_address,
+        hot_wallet_address=hot_wallet_address,
+        amount=Money(5),
+        fees=Money(0.0002),
+        split_count=1
+    )
+    trx_hex = response.transaction_hex
+
+    # Retrieve the transaction
+    cold_wallet_account = setup_coldstaking_accounts_and_addresses['cold_account']
+    response = strax_offline_node.coldstaking.retrieve_filtered_utxos(
+        wallet_name=offline_node_default_wallet_name,
+        wallet_password='password',
+        wallet_account=cold_wallet_account.account_name,
+        trx_hex=trx_hex,
+        broadcast=False
+    )
+    assert isinstance(response, list)
+    for item in range(len(response)):
+        assert isinstance(item, hexstr)

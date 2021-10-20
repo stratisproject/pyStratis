@@ -13,8 +13,8 @@ ConversionRequestModel
 .. automodule:: pystratis.api.interop.responsemodels.conversionrequestmodel
    :members:
 
-StatusModel
+TransactionResponseModel
 ---------------------------------------------
 
-.. automodule:: pystratis.api.interop.responsemodels.statusmodel
+.. automodule:: pystratis.api.interop.responsemodels.transactionresponsemodel
    :members:

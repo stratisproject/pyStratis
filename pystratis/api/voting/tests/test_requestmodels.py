@@ -33,3 +33,13 @@ def test_schedulevotewhitelisthashrequest(generate_uint256):
         hash_id=data['hash']
     )
     assert json.dumps(data) == request_model.json()
+
+
+def test_schedulevotekickmemberrequest(generate_compressed_pubkey):
+    data = {
+        'pubkey': generate_compressed_pubkey
+    }
+    request_model = ScheduleVoteKickMemberRequest(
+        pubkey=data['pubkey']
+    )
+    assert json.dumps(data) == request_model.json()

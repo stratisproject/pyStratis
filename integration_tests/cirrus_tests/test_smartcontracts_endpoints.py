@@ -361,6 +361,7 @@ def test_local_call(cirrusminer_node: CirrusMinerNode, get_node_address_with_bal
         gas_price=100,
         gas_limit=250000,
         sender=sending_address,
+        block_height=None,
         parameters=[
             SmartContractParameter(value_type=SmartContractParameterType.Int32, value=int32(0)),
             SmartContractParameter(value_type=SmartContractParameterType.String, value='SmartContracts made easy.')

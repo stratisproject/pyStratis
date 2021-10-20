@@ -1,6 +1,6 @@
 from pydantic import Field
 from pystratis.api import Model
-from pystratis.core import ConversionRequestType
+from pystratis.core import ConversionRequestType, DestinationChain
 from pystratis.core.types import Address, Money, uint256
 
 
@@ -16,6 +16,8 @@ class ConversionRequestModel(Model):
     """The block height of the transaction."""
     destination_address: Address = Field(alias='destinationAddress')
     """The destination address."""
+    destination_chain: DestinationChain = Field(alias='destinationChain')
+    """The destination chain."""
     amount: Money
     """The amount converted."""
     processed: bool

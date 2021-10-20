@@ -363,6 +363,7 @@ def test_localcallrequest(network, generate_p2pkh_address):
         'gasPrice': 1000,
         'gasLimit': 250000,
         'sender': generate_p2pkh_address(network=network),
+        'blockHeight': 55555,
         'parameters': ['1#true', '2#255', '3#c', '4#Stratis', '5#123', '6#-123',
                        '7#456', '8#-456', f'9#{parameter_address}', '10#04A6B9', '11#789', '12#987']
     }
@@ -373,6 +374,7 @@ def test_localcallrequest(network, generate_p2pkh_address):
         gas_price=1000,
         gas_limit=250000,
         sender=Address(address=data['sender'], network=network),
+        block_height=55555,
         parameters=[
             SmartContractParameter(value_type=SmartContractParameterType.Boolean, value=True),
             SmartContractParameter(value_type=SmartContractParameterType.Byte, value=b'\xff'),

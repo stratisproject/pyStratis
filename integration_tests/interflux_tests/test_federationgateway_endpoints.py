@@ -75,3 +75,19 @@ def test_ip_replace(interflux_strax_node):
 def test_verify_transfer(interflux_strax_node, generate_uint256):
     response = interflux_strax_node.federation_gateway.verify_transfer(deposit_id_transaction_id=generate_uint256)
     assert isinstance(response, ValidateTransactionResultModel)
+
+
+@pytest.mark.skip(reason='Unable to test in regtest environment.')
+@pytest.mark.integration_test
+@pytest.mark.interflux_integration_test
+def test_transfer_delete_suspended(interflux_strax_node, generate_uint256):
+    response = interflux_strax_node.federation_gateway.transfers_delete_suspended()
+    assert isinstance(response, str)
+
+
+@pytest.mark.skip(reason='Unable to test in regtest environment.')
+@pytest.mark.integration_test
+@pytest.mark.interflux_integration_test
+def test_transfer(interflux_strax_node, generate_uint256):
+    response = interflux_strax_node.federation_gateway.transfer(deposit_id=1)
+    assert isinstance(response, CrossChainTransferModel)

@@ -15,10 +15,11 @@ class Node(APIRequest, metaclass=EndpointRegister):
         super().__init__(**kwargs)
 
     @endpoint(f'{route}/status')
-    def status(self, **kwargs) -> StatusModel:
+    def status(self, publish: bool = False, **kwargs) -> StatusModel:
         """Gets the node status.
 
         Args:
+            publish (bool): If true, publish a full node event with the status.
             **kwargs: Extra keyword arguments. 
 
         Returns:
@@ -27,7 +28,8 @@ class Node(APIRequest, metaclass=EndpointRegister):
         Raises:
             APIError: Error thrown by node API. See message for details.
         """
-        data = self.get(**kwargs)
+        request_model = StatusRequest(publish=publish)
+        data = self.get(request_model, **kwargs)
         return StatusModel(**data)
 
     @endpoint(f'{route}/getblockheader')
@@ -265,3 +267,36 @@ class Node(APIRequest, metaclass=EndpointRegister):
         """
         data = self.get(**kwargs)
         return [AsyncLoopsModel(**x) for x in data]
+
+    @endpoint(f'{route}/datafolder/chain')
+    def delete_datafolder_chain(self, **kwargs) -> None:
+        """Schedules data folder storing chain state in the datafolder for deletion on the next graceful shutdown.
+
+        Args:
+            **kwargs: Extra keyword arguments.
+
+        Returns:
+            None
+
+        Raises:
+            APIError: Error thrown by node API. See message for details.
+        """
+        self.delete(**kwargs)
+
+    @endpoint(f'{route}/rewind')
+    def rewind(self, height: int, **kwargs) -> str:
+        """Signals the node to rewind to the specified height. This will be done via writing a flag to the .conf file so that on startup it be executed.
+
+        Args:
+            height (int): The specified height to rewind to on restart.
+            **kwargs: Extra keyword arguments.
+
+        Returns:
+            str
+
+        Raises:
+            APIError: Error thrown by node API. See message for details.
+        """
+        request_model = RewindRequest(height=height)
+        data = self.put(request_model, **kwargs)
+        return data

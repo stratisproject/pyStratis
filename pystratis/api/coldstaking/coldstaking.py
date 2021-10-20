@@ -1,5 +1,5 @@
 from decimal import Decimal
-from typing import Union
+from typing import List, Union
 from pystratis.api import APIRequest, EndpointRegister, endpoint
 from pystratis.api.coldstaking.requestmodels import *
 from pystratis.api.coldstaking.responsemodels import *
@@ -476,3 +476,37 @@ class ColdStaking(APIRequest, metaclass=EndpointRegister):
         )
         data = self.post(request_model, **kwargs)
         return Money.from_satoshi_units(data)
+
+    @endpoint(f'{route}/retrieve-filtered-utxos')
+    def retrieve_filtered_utxos(self,
+                                wallet_name: str,
+                                wallet_password: str,
+                                wallet_account: str,
+                                trx_hex: hexstr,
+                                broadcast: bool = False,
+                                **kwargs) -> List[hexstr]:
+        """Estimate the fee for a cold staking withdrawal transaction.
+
+        Args:
+            wallet_name (str): The wallet name.
+            wallet_password (str): The wallet password.
+            wallet_account (str): The wallet account.
+            trx_hex (hexstr): The transaction id hex.
+            broadcast (bool): If true, broadcast the transaction to the network after being built. Default=False.
+            **kwargs: Extra keyword arguments.
+
+        Returns:
+            List[hexstr]: A list of hex encoded coldstaking transactions.
+
+        Raises:
+            APIError: Error thrown by node API. See message for details.
+        """
+        request_model = RetrieveFilteredUTXOsRequest(
+            wallet_name=wallet_name,
+            wallet_password=wallet_password,
+            wallet_account=wallet_account,
+            trx_hex=trx_hex,
+            broadcast=broadcast
+        )
+        data = self.post(request_model, **kwargs)
+        return [hexstr(x) for x in data]

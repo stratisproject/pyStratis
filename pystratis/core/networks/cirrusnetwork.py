@@ -31,6 +31,7 @@ class CirrusMain(BaseNetwork):
     RPC_PORT: Optional[int] = Field(default=16175)
     API_PORT: Optional[int] = Field(default=37223)
     SIGNALR_PORT: Optional[int] = Field(default=38823)
+    UNITY3D_PORT: Optional[int] = Field(default=44336)
 
 
 # noinspection PyUnresolvedReferences
@@ -61,6 +62,7 @@ class CirrusTest(BaseNetwork):
     RPC_PORT: Optional[int] = Field(default=26175)
     API_PORT: Optional[int] = Field(default=38223)
     SIGNALR_PORT: Optional[int] = Field(default=39823)
+    UNITY3D_PORT: Optional[int] = Field(default=44336)
 
 
 # noinspection PyUnresolvedReferences
@@ -91,3 +93,4 @@ class CirrusRegTest(BaseNetwork):
     RPC_PORT: Optional[int] = Field(default=26175)
     API_PORT: Optional[int] = Field(default=38223)
     SIGNALR_PORT: Optional[int] = Field(default=39823)
+    UNITY3D_PORT: Optional[int] = Field(default=44336)

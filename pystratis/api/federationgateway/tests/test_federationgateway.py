@@ -6,34 +6,6 @@ from pystratis.core import CrossChainTransferStatus, DepositRetrievalType
 from pystratis.core.networks import StraxMain, CirrusMain
 
 
-def test_all_strax_endpoints_implemented(strax_swagger_json):
-    paths = [key.lower() for key in strax_swagger_json['paths']]
-    for endpoint in paths:
-        if FederationGateway.route + '/' in endpoint:
-            assert endpoint in FederationGateway.endpoints
-
-
-def test_all_cirrus_endpoints_implemented(cirrus_swagger_json):
-    paths = [key.lower() for key in cirrus_swagger_json['paths']]
-    for endpoint in paths:
-        if FederationGateway.route + '/' in endpoint:
-            assert endpoint in FederationGateway.endpoints
-
-
-def test_all_interfluxstrax_endpoints_implemented(interfluxstrax_swagger_json):
-    paths = [key.lower() for key in interfluxstrax_swagger_json['paths']]
-    for endpoint in paths:
-        if FederationGateway.route + '/' in endpoint:
-            assert endpoint in FederationGateway.endpoints
-
-
-def test_all_interfluxcirrus_endpoints_implemented(interfluxcirrus_swagger_json):
-    paths = [key.lower() for key in interfluxcirrus_swagger_json['paths'].keys()]
-    for endpoint in paths:
-        if FederationGateway.route + '/' in endpoint:
-            assert endpoint in FederationGateway.endpoints
-
-
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
 def test_deposits(mocker: MockerFixture, network, generate_uint256, generate_p2pkh_address):
     target_network = StraxMain() if isinstance(network, CirrusMain) else CirrusMain()
@@ -57,7 +29,7 @@ def test_deposits(mocker: MockerFixture, network, generate_uint256, generate_p2p
         }]
     }
     mocker.patch.object(FederationGateway, 'get', return_value=data)
-    federation_gateway = FederationGateway(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    federation_gateway = FederationGateway(network=network, baseuri=mocker.MagicMock())
     response = federation_gateway.deposits(block_height=5)
     assert response == [MaturedBlockDepositsModel(**x) for x in data['value']]
     # noinspection PyUnresolvedReferences
@@ -75,7 +47,7 @@ def test_pending_transfer(mocker: MockerFixture, network, generate_uint256, gene
         'tx': generate_coinbase_transaction(txid)
     }]
     mocker.patch.object(FederationGateway, 'get', return_value=data)
-    federation_gateway = FederationGateway(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    federation_gateway = FederationGateway(network=network, baseuri=mocker.MagicMock())
     response = federation_gateway.pending_transfer(deposit_id=data[0]['depositId'], transaction_id=txid)
     assert response == [CrossChainTransferModel(**x) for x in data]
     # noinspection PyUnresolvedReferences
@@ -93,7 +65,7 @@ def test_fullysigned_transfer(mocker: MockerFixture, network, generate_uint256, 
         'tx': generate_coinbase_transaction(txid)
     }]
     mocker.patch.object(FederationGateway, 'get', return_value=data)
-    federation_gateway = FederationGateway(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    federation_gateway = FederationGateway(network=network, baseuri=mocker.MagicMock())
     response = federation_gateway.fullysigned_transfer(deposit_id=data[0]['depositId'], transaction_id=txid)
     assert response == [CrossChainTransferModel(**x) for x in data]
     # noinspection PyUnresolvedReferences
@@ -123,7 +95,7 @@ def test_member_info(mocker: MockerFixture, network, generate_compressed_pubkey)
         ]
     }
     mocker.patch.object(FederationGateway, 'get', return_value=data)
-    federation_gateway = FederationGateway(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    federation_gateway = FederationGateway(network=network, baseuri=mocker.MagicMock())
     response = federation_gateway.member_info()
     assert response == FederationMemberInfoModel(**data)
     # noinspection PyUnresolvedReferences
@@ -165,7 +137,7 @@ def test_info(mocker: MockerFixture, network, generate_compressed_pubkey, genera
         'minconfdistributiondeposits': 100
     }
     mocker.patch.object(FederationGateway, 'get', return_value=data)
-    federation_gateway = FederationGateway(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    federation_gateway = FederationGateway(network=network, baseuri=mocker.MagicMock())
     response = federation_gateway.info()
     assert response == FederationGatewayInfoModel(**data)
     # noinspection PyUnresolvedReferences
@@ -176,7 +148,7 @@ def test_info(mocker: MockerFixture, network, generate_compressed_pubkey, genera
 def test_ip_add(mocker: MockerFixture, network):
     data = 'http://localhost has been added.'
     mocker.patch.object(FederationGateway, 'put', return_value=data)
-    federation_gateway = FederationGateway(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    federation_gateway = FederationGateway(network=network, baseuri=mocker.MagicMock())
     response = federation_gateway.ip_add(ipaddr='http://localhost')
     assert response == data
     # noinspection PyUnresolvedReferences
@@ -187,7 +159,7 @@ def test_ip_add(mocker: MockerFixture, network):
 def test_ip_remove(mocker: MockerFixture, network):
     data = 'http://localhost has been removed.'
     mocker.patch.object(FederationGateway, 'put', return_value=data)
-    federation_gateway = FederationGateway(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    federation_gateway = FederationGateway(network=network, baseuri=mocker.MagicMock())
     response = federation_gateway.ip_remove(ipaddr='http://localhost')
     assert response == data
     # noinspection PyUnresolvedReferences
@@ -198,7 +170,7 @@ def test_ip_remove(mocker: MockerFixture, network):
 def test_ip_replace(mocker: MockerFixture, network):
     data = 'http://localhost has been replaced with http://newhost.'
     mocker.patch.object(FederationGateway, 'put', return_value=data)
-    federation_gateway = FederationGateway(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    federation_gateway = FederationGateway(network=network, baseuri=mocker.MagicMock())
     response = federation_gateway.ip_replace(ipaddrtouse='http://newhost', ipaddr='http://localhost')
     assert response == data
     # noinspection PyUnresolvedReferences
@@ -212,8 +184,37 @@ def test_verify_transfer(mocker: MockerFixture, network, generate_uint256):
         'errors': []
     }
     mocker.patch.object(FederationGateway, 'get', return_value=data)
-    federation_gateway = FederationGateway(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    federation_gateway = FederationGateway(network=network, baseuri=mocker.MagicMock())
     response = federation_gateway.verify_transfer(deposit_id_transaction_id=generate_uint256)
     assert response == ValidateTransactionResultModel(**data)
+    # noinspection PyUnresolvedReferences
+    federation_gateway.get.assert_called_once()
+
+
+@pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
+def test_transfers_delete_suspended(mocker: MockerFixture, network, generate_uint256):
+    data = "Deleting suspended transfers is only available on test networks."
+    mocker.patch.object(FederationGateway, 'delete', return_value=data)
+    federation_gateway = FederationGateway(network=network, baseuri=mocker.MagicMock())
+    response = federation_gateway.transfers_delete_suspended()
+    assert response == data
+    # noinspection PyUnresolvedReferences
+    federation_gateway.delete.assert_called_once()
+
+
+@pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
+def test_transfer(mocker: MockerFixture, network, generate_uint256, generate_coinbase_transaction):
+    txid = generate_uint256
+    data = {
+        'depositAmount': 5,
+        'depositId': generate_uint256,
+        'depositHeight': 5,
+        'transferStatus': CrossChainTransferStatus.Partial,
+        'tx': generate_coinbase_transaction(txid)
+    }
+    mocker.patch.object(FederationGateway, 'get', return_value=data)
+    federation_gateway = FederationGateway(network=network, baseuri=mocker.MagicMock())
+    response = federation_gateway.transfer(deposit_id=data['depositId'])
+    assert response == CrossChainTransferModel(**data)
     # noinspection PyUnresolvedReferences
     federation_gateway.get.assert_called_once()

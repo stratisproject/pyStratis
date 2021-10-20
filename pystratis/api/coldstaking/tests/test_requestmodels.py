@@ -171,3 +171,22 @@ def test_withdrawalrequest(network, generate_p2pkh_address):
         fees=Money(0.0001)
     )
     assert json.dumps(data) == request_model.json()
+
+
+@pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
+def test_retrievefilteredutxosrequest(network, generate_hexstring):
+    data = {
+        'walletName': 'Test',
+        'walletPassword': 'password',
+        'walletAccount': 'account 0',
+        'hex': generate_hexstring(128),
+        'broadcast': False
+    }
+    request_model = RetrieveFilteredUTXOsRequest(
+        wallet_name='Test',
+        wallet_password='password',
+        wallet_account='account 0',
+        trx_hex=data['hex'],
+        broadcast=False
+    )
+    assert json.dumps(data) == request_model.json()

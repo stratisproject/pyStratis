@@ -6,34 +6,6 @@ from pystratis.core.networks import StraxMain
 from pystratis.core import WalletSecret
 
 
-def test_all_strax_endpoints_implemented(strax_swagger_json):
-    paths = [key.lower() for key in strax_swagger_json['paths']]
-    for endpoint in paths:
-        if Staking.route + '/' in endpoint:
-            assert endpoint in Staking.endpoints
-
-
-def test_all_cirrus_endpoints_implemented(cirrus_swagger_json):
-    paths = [key.lower() for key in cirrus_swagger_json['paths']]
-    for endpoint in paths:
-        if Staking.route + '/' in endpoint:
-            assert endpoint in Staking.endpoints
-
-
-def test_all_interfluxstrax_endpoints_implemented(interfluxstrax_swagger_json):
-    paths = [key.lower() for key in interfluxstrax_swagger_json['paths']]
-    for endpoint in paths:
-        if Staking.route + '/' in endpoint:
-            assert endpoint in Staking.endpoints
-
-
-def test_all_interfluxcirrus_endpoints_implemented(interfluxcirrus_swagger_json):
-    paths = [key.lower() for key in interfluxcirrus_swagger_json['paths']]
-    for endpoint in paths:
-        if Staking.route + '/' in endpoint:
-            assert endpoint in Staking.endpoints
-
-
 @pytest.mark.parametrize('network', [StraxMain()], ids=['StraxMain'])
 def test_get_staking_info(mocker: MockerFixture, network):
     data = {
@@ -51,7 +23,7 @@ def test_get_staking_info(mocker: MockerFixture, network):
         'expectedTime': 1,
     }
     mocker.patch.object(Staking, 'get', return_value=data)
-    staking = Staking(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    staking = Staking(network=network, baseuri=mocker.MagicMock())
 
     response = staking.get_staking_info()
 
@@ -64,7 +36,7 @@ def test_get_staking_info(mocker: MockerFixture, network):
 def test_start_staking(mocker: MockerFixture, network):
     data = None
     mocker.patch.object(Staking, 'post', return_value=data)
-    staking = Staking(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    staking = Staking(network=network, baseuri=mocker.MagicMock())
     staking.start_staking(name='Name', password='password')
 
     # noinspection PyUnresolvedReferences
@@ -75,7 +47,7 @@ def test_start_staking(mocker: MockerFixture, network):
 def test_start_multistaking(mocker: MockerFixture, network):
     data = None
     mocker.patch.object(Staking, 'post', return_value=data)
-    staking = Staking(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    staking = Staking(network=network, baseuri=mocker.MagicMock())
     staking.start_multistaking(
         wallet_credentials=[
             WalletSecret(wallet_name='Wallet0', wallet_password='password0'),
@@ -92,7 +64,7 @@ def test_start_multistaking(mocker: MockerFixture, network):
 def test_stop_staking(mocker: MockerFixture, network):
     data = None
     mocker.patch.object(Staking, 'post', return_value=data)
-    staking = Staking(network=network, baseuri=mocker.MagicMock(), session=mocker.MagicMock())
+    staking = Staking(network=network, baseuri=mocker.MagicMock())
     staking.stop_staking()
 
     # noinspection PyUnresolvedReferences

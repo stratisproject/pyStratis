@@ -186,3 +186,30 @@ class BlockStore(APIRequest, metaclass=EndpointRegister):
         request_model = GetLastBalanceUpdateTransactionRequest(address=address)
         data = self.get(request_model, **kwargs)
         return None if data is None else GetLastBalanceUpdateTransactionModel(**data)
+
+    @endpoint(f'{route}/getutxosetforaddress')
+    def get_utxoset_for_address(self,
+                                address: Union[Address, str],
+                                **kwargs) -> Union[GetUTXOsForAddressModel, None]:
+        """Gets the utxoset and balance information for the given address.
+
+        Args:
+            address (Address): An address to query.
+            **kwargs: Extra keyword arguments.
+
+        Returns:
+            (GetUTXOsForAddressModel, None): Returns the current balance and utxo set for the given address.
+
+        Raises:
+            APIError: Error thrown by node API. See message for details.
+        """
+        if isinstance(address, str):
+            address = Address(address=address, network=self._network)
+        request_model = GetUTXOSetForAddressRequest(address=address)
+        data = self.get(request_model, **kwargs)
+        if data is not None:
+            data['balance'] = Money(data['balance'])
+            data['utxos'] = [UTXOModel(**x) for x in data['utxos']]
+            return GetUTXOsForAddressModel(**data)
+        else:
+            return None

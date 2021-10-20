@@ -6,7 +6,7 @@ import subprocess
 import time
 from typing import List, Optional, Union
 from requests.exceptions import ConnectionError
-from pystratis.nodes import StraxNode, CirrusMinerNode, CirrusNode, InterfluxCirrusNode, InterfluxStraxNode, BaseNode
+from pystratis.nodes import StraxNode, CirrusMinerNode, CirrusNode, InterfluxCirrusNode, InterfluxStraxNode, BaseNode, CirrusUnity3DNode
 from pystratis.api.wallet.responsemodels import SpendableTransactionModel
 from pystratis.core.networks import BaseNetwork, StraxRegTest, CirrusRegTest
 from pystratis.core.types import Address, Money
@@ -24,7 +24,7 @@ INTERFLUX_CIRRUS_SYNCING_NODE_PORT = 15380
 
 
 def start_regtest_node(
-        node: Union[StraxNode, CirrusNode, CirrusMinerNode, InterfluxCirrusNode, InterfluxStraxNode],
+        node: Union[StraxNode, CirrusNode, CirrusMinerNode, CirrusUnity3DNode, InterfluxCirrusNode, InterfluxStraxNode],
         source_dir: str,
         extra_cmd_ops: List[str] = None,
         private_key: bytes = None) -> BaseNode:
@@ -36,7 +36,7 @@ def start_regtest_node(
     if os.path.exists(data_dir):
         shutil.rmtree(data_dir)
     if private_key is not None:
-        if isinstance(node, CirrusNode):
+        if isinstance(node, (CirrusNode, CirrusUnity3DNode)):
             os.makedirs(os.path.join(data_dir, 'cirrus', 'CirrusRegTest'), exist_ok=True)
             fed_keyfile_target_path = os.path.join(data_dir, 'cirrus', 'CirrusRegTest', 'federationKey.dat')
         else:
@@ -99,6 +99,19 @@ def cirrus_regtest_node(port: int) -> CirrusNode:
             DEFAULT_PORT=port + 1,
             SIGNALR_PORT=port + 2,
             RPC_PORT=port + 3
+        )
+    )
+
+
+def cirrusminerunity3d_regtest_node(port: int) -> CirrusNode:
+    return CirrusUnity3DNode(
+        ipaddr='http://localhost',
+        blockchainnetwork=CirrusRegTest(
+            API_PORT=port,
+            DEFAULT_PORT=port + 1,
+            SIGNALR_PORT=port + 2,
+            RPC_PORT=port + 3,
+            UNITY3D_PORT=port + 4
         )
     )
 
@@ -348,6 +361,13 @@ def cirrus_node():
 
 
 @pytest.fixture(scope='package')
+def cirrusminerunity3d_node():
+    node = cirrusminerunity3d_regtest_node(port=CIRRUSMINER_SYNCING_NODE_PORT)
+    yield node
+    assert node.stop_node()
+
+
+@pytest.fixture(scope='package')
 def interflux_strax_node():
     node = interflux_strax_regtest_node(port=INTERFLUX_STRAX_MAIN_NODE_PORT)
     yield node
@@ -386,7 +406,7 @@ def start_cirrusminer_regtest_node():
 
 @pytest.fixture(scope='package')
 def start_cirrus_regtest_node():
-    def _start_cirrus_regtest_node(node: CirrusNode, extra_cmd_ops: List[str]):
+    def _start_cirrus_regtest_node(node: Union[CirrusNode, CirrusUnity3DNode], extra_cmd_ops: List[str]):
         root_dir = re.match(r'(.*)pystratis', os.getcwd())[0]
         source_dir = os.path.join(root_dir, 'integration_tests', 'StratisFullNode', 'src', 'Stratis.CirrusD')
         start_regtest_node(node=node, source_dir=source_dir, extra_cmd_ops=extra_cmd_ops)

@@ -87,3 +87,11 @@ def test_get_last_balance_update_transaction(strax_hot_node: BaseNode, strax_syn
     receiving_address = get_node_address_with_balance(strax_syncing_node)
     response = strax_hot_node.blockstore.get_last_balance_update_transaction(address=receiving_address)
     assert isinstance(response, GetLastBalanceUpdateTransactionModel)
+
+
+@pytest.mark.integration_test
+@pytest.mark.strax_integration_test
+def test_get_utxoset_for_address(strax_hot_node: BaseNode, strax_syncing_node: BaseNode, get_node_address_with_balance):
+    receiving_address = get_node_address_with_balance(strax_syncing_node)
+    response = strax_hot_node.blockstore.get_utxoset_for_address(address=receiving_address)
+    assert isinstance(response, GetUTXOsForAddressModel)

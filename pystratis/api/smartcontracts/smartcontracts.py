@@ -150,7 +150,7 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
             event_name (str, optional): The event to search for.
             topics (List[str], optional): A list of topics to search for.
             from_block (int): Block to start search from.
-            to_block (int): Block to search up to.
+            to_block (int, optional): Block to search up to.
             **kwargs: Extra keyword arguments. 
 
         Returns:
@@ -577,6 +577,7 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
                    gas_price: int,
                    gas_limit: int,
                    sender: Union[Address, str],
+                   block_height: int = None,
                    parameters: List[Union[str, SmartContractParameter]] = None,
                    **kwargs) -> LocalExecutionResultModel:
         """Makes a local call to a method on a smart contract that has been successfully deployed. The purpose is to query and test methods.
@@ -588,6 +589,7 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
             gas_price (int): The amount of gas being used in satoshis.
             gas_limit (int): The maximum amount of gas that can be used in satoshis.
             sender (Address, str): The address of the sending address.
+            block_height (int, optional): The height at which to query the contract's state. If unset, will default to the current chain tip.
             parameters (List[Union[SmartContractParameter, str]], optional): A list of parameters for the smart contract.
             **kwargs: Extra keyword arguments. 
 
@@ -617,6 +619,7 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
             gas_price=gas_price,
             gas_limit=gas_limit,
             sender=sender,
+            block_height=block_height,
             parameters=new_parameters
         )
         data = self.post(request_model, **kwargs)
@@ -624,7 +627,10 @@ class SmartContracts(APIRequest, metaclass=EndpointRegister):
             data['internalTransfers'][i]['from'] = Address(address=data['internalTransfers'][i]['from'], network=self._network)
             data['internalTransfers'][i]['to'] = Address(address=data['internalTransfers'][i]['to'], network=self._network)
         for i in range(len(data['logs'])):
-            data['logs'][i]['address'] = Address(address=data['logs'][i]['address'], network=self._network)
+            if isinstance(data['logs'][i]['address'], str):
+                data['logs'][i]['address'] = Address(address=data['logs'][i]['address'], network=self._network)
+            else:
+                data['logs'][i]['address'] = None
         if data['errorMessage'] is not None:
             data['errorMessage'] = ast.literal_eval(data['errorMessage'])
             data['errorMessage'] = data['errorMessage']['value']
