@@ -190,17 +190,17 @@ class Voting(APIRequest, metaclass=EndpointRegister):
         return [VotingDataModel(**x) for x in data]
 
     @endpoint(f'{route}/polls/tip')
-    def polls_tip(self, **kwargs) -> int:
+    def polls_tip(self, **kwargs) -> PollsTipModel:
         """Gets the tip of the polls repository.
 
         Args:
             **kwargs: Extra keyword arguments.
 
         Returns:
-            int: The pols repository tip.
+            PollsTipModel: The polls repository tip information.
 
         Raises:
             APIError: Error thrown by node API. See message for details.
         """
         data = self.get(**kwargs)
-        return data
+        return PollsTipModel(**data)

@@ -6,6 +6,7 @@ bech32
 pysha3
 ecdsa
 mnemonic
+loguru
 
 # For testing
 pytest

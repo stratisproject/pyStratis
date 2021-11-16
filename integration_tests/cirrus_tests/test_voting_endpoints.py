@@ -84,4 +84,6 @@ def test_scheduledvote_kickmember(cirrusminer_node: CirrusMinerNode):
 @pytest.mark.cirrus_integration_test
 def test_polls_tip(cirrusminer_node: CirrusMinerNode, generate_compressed_pubkey):
     response = cirrusminer_node.voting.polls_tip()
-    assert isinstance(response, int)
+    assert isinstance(response, PollsTipModel)
+    for v in response.dict().values():
+        assert isinstance(v, int)

@@ -107,9 +107,7 @@ def test_stop():
 @pytest.mark.integration_test
 @pytest.mark.cirrus_integration_test
 def test_log_levels(cirrusminer_node: CirrusMinerNode):
-    with pytest.raises(APIError):
-        # Raises error because of duplicate rules found.
-        cirrusminer_node.node.log_levels(log_rules=[LogRule(rule_name='Stratis.*', log_level='Debug', filename='filename')])
+    cirrusminer_node.node.log_levels(log_rules=[LogRule(rule_name='Stratis.*', log_level='Debug', filename='filename')])
 
 
 @pytest.mark.integration_test

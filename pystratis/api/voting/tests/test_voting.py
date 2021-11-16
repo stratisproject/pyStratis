@@ -192,10 +192,13 @@ def test_scheduledvotes(mocker: MockerFixture, network, generate_uint256, genera
 
 @pytest.mark.parametrize('network', [CirrusMain()], ids=['CirrusMain'])
 def test_polls_tip(mocker: MockerFixture, network):
-    data = 10
+    data = {
+        "tipHeight": 10,
+        "tipHeightPercentage": 100
+    }
     mocker.patch.object(Voting, 'get', return_value=data)
     voting = Voting(network=network, baseuri=mocker.MagicMock())
     response = voting.polls_tip()
-    assert response == data
+    assert response == PollsTipModel(**data)
     # noinspection PyUnresolvedReferences
     voting.get.assert_called_once()

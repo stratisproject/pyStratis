@@ -90,7 +90,7 @@ make html
 Thanks goes to [@TjadenFroyda](https://github.com/tjadenfroyda) for his contributions in kickstarting this repository.
 
 # ChangeLog
-### Version 1.1.0.0 (StratisFullNode release/1.1.0.13)
+### Version 1.1.0.1 (StratisFullNode release/1.1.0.13)
 - Added externalapi route and endpoints
 - Added blockstore/getutxosetforaddress endpoint
 - Added voting/schedulevote-kickmember and voting/polls/tip endpoints
