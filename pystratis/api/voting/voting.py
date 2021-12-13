@@ -204,3 +204,35 @@ class Voting(APIRequest, metaclass=EndpointRegister):
         """
         data = self.get(**kwargs)
         return PollsTipModel(**data)
+
+    @endpoint(f'{route}/polls/expired/whitelist')
+    def polls_expired_whitelist(self, **kwargs) -> List[PollViewModel]:
+        """Retrieves a list of expired whitelist hash polls.
+
+        Args:
+            **kwargs: Extra keyword arguments.
+
+        Returns:
+            List[PollViewModel]: The list of expired whitelist hash polls.
+
+        Raises:
+            APIError: Error thrown by node API. See message for details.
+        """
+        data = self.get(**kwargs)
+        return [PollViewModel(**x) for x in data]
+
+    @endpoint(f'{route}/polls/expired/members')
+    def polls_expired_members(self, **kwargs) -> List[PollViewModel]:
+        """Retrieves a list of expired member polls.
+
+        Args:
+            **kwargs: Extra keyword arguments.
+
+        Returns:
+            List[PollViewModel]: The list of expired members polls.
+
+        Raises:
+            APIError: Error thrown by node API. See message for details.
+        """
+        data = self.get(**kwargs)
+        return [PollViewModel(**x) for x in data]

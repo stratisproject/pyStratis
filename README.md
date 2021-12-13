@@ -90,6 +90,10 @@ make html
 Thanks goes to [@TjadenFroyda](https://github.com/tjadenfroyda) for his contributions in kickstarting this repository.
 
 # ChangeLog
+### Version 1.1.1.0 (StratisFullNode release/1.1.1.0)
+- Added voting/polls/expired/whitelist and voting/polls/expired/members endpoints
+- Updated voting/polls/tip response model
+- Fixes for calling RPC through api
 ### Version 1.1.0.1 (StratisFullNode release/1.1.0.13)
 - Added externalapi route and endpoints
 - Added blockstore/getutxosetforaddress endpoint

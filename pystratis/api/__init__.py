@@ -7,4 +7,4 @@ from .logrule import LogRule
 from .endpoint_register import endpoint, EndpointRegister
 
 __all__ = ['APIRequest', 'APIError', 'EndpointRegister', 'endpoint', 'Model', 'FeatureInitializationState', 'FullNodeState', 'LogRule']
-__version__ = '1.1.0.0'
+__version__ = '1.1.1.0'
