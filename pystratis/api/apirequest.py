@@ -44,9 +44,9 @@ class APIRequest:
         else:
             if response is not None:
                 try:
-                    return logger.debug(response.json())
+                    logger.debug(response.json())
                 except JSONDecodeError:
-                    return logger.debug(response.text)
+                    logger.debug(response.text)
             raise APIError(code=response.status_code, message=response.text)
 
     def post(self, request_model: Union[BaseModel, dict, str], **kwargs) -> Any:
@@ -73,9 +73,9 @@ class APIRequest:
         else:
             if response is not None:
                 try:
-                    return logger.debug(response.json())
+                    logger.debug(response.json())
                 except JSONDecodeError:
-                    return logger.debug(response.text)
+                    logger.debug(response.text)
             raise APIError(code=response.status_code, message=response.text)
 
     def delete(self, request_model: Union[BaseModel, dict] = None, **kwargs) -> Any:
@@ -106,9 +106,9 @@ class APIRequest:
         else:
             if response is not None:
                 try:
-                    return logger.debug(response.json())
+                    logger.debug(response.json())
                 except JSONDecodeError:
-                    return logger.debug(response.text)
+                    logger.debug(response.text)
             raise APIError(code=response.status_code, message=response.text)
 
     def put(self, request_model: Union[BaseModel, dict] = None, **kwargs) -> Any:
@@ -137,7 +137,7 @@ class APIRequest:
         else:
             if response is not None:
                 try:
-                    return logger.debug(response.json())
+                    logger.debug(response.json())
                 except JSONDecodeError:
-                    return logger.debug(response.text)
+                    logger.debug(response.text)
             raise APIError(code=response.status_code, message=response.text)
