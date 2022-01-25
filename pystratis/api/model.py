@@ -52,5 +52,15 @@ class Model(BaseModel):
         extra = 'forbid'
     
     def json(self, *args, **kwargs) -> str:
+        from pystratis.core import Recipient, Outpoint, WalletSecret, MultisigSecret
+        from pystratis.api.global_responsemodels import AddressDescriptor, UtxoDescriptor
+        locals = {
+            'Recipient': Recipient,
+            'Outpoint': Outpoint,
+            'WalletSecret': WalletSecret,
+            'MultisigSecret': MultisigSecret,
+            'AddressDescriptor': AddressDescriptor,
+            'UtxoDescriptor': UtxoDescriptor
+        }
         self.update_forward_refs()
         return super().json(exclude_none=True, by_alias=True)
