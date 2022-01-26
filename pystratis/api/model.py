@@ -54,7 +54,7 @@ class Model(BaseModel):
     def json(self, *args, **kwargs) -> str:
         from pystratis.core import Recipient, Outpoint, WalletSecret, MultisigSecret
         from pystratis.api.global_responsemodels import AddressDescriptor, UtxoDescriptor
-        locals = {
+        localns = {
             'Recipient': Recipient,
             'Outpoint': Outpoint,
             'WalletSecret': WalletSecret,
@@ -62,5 +62,5 @@ class Model(BaseModel):
             'AddressDescriptor': AddressDescriptor,
             'UtxoDescriptor': UtxoDescriptor
         }
-        self.update_forward_refs()
+        self.update_forward_refs(**localns)
         return super().json(exclude_none=True, by_alias=True)
