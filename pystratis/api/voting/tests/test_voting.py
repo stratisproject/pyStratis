@@ -192,10 +192,75 @@ def test_scheduledvotes(mocker: MockerFixture, network, generate_uint256, genera
 
 @pytest.mark.parametrize('network', [CirrusMain()], ids=['CirrusMain'])
 def test_polls_tip(mocker: MockerFixture, network):
-    data = 10
+    data = {
+        "tipHeight": 10,
+        "tipHeightPercentage": 100
+    }
     mocker.patch.object(Voting, 'get', return_value=data)
     voting = Voting(network=network, baseuri=mocker.MagicMock())
     response = voting.polls_tip()
-    assert response == data
+    assert response == PollsTipModel(**data)
+    # noinspection PyUnresolvedReferences
+    voting.get.assert_called_once()
+
+
+@pytest.mark.parametrize('network', [CirrusMain()], ids=['CirrusMain'])
+def test_expired_whitelist_polls(mocker: MockerFixture, network, generate_compressed_pubkey, generate_p2pkh_address, generate_uint256):
+    kicked_pubkey = generate_compressed_pubkey
+    kicked_address = generate_p2pkh_address
+    data = [
+        {
+            'IsPending': True,
+            'IsExecuted': False,
+            'Id': 1,
+            'PollVotedInFavorBlockDataHash': generate_uint256,
+            'PollVotedInFavorBlockDataHeight': 1414151,
+            'PollStartFavorBlockDataHash': generate_uint256,
+            'PollStartFavorBlockDataHeight': 1414141,
+            'PollExecutedBlockDataHash': None,
+            'PollExecutedBlockDataHeight': None,
+            'PubKeysHexVotedInFavor': [
+                generate_compressed_pubkey,
+                generate_compressed_pubkey,
+                generate_compressed_pubkey,
+            ],
+            'VotingDataString': f"Action:'{VoteKey.KickFederationMember.name}',FederationMember:'PubKey:'{kicked_pubkey}',CollateralAmount:50000.00000000,CollateralMainchainAddress:{kicked_address}'"
+        }
+    ]
+    mocker.patch.object(Voting, 'get', return_value=data)
+    voting = Voting(network=network, baseuri=mocker.MagicMock())
+    response = voting.polls_expired_whitelist()
+    assert response == [PollViewModel(**x) for x in data]
+    # noinspection PyUnresolvedReferences
+    voting.get.assert_called_once()
+
+
+@pytest.mark.parametrize('network', [CirrusMain()], ids=['CirrusMain'])
+def test_expired_member_polls(mocker: MockerFixture, network, generate_compressed_pubkey, generate_p2pkh_address, generate_uint256):
+    kicked_pubkey = generate_compressed_pubkey
+    kicked_address = generate_p2pkh_address
+    data = [
+        {
+            'IsPending': True,
+            'IsExecuted': False,
+            'Id': 1,
+            'PollVotedInFavorBlockDataHash': generate_uint256,
+            'PollVotedInFavorBlockDataHeight': 1414151,
+            'PollStartFavorBlockDataHash': generate_uint256,
+            'PollStartFavorBlockDataHeight': 1414141,
+            'PollExecutedBlockDataHash': None,
+            'PollExecutedBlockDataHeight': None,
+            'PubKeysHexVotedInFavor': [
+                generate_compressed_pubkey,
+                generate_compressed_pubkey,
+                generate_compressed_pubkey,
+            ],
+            'VotingDataString': f"Action:'{VoteKey.KickFederationMember.name}',FederationMember:'PubKey:'{kicked_pubkey}',CollateralAmount:50000.00000000,CollateralMainchainAddress:{kicked_address}'"
+        }
+    ]
+    mocker.patch.object(Voting, 'get', return_value=data)
+    voting = Voting(network=network, baseuri=mocker.MagicMock())
+    response = voting.polls_expired_members()
+    assert response == [PollViewModel(**x) for x in data]
     # noinspection PyUnresolvedReferences
     voting.get.assert_called_once()

@@ -7,7 +7,7 @@ long_description = (here / 'README.md').read_text(encoding='utf-8')
 
 setup(
     name='pystratis',
-    version='1.1.0.0',
+    version='1.1.1.0',
     description='Official python package for interacting with Stratis (STRAX) full node and Cirrus/Interflux sidechain.',
     author='Tjaden Froyda',
     license='MIT',
@@ -39,6 +39,7 @@ setup(
             'pytest',
             'pytest_mock',
             'pytest_order',
+            'pytest-timetout'
             'coverage',
             'ecdsa',
             'mnemonic'

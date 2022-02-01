@@ -6,12 +6,14 @@ bech32
 pysha3
 ecdsa
 mnemonic
+loguru
 
 # For testing
 pytest
 pytest_mock
 pytest_order
 coverage
+pytest-timeout
 
 # For building
 setuptools

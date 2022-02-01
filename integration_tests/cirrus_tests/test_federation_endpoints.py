@@ -18,6 +18,7 @@ def test_members_current(cirrusminer_node: CirrusMinerNode):
     assert isinstance(response, FederationMemberDetailedModel)
 
 
+@pytest.mark.xfail
 @pytest.mark.integration_test
 @pytest.mark.cirrus_integration_test
 def test_member(cirrus_node: CirrusNode):

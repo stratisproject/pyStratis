@@ -17,6 +17,7 @@ Subpackages
    pystratis.api.consensus
    pystratis.api.dashboard
    pystratis.api.diagnostic
+   pystratis.api.externalapi
    pystratis.api.federation
    pystratis.api.federationgateway
    pystratis.api.federationwallet
@@ -32,6 +33,7 @@ Subpackages
    pystratis.api.smartcontracts
    pystratis.api.smartcontractwallet
    pystratis.api.staking
+   pystratis.api.unity3d
    pystratis.api.voting
    pystratis.api.wallet
    pystratis.api.global_responsemodels

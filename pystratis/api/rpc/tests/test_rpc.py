@@ -7,17 +7,13 @@ from pystratis.core.networks import StraxMain, CirrusMain
 
 @pytest.mark.parametrize('network', [StraxMain(), CirrusMain()], ids=['StraxMain', 'CirrusMain'])
 def test_call_by_name(mocker: MockerFixture, network):
-    data = {
-        'value': {
-            'test': 0
-        }
-    }
+    data = 0
     mocker.patch.object(RPC, 'post', return_value=data)
     rpc = RPC(network=network, baseuri=mocker.MagicMock())
 
-    response = rpc.call_by_name(command='rpccommand')
+    response = rpc.call_by_name(command='getblockcount')
 
-    assert response == RPCCommandResponseModel(**data)
+    assert response == data
     # noinspection PyUnresolvedReferences
     rpc.post.assert_called_once()
 

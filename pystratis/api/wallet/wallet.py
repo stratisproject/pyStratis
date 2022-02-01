@@ -905,7 +905,8 @@ class Wallet(APIRequest, metaclass=EndpointRegister):
             resync=resync
         )
         data = self.delete(request_model, **kwargs)
-        return [RemovedTransactionModel(**x) for x in data]
+        if data is not None:
+            return [RemovedTransactionModel(**x) for x in data]
 
     @endpoint(f'{route}/remove-wallet')
     def remove_wallet(self,

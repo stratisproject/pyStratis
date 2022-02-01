@@ -1,3 +1,5 @@
+from typing import Optional
+from pydantic import Field
 from pystratis.api import Model
 
 
@@ -6,6 +8,6 @@ class CallByNameRequest(Model):
     """A request model for the rpc/callbyname endpoint.
 
     Args:
-        command (str): The complete RPC command.
+        method_name (str): The complete RPC command.
     """
-    command: str
+    method_name: str = Field(alias='methodName')

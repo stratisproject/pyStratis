@@ -4,9 +4,9 @@ from pystratis.api.rpc.requestmodels import *
 
 def test_callbynamerequest():
     data = {
-        'command': 'rpccommand'
+        'methodName': 'rpccommand'
     }
     request_model = CallByNameRequest(
-        command=data['command']
+        method_name=data['methodName']
     )
     assert json.dumps(data) == request_model.json()

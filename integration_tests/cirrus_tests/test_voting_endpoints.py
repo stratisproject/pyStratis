@@ -84,4 +84,24 @@ def test_scheduledvote_kickmember(cirrusminer_node: CirrusMinerNode):
 @pytest.mark.cirrus_integration_test
 def test_polls_tip(cirrusminer_node: CirrusMinerNode, generate_compressed_pubkey):
     response = cirrusminer_node.voting.polls_tip()
-    assert isinstance(response, int)
+    assert isinstance(response, PollsTipModel)
+    for v in response.dict().values():
+        assert isinstance(v, int)
+
+
+@pytest.mark.integration_test
+@pytest.mark.cirrus_integration_test
+def test_expired_whitelist_polls(cirrusminer_node: CirrusMinerNode):
+    response = cirrusminer_node.voting.polls_expired_whitelist()
+    assert isinstance(response, list)
+    for item in response:
+        assert isinstance(item, PollViewModel)
+
+
+@pytest.mark.integration_test
+@pytest.mark.cirrus_integration_test
+def test_expired_member_polls(cirrusminer_node: CirrusMinerNode):
+    response = cirrusminer_node.voting.polls_expired_members()
+    assert isinstance(response, list)
+    for item in response:
+        assert isinstance(item, PollViewModel)

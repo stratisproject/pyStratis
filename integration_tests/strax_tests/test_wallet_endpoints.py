@@ -396,11 +396,12 @@ def test_remove_transactions(strax_hot_node: BaseNode, get_datetime):
             from_date=get_datetime(365),
             resync=True
         )
-        assert isinstance(response, list)
-        for item in response:
-            assert isinstance(item, RemovedTransactionModel)
+        if response is not None:
+            assert isinstance(response, list)
+            for item in response:
+                assert isinstance(item, RemovedTransactionModel)
     except APIError:
-        # TODO remove_transactions using 'from_date' not implemented on full node as of release 1.0.9.0
+        # TODO remove_transactions using 'from_date' not implemented on full node as of release 1.1.0.0
         pass
     
     

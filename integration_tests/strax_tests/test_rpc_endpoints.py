@@ -7,12 +7,14 @@ from pystratis.api.rpc.responsemodels import *
 @pytest.mark.integration_test
 @pytest.mark.strax_integration_test
 def test_call_by_name(strax_hot_node: BaseNode):
-    try:
-        response = strax_hot_node.rpc.call_by_name(command='getblockcount')
-        assert isinstance(response, RPCCommandResponseModel)
-    except APIError:
-        # RPC functionality is deprecated and works inconsistently.
-        pass
+    response = strax_hot_node.rpc.call_by_name(command='getblockcount')
+    assert isinstance(response, int)
+    parameters = {'height': response}
+    response = strax_hot_node.rpc.call_by_name(command='getblockhash', parameters=parameters)
+    assert isinstance(response, str)
+    parameters = {'hash': response}
+    response = strax_hot_node.rpc.call_by_name(command='getblockheader', parameters=parameters)
+    assert isinstance(response, dict)
 
 
 @pytest.mark.integration_test

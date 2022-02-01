@@ -49,6 +49,7 @@ def start_regtest_node(
     os.chdir(source_dir)
     cmd_args = [
         'dotnet', 'run', '-regtest', f'-datadir={data_dir}', '-addressindex=1', '-txindex=1', '-server=1',
+        "-rpcuser='rpcuser'", "-rpcpassword='rpcpassword'",
         f'-apiport={node.blockchainnetwork.API_PORT}', f'-port={node.blockchainnetwork.DEFAULT_PORT}',
         f'-signalrport={node.blockchainnetwork.SIGNALR_PORT}', f'-rpcport={node.blockchainnetwork.RPC_PORT}'
     ]

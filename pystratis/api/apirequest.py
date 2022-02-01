@@ -5,6 +5,7 @@ from requests import get, post, delete, put
 from pystratis.api import APIError
 from pydantic import BaseModel
 from pystratis.core.networks import BaseNetwork
+from loguru import logger
 
 
 class APIRequest:
@@ -41,6 +42,11 @@ class APIRequest:
                 except JSONDecodeError:
                     return response.text
         else:
+            if response is not None:
+                try:
+                    logger.debug(response.json())
+                except JSONDecodeError:
+                    logger.debug(response.text)
             raise APIError(code=response.status_code, message=response.text)
 
     def post(self, request_model: Union[BaseModel, dict, str], **kwargs) -> Any:
@@ -65,6 +71,11 @@ class APIRequest:
                 except JSONDecodeError:
                     return response.text
         else:
+            if response is not None:
+                try:
+                    logger.debug(response.json())
+                except JSONDecodeError:
+                    logger.debug(response.text)
             raise APIError(code=response.status_code, message=response.text)
 
     def delete(self, request_model: Union[BaseModel, dict] = None, **kwargs) -> Any:
@@ -93,6 +104,11 @@ class APIRequest:
                 except JSONDecodeError:
                     return response.text
         else:
+            if response is not None:
+                try:
+                    logger.debug(response.json())
+                except JSONDecodeError:
+                    logger.debug(response.text)
             raise APIError(code=response.status_code, message=response.text)
 
     def put(self, request_model: Union[BaseModel, dict] = None, **kwargs) -> Any:
@@ -119,4 +135,9 @@ class APIRequest:
                 except JSONDecodeError:
                     return response.text
         else:
+            if response is not None:
+                try:
+                    logger.debug(response.json())
+                except JSONDecodeError:
+                    logger.debug(response.text)
             raise APIError(code=response.status_code, message=response.text)
