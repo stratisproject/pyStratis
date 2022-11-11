@@ -4,7 +4,7 @@ import mnemonic
 import secrets
 import os
 import json
-from hashlib import sha256
+from hashlib import sha256, sha3_256
 import hmac
 import base58
 import bech32
@@ -12,7 +12,6 @@ import ecdsa
 from binascii import unhexlify
 from random import choice, randint, random
 # noinspection PyPackageRequirements
-from sha3 import keccak_256
 from pystratis.core import Key, ExtKey
 from pystratis.core.types import uint256, hexstr
 from pystratis.core.networks import BaseNetwork
@@ -86,7 +85,7 @@ def generate_ethereum_upper_address() -> str:
 @pytest.fixture(scope='package')
 def generate_ethereum_checksum_address() -> str:
     address = generate_ethereum_address()
-    address_hash = keccak_256(
+    address_hash = sha3_256(
         address.replace('0x', '').encode('ascii')
     ).hexdigest()
     checksum_address = ''
@@ -253,10 +252,10 @@ def interfluxcirrus_swagger_json() -> dict:
 
 
 def generate_ethereum_address() -> str:
-    privatekey = keccak_256(secrets.token_bytes(32)).digest()
+    privatekey = sha3_256(secrets.token_bytes(32)).digest()
     privatekey = ecdsa.SigningKey.from_string(privatekey, curve=ecdsa.SECP256k1)
     publickey = privatekey.get_verifying_key().to_string()
-    address = keccak_256(publickey).hexdigest()[24:]
+    address = sha3_256(publickey).hexdigest()[24:]
     return f'0x{address}'
 
 
