@@ -31,8 +31,7 @@ setup(
         'pydantic>=1.8.2',
         'base58',
         'base58check',
-        'bech32',
-        'pysha3'
+        'bech32'
     ],
     extras_require={
         'test': [
