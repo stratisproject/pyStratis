@@ -2,7 +2,7 @@ from typing import Optional
 from pydantic import Field
 import re
 # noinspection PyPackageRequirements
-from sha3 import keccak_256
+from hashlib import sha3_256
 from .basenetwork import BaseNetwork
 
 
@@ -38,7 +38,7 @@ class Ethereum(BaseNetwork):
     def _check_ethereum_checksum(address: str) -> bool:
         """Validates an ethereum checksum address"""
         address = address.replace('0x', '')
-        address_hash = keccak_256(
+        address_hash = sha3_256(
             address.encode('ascii').lower()
         ).hexdigest()
         for i in range(40):
