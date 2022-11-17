@@ -90,7 +90,9 @@ make html
 Thanks goes to [@TjadenFroyda](https://github.com/tjadenfroyda) for his contributions in kickstarting this repository.
 
 # ChangeLog
-### Version 1.1.2
+### Version 1.1.2.1
+Fixed dependencies
+### Version 1.1.2.0
 - Adopted new declarative configuration script (pyproject.toml)
 ### Version 1.1.1.0 (StratisFullNode release/1.1.1.0)
 - Added voting/polls/expired/whitelist and voting/polls/expired/members endpoints
