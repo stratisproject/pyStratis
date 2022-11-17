@@ -91,7 +91,7 @@ Thanks goes to [@TjadenFroyda](https://github.com/tjadenfroyda) for his contribu
 
 # ChangeLog
 ### Version 1.1.2
-- Adopted new declarative configuretion script (pyproject.toml)
+- Adopted new declarative configuration script (pyproject.toml)
 ### Version 1.1.1.0 (StratisFullNode release/1.1.1.0)
 - Added voting/polls/expired/whitelist and voting/polls/expired/members endpoints
 - Updated voting/polls/tip response model
